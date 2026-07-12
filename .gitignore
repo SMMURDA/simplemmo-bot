@@ -1,0 +1,15 @@
+_site/
+.jekyll-cache/
+.sass-cache/
+.bundle/
+vendor/
+Gemfile.lock
+.DS_Store
+Thumbs.db
+.env
+.env.*
+!.env.example
+license.key
+secrets/
+*.pem
+*.key
