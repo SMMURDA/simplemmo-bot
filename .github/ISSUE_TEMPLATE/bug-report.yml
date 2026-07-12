@@ -1,0 +1,43 @@
+name: Bug report
+description: Report a reproducible issue without sharing credentials.
+title: "[Bug]: "
+labels: ["bug"]
+body:
+  - type: markdown
+    attributes:
+      value: |
+        Do not attach `.env`, cookies, Telegram tokens, passwords, or a complete license key.
+  - type: input
+    id: version
+    attributes:
+      label: App version
+      placeholder: v2.1.0
+    validations:
+      required: true
+  - type: dropdown
+    id: operating-system
+    attributes:
+      label: Operating system
+      options:
+        - Windows 11 x64
+        - Windows 10 x64
+        - Linux x64
+        - Linux ARM64
+        - Other
+    validations:
+      required: true
+  - type: textarea
+    id: steps
+    attributes:
+      label: Reproduction steps
+      description: Describe what you did and what you expected.
+    validations:
+      required: true
+  - type: textarea
+    id: logs
+    attributes:
+      label: Redacted logs
+      description: Remove all credentials, chat IDs, and license keys.
+      render: shell
+    validations:
+      required: true

@@ -1,0 +1,46 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="theme-color" content="#ffffff" media="(prefers-color-scheme: light)">
+  <meta name="theme-color" content="#191919" media="(prefers-color-scheme: dark)">
+  {% seo %}
+  <link rel="stylesheet" href="{{ '/assets/css/site.css' | relative_url }}">
+</head>
+<body>
+  <a class="skip-link" href="#main-content">Skip to content</a>
+  <header class="site-header">
+    <div class="header-inner">
+      <a class="brand" href="{{ '/' | relative_url }}" aria-label="SimpleMMO Bot home">
+        <span class="brand-mark" aria-hidden="true">S</span>
+        <span>SimpleMMO Bot</span>
+      </a>
+      <button class="nav-toggle" type="button" aria-expanded="false" aria-controls="site-nav">
+        <span class="sr-only">Toggle navigation</span>
+        <span></span><span></span><span></span>
+      </button>
+      <nav id="site-nav" class="site-nav" aria-label="Primary navigation">
+        <a href="{{ '/getting-started/' | relative_url }}">Get started</a>
+        <a href="{{ '/features/overview/' | relative_url }}">Features</a>
+        <a href="{{ '/configuration/' | relative_url }}">Configuration</a>
+        <a href="{{ '/licensing/' | relative_url }}">Licensing</a>
+        <a href="{{ '/downloads/' | relative_url }}">Downloads</a>
+      </nav>
+    </div>
+  </header>
+  <main id="main-content" class="doc-shell">
+    <article class="doc-content">{{ content }}</article>
+  </main>
+  <footer class="site-footer">
+    <div><strong>SimpleMMO Bot</strong><p>Licensed automation with Telegram control.</p></div>
+    <nav aria-label="Footer navigation">
+      <a href="{{ '/privacy/' | relative_url }}">Privacy</a>
+      <a href="{{ '/troubleshooting/' | relative_url }}">Support</a>
+      <a href="https://t.me/bovalone" rel="noopener">Telegram</a>
+      <a href="https://instagram.com/bovalonee" rel="noopener">Instagram</a>
+    </nav>
+  </footer>
+  <script src="{{ '/assets/js/site.js' | relative_url }}" defer></script>
+</body>
+</html>
