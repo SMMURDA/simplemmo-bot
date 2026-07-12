@@ -1,7 +1,9 @@
 title: SimpleMMO Bot
 description: A licensed, Telegram-controlled automation companion for SimpleMMO.
-url: https://topup.eu.org
-baseurl: ""
+
+url: "https://smmurda.github.io"
+baseurl: "/simplemmo-bot"
+
 lang: en
 
 author:
