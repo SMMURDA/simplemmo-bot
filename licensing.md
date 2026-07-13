@@ -23,7 +23,7 @@ https://license.topup.eu.org/v1/check
 
 ## Online-only behavior
 
-An internet connection is required at startup and during runtime. There is no offline grace period. If the service cannot be reached or a signed validation fails, the bot does not continue running.
+An internet connection is required at startup and during runtime. There is no offline grace period. If the service cannot be reached or a signed validation fails, the bot does not continue running[...]
 
 ## Device limits
 
@@ -43,3 +43,12 @@ A license can allow one or more devices. A new computer or VPS may consume an ac
 ## Protect your key
 
 Treat a license key like a purchase credential. Do not post it in screenshots, logs, GitHub issues, or public chat. A leaked key may be revoked or consume device slots.
+
+## How to Purchase a License
+
+If you want to purchase a license for SimpleMMO Bot, please contact us via:
+
+- 📱 **Instagram**: [@bovalonee](https://instagram.com/bovalonee)
+- 💬 **Telegram**: [@bovalone](https://t.me/bovalone)
+
+We're here to help you get started!
