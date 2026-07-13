@@ -132,6 +132,59 @@ button, input, textarea, select { font: inherit; }
 .doc-content th, .doc-content td { min-width: 140px; padding: 12px 14px; border-bottom: 1px solid var(--border); text-align: left; vertical-align: top; }
 .doc-content th { color: var(--text); background: var(--surface); font-size: 14px; }
 
+.license-contact-grid {
+  display: grid;
+  gap: 12px;
+  margin: 24px 0 40px;
+}
+.license-contact-card {
+  min-height: 72px;
+  display: grid;
+  grid-template-columns: 44px minmax(0, 1fr) 24px;
+  align-items: center;
+  gap: 16px;
+  padding: 13px 16px;
+  border: 1px solid var(--border);
+  border-radius: var(--radius);
+  background: var(--surface);
+  color: var(--text);
+  text-decoration: none;
+  transition: border-color .18s ease, background-color .18s ease, transform .18s ease;
+}
+.license-contact-card:hover {
+  border-color: color-mix(in srgb, var(--blue) 48%, var(--border));
+  background: var(--blue-soft);
+  transform: translateY(-1px);
+}
+.license-contact-card:focus-visible {
+  outline: 3px solid color-mix(in srgb, var(--blue) 35%, transparent);
+  outline-offset: 3px;
+}
+.license-contact-icon {
+  width: 44px;
+  height: 44px;
+  display: grid;
+  place-items: center;
+  border-radius: 10px;
+  background: var(--blue-soft);
+  color: var(--blue);
+}
+.license-contact-icon img { width: 24px; height: 24px; }
+.license-contact-copy { min-width: 0; display: grid; line-height: 1.35; }
+.license-contact-copy strong { font-size: 15px; }
+.license-contact-copy small {
+  overflow: hidden;
+  color: var(--muted);
+  font-size: 14px;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+.license-contact-arrow { color: var(--blue); font-size: 20px; text-align: right; }
+
+@media (prefers-reduced-motion: reduce) {
+  .license-contact-card { transition: none; }
+}
+
 .home-page { overflow: hidden; }
 .hero {
   padding: 84px 32px 72px;
