@@ -49,7 +49,7 @@ if (faqLoadMore && faqItems.length > initialFaqCount) {
 
 const reduceMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
 const revealTargets = document.querySelectorAll(
-  '.section-heading, .card, .step, .price-card, .faq-item, .notice, .platform-badge'
+  '.section-heading, .card, .step, .price-card, .faq-item, .notice, .platform-badge, .payment-badge'
 );
 
 if (!reduceMotion && 'IntersectionObserver' in window) {
