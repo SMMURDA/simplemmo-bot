@@ -23,7 +23,7 @@ https://license.topup.eu.org/v1/check
 
 **Need to purchase a license?** Contact us:
 - <img src="https://img.icons8.com/color/24/000000/instagram-new.png" alt="Instagram"/> **Instagram**: [@bovalonee](https://instagram.com/bovalonee)
-- <img src="https://img.icons8.com/color/24/000000/telegram.png" alt="Telegram"/> **Telegram**: [@bovalone](https://t.me/bovalone)
+- <img src="https://img.icons8.com/color/24/0077B5/telegram.png" alt="Telegram"/> **Telegram**: [@bovalone](https://t.me/bovalone)
 
 ## Online-only behavior
 
