@@ -300,6 +300,17 @@ button, input, textarea, select { font: inherit; }
 .faq-item[open] summary { border-bottom: 1px solid var(--border); }
 .faq-answer { padding: 16px 20px 18px; }
 .faq-answer p { margin: 0; color: var(--muted); }
+.faq-load-more-wrap { display: flex; justify-content: center; margin-top: 24px; }
+.faq-load-more { min-width: 220px; border-color: color-mix(in srgb, var(--blue) 48%, var(--border)); background: var(--blue-soft); }
+.faq-load-more[hidden] { display: none; }
+
+.scroll-reveal {
+  opacity: 0;
+  transform: translateY(28px);
+  transition: opacity .62s ease, transform .62s cubic-bezier(.2,.7,.2,1);
+  transition-delay: var(--reveal-delay, 0ms);
+}
+.scroll-reveal.is-visible { opacity: 1; transform: translateY(0); }
 
 .notice { display: grid; grid-template-columns: 1fr auto; gap: 32px; align-items: center; padding: 32px; border: 1px solid color-mix(in srgb, var(--orange) 30%, var(--border)); border-radius: 16px; background: var(--orange-soft); }
 .notice h2 { margin: 0 0 8px; font-size: 26px; }
@@ -317,8 +328,31 @@ button, input, textarea, select { font: inherit; }
 .footer-logo img { display: block; width: 100%; height: 100%; object-fit: contain; }
 .footer-brand strong { color: var(--text); }
 .site-footer p { margin: 4px 0 0; }
-.site-footer nav { display: flex; flex-wrap: wrap; align-items: center; gap: 18px; }
+.site-footer nav { display: flex; flex-wrap: wrap; align-items: center; gap: 10px; }
 .site-footer a { color: var(--muted); text-decoration: none; }
+.footer-link {
+  min-height: 44px;
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  padding: 6px 8px;
+  border-radius: 9px;
+  transition: color .18s ease, background-color .18s ease, transform .18s ease;
+}
+.footer-link:hover { color: var(--text); background: var(--surface); transform: translateY(-1px); }
+.footer-link-icon {
+  width: 30px;
+  height: 30px;
+  display: grid;
+  place-items: center;
+  border: 1px solid var(--border);
+  border-radius: 9px;
+  background: var(--blue-soft);
+  color: var(--blue);
+}
+.footer-link-icon svg { width: 17px; height: 17px; fill: none; stroke: currentColor; stroke-width: 1.7; stroke-linecap: round; stroke-linejoin: round; }
+.footer-link-icon svg.fill-icon { fill: currentColor; stroke: none; }
+.footer-link-icon .fill-dot { fill: currentColor; stroke: none; }
 
 @media (max-width: 860px) {
   .header-inner { padding: 0 20px; }
@@ -349,5 +383,6 @@ button, input, textarea, select { font: inherit; }
 
 @media (prefers-reduced-motion: reduce) {
   * { scroll-behavior: auto !important; transition: none !important; }
+  .scroll-reveal { opacity: 1 !important; transform: none !important; }
 }
 
