@@ -21,28 +21,6 @@ The production validation endpoint is:
 https://license.topup.eu.org/v1/check
 ```
 
-## Purchase a license
-
-Ready to purchase a license or need help choosing one? Contact us through any of the channels below.
-
-<div class="license-contact-grid" aria-label="License purchase contacts">
-  <a class="license-contact-card" href="mailto:ask@topup.eu.org">
-    <span class="license-contact-icon" aria-hidden="true"><img src="/assets/icons/license-email.svg" alt=""></span>
-    <span class="license-contact-copy"><strong>Email</strong><small>ask@topup.eu.org</small></span>
-    <span class="license-contact-arrow" aria-hidden="true">→</span>
-  </a>
-  <a class="license-contact-card" href="https://instagram.com/bovalonee" target="_blank" rel="noopener noreferrer">
-    <span class="license-contact-icon" aria-hidden="true"><img src="/assets/icons/license-instagram.svg" alt=""></span>
-    <span class="license-contact-copy"><strong>Instagram</strong><small>@bovalonee</small></span>
-    <span class="license-contact-arrow" aria-hidden="true">→</span>
-  </a>
-  <a class="license-contact-card" href="https://t.me/bovalone" target="_blank" rel="noopener noreferrer">
-    <span class="license-contact-icon" aria-hidden="true"><img src="/assets/icons/license-telegram.svg" alt=""></span>
-    <span class="license-contact-copy"><strong>Telegram</strong><small>@bovalone</small></span>
-    <span class="license-contact-arrow" aria-hidden="true">→</span>
-  </a>
-</div>
-
 ## Online-only behavior
 
 An internet connection is required at startup and during runtime. There is no offline grace period. If the service cannot be reached or a signed validation fails, the bot does not continue running[...]
