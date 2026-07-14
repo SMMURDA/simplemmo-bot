@@ -220,8 +220,10 @@ button, input, textarea, select { font: inherit; }
 .hero-shot--back, .hero-shot--front { transition: transform .35s ease, filter .35s ease, opacity .35s ease, box-shadow .35s ease; }
 .hero-shot:focus-visible { outline: 3px solid var(--blue); outline-offset: 4px; }
 .hero-shot:hover { box-shadow: 0 28px 54px rgba(0,0,0,.42), 0 0 0 1px rgba(70,217,237,.22); }
-.image-lightbox { position: fixed; z-index: 100; inset: 0; display: grid; place-items: center; padding: 24px; background: rgba(5,8,13,.88); backdrop-filter: blur(10px); opacity: 0; transition: opacity .22s ease; }
-.image-lightbox.is-open { opacity: 1; }
+.hero-shot::before { content: "Click to preview"; position: absolute; z-index: 2; right: 10px; bottom: 10px; padding: 5px 8px; border-radius: 6px; background: rgba(6,10,16,.76); color: var(--text); font: 700 10px/1 -apple-system, BlinkMacSystemFont, "Segoe UI", Arial, sans-serif; letter-spacing: .04em; opacity: .88; }
+.image-lightbox { position: fixed; z-index: 100; inset: 0; display: grid; place-items: center; padding: 24px; background: rgba(5,8,13,.88); backdrop-filter: blur(10px); opacity: 0; pointer-events: none; transition: opacity .22s ease; }
+.image-lightbox[hidden] { display: none !important; }
+.image-lightbox.is-open { opacity: 1; pointer-events: auto; }
 .image-lightbox__image { display: block; max-width: min(94vw, 1500px); max-height: 86vh; border: 1px solid rgba(255,255,255,.2); border-radius: 14px; box-shadow: 0 24px 70px rgba(0,0,0,.5); animation: lightbox-zoom .26s cubic-bezier(.2,.8,.2,1); }
 .image-lightbox__close { position: fixed; top: 18px; right: 18px; width: 44px; height: 44px; border: 1px solid rgba(255,255,255,.22); border-radius: 50%; background: rgba(13,16,24,.78); color: var(--text); font-size: 28px; line-height: 1; cursor: pointer; }
 .image-lightbox__close:hover { background: rgba(255,255,255,.13); }
@@ -532,6 +534,7 @@ body.image-lightbox-open { overflow: hidden; }
   .eyebrow--live::before, .brand-mark img, .footer-logo img, .platform-badge img, .download-icon svg, .download-icon img, .download-action span, .footer-link:hover .footer-link-icon { animation: none !important; }
   .platform-badge:hover img, .payment-badge:hover img { transform: none; filter: none; }
   .image-lightbox, .image-lightbox__image { transition: none; animation: none; }
+  .hero-shot::before { content: "Tap to preview"; }
 }
 
 /* Modern documentation tables and copyable code samples. */

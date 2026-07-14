@@ -140,6 +140,9 @@ if (heroPreviewButtons.length) {
   const lightbox = document.createElement('div');
   lightbox.className = 'image-lightbox';
   lightbox.hidden = true;
+  lightbox.setAttribute('role', 'dialog');
+  lightbox.setAttribute('aria-modal', 'true');
+  lightbox.setAttribute('aria-label', 'Image preview');
   lightbox.innerHTML = '<button class="image-lightbox__close" type="button" aria-label="Close image preview">×</button><img class="image-lightbox__image" alt="">';
   document.body.appendChild(lightbox);
   const previewImage = lightbox.querySelector('.image-lightbox__image');
