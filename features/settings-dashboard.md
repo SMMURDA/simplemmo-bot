@@ -78,21 +78,21 @@ Saved values include Auto Equip, Auto Sell, Auto Sell rarity, Auto Sprint, Auto 
 
 Event Center displays SimpleMMO event rows with filter, pagination, and refresh.
 
-| Route | Description |
-|---|---|
-| `GET /events` | Loads event overview. |
-| `GET /events/viewall` | Loads all event rows. |
-| `GET /events?new_page_refresh=true` | Refreshes event data. |
-| `GET /events/{slug}?new_page=true` | Loads event detail page. |
+| Method | API | Description |
+|---|---|---|
+| `GET` | `/events` | Loads event overview. |
+| `GET` | `/events/viewall` | Loads all event rows. |
+| `GET` | `/events?new_page_refresh=true` | Refreshes event data. |
+| `GET` | `/events/{slug}?new_page=true` | Loads event detail page. |
 
 ## Game Notifications
 
 Game notification checks read game pages and show updates in Telegram.
 
-| Route | Description |
-|---|---|
-| `GET /events` | Event notification source. |
-| `GET /home` | General notification source. |
+| Method | API | Description |
+|---|---|---|
+| `GET` | `/events` | Event notification source. |
+| `GET` | `/home` | General notification source. |
 
 ## Debug Panel
 

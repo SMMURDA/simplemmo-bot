@@ -11,7 +11,7 @@ This page groups the API routes used by the script and explains their purpose.
 
 ## SimpleMMO Routes
 
-| Method | Route | Used By | Description |
+| Method | API | Used By | Description |
 |---|---|---|---|
 | `GET` | `/api/web-app` | Auth, dashboard, energy, bank | Reads current web app payload, user state, energy, diamonds, tokens, and fallback account data. |
 | `POST` | `/api/action/travel/{area_id}` | Auto Travel | Performs one travel step in the selected area. |
@@ -61,7 +61,7 @@ This page groups the API routes used by the script and explains their purpose.
 
 ## Telegram Routes
 
-| Method | Route | Description |
+| Method | API | Description |
 |---|---|---|
 | `POST` | `/sendMessage` | Sends messages and reply keyboards. |
 | `POST` | `/editMessageText` | Edits inline menu messages. |

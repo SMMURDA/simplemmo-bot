@@ -11,16 +11,16 @@ permalink: /features/crafting/
 
 Crafting Center uses the same Livewire flow as the SimpleMMO web UI. It reads the Livewire snapshot, craftable list, material requirements, energy cost, active session, and claim state.
 
-| Route / Method | Description |
-|---|---|
-| `GET /crafting/menu` | Loads crafting page, Livewire snapshot, craftables, materials, level, and active session. |
-| `POST /livewire/update` | Sends Livewire actions for crafting operations. |
-| `changeCraftable` | Selects craftable type such as Common, Uncommon, Rare, keys, or diamonds. |
-| `updateCraftingAfterQuantityChange` | Updates quantity and recalculates requirements. |
-| `autoAddMaterials` | Automatically fills required materials. |
-| `updateMaterials` | Updates material selection. |
-| `initiateCraftingSession` | Starts the crafting session. |
-| `claimItems` | Claims completed crafting results. |
+| Method | API | Description |
+|---|---|---|
+| `GET` | `/crafting/menu` | Loads crafting page, Livewire snapshot, craftables, materials, level, and active session. |
+| `POST` | `/livewire/update` | Sends Livewire actions for crafting operations. |
+| `DYNAMIC` | `changeCraftable` | Selects craftable type such as Common, Uncommon, Rare, keys, or diamonds. |
+| `DYNAMIC` | `updateCraftingAfterQuantityChange` | Updates quantity and recalculates requirements. |
+| `DYNAMIC` | `autoAddMaterials` | Automatically fills required materials. |
+| `DYNAMIC` | `updateMaterials` | Updates material selection. |
+| `DYNAMIC` | `initiateCraftingSession` | Starts the crafting session. |
+| `DYNAMIC` | `claimItems` | Claims completed crafting results. |
 
 ## Auto Craft
 

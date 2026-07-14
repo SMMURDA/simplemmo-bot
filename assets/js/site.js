@@ -118,3 +118,18 @@ document.querySelectorAll('.doc-content pre').forEach((pre) => {
   });
   wrapper.appendChild(button);
 });
+
+
+const httpMethods = new Set(['GET', 'POST', 'PUT', 'PATCH', 'DELETE', 'HEAD', 'OPTIONS', 'DYNAMIC']);
+document.querySelectorAll('.doc-content table').forEach((table) => {
+  const headers = Array.from(table.querySelectorAll('thead th')).map((header) => header.textContent.trim().toLowerCase());
+  const methodIndex = headers.indexOf('method');
+  if (methodIndex === -1) return;
+  table.querySelectorAll('tbody tr').forEach((row) => {
+    const cell = row.cells[methodIndex];
+    if (!cell || cell.querySelector('.http-method')) return;
+    const method = cell.textContent.trim().toUpperCase();
+    if (!httpMethods.has(method)) return;
+    cell.innerHTML = `<span class="http-method http-method--${method.toLowerCase()}">${method}</span>`;
+  });
+});
