@@ -533,7 +533,7 @@ button, input, textarea, select { font: inherit; }
 .doc-content td code { color: #b8f4ff; }
 
 .code-sample { position: relative; margin: 24px 0; }
-.code-sample pre { margin: 0; padding: 50px 18px 18px; border-color: rgba(255,255,255,.42); box-shadow: inset 0 1px 0 rgba(255,255,255,.08); }
+.code-sample pre { margin: 0; padding: 50px 18px 18px; border: 0; box-shadow: none; }
 .code-sample-label { position: absolute; top: 14px; left: 18px; color: var(--muted); font: 700 11px/1 -apple-system, BlinkMacSystemFont, "Segoe UI", Arial, sans-serif; letter-spacing: .1em; text-transform: uppercase; }
 .copy-code-button { position: absolute; top: 10px; right: 10px; width: 36px; height: 36px; min-width: 36px; min-height: 36px; display: inline-flex; align-items: center; justify-content: center; gap: 6px; padding: 0; border: 0; border-radius: 8px; background: transparent; color: var(--text); font: 750 12px/1 -apple-system, BlinkMacSystemFont, "Segoe UI", Arial, sans-serif; cursor: pointer; transition: transform .18s ease, color .18s ease, background-color .18s ease, border-color .18s ease; }
 .copy-code-button:hover { transform: translateY(-1px); background: rgba(255,255,255,.10); }
@@ -548,3 +548,23 @@ button, input, textarea, select { font: inherit; }
 @media (prefers-reduced-motion: reduce) {
   .doc-content tbody tr, .copy-code-button { transition: none; }
 }
+
+
+/* Color-coded HTTP methods make API reference tables faster to scan. */
+.http-method {
+  display: inline-flex;
+  min-width: 56px;
+  justify-content: center;
+  padding: 4px 7px;
+  border-radius: 6px;
+  font: 800 11px/1 -apple-system, BlinkMacSystemFont, "Segoe UI", Arial, sans-serif;
+  letter-spacing: .04em;
+}
+.http-method--get { background: rgba(70,217,237,.14); color: var(--blue); }
+.http-method--post { background: rgba(255,63,157,.14); color: #ff85be; }
+.http-method--put { background: var(--orange-soft); color: var(--orange); }
+.http-method--patch { background: rgba(166,118,255,.16); color: #c4a6ff; }
+.http-method--delete { background: var(--red-soft); color: #ff82bd; }
+.http-method--head, .http-method--options { background: rgba(255,255,255,.10); color: var(--text); }
+.http-method--dynamic { background: var(--green-soft); color: var(--green); }
+.doc-content td:has(.http-method) { width: 1%; white-space: nowrap; }
