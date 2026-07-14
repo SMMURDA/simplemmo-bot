@@ -210,13 +210,13 @@ button, input, textarea, select { font: inherit; }
 .video-card video { display: block; width: 100%; border-radius: 11px; background: #111; aspect-ratio: 16/9; }
 .hero-screenshots { position: relative; min-height: 360px; isolation: isolate; }
 .hero-shot { position: absolute; overflow: hidden; margin: 0; border: 1px solid rgba(255,255,255,.15); border-radius: 15px; background: #111720; box-shadow: 0 22px 44px rgba(0,0,0,.34); }
-.hero-shot img { display: block; width: 100%; height: 100%; object-fit: cover; }
-.hero-shot--back { top: 2px; right: 0; width: 80%; transform: rotate(3deg); opacity: .72; filter: saturate(.78) brightness(.78); }
-.hero-shot--front { z-index: 1; bottom: 0; left: 0; width: 78%; transform: rotate(-2deg); border-color: color-mix(in srgb, var(--blue) 34%, rgba(255,255,255,.2)); }
+.hero-shot img { display: block; width: 100%; height: 100%; object-fit: cover; image-rendering: auto; }
+.hero-shot--back { top: 10px; right: 0; width: 80%; transform: translate3d(0,0,0); opacity: .68; filter: saturate(.82) brightness(.84); }
+.hero-shot--front { z-index: 1; bottom: 0; left: 0; width: 78%; transform: translate3d(0,0,0); border-color: color-mix(in srgb, var(--blue) 34%, rgba(255,255,255,.2)); }
 .hero-shot--front::after { content: ""; position: absolute; inset: 0; pointer-events: none; border: 1px solid rgba(255,255,255,.05); border-radius: inherit; }
 .hero-screenshots::before { content: ""; position: absolute; z-index: -1; top: 15%; right: 5%; width: 64%; height: 66%; border-radius: 50%; background: rgba(70,217,237,.13); filter: blur(44px); }
-.hero-screenshots:hover .hero-shot--back { transform: translate(6px, -6px) rotate(4deg); }
-.hero-screenshots:hover .hero-shot--front { transform: translate(-4px, -5px) rotate(-2deg); }
+.hero-screenshots:hover .hero-shot--back { transform: translate3d(5px, -5px, 0); }
+.hero-screenshots:hover .hero-shot--front { transform: translate3d(-3px, -4px, 0); }
 .hero-shot--back, .hero-shot--front { transition: transform .35s ease, filter .35s ease, opacity .35s ease; }
 
 .trust-row { margin-top: 24px; display: flex; flex-wrap: wrap; gap: 10px 20px; color: var(--muted); font-size: 13px; }
