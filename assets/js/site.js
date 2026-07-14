@@ -133,3 +133,38 @@ document.querySelectorAll('.doc-content table').forEach((table) => {
     cell.innerHTML = `<span class="http-method http-method--${method.toLowerCase()}">${method}</span>`;
   });
 });
+
+
+const heroPreviewButtons = document.querySelectorAll('[data-hero-preview]');
+if (heroPreviewButtons.length) {
+  const lightbox = document.createElement('div');
+  lightbox.className = 'image-lightbox';
+  lightbox.hidden = true;
+  lightbox.innerHTML = '<button class="image-lightbox__close" type="button" aria-label="Close image preview">×</button><img class="image-lightbox__image" alt="">';
+  document.body.appendChild(lightbox);
+  const previewImage = lightbox.querySelector('.image-lightbox__image');
+  const closeButton = lightbox.querySelector('.image-lightbox__close');
+  let trigger = null;
+
+  const closeLightbox = () => {
+    lightbox.classList.remove('is-open');
+    document.body.classList.remove('image-lightbox-open');
+    window.setTimeout(() => {
+      lightbox.hidden = true;
+      trigger?.focus();
+    }, 220);
+  };
+  heroPreviewButtons.forEach((button) => button.addEventListener('click', () => {
+    const image = button.querySelector('img');
+    trigger = button;
+    previewImage.src = image.currentSrc || image.src;
+    previewImage.alt = image.alt;
+    lightbox.hidden = false;
+    requestAnimationFrame(() => lightbox.classList.add('is-open'));
+    document.body.classList.add('image-lightbox-open');
+    closeButton.focus();
+  }));
+  closeButton.addEventListener('click', closeLightbox);
+  lightbox.addEventListener('click', (event) => { if (event.target === lightbox) closeLightbox(); });
+  document.addEventListener('keydown', (event) => { if (event.key === 'Escape' && !lightbox.hidden) closeLightbox(); });
+}
