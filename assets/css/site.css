@@ -208,6 +208,17 @@ button, input, textarea, select { font: inherit; }
 .button:hover { transform: translateY(-1px); box-shadow: var(--shadow); }
 .video-card { padding: 10px; border: 1px solid var(--border); border-radius: 18px; background: var(--canvas); box-shadow: var(--shadow); }
 .video-card video { display: block; width: 100%; border-radius: 11px; background: #111; aspect-ratio: 16/9; }
+.hero-screenshots { position: relative; min-height: 360px; isolation: isolate; }
+.hero-shot { position: absolute; overflow: hidden; margin: 0; border: 1px solid rgba(255,255,255,.15); border-radius: 15px; background: #111720; box-shadow: 0 22px 44px rgba(0,0,0,.34); }
+.hero-shot img { display: block; width: 100%; height: 100%; object-fit: cover; }
+.hero-shot--back { top: 2px; right: 0; width: 80%; transform: rotate(3deg); opacity: .72; filter: saturate(.78) brightness(.78); }
+.hero-shot--front { z-index: 1; bottom: 0; left: 0; width: 78%; transform: rotate(-2deg); border-color: color-mix(in srgb, var(--blue) 34%, rgba(255,255,255,.2)); }
+.hero-shot--front::after { content: ""; position: absolute; inset: 0; pointer-events: none; border: 1px solid rgba(255,255,255,.05); border-radius: inherit; }
+.hero-screenshots::before { content: ""; position: absolute; z-index: -1; top: 15%; right: 5%; width: 64%; height: 66%; border-radius: 50%; background: rgba(70,217,237,.13); filter: blur(44px); }
+.hero-screenshots:hover .hero-shot--back { transform: translate(6px, -6px) rotate(4deg); }
+.hero-screenshots:hover .hero-shot--front { transform: translate(-4px, -5px) rotate(-2deg); }
+.hero-shot--back, .hero-shot--front { transition: transform .35s ease, filter .35s ease, opacity .35s ease; }
+
 .trust-row { margin-top: 24px; display: flex; flex-wrap: wrap; gap: 10px 20px; color: var(--muted); font-size: 13px; }
 .trust-row span::before { content: "✓"; margin-right: 6px; color: var(--green); font-weight: 800; }
 
@@ -397,6 +408,7 @@ button, input, textarea, select { font: inherit; }
   .site-nav a { width: 100%; }
   .hero { padding: 56px 24px; }
   .hero-inner { grid-template-columns: 1fr; gap: 40px; }
+  .hero-screenshots { min-height: 330px; max-width: 620px; width: 100%; margin: 0 auto; }
   .card-grid, .steps, .pricing-grid { grid-template-columns: 1fr; }
   .price-card { max-width: 620px; width: 100%; }
   .section { padding: 56px 24px; }
@@ -407,6 +419,9 @@ button, input, textarea, select { font: inherit; }
 @media (max-width: 520px) {
   .doc-content { width: min(100% - 32px, 760px); padding: 40px 0 64px; }
   .hero h1 { font-size: 44px; }
+  .hero-screenshots { min-height: 220px; }
+  .hero-shot--back { width: 81%; }
+  .hero-shot--front { width: 80%; }
   .actions .button { width: 100%; }
   .trust-row { display: grid; }
   .price-card { padding: 24px; }
