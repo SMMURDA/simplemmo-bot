@@ -93,7 +93,7 @@ document.querySelectorAll('.doc-content pre').forEach((pre) => {
   button.className = 'copy-code-button';
   button.type = 'button';
   button.setAttribute('aria-label', `Copy ${language} example`);
-  button.innerHTML = `${copyIcon}<span>Copy</span>`;
+  button.innerHTML = copyIcon;
 
   button.addEventListener('click', async () => {
     const text = code.textContent;
@@ -110,10 +110,10 @@ document.querySelectorAll('.doc-content pre').forEach((pre) => {
       textArea.remove();
     }
     button.classList.add('is-copied');
-    button.innerHTML = `${checkIcon}<span>Copied</span>`;
+    button.innerHTML = checkIcon;
     window.setTimeout(() => {
       button.classList.remove('is-copied');
-      button.innerHTML = `${copyIcon}<span>Copy</span>`;
+      button.innerHTML = copyIcon;
     }, 1800);
   });
   wrapper.appendChild(button);
