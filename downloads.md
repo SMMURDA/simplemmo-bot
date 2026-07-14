@@ -12,7 +12,7 @@ Official builds are distributed through the **GitHub Releases** page associated 
 | Platform | Expected asset |
 |---|---|
 | Windows 64-bit | [📥 **SimpleMMO-v2.0.1-windows-x64.zip**](https://github.com/SMMURDA/simplemmo-bot/releases/download/v2.0.1/simplemmo-windows-x64.zip) |
-| Linux 64-bit | SimpleMMO-v2.0.1-linux-x64.tar.gz (not available) |
+| Linux 64-bit | [📥 **SimpleMMO-v2.0.1-linux-x64.tar.gz**](https://github.com/SMMURDA/simplemmo-bot/releases/download/v2.0.1/simplemmo-linux-x64.tar.gz) |
 | Linux ARM64 | SimpleMMO-v2.0.1-linux-arm64.tar.gz (not available) |
 
 A normal package contains the bot executable, launcher executable, `.env.example`, user instructions, and license terms. It must not contain a completed `.env`, customer license key, private signi[...]
