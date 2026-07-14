@@ -508,3 +508,43 @@ button, input, textarea, select { font: inherit; }
   .eyebrow--live::before, .brand-mark img, .footer-logo img, .platform-badge img, .download-icon svg, .download-icon img, .download-action span, .footer-link:hover .footer-link-icon { animation: none !important; }
   .platform-badge:hover img, .payment-badge:hover img { transform: none; filter: none; }
 }
+
+/* Modern documentation tables and copyable code samples. */
+.doc-content table {
+  display: table;
+  width: 100%;
+  overflow: visible;
+  border: 1px solid var(--border);
+  border-radius: 14px;
+  border-collapse: separate;
+  border-spacing: 0;
+  background: linear-gradient(145deg, rgba(255,255,255,.035), rgba(255,255,255,.01));
+  box-shadow: 0 10px 28px rgba(0,0,0,.12);
+}
+.doc-content th, .doc-content td { padding: 14px 16px; border: 0; border-bottom: 1px solid color-mix(in srgb, var(--border) 82%, transparent); }
+.doc-content th { background: rgba(70, 217, 237, .09); color: var(--text); font-size: 12px; font-weight: 800; letter-spacing: .045em; text-transform: uppercase; }
+.doc-content th:first-child { border-top-left-radius: 13px; }
+.doc-content th:last-child { border-top-right-radius: 13px; }
+.doc-content tbody tr { transition: background-color .18s ease; }
+.doc-content tbody tr:hover { background: rgba(70, 217, 237, .055); }
+.doc-content tbody tr:last-child td { border-bottom: 0; }
+.doc-content tbody tr:last-child td:first-child { border-bottom-left-radius: 13px; }
+.doc-content tbody tr:last-child td:last-child { border-bottom-right-radius: 13px; }
+.doc-content td code { color: #b8f4ff; }
+
+.code-sample { position: relative; margin: 24px 0; }
+.code-sample pre { margin: 0; padding: 50px 18px 18px; border-color: color-mix(in srgb, var(--blue) 30%, var(--border)); box-shadow: inset 0 1px 0 rgba(255,255,255,.04); }
+.code-sample-label { position: absolute; top: 14px; left: 18px; color: var(--muted); font: 700 11px/1 -apple-system, BlinkMacSystemFont, "Segoe UI", Arial, sans-serif; letter-spacing: .1em; text-transform: uppercase; }
+.copy-code-button { position: absolute; top: 10px; right: 10px; min-width: 76px; min-height: 32px; display: inline-flex; align-items: center; justify-content: center; gap: 6px; padding: 0 10px; border: 1px solid color-mix(in srgb, var(--blue) 42%, var(--border)); border-radius: 8px; background: rgba(70, 217, 237, .1); color: var(--blue); font: 750 12px/1 -apple-system, BlinkMacSystemFont, "Segoe UI", Arial, sans-serif; cursor: pointer; transition: transform .18s ease, color .18s ease, background-color .18s ease, border-color .18s ease; }
+.copy-code-button:hover { transform: translateY(-1px); border-color: var(--blue); background: rgba(70, 217, 237, .18); }
+.copy-code-button:focus-visible { outline: 3px solid color-mix(in srgb, var(--blue) 35%, transparent); outline-offset: 2px; }
+.copy-code-button.is-copied { border-color: var(--green); background: var(--green-soft); color: var(--green); }
+.copy-code-button svg { width: 14px; height: 14px; fill: none; stroke: currentColor; stroke-width: 2; stroke-linecap: round; stroke-linejoin: round; }
+
+@media (max-width: 640px) {
+  .doc-content table { display: block; overflow-x: auto; white-space: normal; }
+  .doc-content th, .doc-content td { min-width: 160px; padding: 12px 14px; }
+}
+@media (prefers-reduced-motion: reduce) {
+  .doc-content tbody tr, .copy-code-button { transition: none; }
+}
