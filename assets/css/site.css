@@ -684,3 +684,5 @@ body.image-lightbox-open { overflow: hidden; }
 .trial-row--signin .google-signin{display:flex!important;justify-content:center!important;align-items:center!important;margin:0!important;padding:0!important;border:0!important;background:transparent!important;box-shadow:none!important}
 /* Hide initial secure-sign-in status: it is used by JavaScript but has no visual card. */
 .trial-shell--v5 .trial-status{display:none!important}
+/* JavaScript toggles this attribute after sign-in/sign-out. */
+.trial-shell--v5 .google-signin[hidden]{display:none!important}
