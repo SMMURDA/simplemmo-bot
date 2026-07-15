@@ -27,9 +27,9 @@
     name.textContent = data.user.name || 'Google account'; email.textContent = data.user.email;
     if (data.license) {
       action.hidden = true; license.hidden = false;
-      if (key) key.closest('.trial-key-row').hidden = true;
-      if (keyLabel) keyLabel.hidden = true;
-      document.querySelector('#trial-key-help').textContent = 'Your trial has already been created. The license key is intentionally not stored in readable form.';
+      if (key && data.license.license_key) { key.value = data.license.license_key; key.closest('.trial-key-row').hidden = false; }
+      if (keyLabel) keyLabel.hidden = !data.license.license_key;
+      document.querySelector('#trial-key-help').textContent = data.license.license_key ? 'Save this key securely. It remains available only while you are logged in to this Google account.' : 'This older trial key was created before secure key recovery was enabled and cannot be shown again.';
       meta.textContent = `Status: ${data.license.status} · expires ${new Date(data.license.expires_at).toLocaleString()}`;
       setStatus('Your account already has a trial license.', 'success');
     } else { action.hidden = false; license.hidden = true; setStatus('Signed in. You can create your trial license.', 'success'); }
