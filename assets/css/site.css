@@ -676,3 +676,44 @@ body.image-lightbox-open { overflow: hidden; }
 .trial-rule{display:flex;align-items:center;gap:9px;margin:4px 8px;padding:11px 13px;border:1px solid color-mix(in srgb,var(--blue) 26%,var(--border));border-radius:11px;background:rgba(70,217,237,.06);color:var(--muted);font-size:13px}.trial-rule svg{width:18px;height:18px;flex:0 0 18px;fill:none;stroke:var(--blue);stroke-width:1.8;stroke-linecap:round;stroke-linejoin:round}
 
 .trial-rule--plain{margin:8px 12px 2px;padding:0;border:0;background:transparent}.trial-step--google{background:#fff!important;color:#4285f4!important;font-weight:900}.trial-row--signin{grid-template-columns:34px auto!important;justify-content:center}.trial-row--signin .google-signin{grid-column:auto!important;min-width:0!important;padding:0!important;border:0!important;background:transparent!important}.trial-row--signin .google-signin iframe{box-shadow:none!important}
+
+/* Google sign-in: tanpa card, tepat di tengah */
+.trial-row--signin {
+  display: flex !important;
+  justify-content: center !important;
+  align-items: center !important;
+  width: fit-content !important;
+  margin: 8px auto !important;
+  padding: 0 !important;
+  border: 0 !important;
+  background: transparent !important;
+}
+
+.trial-row--signin .google-signin {
+  display: flex !important;
+  justify-content: center !important;
+  align-items: center !important;
+  min-width: 0 !important;
+  padding: 0 !important;
+  border: 0 !important;
+  background: transparent !important;
+  box-shadow: none !important;
+}
+
+.trial-row--signin .google-signin iframe {
+  box-shadow: none !important;
+}
+
+/* Aturan trial: icon dan teks berada di tengah, tanpa card */
+.trial-rule,
+.trial-rule--plain {
+  display: flex !important;
+  justify-content: center !important;
+  align-items: center !important;
+  width: fit-content !important;
+  margin: 14px auto 2px !important;
+  padding: 0 !important;
+  border: 0 !important;
+  background: transparent !important;
+  text-align: center !important;
+}
