@@ -61,7 +61,7 @@ Chests Center checks Gold/Silver/Bronze keys, opens selected chest quantity, and
 |---|---|---|
 | `GET` | `/maholshut/chests?new_page=true` | Loads key counts and chest page data. |
 | `GET` | `/maholshut/chests/{type}?new_page=true` | Loads selected chest type page. |
-| `POST` | `/api/openchest/{gold` | silver | bronze}/{quantity}` | Opens selected chest quantity. |
+| `POST` | `/api/openchest/{gold\|silver\|bronze}/{quantity}` | Opens selected chest quantity. |
 | `POST` | `/api/buygoldkey` | Buys gold keys. |
 | `POST` | `/maholshut/buy-keys/submit` | Buys silver/bronze keys when supported. |
 
