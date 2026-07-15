@@ -4,21 +4,29 @@ title: Free Trial
 permalink: /trial/
 ---
 
-<section class="trial-shell" aria-labelledby="trial-title">
-  <div class="trial-intro">
-    <p class="eyebrow eyebrow--live">Trial access</p>
+<section class="trial-shell trial-shell--v5" aria-labelledby="trial-title">
+  <header class="trial-hero">
+    <img class="trial-hero__logo" src="{{ '/assets/images/mbot-logo.webp' | relative_url }}" alt="SimpleMMO Bot" width="72" height="72">
+    <p class="eyebrow eyebrow--live">One-day trial</p>
     <h1 id="trial-title">Try SimpleMMO Bot</h1>
-    <p class="trial-lede">Sign in with Google, then create one trial license for one device. Your Google password is never shared with this website.</p>
-    <ul class="trial-points"><li><strong>1 day</strong> of trial access</li><li><strong>1 device</strong> activation limit</li><li>Online license validation</li></ul>
-  </div>
+    <p class="trial-lede">Sign in with Google to receive a personal trial license for one device.</p>
+    <div class="trial-perks" aria-label="Trial details"><span><b>1 day</b> access</span><span><b>1 device</b> limit</span><span>Online validation</span></div>
+  </header>
+
   <section class="trial-card" aria-live="polite">
-    <div class="trial-card__heading"><span class="trial-step">1</span><div><h2>Sign in to continue</h2><p>Use a verified Google account to protect one-time trial access.</p></div></div>
+    <div class="trial-row trial-row--signin">
+      <span class="trial-step">1</span>
+      <div class="trial-row__copy"><h2>Sign in with Google</h2><p>Use a verified account to protect your one-time trial.</p></div>
+      <div id="google-signin" class="google-signin" aria-label="Sign in with Google"></div>
+    </div>
     <div id="trial-status" class="trial-status" role="status">Loading secure sign-in…</div>
-    <div id="google-signin" class="google-signin" aria-label="Sign in with Google"></div>
+
     <div id="trial-account" class="trial-account" hidden><div class="trial-account__identity"><span class="trial-avatar" aria-hidden="true">G</span><div><strong id="trial-name">Signed in</strong><small id="trial-email"></small></div></div><button id="trial-logout" class="button button--ghost" type="button">Sign out</button></div>
-    <div id="trial-action" class="trial-action" hidden><div class="trial-card__heading"><span class="trial-step">2</span><div><h2>Create trial license</h2><p>Trial access is limited to one license per Google account.</p></div></div><button id="trial-create" class="button button--primary" type="button">Create my trial license</button></div>
-    <div id="trial-license" class="trial-license" hidden><div class="trial-card__heading"><span class="trial-step trial-step--done">✓</span><div><h2>Trial license created</h2><p id="trial-license-meta"></p></div></div><label for="trial-license-key">Save this key now</label><div class="trial-key-row"><input id="trial-license-key" type="text" readonly aria-describedby="trial-key-help"><button id="trial-copy" class="button button--secondary" type="button">Copy</button></div><p id="trial-key-help" class="trial-note">For security, this key is shown once. Add it to <code>SMMO_LICENSE_KEY</code> or save it as <code>license.key</code>.</p></div>
+
+    <div id="trial-action" class="trial-row trial-row--action" hidden><span class="trial-step">2</span><div class="trial-row__copy"><h2>Create your trial</h2><p>Your license is linked to this Google account.</p></div><button id="trial-create" class="button button--primary" type="button">Create license</button></div>
+
+    <div id="trial-license" class="trial-license" hidden><div class="trial-license__head"><span class="trial-step trial-step--done">✓</span><div><h2>Trial license ready</h2><p id="trial-license-meta"></p></div></div><label for="trial-license-key">Your license key</label><div class="trial-key-row"><input id="trial-license-key" type="text" readonly aria-describedby="trial-key-help"><button id="trial-copy" class="button button--secondary" type="button">Copy</button></div><p id="trial-key-help" class="trial-note">Keep this key private. Add it to <code>SMMO_LICENSE_KEY</code> in the bot configuration.</p></div>
   </section>
-  <p class="trial-terms">By creating a trial, you agree to use the bot responsibly and understand that third-party game rules may apply.</p>
+  <p class="trial-terms">Trial access is limited to one account and one device.</p>
 </section>
-<script src="{{ '/assets/js/trial.js?v=20260716-3' | relative_url }}" defer></script>
+<script src="{{ '/assets/js/trial.js?v=20260716-5' | relative_url }}" defer></script>
