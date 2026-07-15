@@ -1,0 +1,35 @@
+title: SimpleMMO Bot
+description: A licensed, Telegram-controlled automation companion for SimpleMMO.
+
+url: "https://topup.eu.org"
+baseurl: ""
+
+lang: en
+
+author:
+  name: Mustofa Bovalone
+
+telegram_url: https://t.me/bovalone
+instagram_url: https://instagram.com/bovalonee
+license_server_url: https://license.topup.eu.org
+
+markdown: kramdown
+permalink: pretty
+
+plugins:
+  - jekyll-seo-tag
+  - jekyll-sitemap
+
+exclude:
+  - README.md
+  - LICENSE
+  - .gitignore
+  - vendor
+  - Gemfile
+  - Gemfile.lock
+
+defaults:
+  - scope:
+      path: ""
+    values:
+      layout: default
