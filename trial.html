@@ -18,8 +18,8 @@ permalink: /trial/
 
   <section class="trial-card" aria-live="polite">
     <div class="trial-row trial-row--signin">
-      <span class="trial-step">1</span>
-      <div class="trial-row__copy"><h2>Sign in with Google</h2><p>Use a verified account to protect your one-time trial.</p></div>
+      <span class="trial-step trial-step--google" aria-label="Google">G</span>
+      
       <div id="google-signin" class="google-signin" aria-label="Sign in with Google"></div>
     </div>
     <div id="trial-status" class="trial-status" role="status">Loading secure sign-in…</div>
@@ -30,6 +30,6 @@ permalink: /trial/
 
     <div id="trial-license" class="trial-license" hidden><div class="trial-license__head"><span class="trial-step trial-step--done">✓</span><div><h2>Trial license ready</h2><p id="trial-license-meta"></p></div></div><label for="trial-license-key">Your license key</label><div class="trial-key-row"><input id="trial-license-key" type="text" readonly aria-describedby="trial-key-help"><button id="trial-copy" class="button button--secondary" type="button">Copy</button></div><p id="trial-key-help" class="trial-note">Keep this key private. Add it to <code>SMMO_LICENSE_KEY</code> in the bot configuration.</p></div>
   </section>
-  <div class="trial-rule"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 3 19 6v5c0 4.6-2.8 8.1-7 10-4.2-1.9-7-5.4-7-10V6l7-3Z"></path><path d="m9 12 2 2 4-4"></path></svg><span>Trial access is limited to one account and one device.</span></div>
+  <div class="trial-rule trial-rule--plain"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 3 19 6v5c0 4.6-2.8 8.1-7 10-4.2-1.9-7-5.4-7-10V6l7-3Z"></path><path d="m9 12 2 2 4-4"></path></svg><span>Trial access is limited to one account and one device.</span></div>
 </section>
 <script src="{{ '/assets/js/trial.js?v=20260716-5' | relative_url }}" defer></script>
