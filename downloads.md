@@ -38,13 +38,13 @@ A normal package contains the bot executable, launcher executable, `.env.example
 Each release should include a SHA-256 checksum. On Windows:
 
 ```powershell
-Get-FileHash .\SimpleMMO-v2.0.1-windows-x64.zip -Algorithm SHA256
+Get-FileHash .\simplemmo-windows-x64.zip -Algorithm SHA256
 ```
 
 On Linux:
 
 ```bash
-sha256sum SimpleMMO-v2.0.1-linux-x64.tar.gz
+sha256sum simplemmo-linux-x64.tar.gz
 ```
 
 Compare the result with the checksum published on the release page.
