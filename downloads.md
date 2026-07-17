@@ -10,18 +10,18 @@ Official builds are distributed through the **GitHub Releases** page associated 
 ## Release packages
 
 <div class="download-grid" aria-label="Release packages">
-  <a class="download-card download-card--windows" href="https://github.com/SMMURDA/simplemmo-bot/releases/download/v2.0.1/simplemmo-windows-x64.zip">
+  <a class="download-card download-card--windows" href="https://github.com/SMMURDA/simplemmo-bot/releases/download/v2.1.0/simplemmo-windows-x64.zip">
     <span class="download-icon download-icon--windows" aria-hidden="true">
       <svg viewBox="0 0 64 64" focusable="false"><path d="M7 12.2 29 9v21H7V12.2Zm25-3.6L57 5v25H32V8.6ZM7 34h22v21L7 51.8V34Zm25 0h25v25l-25-3.6V34Z"/></svg>
     </span>
-    <span class="download-copy"><strong>Windows 64-bit</strong><small>SimpleMMO-v2.0.1-windows-x64.zip</small></span>
+    <span class="download-copy"><strong>Windows 64-bit</strong><small>SimpleMMO-v2.1.0-windows-x64.zip</small></span>
     <span class="download-action">Download <span aria-hidden="true">↓</span></span>
   </a>
-  <a class="download-card download-card--linux" href="https://github.com/SMMURDA/simplemmo-bot/releases/download/v2.0.1/simplemmo-linux-x64.tar.gz">
+  <a class="download-card download-card--linux" href="https://github.com/SMMURDA/simplemmo-bot/releases/download/v2.1.0/simplemmo-linux-x64.tar.gz">
     <span class="download-icon download-icon--linux" aria-hidden="true">
       <img src="/assets/platform/linux.svg" alt="">
     </span>
-    <span class="download-copy"><strong>Linux 64-bit</strong><small>SimpleMMO-v2.0.1-linux-x64.tar.gz</small></span>
+    <span class="download-copy"><strong>Linux 64-bit</strong><small>SimpleMMO-v2.1.0-linux-x64.tar.gz</small></span>
     <span class="download-action">Download <span aria-hidden="true">↓</span></span>
   </a>
   <div class="download-card download-card--disabled" aria-disabled="true">
