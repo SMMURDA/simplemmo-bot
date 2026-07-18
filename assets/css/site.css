@@ -700,3 +700,19 @@ body.image-lightbox-open { overflow: hidden; }
 .highlight .o, .highlight .p { color: #89ddff; }
 .highlight .nv, .highlight .vc, .highlight .vg, .highlight .vi { color: #f07178; }
 .highlight .nc, .highlight .ne, .highlight .nn { color: #ffcb6b; }
+
+
+/* Compact, logo-driven license example picker. */
+.license-examples { margin: 28px 0 34px; }
+.license-example-tabs { display: grid; grid-template-columns: repeat(4, minmax(0, 1fr)); gap: 10px; padding: 8px; border: 1px solid var(--border); border-radius: 14px; background: var(--surface); }
+.license-example-tab { min-height: 72px; display: grid; justify-items: center; align-content: center; gap: 6px; padding: 9px 6px; border: 1px solid transparent; border-radius: 10px; background: transparent; color: var(--muted); font: 700 12px/1.1 -apple-system, BlinkMacSystemFont, "Segoe UI", Arial, sans-serif; cursor: pointer; transition: color .18s ease, border-color .18s ease, background-color .18s ease, transform .18s ease; }
+.license-example-tab:hover { transform: translateY(-1px); color: var(--text); background: rgba(255,255,255,.04); }
+.license-example-tab.is-active { border-color: color-mix(in srgb, var(--blue) 42%, var(--border)); background: var(--blue-soft); color: var(--text); }
+.license-example-tab:focus-visible { outline: 3px solid color-mix(in srgb, var(--blue) 42%, transparent); outline-offset: 2px; }
+.license-language-logo { display: block; width: 38px; height: 28px; }
+.license-language-logo--curl { width: 52px; }
+.license-language-logo--php { width: 48px; }
+.license-example-panel[hidden] { display: none; }
+.license-example-panel > .highlight, .license-example-panel > .code-sample { margin: 12px 0 0; }
+@media (max-width: 520px) { .license-example-tabs { gap: 6px; padding: 6px; } .license-example-tab { min-height: 64px; font-size: 11px; } .license-language-logo { transform: scale(.88); } .license-example-panel .highlight pre, .license-example-panel pre { font-size: 12px; } }
+@media (prefers-reduced-motion: reduce) { .license-example-tab { transition: none; } .license-example-tab:hover { transform: none; } }
