@@ -21,112 +21,6 @@ The production validation endpoint is:
 https://license.topup.eu.org/v1/check
 ```
 
-## Check license status
-
-Use the license-status endpoint to look up the current status of a license key. Send the key in a JSON request body and replace the example value with the real key only in your application or a private terminal.
-
-**Endpoint:** `POST https://license.topup.eu.org/v1/license-status`
-
-<div class="license-examples" data-license-examples>
-  <div class="license-example-tabs" role="tablist" aria-label="License status examples">
-    <button class="license-example-tab is-active" type="button" role="tab" id="license-tab-curl" aria-selected="true" aria-controls="license-panel-curl" data-license-tab="curl">
-      <svg class="license-language-logo license-language-logo--curl" viewBox="0 0 72 28" aria-hidden="true"><text x="2" y="21" fill="currentColor" font-family="Arial, sans-serif" font-size="22" font-weight="700">curl</text></svg>
-      <span>cURL</span>
-    </button>
-    <button class="license-example-tab" type="button" role="tab" id="license-tab-python" aria-selected="false" aria-controls="license-panel-python" data-license-tab="python" tabindex="-1">
-      <svg class="license-language-logo license-language-logo--python" viewBox="0 0 32 32" aria-hidden="true"><path fill="#3776ab" d="M16 2c-7 0-6.6 3-6.6 3v3h6.8v1H7c-3.3 0-5 2-5 5.3 0 3.3 1.7 5.7 5 5.7h2.6v-3.7c0-3.3 2.8-5.4 6.2-5.4h6.6c3.1 0 5.6-2.6 5.6-5.8V7.9C28 4.6 25.4 2 22.2 2H16Zm-3.8 3.4a1.2 1.2 0 1 1 0 2.4 1.2 1.2 0 0 1 0-2.4Z"/><path fill="#ffd343" d="M16.2 30c7 0 6.6-3 6.6-3v-3H16v-1h9.2c3.3 0 5-2 5-5.3 0-3.3-1.7-5.7-5-5.7h-2.6v3.7c0 3.3-2.8 5.4-6.2 5.4H9.8c-3.1 0-5.6 2.6-5.6 5.8v-1.8C4.2 27.4 6.8 30 10 30h6.2Zm3.8-3.4a1.2 1.2 0 1 1 0-2.4 1.2 1.2 0 0 1 0 2.4Z"/></svg>
-      <span>Python</span>
-    </button>
-    <button class="license-example-tab" type="button" role="tab" id="license-tab-node" aria-selected="false" aria-controls="license-panel-node" data-license-tab="node" tabindex="-1">
-      <svg class="license-language-logo license-language-logo--node" viewBox="0 0 32 32" aria-hidden="true"><path fill="#5fa04e" d="m16 2 12 7v14l-12 7L4 23V9l12-7Zm0 3.2L6.8 10.5v11L16 26.8l9.2-5.3v-11L16 5.2Z"/><text x="8.5" y="19.2" fill="#5fa04e" font-family="Arial, sans-serif" font-size="9" font-weight="700">JS</text></svg>
-      <span>Node.js</span>
-    </button>
-    <button class="license-example-tab" type="button" role="tab" id="license-tab-php" aria-selected="false" aria-controls="license-panel-php" data-license-tab="php" tabindex="-1">
-      <svg class="license-language-logo license-language-logo--php" viewBox="0 0 42 28" aria-hidden="true"><ellipse cx="21" cy="14" rx="19" ry="10" fill="#777bb4"/><text x="9" y="17.5" fill="#fff" font-family="Arial, sans-serif" font-size="10" font-weight="700">php</text></svg>
-      <span>PHP</span>
-    </button>
-  </div>
-
-  <div class="license-example-panels">
-    <section class="license-example-panel" role="tabpanel" id="license-panel-curl" aria-labelledby="license-tab-curl" data-license-panel="curl" markdown="1">
-
-```bash
-curl -X POST "https://license.topup.eu.org/v1/license-status" \\
-  -H "Content-Type: application/json" \\
-  -d '{"license_key":"SMMO-XXXXX-XXXXX-XXXXX-XXXXX"}'
-```
-
-    </section>
-    <section class="license-example-panel" role="tabpanel" id="license-panel-python" aria-labelledby="license-tab-python" data-license-panel="python" hidden markdown="1">
-
-```python
-import requests
-
-response = requests.post(
-    "https://license.topup.eu.org/v1/license-status",
-    json={"license_key": "SMMO-XXXXX-XXXXX-XXXXX-XXXXX"},
-    timeout=15,
-)
-response.raise_for_status()
-
-license_status = response.json()
-print(license_status)
-```
-
-    </section>
-    <section class="license-example-panel" role="tabpanel" id="license-panel-node" aria-labelledby="license-tab-node" data-license-panel="node" hidden markdown="1">
-
-```javascript
-const response = await fetch("https://license.topup.eu.org/v1/license-status", {
-  method: "POST",
-  headers: { "Content-Type": "application/json" },
-  body: JSON.stringify({
-    license_key: "SMMO-XXXXX-XXXXX-XXXXX-XXXXX",
-  }),
-});
-
-if (!response.ok) {
-  throw new Error(`License status request failed: ${response.status}`);
-}
-
-const licenseStatus = await response.json();
-console.log(licenseStatus);
-```
-
-    </section>
-    <section class="license-example-panel" role="tabpanel" id="license-panel-php" aria-labelledby="license-tab-php" data-license-panel="php" hidden markdown="1">
-
-```php
-<?php
-
-$curl = curl_init("https://license.topup.eu.org/v1/license-status");
-curl_setopt_array($curl, [
-    CURLOPT_POST => true,
-    CURLOPT_HTTPHEADER => ["Content-Type: application/json"],
-    CURLOPT_POSTFIELDS => json_encode([
-        "license_key" => "SMMO-XXXXX-XXXXX-XXXXX-XXXXX",
-    ]),
-    CURLOPT_RETURNTRANSFER => true,
-    CURLOPT_TIMEOUT => 15,
-]);
-
-$response = curl_exec($curl);
-$statusCode = curl_getinfo($curl, CURLINFO_HTTP_CODE);
-curl_close($curl);
-
-if ($response === false || $statusCode < 200 || $statusCode >= 300) {
-    throw new RuntimeException("License status request failed.");
-}
-
-$licenseStatus = json_decode($response, true, flags: JSON_THROW_ON_ERROR);
-print_r($licenseStatus);
-```
-
-    </section>
-  </div>
-</div>
-<callout icon="⚠️">Never expose a real license key in public source code, browser-side JavaScript, screenshots, or GitHub issues.</callout>
-
 ## Purchase a license
 
 Ready to purchase a license or need help choosing one? Contact us through any of the channels below.
@@ -149,9 +43,95 @@ Ready to purchase a license or need help choosing one? Contact us through any of
   </a>
 </div>
 
+## Check license status
+
+Use the license-status endpoint to look up the current status of a license key. Send the key in a JSON request body and replace the example value with the real key only in your application or a private terminal.
+
+**Endpoint:** `POST https://license.topup.eu.org/v1/license-status`
+
+<div class="license-examples" data-license-examples>
+  <div class="license-example-tabs" role="tablist" aria-label="License status examples">
+    <button class="license-example-tab is-active" type="button" role="tab" id="license-tab-curl" aria-selected="true" aria-controls="license-panel-curl" data-license-tab="curl">
+      <span class="license-logo-frame" aria-hidden="true"><svg class="license-language-logo license-language-logo--curl" viewBox="0 0 72 32"><text x="36" y="22" text-anchor="middle" fill="currentColor" font-family="Arial, sans-serif" font-size="21" font-weight="700">curl</text></svg></span><span>cURL</span>
+    </button>
+    <button class="license-example-tab" type="button" role="tab" id="license-tab-python" aria-selected="false" aria-controls="license-panel-python" data-license-tab="python" tabindex="-1">
+      <span class="license-logo-frame" aria-hidden="true"><svg class="license-language-logo" viewBox="0 0 32 32"><path fill="#3776ab" d="M16 2c-7 0-6.6 3-6.6 3v3h6.8v1H7c-3.3 0-5 2-5 5.3 0 3.3 1.7 5.7 5 5.7h2.6v-3.7c0-3.3 2.8-5.4 6.2-5.4h6.6c3.1 0 5.6-2.6 5.6-5.8V7.9C28 4.6 25.4 2 22.2 2H16Zm-3.8 3.4a1.2 1.2 0 1 1 0 2.4 1.2 1.2 0 0 1 0-2.4Z"/><path fill="#ffd343" d="M16.2 30c7 0 6.6-3 6.6-3v-3H16v-1h9.2c3.3 0 5-2 5-5.3 0-3.3-1.7-5.7-5-5.7h-2.6v3.7c0 3.3-2.8 5.4-6.2 5.4H9.8c-3.1 0-5.6 2.6-5.6 5.8v-1.8C4.2 27.4 6.8 30 10 30h6.2Zm3.8-3.4a1.2 1.2 0 1 1 0-2.4 1.2 1.2 0 0 1 0 2.4Z"/></svg></span><span>Python</span>
+    </button>
+    <button class="license-example-tab" type="button" role="tab" id="license-tab-node" aria-selected="false" aria-controls="license-panel-node" data-license-tab="node" tabindex="-1">
+      <span class="license-logo-frame" aria-hidden="true"><svg class="license-language-logo" viewBox="0 0 32 32"><path fill="#5fa04e" d="m16 2 12 7v14l-12 7L4 23V9l12-7Zm0 3.2L6.8 10.5v11L16 26.8l9.2-5.3v-11L16 5.2Z"/><text x="8.5" y="19.2" fill="#5fa04e" font-family="Arial, sans-serif" font-size="9" font-weight="700">JS</text></svg></span><span>Node.js</span>
+    </button>
+    <button class="license-example-tab" type="button" role="tab" id="license-tab-php" aria-selected="false" aria-controls="license-panel-php" data-license-tab="php" tabindex="-1">
+      <span class="license-logo-frame" aria-hidden="true"><svg class="license-language-logo license-language-logo--php" viewBox="0 0 48 32"><ellipse cx="24" cy="16" rx="21" ry="11" fill="#777bb4"/><text x="24" y="19.5" text-anchor="middle" fill="#fff" font-family="Arial, sans-serif" font-size="10" font-weight="700">php</text></svg></span><span>PHP</span>
+    </button>
+  </div>
+  <div class="license-example-panels">
+    <section class="license-example-panel" role="tabpanel" id="license-panel-curl" aria-labelledby="license-tab-curl" data-license-panel="curl">
+      <div class="highlight"><pre><code class="language-bash"><span class="nf">curl</span> <span class="k">-X</span> POST <span class="s">"https://license.topup.eu.org/v1/license-status"</span> <span class="o">\</span>
+  <span class="k">-H</span> <span class="s">"Content-Type: application/json"</span> <span class="o">\</span>
+  <span class="k">-d</span> <span class="s">'{"license_key":"SMMO-XXXXX-XXXXX-XXXXX-XXXXX"}'</span></code></pre></div>
+    </section>
+    <section class="license-example-panel" role="tabpanel" id="license-panel-python" aria-labelledby="license-tab-python" data-license-panel="python" hidden>
+      <div class="highlight"><pre><code class="language-python"><span class="k">import</span> <span class="nn">requests</span>
+
+response <span class="o">=</span> requests.<span class="nf">post</span>(
+    <span class="s">"https://license.topup.eu.org/v1/license-status"</span>,
+    json<span class="o">=</span>{<span class="s">"license_key"</span>: <span class="s">"SMMO-XXXXX-XXXXX-XXXXX-XXXXX"</span>},
+    timeout<span class="o">=</span><span class="mi">15</span>,
+)
+response.<span class="nf">raise_for_status</span>()
+
+license_status <span class="o">=</span> response.<span class="nf">json</span>()
+<span class="nf">print</span>(license_status)</code></pre></div>
+    </section>
+    <section class="license-example-panel" role="tabpanel" id="license-panel-node" aria-labelledby="license-tab-node" data-license-panel="node" hidden>
+      <div class="highlight"><pre><code class="language-javascript"><span class="k">const</span> response <span class="o">=</span> <span class="k">await</span> <span class="nf">fetch</span>(<span class="s">"https://license.topup.eu.org/v1/license-status"</span>, {
+  method: <span class="s">"POST"</span>,
+  headers: { <span class="s">"Content-Type"</span>: <span class="s">"application/json"</span> },
+  body: JSON.<span class="nf">stringify</span>({
+    license_key: <span class="s">"SMMO-XXXXX-XXXXX-XXXXX-XXXXX"</span>,
+  }),
+});
+
+<span class="k">if</span> (!response.ok) {
+  <span class="k">throw new</span> Error(<span class="s">`License status request failed: ${response.status}`</span>);
+}
+
+<span class="k">const</span> licenseStatus <span class="o">=</span> <span class="k">await</span> response.<span class="nf">json</span>();
+console.<span class="nf">log</span>(licenseStatus);</code></pre></div>
+    </section>
+    <section class="license-example-panel" role="tabpanel" id="license-panel-php" aria-labelledby="license-tab-php" data-license-panel="php" hidden>
+      <div class="highlight"><pre><code class="language-php"><span class="k">&lt;?php</span>
+
+<span class="nv">$curl</span> <span class="o">=</span> <span class="nf">curl_init</span>(<span class="s">"https://license.topup.eu.org/v1/license-status"</span>);
+<span class="nf">curl_setopt_array</span>(<span class="nv">$curl</span>, [
+    CURLOPT_POST <span class="o">=&gt;</span> <span class="k">true</span>,
+    CURLOPT_HTTPHEADER <span class="o">=&gt;</span> [<span class="s">"Content-Type: application/json"</span>],
+    CURLOPT_POSTFIELDS <span class="o">=&gt;</span> <span class="nf">json_encode</span>([
+        <span class="s">"license_key"</span> <span class="o">=&gt;</span> <span class="s">"SMMO-XXXXX-XXXXX-XXXXX-XXXXX"</span>,
+    ]),
+    CURLOPT_RETURNTRANSFER <span class="o">=&gt;</span> <span class="k">true</span>,
+    CURLOPT_TIMEOUT <span class="o">=&gt;</span> <span class="mi">15</span>,
+]);
+
+<span class="nv">$response</span> <span class="o">=</span> <span class="nf">curl_exec</span>(<span class="nv">$curl</span>);
+<span class="nv">$statusCode</span> <span class="o">=</span> <span class="nf">curl_getinfo</span>(<span class="nv">$curl</span>, CURLINFO_HTTP_CODE);
+<span class="nf">curl_close</span>(<span class="nv">$curl</span>);
+
+<span class="k">if</span> (<span class="nv">$response</span> <span class="o">===</span> <span class="k">false</span> <span class="o">||</span> <span class="nv">$statusCode</span> <span class="o">&lt;</span> <span class="mi">200</span> <span class="o">||</span> <span class="nv">$statusCode</span> <span class="o">&gt;=</span> <span class="mi">300</span>) {
+    <span class="k">throw new</span> RuntimeException(<span class="s">"License status request failed."</span>);
+}
+
+<span class="nv">$licenseStatus</span> <span class="o">=</span> <span class="nf">json_decode</span>(<span class="nv">$response</span>, <span class="k">true</span>, flags: JSON_THROW_ON_ERROR);
+<span class="nf">print_r</span>(<span class="nv">$licenseStatus</span>);</code></pre></div>
+    </section>
+  </div>
+</div>
+
+<callout icon="⚠️">Never expose a real license key in public source code, browser-side JavaScript, screenshots, or GitHub issues.</callout>
+
 ## Online-only behavior
 
-An internet connection is required at startup and during runtime. There is no offline grace period. If the service cannot be reached or a signed validation fails, the bot does not continue running[...]
+An internet connection is required at startup and during runtime. There is no offline grace period. If the service cannot be reached or a signed validation fails, the bot does not continue running.
 
 ## Device limits
 
