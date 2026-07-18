@@ -21,6 +21,85 @@ The production validation endpoint is:
 https://license.topup.eu.org/v1/check
 ```
 
+## Check license status
+
+Use the license-status endpoint to look up the current status of a license key. Send the key in a JSON request body and replace the example value with the real key only in your application or a private terminal.
+
+**Endpoint:** `POST https://license.topup.eu.org/v1/license-status`
+
+### cURL
+
+```bash
+curl -X POST "https://license.topup.eu.org/v1/license-status" \
+  -H "Content-Type: application/json" \
+  -d '{"license_key":"SMMO-XXXXX-XXXXX-XXXXX-XXXXX"}'
+```
+
+### Python
+
+```python
+import requests
+
+response = requests.post(
+    "https://license.topup.eu.org/v1/license-status",
+    json={"license_key": "SMMO-XXXXX-XXXXX-XXXXX-XXXXX"},
+    timeout=15,
+)
+response.raise_for_status()
+
+license_status = response.json()
+print(license_status)
+```
+
+### Node.js
+
+```javascript
+const response = await fetch("https://license.topup.eu.org/v1/license-status", {
+  method: "POST",
+  headers: { "Content-Type": "application/json" },
+  body: JSON.stringify({
+    license_key: "SMMO-XXXXX-XXXXX-XXXXX-XXXXX",
+  }),
+});
+
+if (!response.ok) {
+  throw new Error(`License status request failed: ${response.status}`);
+}
+
+const licenseStatus = await response.json();
+console.log(licenseStatus);
+```
+
+### PHP
+
+```php
+<?php
+
+$curl = curl_init("https://license.topup.eu.org/v1/license-status");
+curl_setopt_array($curl, [
+    CURLOPT_POST => true,
+    CURLOPT_HTTPHEADER => ["Content-Type: application/json"],
+    CURLOPT_POSTFIELDS => json_encode([
+        "license_key" => "SMMO-XXXXX-XXXXX-XXXXX-XXXXX",
+    ]),
+    CURLOPT_RETURNTRANSFER => true,
+    CURLOPT_TIMEOUT => 15,
+]);
+
+$response = curl_exec($curl);
+$statusCode = curl_getinfo($curl, CURLINFO_HTTP_CODE);
+curl_close($curl);
+
+if ($response === false || $statusCode < 200 || $statusCode >= 300) {
+    throw new RuntimeException("License status request failed.");
+}
+
+$licenseStatus = json_decode($response, true, flags: JSON_THROW_ON_ERROR);
+print_r($licenseStatus);
+```
+
+<callout icon="⚠️">Never expose a real license key in public source code, browser-side JavaScript, screenshots, or GitHub issues.</callout>
+
 ## Purchase a license
 
 Ready to purchase a license or need help choosing one? Contact us through any of the channels below.
