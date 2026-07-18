@@ -51,18 +51,11 @@ Use the license-status endpoint to look up the current status of a license key. 
 
 <div class="license-examples" data-license-examples>
   <div class="license-example-tabs" role="tablist" aria-label="License status examples">
-    <button class="license-example-tab is-active" type="button" role="tab" id="license-tab-curl" aria-selected="true" aria-controls="license-panel-curl" data-license-tab="curl">
-      <span class="license-logo-frame" aria-hidden="true"><svg class="license-language-logo license-language-logo--curl" viewBox="0 0 72 32"><text x="36" y="22" text-anchor="middle" fill="currentColor" font-family="Arial, sans-serif" font-size="21" font-weight="700">curl</text></svg></span><span>cURL</span>
-    </button>
-    <button class="license-example-tab" type="button" role="tab" id="license-tab-python" aria-selected="false" aria-controls="license-panel-python" data-license-tab="python" tabindex="-1">
-      <span class="license-logo-frame" aria-hidden="true"><svg class="license-language-logo" viewBox="0 0 32 32"><path fill="#3776ab" d="M16 2c-7 0-6.6 3-6.6 3v3h6.8v1H7c-3.3 0-5 2-5 5.3 0 3.3 1.7 5.7 5 5.7h2.6v-3.7c0-3.3 2.8-5.4 6.2-5.4h6.6c3.1 0 5.6-2.6 5.6-5.8V7.9C28 4.6 25.4 2 22.2 2H16Zm-3.8 3.4a1.2 1.2 0 1 1 0 2.4 1.2 1.2 0 0 1 0-2.4Z"/><path fill="#ffd343" d="M16.2 30c7 0 6.6-3 6.6-3v-3H16v-1h9.2c3.3 0 5-2 5-5.3 0-3.3-1.7-5.7-5-5.7h-2.6v3.7c0 3.3-2.8 5.4-6.2 5.4H9.8c-3.1 0-5.6 2.6-5.6 5.8v-1.8C4.2 27.4 6.8 30 10 30h6.2Zm3.8-3.4a1.2 1.2 0 1 1 0-2.4 1.2 1.2 0 0 1 0 2.4Z"/></svg></span><span>Python</span>
-    </button>
-    <button class="license-example-tab" type="button" role="tab" id="license-tab-node" aria-selected="false" aria-controls="license-panel-node" data-license-tab="node" tabindex="-1">
-      <span class="license-logo-frame" aria-hidden="true"><svg class="license-language-logo" viewBox="0 0 32 32"><path fill="#5fa04e" d="m16 2 12 7v14l-12 7L4 23V9l12-7Zm0 3.2L6.8 10.5v11L16 26.8l9.2-5.3v-11L16 5.2Z"/><text x="8.5" y="19.2" fill="#5fa04e" font-family="Arial, sans-serif" font-size="9" font-weight="700">JS</text></svg></span><span>Node.js</span>
-    </button>
-    <button class="license-example-tab" type="button" role="tab" id="license-tab-php" aria-selected="false" aria-controls="license-panel-php" data-license-tab="php" tabindex="-1">
-      <span class="license-logo-frame" aria-hidden="true"><svg class="license-language-logo license-language-logo--php" viewBox="0 0 48 32"><ellipse cx="24" cy="16" rx="21" ry="11" fill="#777bb4"/><text x="24" y="19.5" text-anchor="middle" fill="#fff" font-family="Arial, sans-serif" font-size="10" font-weight="700">php</text></svg></span><span>PHP</span>
-    </button>
+    <button class="license-example-tab is-active" type="button" role="tab" id="license-tab-curl" aria-selected="true" aria-controls="license-panel-curl" data-license-tab="curl"><span class="license-logo-frame" aria-hidden="true"><img class="license-language-logo license-language-logo--curl" src="/assets/icons/languages/curl.svg" alt=""></span><span>cURL</span></button>
+    <button class="license-example-tab" type="button" role="tab" id="license-tab-python" aria-selected="false" aria-controls="license-panel-python" data-license-tab="python" tabindex="-1"><span class="license-logo-frame" aria-hidden="true"><img class="license-language-logo" src="/assets/icons/languages/python.svg" alt=""></span><span>Python</span></button>
+    <button class="license-example-tab" type="button" role="tab" id="license-tab-node" aria-selected="false" aria-controls="license-panel-node" data-license-tab="node" tabindex="-1"><span class="license-logo-frame" aria-hidden="true"><img class="license-language-logo" src="/assets/icons/languages/nodejs.svg" alt=""></span><span>Node.js</span></button>
+    <button class="license-example-tab" type="button" role="tab" id="license-tab-php" aria-selected="false" aria-controls="license-panel-php" data-license-tab="php" tabindex="-1"><span class="license-logo-frame" aria-hidden="true"><img class="license-language-logo license-language-logo--php" src="/assets/icons/languages/php.svg" alt=""></span><span>PHP</span></button>
+    <button class="license-example-tab" type="button" role="tab" id="license-tab-powershell" aria-selected="false" aria-controls="license-panel-powershell" data-license-tab="powershell" tabindex="-1"><span class="license-logo-frame" aria-hidden="true"><img class="license-language-logo" src="/assets/icons/languages/powershell.svg" alt=""></span><span>PowerShell</span></button>
   </div>
   <div class="license-example-panels">
     <section class="license-example-panel" role="tabpanel" id="license-panel-curl" aria-labelledby="license-tab-curl" data-license-panel="curl">
@@ -124,8 +117,10 @@ console.<span class="nf">log</span>(licenseStatus);</code></pre></div>
 <span class="nv">$licenseStatus</span> <span class="o">=</span> <span class="nf">json_decode</span>(<span class="nv">$response</span>, <span class="k">true</span>, flags: JSON_THROW_ON_ERROR);
 <span class="nf">print_r</span>(<span class="nv">$licenseStatus</span>);</code></pre></div>
     </section>
+    <section class="license-example-panel" role="tabpanel" id="license-panel-powershell" aria-labelledby="license-tab-powershell" data-license-panel="powershell" hidden>
+      <div class="highlight"><pre><code class="language-powershell"><span class="nf">Invoke-RestMethod</span> <span class="k">-Uri</span> <span class="s">"https://license.topup.eu.org/v1/license-status"</span> <span class="k">-Method</span> Post <span class="k">-ContentType</span> <span class="s">"application/json"</span> <span class="k">-Body</span> <span class="s">'{"license_key":"SMMO-XXXX-XXXX-XXXX-XXXX"}'</span></code></pre></div>
+    </section>
   </div>
-</div>
 
 <callout icon="⚠️">Never expose a real license key in public source code, browser-side JavaScript, screenshots, or GitHub issues.</callout>
 
