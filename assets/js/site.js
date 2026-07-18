@@ -171,3 +171,34 @@ if (heroPreviewButtons.length) {
   lightbox.addEventListener('click', (event) => { if (event.target === lightbox) closeLightbox(); });
   document.addEventListener('keydown', (event) => { if (event.key === 'Escape' && !lightbox.hidden) closeLightbox(); });
 }
+
+
+// License code examples: only the selected language panel is visible.
+document.querySelectorAll('[data-license-examples]').forEach((exampleGroup) => {
+  const tabs = Array.from(exampleGroup.querySelectorAll('[data-license-tab]'));
+  const panels = Array.from(exampleGroup.querySelectorAll('[data-license-panel]'));
+  const activate = (language, focusTab = false) => {
+    tabs.forEach((tab) => {
+      const active = tab.dataset.licenseTab === language;
+      tab.classList.toggle('is-active', active);
+      tab.setAttribute('aria-selected', String(active));
+      tab.tabIndex = active ? 0 : -1;
+      if (active && focusTab) tab.focus();
+    });
+    panels.forEach((panel) => { panel.hidden = panel.dataset.licensePanel !== language; });
+  };
+  tabs.forEach((tab, index) => {
+    tab.addEventListener('click', () => activate(tab.dataset.licenseTab));
+    tab.addEventListener('keydown', (event) => {
+      if (!['ArrowRight', 'ArrowLeft', 'Home', 'End'].includes(event.key)) return;
+      event.preventDefault();
+      let nextIndex = index;
+      if (event.key === 'ArrowRight') nextIndex = (index + 1) % tabs.length;
+      if (event.key === 'ArrowLeft') nextIndex = (index - 1 + tabs.length) % tabs.length;
+      if (event.key === 'Home') nextIndex = 0;
+      if (event.key === 'End') nextIndex = tabs.length - 1;
+      activate(tabs[nextIndex].dataset.licenseTab, true);
+    });
+  });
+  activate(tabs.find((tab) => tab.classList.contains('is-active'))?.dataset.licenseTab || tabs[0]?.dataset.licenseTab);
+});
