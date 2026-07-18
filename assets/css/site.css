@@ -686,3 +686,17 @@ body.image-lightbox-open { overflow: hidden; }
 .trial-shell--v5 .trial-status{display:none!important}
 /* JavaScript toggles this attribute after sign-in/sign-out. */
 .trial-shell--v5 .google-signin[hidden]{display:none!important}
+
+
+/* License validation examples: Rouge syntax theme. */
+.doc-content .highlight { margin: 24px 0; border: 1px solid rgba(255,255,255,.1); border-radius: var(--radius); background: var(--code); overflow: auto; }
+.doc-content .highlight pre { margin: 0; padding: 50px 18px 18px; border: 0; border-radius: 0; background: transparent; box-shadow: none; }
+.doc-content .highlight code { background: transparent; color: #d8dee9; }
+.highlight .c, .highlight .c1, .highlight .cm, .highlight .cp { color: #6f7c91; font-style: italic; }
+.highlight .k, .highlight .kd, .highlight .kn, .highlight .kp, .highlight .kr, .highlight .kt, .highlight .nt { color: #c792ea; }
+.highlight .s, .highlight .s1, .highlight .s2, .highlight .sa, .highlight .dl { color: #c3e88d; }
+.highlight .mi, .highlight .mf, .highlight .mh, .highlight .il { color: #f78c6c; }
+.highlight .nf, .highlight .fm, .highlight .nb, .highlight .nx, .highlight .na { color: #82aaff; }
+.highlight .o, .highlight .p { color: #89ddff; }
+.highlight .nv, .highlight .vc, .highlight .vg, .highlight .vi { color: #f07178; }
+.highlight .nc, .highlight .ne, .highlight .nn { color: #ffcb6b; }
