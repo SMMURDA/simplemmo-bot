@@ -735,3 +735,7 @@ body.image-lightbox-open { overflow: hidden; }
 .license-logo-frame img.license-language-logo--curl { width: 56px; }
 .license-logo-frame img.license-language-logo--php { width: 52px; }
 @media (max-width: 620px) { .license-example-tabs { gap: 4px; padding: 5px; } .license-example-tab { min-width: 0; min-height: 70px; padding: 7px 2px; font-size: 10px; } .license-logo-frame { width: 42px; } .license-logo-frame img { max-width: 42px; height: 28px; } .license-logo-frame img.license-language-logo--curl { width: 42px; } .license-logo-frame img.license-language-logo--php { width: 42px; } }
+
+/* External UXWing marks and a lightweight terminal glyph for cURL. */
+.license-logo-frame--curl { display: grid; place-items: center; background: #0b3046; border-radius: 7px; }
+.license-curl-mark { color: #f6fbff; font: 800 16px/1 ui-monospace, SFMono-Regular, Menlo, Consolas, monospace; letter-spacing: -1px; }
