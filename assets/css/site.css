@@ -739,3 +739,14 @@ body.image-lightbox-open { overflow: hidden; }
 /* External UXWing marks and a lightweight terminal glyph for cURL. */
 .license-logo-frame--curl { display: grid; place-items: center; background: #0b3046; border-radius: 7px; }
 .license-curl-mark { color: #f6fbff; font: 800 16px/1 ui-monospace, SFMono-Regular, Menlo, Consolas, monospace; letter-spacing: -1px; }
+
+/* Feature navigation: previous and next cards anchor each side. */
+.continue-reading { display: grid; grid-template-columns: minmax(0, 1fr) minmax(0, 1fr); gap: 16px; margin: 22px 0 4px; }
+.continue-reading-card { min-height: 94px; display: flex; flex-direction: column; justify-content: center; gap: 7px; padding: 18px 20px; border: 1px solid var(--border); border-radius: 12px; background: var(--surface); color: var(--text); text-decoration: none; transition: border-color .18s ease, background-color .18s ease, transform .18s ease; }
+.continue-reading-card:hover { border-color: color-mix(in srgb, var(--blue) 52%, var(--border)); background: var(--blue-soft); transform: translateY(-2px); }
+.continue-reading-card:focus-visible { outline: 3px solid color-mix(in srgb, var(--blue) 42%, transparent); outline-offset: 3px; }
+.continue-reading-card--next { align-items: flex-end; text-align: right; }
+.continue-reading-label { color: var(--blue); font: 750 12px/1 -apple-system, BlinkMacSystemFont, "Segoe UI", Arial, sans-serif; letter-spacing: .07em; text-transform: uppercase; }
+.continue-reading-card strong { max-width: 100%; font-size: 16px; line-height: 1.35; }
+@media (max-width: 600px) { .continue-reading { grid-template-columns: 1fr; gap: 10px; } .continue-reading-card { min-height: 78px; padding: 15px 16px; } }
+@media (prefers-reduced-motion: reduce) { .continue-reading-card { transition: none; } .continue-reading-card:hover { transform: none; } }

@@ -110,4 +110,13 @@ Debug Panel checks common failure points such as cookies, CSRF, API token, Teleg
 
 ## Continue Reading
 
-← Previous: [Crafting System]({{ '/features/crafting/' | relative_url }}) | Next: [API Reference]({{ '/api/reference/' | relative_url }}) →
+<nav class="continue-reading" aria-label="Feature navigation">
+  <a class="continue-reading-card continue-reading-card--previous" href="{{ '/features/crafting/' | relative_url }}">
+    <span class="continue-reading-label"><span aria-hidden="true">←</span> Previous</span>
+    <strong>Crafting System</strong>
+  </a>
+  <a class="continue-reading-card continue-reading-card--next" href="{{ '/api/reference/' | relative_url }}">
+    <span class="continue-reading-label">Next <span aria-hidden="true">→</span></span>
+    <strong>API Reference</strong>
+  </a>
+</nav>

@@ -113,4 +113,13 @@ Potion Center lists owned potions, quantities, active effects, and supports poti
 
 ## Continue Reading
 
-← Previous: [Automation Features]({{ '/features/automation/' | relative_url }}) | Next: [Crafting System]({{ '/features/crafting/' | relative_url }}) →
+<nav class="continue-reading" aria-label="Feature navigation">
+  <a class="continue-reading-card continue-reading-card--previous" href="{{ '/features/automation/' | relative_url }}">
+    <span class="continue-reading-label"><span aria-hidden="true">←</span> Previous</span>
+    <strong>Automation Features</strong>
+  </a>
+  <a class="continue-reading-card continue-reading-card--next" href="{{ '/features/crafting/' | relative_url }}">
+    <span class="continue-reading-label">Next <span aria-hidden="true">→</span></span>
+    <strong>Crafting System</strong>
+  </a>
+</nav>

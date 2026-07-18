@@ -91,4 +91,13 @@ Temple menu shows worship status, god options, reset time, diamonds, and extra w
 
 ## Continue Reading
 
-← Previous: [Telegram Controls]({{ '/features/telegram-controls/' | relative_url }}) | Next: [Inventory, Bank & Economy]({{ '/features/economy/' | relative_url }}) →
+<nav class="continue-reading" aria-label="Feature navigation">
+  <a class="continue-reading-card continue-reading-card--previous" href="{{ '/features/telegram-controls/' | relative_url }}">
+    <span class="continue-reading-label"><span aria-hidden="true">←</span> Previous</span>
+    <strong>Telegram Controls</strong>
+  </a>
+  <a class="continue-reading-card continue-reading-card--next" href="{{ '/features/economy/' | relative_url }}">
+    <span class="continue-reading-label">Next <span aria-hidden="true">→</span></span>
+    <strong>Inventory, Bank & Economy</strong>
+  </a>
+</nav>

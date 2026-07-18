@@ -52,4 +52,13 @@ Crafting Queue allows multiple crafting jobs to be queued. The queue can run in 
 
 ## Continue Reading
 
-← Previous: [Inventory, Bank & Economy]({{ '/features/economy/' | relative_url }}) | Next: [Settings, Notifications & Dashboard]({{ '/features/settings-dashboard/' | relative_url }}) →
+<nav class="continue-reading" aria-label="Feature navigation">
+  <a class="continue-reading-card continue-reading-card--previous" href="{{ '/features/economy/' | relative_url }}">
+    <span class="continue-reading-label"><span aria-hidden="true">←</span> Previous</span>
+    <strong>Inventory, Bank & Economy</strong>
+  </a>
+  <a class="continue-reading-card continue-reading-card--next" href="{{ '/features/settings-dashboard/' | relative_url }}">
+    <span class="continue-reading-label">Next <span aria-hidden="true">→</span></span>
+    <strong>Settings, Notifications & Dashboard</strong>
+  </a>
+</nav>

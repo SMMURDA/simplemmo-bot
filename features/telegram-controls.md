@@ -65,4 +65,13 @@ The bot is controlled from Telegram using a persistent reply keyboard and inline
 
 ## Continue Reading
 
-← Previous: [Feature Overview]({{ '/features/overview/' | relative_url }}) | Next: [Automation Features]({{ '/features/automation/' | relative_url }}) →
+<nav class="continue-reading" aria-label="Feature navigation">
+  <a class="continue-reading-card continue-reading-card--previous" href="{{ '/features/overview/' | relative_url }}">
+    <span class="continue-reading-label"><span aria-hidden="true">←</span> Previous</span>
+    <strong>Feature Overview</strong>
+  </a>
+  <a class="continue-reading-card continue-reading-card--next" href="{{ '/features/automation/' | relative_url }}">
+    <span class="continue-reading-label">Next <span aria-hidden="true">→</span></span>
+    <strong>Automation Features</strong>
+  </a>
+</nav>
