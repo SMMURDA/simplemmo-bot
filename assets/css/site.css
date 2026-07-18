@@ -716,3 +716,14 @@ body.image-lightbox-open { overflow: hidden; }
 .license-example-panel > .highlight, .license-example-panel > .code-sample { margin: 12px 0 0; }
 @media (max-width: 520px) { .license-example-tabs { gap: 6px; padding: 6px; } .license-example-tab { min-height: 64px; font-size: 11px; } .license-language-logo { transform: scale(.88); } .license-example-panel .highlight pre, .license-example-panel pre { font-size: 12px; } }
 @media (prefers-reduced-motion: reduce) { .license-example-tab { transition: none; } .license-example-tab:hover { transform: none; } }
+
+/* Final alignment for the compact license language picker. */
+.license-example-tabs { align-items: stretch; }
+.license-example-tab { grid-template-rows: 32px 14px; align-items: center; min-height: 76px; gap: 7px; }
+.license-logo-frame { width: 56px; height: 32px; display: grid; place-items: center; }
+.license-language-logo { width: 32px; height: 32px; overflow: visible; }
+.license-language-logo--curl { width: 56px; height: 32px; }
+.license-language-logo--php { width: 52px; height: 32px; }
+.license-example-tab > span:last-child { align-self: center; white-space: nowrap; }
+.license-example-panel .highlight { margin-top: 12px; }
+@media (max-width: 520px) { .license-example-tab { grid-template-rows: 30px 14px; min-height: 72px; gap: 6px; } .license-logo-frame { transform: scale(.94); } }
