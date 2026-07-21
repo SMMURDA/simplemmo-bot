@@ -1,0 +1,8 @@
+<aside class="portal-nav portal-nav--admin" aria-label="Admin navigation">
+  <div class="portal-nav__profile"><small>ADMIN MODE</small><strong>Control panel</strong><span id="admin-email">Checking access…</span></div>
+  <a href="{{ '/accounts/overview/' | relative_url }}">Member profile</a>
+  <a {% if page.admin_section == 'licenses' %}class="is-active"{% endif %} href="{{ '/admin/licenses/' | relative_url }}">Licenses</a>
+  <a {% if page.admin_section == 'topups' %}class="is-active"{% endif %} href="{{ '/admin/topups/' | relative_url }}">Top-up requests</a>
+  <a {% if page.admin_section == 'payments' %}class="is-active"{% endif %} href="{{ '/admin/payment-methods/' | relative_url }}">Payment methods</a>
+  <button id="admin-logout" class="portal-nav__logout" type="button">Sign out</button>
+</aside>

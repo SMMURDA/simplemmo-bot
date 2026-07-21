@@ -1,0 +1,21 @@
+---
+layout: default
+title: Account Overview
+permalink: /accounts/overview/
+account_section: overview
+---
+<div class="portal" data-member-portal data-page="overview">
+  {% include member-nav.html %}
+  <main class="portal-main">
+    <p class="eyebrow">Member profile</p><h1>Account overview</h1>
+    <div class="portal-stats">
+      <article><small>Balance</small><strong id="balance">Rp0</strong></article>
+      <article><small>Member since</small><strong id="member-since">—</strong></article>
+      <article><small>Registered email</small><strong id="member-email">—</strong></article>
+      <article><small>Account role</small><strong id="member-role">Member</strong></article>
+    </div>
+    <section class="portal-welcome"><h2>Manage everything from one secure account</h2><p>Each navigation item now opens its own URL and reloads independently.</p></section>
+    <div id="portal-status" class="portal-status" aria-live="polite"></div>
+  </main>
+</div>
+<script src="{{ '/assets/js/portal-v2.js?v=20260722-2' | relative_url }}" defer></script>

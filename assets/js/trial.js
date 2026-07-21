@@ -145,7 +145,7 @@
   const loadAccount = async () => {
     try {
       await request('/v1/account');
-      window.location.replace('/account/');
+      window.location.replace('/accounts/overview/');
     } catch {
       setStatus('Sign in with Google or GitHub to create your trial.', 'neutral');
     }
@@ -180,7 +180,7 @@
                   method: 'POST',
                   body: JSON.stringify({ credential }),
                 });
-                window.location.assign('/account/');
+                window.location.assign('/accounts/overview/');
               } catch (error) {
                 setStatus(error.message, 'error');
               }

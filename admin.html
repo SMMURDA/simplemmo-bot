@@ -3,11 +3,6 @@ layout: default
 title: Admin Panel
 permalink: /admin/
 ---
-<div class="portal portal--admin">
-  <aside class="portal-nav"><div><small>ADMIN MODE</small><strong>Control panel</strong></div><a href="/account/">Member profile</a><button data-admin-tab="licenses" class="is-active">Licenses</button><button data-admin-tab="topups">Top-up requests</button><button id="admin-logout">Sign out</button></aside>
-  <main class="portal-main"><p class="eyebrow">Secure administration</p><h1>Admin panel</h1>
-    <section data-admin-panel="licenses"><h2>Create license</h2><form id="admin-create" class="portal-form portal-form--inline"><label>Customer<input name="customer" required></label><label>Days<input name="days" type="number" value="30" min="1"></label><label>Devices<input name="max_devices" type="number" value="1" min="1"></label><button class="button button--primary">Create</button></form><div id="admin-created" class="portal-result"></div><h2>All licenses</h2><div id="admin-licenses" class="portal-list"></div></section>
-    <section data-admin-panel="topups" hidden><h2>Top-up requests</h2><div id="admin-topups" class="portal-list"></div></section><div id="admin-status" class="portal-status"></div>
-  </main>
-</div>
-<script src="{{ '/assets/js/admin.js?v=20260722-1' | relative_url }}" defer></script>
+<meta http-equiv="refresh" content="0; url=/admin/licenses/">
+<p>Redirecting to <a href="/admin/licenses/">Admin licenses</a>…</p>
+<script>location.replace('/admin/licenses/');</script>
