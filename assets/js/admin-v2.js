@@ -106,6 +106,9 @@
   const initPayments = async () => {
     let methods = [];
     const form = $('#payment-method-form');
+    const iconSelect = form.elements.icon;
+    const iconWarning = $('#icon-deploy-warning');
+    const legacyIcons = new Set(['wallet', 'bank', 'paypal', 'crypto', 'telegram', 'email']);
     const resetEditor = () => {
       form.reset();
       form.elements.id.value = '';
@@ -136,6 +139,14 @@
     const loadMethods = async () => {
       const data = await request('/v1/admin/payment-methods');
       methods = data.methods;
+      const backendReportsIcons = Array.isArray(data.allowed_icons) && data.allowed_icons.length > 0;
+      const supportedIcons = new Set(backendReportsIcons ? data.allowed_icons : [...legacyIcons]);
+      iconSelect.querySelectorAll('option').forEach((option) => {
+        option.disabled = !supportedIcons.has(option.value);
+        option.title = option.disabled ? 'Deploy Worker terbaru untuk mengaktifkan icon ini.' : '';
+      });
+      iconWarning.hidden = backendReportsIcons;
+      if (!backendReportsIcons) setStatus('Frontend sudah baru, tetapi Worker backend masih versi lama. Deploy ulang Worker sebelum memakai icon tambahan.', 'error');
       $('#exchange-rate-form').elements.usd_to_idr_rate.value = data.usd_to_idr_rate;
       const list = $('#admin-payment-methods');
       list.innerHTML = methods.length ? methods.map((method) => `
@@ -179,6 +190,8 @@
       window.portalToast(id ? 'Payment method updated.' : 'Payment method created.');
       resetEditor();
       await loadMethods();
+      const saved = id ? methods.find((method) => method.id === id) : null;
+      if (saved && saved.icon !== body.icon) throw new Error(`Worker menyimpan icon '${saved.icon}', bukan '${body.icon}'. Deploy ulang Worker terbaru lalu simpan kembali.`);
     });
 
     await loadMethods();
