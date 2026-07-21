@@ -2,6 +2,9 @@
   const API = 'https://license.topup.eu.org';
   const status = document.querySelector('#trial-status');
   const googleMount = document.querySelector('#google-signin');
+  const githubButton = document.querySelector('#github-signin');
+  const signinRow = document.querySelector('#trial-signin-row');
+  const loginDivider = document.querySelector('#trial-login-divider');
   const account = document.querySelector('#trial-account');
   const action = document.querySelector('#trial-action');
   const license = document.querySelector('#trial-license');
@@ -18,6 +21,9 @@
   const licenseTitle = document.querySelector('#trial-license-title');
   const licenseIcon = document.querySelector('#trial-license-icon');
   const expiredMessage = document.querySelector('#trial-expired-message');
+  const avatar = document.querySelector('#trial-avatar');
+  let githubConfigured = false;
+  let googleConfigured = false;
   if (!status || !googleMount) return;
 
   const setStatus = (message, kind = '') => {
@@ -115,9 +121,16 @@
   };
 
   const showAccount = (data) => {
+    if (signinRow) signinRow.hidden = true;
     googleMount.hidden = true;
+    if (githubButton) githubButton.hidden = true;
     account.hidden = false;
-    name.textContent = data.user.name || 'Google account';
+    const provider = String(data.user.provider || '').toLowerCase();
+    if (avatar) {
+      avatar.textContent = provider === 'github' ? 'GH' : 'G';
+      avatar.classList.toggle('trial-avatar--github', provider === 'github');
+    }
+    name.textContent = data.user.name || (provider === 'github' ? 'GitHub account' : 'Google account');
     email.textContent = data.user.email;
     if (data.license) {
       renderLicense(data.license);
@@ -133,7 +146,7 @@
     try {
       showAccount(await request('/v1/account'));
     } catch {
-      setStatus('Sign in with Google to create your trial.', 'neutral');
+      setStatus('Sign in with Google or GitHub to create your trial.', 'neutral');
     }
   };
 
@@ -150,32 +163,51 @@
   const initialize = async () => {
     try {
       const config = await request('/v1/auth/config', { method: 'GET', headers: {} });
-      if (!config.google_client_id) throw new Error('Google sign-in is not configured yet.');
-      await loadGoogle(config.google_client_id);
-      google.accounts.id.initialize({
-        client_id: config.google_client_id,
-        callback: async ({ credential }) => {
-          setStatus('Verifying your Google sign-in…');
-          try {
-            const result = await request('/v1/auth/google', {
-              method: 'POST',
-              body: JSON.stringify({ credential }),
-            });
-            showAccount({ user: result.user, license: null });
-            await loadAccount();
-          } catch (error) {
-            setStatus(error.message, 'error');
-          }
-        },
-      });
-      google.accounts.id.renderButton(googleMount, {
-        theme: 'outline',
-        size: 'large',
-        text: 'continue_with',
-        shape: 'rect',
-        width: 320,
-      });
+      githubConfigured = Boolean(config.github_enabled);
+      if (githubButton) githubButton.hidden = !githubConfigured;
+
+      let googleReady = false;
+      if (config.google_client_id) {
+        try {
+          await loadGoogle(config.google_client_id);
+          google.accounts.id.initialize({
+            client_id: config.google_client_id,
+            callback: async ({ credential }) => {
+              setStatus('Verifying your Google sign-in…');
+              try {
+                const result = await request('/v1/auth/google', {
+                  method: 'POST',
+                  body: JSON.stringify({ credential }),
+                });
+                showAccount({ user: result.user, license: null });
+                await loadAccount();
+              } catch (error) {
+                setStatus(error.message, 'error');
+              }
+            },
+          });
+          google.accounts.id.renderButton(googleMount, {
+            theme: 'outline',
+            size: 'large',
+            text: 'continue_with',
+            shape: 'rect',
+            width: 320,
+          });
+          googleReady = true;
+        } catch (error) {
+          googleMount.hidden = true;
+          if (!githubConfigured) throw error;
+        }
+      } else {
+        googleMount.hidden = true;
+      }
+
+      googleConfigured = googleReady;
+      if (loginDivider) loginDivider.hidden = !(googleReady && githubConfigured);
+      if (!googleReady && !githubConfigured) throw new Error('No sign-in provider is configured yet.');
       await loadAccount();
+      const authError = new URLSearchParams(window.location.search).get('auth_error');
+      if (authError && account.hidden) setStatus(authError, 'error');
     } catch (error) {
       setStatus(error.message, 'error');
     }
@@ -220,8 +252,11 @@
     action.hidden = true;
     license.hidden = true;
     hideLicenseKey();
-    googleMount.hidden = false;
-    setStatus('Signed out. Sign in with Google to continue.', 'neutral');
+    if (signinRow) signinRow.hidden = false;
+    googleMount.hidden = !googleConfigured;
+    if (githubButton) githubButton.hidden = !githubConfigured;
+    if (loginDivider) loginDivider.hidden = !(googleConfigured && githubConfigured);
+    setStatus('Signed out. Sign in with Google or GitHub to continue.', 'neutral');
   });
 
   initialize();
