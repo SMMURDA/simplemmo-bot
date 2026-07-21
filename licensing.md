@@ -45,17 +45,35 @@ Ready to purchase a license or need help choosing one? Contact us through any of
 
 ## Check license status
 
-Use the license-status endpoint to look up the current status of a license key. Send the key in a JSON request body and replace the example value with the real key only in your application or a private terminal.
+Use this read-only endpoint to inspect a license without activating a new device or updating its last-check timestamp.
 
-**Endpoint:** `POST https://license.topup.eu.org/v1/license-status`
+<div class="api-endpoint-card" aria-label="License status endpoint">
+  <div class="api-endpoint-card__request">
+    <span class="http-method http-method--post">POST</span>
+    <code>https://license.topup.eu.org/v1/license-status</code>
+  </div>
+  <div class="api-endpoint-card__meta">
+    <div><small>Authentication</small><strong>None</strong></div>
+    <div><small>Content type</small><strong>application/json</strong></div>
+    <div><small>Operation</small><strong>Read only</strong></div>
+  </div>
+</div>
+
+### Request body
+
+| Field | Type | Required | Description |
+|---|---|---|---|
+| `license_key` | `string` | Yes | License key in the format issued by the distributor. Whitespace is trimmed and letters are normalized to uppercase. |
+
+### Request examples
 
 <div class="license-examples" data-license-examples>
   <div class="license-example-tabs" role="tablist" aria-label="License status examples">
     <button class="license-example-tab is-active" type="button" role="tab" id="license-tab-curl" aria-selected="true" aria-controls="license-panel-curl" data-license-tab="curl"><span class="license-logo-frame license-logo-frame--curl" aria-hidden="true"><span class="license-curl-mark">&gt;_</span></span><span>cURL</span></button>
-    <button class="license-example-tab" type="button" role="tab" id="license-tab-python" aria-selected="false" aria-controls="license-panel-python" data-license-tab="python" tabindex="-1"><span class="license-logo-frame" aria-hidden="true"><img class="license-language-logo" src="https://uxwing.com/wp-content/themes/uxwing/download/brands-and-social-media/python-programming-language-icon.svg" alt=""></span><span>Python</span></button>
-    <button class="license-example-tab" type="button" role="tab" id="license-tab-node" aria-selected="false" aria-controls="license-panel-node" data-license-tab="node" tabindex="-1"><span class="license-logo-frame" aria-hidden="true"><img class="license-language-logo" src="https://uxwing.com/wp-content/themes/uxwing/download/brands-and-social-media/node-js-icon.svg" alt=""></span><span>Node.js</span></button>
-    <button class="license-example-tab" type="button" role="tab" id="license-tab-php" aria-selected="false" aria-controls="license-panel-php" data-license-tab="php" tabindex="-1"><span class="license-logo-frame" aria-hidden="true"><img class="license-language-logo license-language-logo--php" src="https://uxwing.com/wp-content/themes/uxwing/download/file-and-folder-type/php-icon.svg" alt=""></span><span>PHP</span></button>
-    <button class="license-example-tab" type="button" role="tab" id="license-tab-powershell" aria-selected="false" aria-controls="license-panel-powershell" data-license-tab="powershell" tabindex="-1"><span class="license-logo-frame" aria-hidden="true"><img class="license-language-logo" src="https://uxwing.com/wp-content/themes/uxwing/download/brands-and-social-media/powershell-icon.svg" alt=""></span><span>PowerShell</span></button>
+    <button class="license-example-tab" type="button" role="tab" id="license-tab-python" aria-selected="false" aria-controls="license-panel-python" data-license-tab="python" tabindex="-1"><span class="license-logo-frame" aria-hidden="true"><img class="license-language-logo" src="/assets/icons/languages/python.svg" alt=""></span><span>Python</span></button>
+    <button class="license-example-tab" type="button" role="tab" id="license-tab-node" aria-selected="false" aria-controls="license-panel-node" data-license-tab="node" tabindex="-1"><span class="license-logo-frame" aria-hidden="true"><img class="license-language-logo" src="/assets/icons/languages/nodejs.svg" alt=""></span><span>Node.js</span></button>
+    <button class="license-example-tab" type="button" role="tab" id="license-tab-php" aria-selected="false" aria-controls="license-panel-php" data-license-tab="php" tabindex="-1"><span class="license-logo-frame" aria-hidden="true"><img class="license-language-logo license-language-logo--php" src="/assets/icons/languages/php.svg" alt=""></span><span>PHP</span></button>
+    <button class="license-example-tab" type="button" role="tab" id="license-tab-powershell" aria-selected="false" aria-controls="license-panel-powershell" data-license-tab="powershell" tabindex="-1"><span class="license-logo-frame" aria-hidden="true"><img class="license-language-logo" src="/assets/icons/languages/powershell.svg" alt=""></span><span>PowerShell</span></button>
   </div>
   <div class="license-example-panels">
     <section class="license-example-panel" role="tabpanel" id="license-panel-curl" aria-labelledby="license-tab-curl" data-license-panel="curl">
@@ -124,6 +142,132 @@ console.<span class="nf">log</span>(licenseStatus);</code></pre></div>
 </div>
 
 <callout icon="⚠️">Never expose a real license key in public source code, browser-side JavaScript, screenshots, or GitHub issues.</callout>
+
+### Response status reference
+
+HTTP success and license validity are separate signals. A `200 OK` response means the lookup completed successfully; always inspect the JSON `status` and `active` fields before deciding whether the license is usable.
+
+<div class="api-status-table-wrap">
+<table class="api-status-table">
+  <thead>
+    <tr><th>HTTP</th><th>API status</th><th>Active</th><th>Meaning</th></tr>
+  </thead>
+  <tbody>
+    <tr><td><span class="api-status api-status--success">200 OK</span></td><td><code>active</code></td><td><strong>Yes</strong></td><td>The key exists, is enabled, and has not expired.</td></tr>
+    <tr><td><span class="api-status api-status--success">200 OK</span></td><td><code>not_found</code></td><td>No</td><td>The lookup completed, but the supplied key is unknown.</td></tr>
+    <tr><td><span class="api-status api-status--success">200 OK</span></td><td><code>revoked</code></td><td>No</td><td>The key exists but is inactive or revoked.</td></tr>
+    <tr><td><span class="api-status api-status--success">200 OK</span></td><td><code>expired</code></td><td>No</td><td>The key exists, but its expiration time has passed.</td></tr>
+    <tr><td><span class="api-status api-status--warning">204 No Content</span></td><td>—</td><td>—</td><td>Successful browser CORS preflight from the official site; no response body.</td></tr>
+    <tr><td><span class="api-status api-status--warning">400 Bad Request</span></td><td><code>invalid_request</code></td><td>No</td><td>The JSON body is invalid or <code>license_key</code> is missing.</td></tr>
+    <tr><td><span class="api-status api-status--danger">403 Forbidden</span></td><td>—</td><td>—</td><td>A browser preflight came from an origin that is not allowed.</td></tr>
+    <tr><td><span class="api-status api-status--danger">404 Not Found</span></td><td>—</td><td>—</td><td>The request used an endpoint path that does not exist.</td></tr>
+    <tr><td><span class="api-status api-status--danger">500 Server Error</span></td><td>—</td><td>—</td><td>The license service encountered an unexpected internal error.</td></tr>
+  </tbody>
+</table>
+</div>
+
+### Response examples
+
+<div class="api-response-list">
+  <details class="api-response" open>
+    <summary><span class="api-status api-status--success">200 OK</span><span><strong>Active license</strong><small>The license can be used.</small></span><span class="api-response__chevron" aria-hidden="true">⌄</span></summary>
+    <div class="api-response__body"><pre><code class="language-json">{
+  "ok": true,
+  "active": true,
+  "status": "active",
+  "message": "License is active.",
+  "license": {
+    "key_masked": "SMMO••••X7K9",
+    "created_at": "2026-07-01T08:30:00.000Z",
+    "expires_at": "2026-08-01T08:30:00.000Z",
+    "expires_in_days": 12,
+    "max_devices": 1,
+    "active_devices": 1
+  }
+}</code></pre></div>
+  </details>
+
+  <details class="api-response">
+    <summary><span class="api-status api-status--success">200 OK</span><span><strong>License not found</strong><small>The lookup succeeded, but the key is unknown.</small></span><span class="api-response__chevron" aria-hidden="true">⌄</span></summary>
+    <div class="api-response__body"><pre><code class="language-json">{
+  "ok": true,
+  "active": false,
+  "status": "not_found",
+  "message": "License key was not found."
+}</code></pre></div>
+  </details>
+
+  <details class="api-response">
+    <summary><span class="api-status api-status--success">200 OK</span><span><strong>Revoked license</strong><small>The key exists but has been disabled.</small></span><span class="api-response__chevron" aria-hidden="true">⌄</span></summary>
+    <div class="api-response__body"><pre><code class="language-json">{
+  "ok": true,
+  "active": false,
+  "status": "revoked",
+  "message": "License is inactive or revoked.",
+  "license": {
+    "key_masked": "SMMO••••X7K9",
+    "created_at": "2026-07-01T08:30:00.000Z",
+    "expires_at": "2026-08-01T08:30:00.000Z",
+    "expires_in_days": 12,
+    "max_devices": 1,
+    "active_devices": 1
+  }
+}</code></pre></div>
+  </details>
+
+  <details class="api-response">
+    <summary><span class="api-status api-status--success">200 OK</span><span><strong>Expired license</strong><small>The key exists, but its access period has ended.</small></span><span class="api-response__chevron" aria-hidden="true">⌄</span></summary>
+    <div class="api-response__body"><pre><code class="language-json">{
+  "ok": true,
+  "active": false,
+  "status": "expired",
+  "message": "License has expired.",
+  "license": {
+    "key_masked": "SMMO••••X7K9",
+    "created_at": "2026-06-01T08:30:00.000Z",
+    "expires_at": "2026-07-01T08:30:00.000Z",
+    "expires_in_days": 0,
+    "max_devices": 1,
+    "active_devices": 1
+  }
+}</code></pre></div>
+  </details>
+
+  <details class="api-response">
+    <summary><span class="api-status api-status--warning">400 Bad Request</span><span><strong>Invalid request</strong><small>The required license key was not supplied.</small></span><span class="api-response__chevron" aria-hidden="true">⌄</span></summary>
+    <div class="api-response__body"><pre><code class="language-json">{
+  "ok": false,
+  "active": false,
+  "status": "invalid_request",
+  "message": "license_key is required."
+}</code></pre></div>
+  </details>
+
+  <details class="api-response">
+    <summary><span class="api-status api-status--danger">404 Not Found</span><span><strong>Unknown route</strong><small>The endpoint URL is incorrect.</small></span><span class="api-response__chevron" aria-hidden="true">⌄</span></summary>
+    <div class="api-response__body"><pre><code class="language-json">{
+  "message": "Not found"
+}</code></pre></div>
+  </details>
+
+  <details class="api-response">
+    <summary><span class="api-status api-status--danger">500 Server Error</span><span><strong>Internal error</strong><small>The service could not complete the request.</small></span><span class="api-response__chevron" aria-hidden="true">⌄</span></summary>
+    <div class="api-response__body"><pre><code class="language-json">{
+  "message": "Internal license server error"
+}</code></pre></div>
+  </details>
+</div>
+
+### Activation validation response
+
+The bot itself uses `POST /v1/check`. That endpoint returns a signed envelope for both accepted and rejected license decisions. A `200 OK` response alone does not mean the license is valid: the client verifies the Ed25519 signature, decodes the signed payload, and continues only when `valid` is `true`.
+
+| HTTP | Signed field | Result |
+|---|---|---|
+| `200 OK` | `valid: true` | License accepted; the bot may continue. |
+| `200 OK` | `valid: false` | License rejected because of invalid data, unknown key, revoked/expired status, or device limit. |
+| `404 Not Found` | — | Validation URL is incorrect. |
+| `500 Server Error` | — | Signing, database, or service failure; the bot stops safely. |
 
 ## Online-only behavior
 
