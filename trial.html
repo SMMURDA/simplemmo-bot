@@ -28,8 +28,20 @@ permalink: /trial/
 
     <div id="trial-action" class="trial-row trial-row--action" hidden><span class="trial-step">2</span><div class="trial-row__copy"><h2>Create your trial</h2><p>Your license is linked to this Google account.</p></div><button id="trial-create" class="button button--primary" type="button">Create license</button></div>
 
-    <div id="trial-license" class="trial-license" hidden><div class="trial-license__head"><span class="trial-step trial-step--done">✓</span><div><h2>Trial license ready</h2><p id="trial-license-meta"></p></div></div><label for="trial-license-key">Your license key</label><div class="trial-key-row"><input id="trial-license-key" type="text" readonly aria-describedby="trial-key-help"><button id="trial-copy" class="button button--secondary" type="button">Copy</button></div><p id="trial-key-help" class="trial-note">Keep this key private. Add it to <code>SMMO_LICENSE_KEY</code> in the bot configuration.</p></div>
+    <div id="trial-license" class="trial-license" hidden>
+      <div class="trial-license__head">
+        <span id="trial-license-icon" class="trial-step trial-step--done" aria-hidden="true">✓</span>
+        <div><h2 id="trial-license-title">Trial license ready</h2><p id="trial-license-meta"></p></div>
+      </div>
+      <label id="trial-key-label" for="trial-license-key" hidden>Your license key</label>
+      <div id="trial-key-row" class="trial-key-row" hidden><input id="trial-license-key" type="text" readonly aria-describedby="trial-key-help"><button id="trial-copy" class="button button--secondary" type="button">Copy</button></div>
+      <p id="trial-key-help" class="trial-note" hidden>Keep this key private. Add it to <code>SMMO_LICENSE_KEY</code> in the bot configuration.</p>
+      <div id="trial-expired-message" class="trial-expired-message" hidden>
+        <svg viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="12" r="8"></circle><path d="M12 7v5l3 2"></path></svg>
+        <div><strong>This trial has ended</strong><p>The expired license key is no longer displayed and cannot be used. Contact us if you would like to continue with a full license.</p></div>
+      </div>
+    </div>
   </section>
   <div class="trial-rule trial-rule--plain"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 3 19 6v5c0 4.6-2.8 8.1-7 10-4.2-1.9-7-5.4-7-10V6l7-3Z"></path><path d="m9 12 2 2 4-4"></path></svg><span>Trial access is limited to one account and one device.</span></div>
 </section>
-<script src="{{ '/assets/js/trial.js?v=20260716-5' | relative_url }}" defer></script>
+<script src="{{ '/assets/js/trial.js?v=20260721-6' | relative_url }}" defer></script>
