@@ -10,7 +10,7 @@ account_section: topup
     <p class="eyebrow">Secure balance</p><h1>Top up balance</h1>
     <p class="portal-lede">Choose a payment method and amount configured by the administrator.</p>
     <form id="topup-form" class="topup-builder">
-      <fieldset><legend>1. Payment method</legend><div id="payment-method-list" class="payment-method-grid"><div class="portal-skeleton">Loading payment methods…</div></div></fieldset>
+      <fieldset><legend>1. Payment method</legend><div id="payment-method-list" class="payment-method-grid"><div class="portal-skeleton">Loading payment methods…</div></div><section id="payment-method-details" class="payment-method-details" hidden aria-live="polite"></section></fieldset>
       <fieldset><legend>2. Amount</legend><label>Available amount<select id="topup-amount" name="amount" required><option value="">Choose a method first</option></select></label><small id="topup-conversion"></small></fieldset>
       <fieldset><legend>3. Payment reference</legend><label>Transaction ID or note<input name="reference" maxlength="200" placeholder="Optional before payment; add it if already available"></label></fieldset>
       <button class="button button--primary" type="submit">Confirm top-up request</button>
@@ -20,4 +20,4 @@ account_section: topup
     <div id="portal-status" class="portal-status" aria-live="polite"></div>
   </main>
 </div>
-<script src="{{ '/assets/js/portal-v2.js?v=20260722-2' | relative_url }}" defer></script>
+<script src="{{ '/assets/js/portal-v2.js?v=20260722-3' | relative_url }}" defer></script>

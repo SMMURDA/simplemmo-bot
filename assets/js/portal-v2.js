@@ -160,6 +160,7 @@
     ]);
     const methods = methodData.methods;
     const methodList = $('#payment-method-list');
+    const methodDetails = $('#payment-method-details');
     const amountSelect = $('#topup-amount');
     const conversion = $('#topup-conversion');
     let selectedMethod = null;
@@ -173,6 +174,15 @@
 
     const selectMethod = (method) => {
       selectedMethod = method;
+      methodDetails.hidden = false;
+      methodDetails.innerHTML = `
+        <div class="payment-method-details__head">
+          <span class="payment-method-details__icon"><img src="${iconBase}${escapeHtml(method.icon)}.svg" alt=""></span>
+          <div><p class="eyebrow">Payment details</p><h2>${escapeHtml(method.name)}</h2><span class="status-pill status-pill--active">${escapeHtml(method.currency)}</span></div>
+        </div>
+        ${method.description ? `<p class="payment-method-details__description">${escapeHtml(method.description)}</p>` : ''}
+        <div class="payment-method-details__instructions"><strong>Transfer / payment destination</strong><p>${escapeHtml(method.instructions || 'Contact the administrator for payment destination details.')}</p></div>
+        <div class="payment-method-details__contacts">${method.confirmation_email ? `<span>Email confirmation: <b>${escapeHtml(method.confirmation_email)}</b></span>` : ''}${method.telegram_username ? `<span>Telegram: <b>@${escapeHtml(method.telegram_username)}</b></span>` : ''}</div>`;
       amountSelect.innerHTML = '<option value="">Choose amount</option>' + method.preset_amounts.map((amount) => `<option value="${amount}">${method.currency === 'USD' ? new Intl.NumberFormat('en-US', { style: 'currency', currency: 'USD' }).format(amount) : formatIdr(amount)}</option>`).join('');
       conversion.textContent = method.currency === 'USD' ? `Estimated balance credit uses 1 USD = ${formatIdr(methodData.usd_to_idr_rate)}.` : 'The approved amount is credited directly to your IDR balance.';
     };
