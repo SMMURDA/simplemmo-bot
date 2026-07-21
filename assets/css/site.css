@@ -918,3 +918,70 @@ body.image-lightbox-open { overflow: hidden; }
   .trial-expired-message { grid-template-columns: 26px minmax(0, 1fr); padding: 12px; }
   .trial-expired-message svg { width: 21px; height: 21px; }
 }
+
+
+/* Google + GitHub sign-in options for the free trial. */
+.trial-login-options {
+  width: min(100%, 320px);
+  display: grid;
+  gap: 12px;
+  justify-items: stretch;
+}
+.trial-login-options[hidden],
+.trial-row--signin[hidden],
+.github-signin[hidden],
+.trial-login-divider[hidden] { display: none !important; }
+.trial-login-divider {
+  display: grid;
+  grid-template-columns: 1fr auto 1fr;
+  align-items: center;
+  gap: 10px;
+  color: var(--muted);
+  font-size: 12px;
+  line-height: 1;
+}
+.trial-login-divider::before,
+.trial-login-divider::after {
+  content: '';
+  height: 1px;
+  background: var(--border);
+}
+.trial-login-divider span { padding: 0 2px; }
+.github-signin {
+  min-height: 44px;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 10px;
+  padding: 0 18px;
+  border: 1px solid color-mix(in srgb, #ffffff 22%, var(--border));
+  border-radius: 8px;
+  background: #24292f;
+  color: #ffffff;
+  font-size: 14px;
+  font-weight: 650;
+  line-height: 1;
+  text-decoration: none;
+  transition: transform .18s ease, border-color .18s ease, background-color .18s ease;
+}
+.github-signin:hover {
+  transform: translateY(-1px);
+  border-color: rgba(255,255,255,.42);
+  background: #30363d;
+  color: #ffffff;
+}
+.github-signin:focus-visible {
+  outline: 3px solid color-mix(in srgb, var(--blue) 45%, transparent);
+  outline-offset: 3px;
+}
+.github-signin svg { width: 21px; height: 21px; flex: 0 0 21px; fill: currentColor; }
+.trial-avatar--github { background: #24292f; color: #ffffff; font-size: 11px; }
+.trial-shell--v5 .trial-status--error { display: block !important; margin: 10px auto; text-align: center; }
+@media (max-width: 420px) {
+  .trial-login-options { width: 100%; }
+  .github-signin { width: 100%; }
+}
+@media (prefers-reduced-motion: reduce) {
+  .github-signin { transition: none; }
+  .github-signin:hover { transform: none; }
+}
