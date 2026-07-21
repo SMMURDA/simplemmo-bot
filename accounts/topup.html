@@ -1,0 +1,23 @@
+---
+layout: default
+title: Top Up Balance
+permalink: /accounts/topup/
+account_section: topup
+---
+<div class="portal" data-member-portal data-page="topup">
+  {% include member-nav.html %}
+  <main class="portal-main">
+    <p class="eyebrow">Secure balance</p><h1>Top up balance</h1>
+    <p class="portal-lede">Choose a payment method and amount configured by the administrator.</p>
+    <form id="topup-form" class="topup-builder">
+      <fieldset><legend>1. Payment method</legend><div id="payment-method-list" class="payment-method-grid"><div class="portal-skeleton">Loading payment methods…</div></div></fieldset>
+      <fieldset><legend>2. Amount</legend><label>Available amount<select id="topup-amount" name="amount" required><option value="">Choose a method first</option></select></label><small id="topup-conversion"></small></fieldset>
+      <fieldset><legend>3. Payment reference</legend><label>Transaction ID or note<input name="reference" maxlength="200" placeholder="Optional before payment; add it if already available"></label></fieldset>
+      <button class="button button--primary" type="submit">Confirm top-up request</button>
+    </form>
+    <section id="topup-confirmation" class="confirmation-card" hidden></section>
+    <section class="portal-section"><h2>Top-up history</h2><div id="topup-list" class="portal-list"></div></section>
+    <div id="portal-status" class="portal-status" aria-live="polite"></div>
+  </main>
+</div>
+<script src="{{ '/assets/js/portal-v2.js?v=20260722-2' | relative_url }}" defer></script>

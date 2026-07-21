@@ -1,0 +1,13 @@
+---
+layout: default
+title: Admin Top-ups
+permalink: /admin/topups/
+admin_section: topups
+---
+<div class="portal portal--admin" data-admin-portal data-page="topups">
+  {% include admin-nav.html %}
+  <main class="portal-main"><p class="eyebrow">Payment verification</p><h1>Top-up requests</h1><p class="portal-lede">Review the payment reference and approve only after the payment is confirmed.</p>
+    <div id="admin-topups" class="portal-list"><div class="portal-skeleton">Loading top-up requests…</div></div><div id="admin-status" class="portal-status"></div>
+  </main>
+</div>
+<script src="{{ '/assets/js/admin-v2.js?v=20260722-2' | relative_url }}" defer></script>

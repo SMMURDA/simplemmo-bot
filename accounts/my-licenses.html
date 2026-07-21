@@ -1,0 +1,16 @@
+---
+layout: default
+title: My Licenses
+permalink: /accounts/my-licenses/
+account_section: licenses
+---
+<div class="portal" data-member-portal data-page="licenses">
+  {% include member-nav.html %}
+  <main class="portal-main">
+    <p class="eyebrow">License vault</p><h1>My licenses</h1>
+    <p class="portal-lede">Trial and purchased licenses remain available here after reloading.</p>
+    <div id="license-list" class="license-grid"><div class="portal-skeleton">Loading licenses…</div></div>
+    <div id="portal-status" class="portal-status" aria-live="polite"></div>
+  </main>
+</div>
+<script src="{{ '/assets/js/portal-v2.js?v=20260722-2' | relative_url }}" defer></script>

@@ -7,7 +7,7 @@
   <meta name="theme-color" content="#0d1018">
   {% seo %}
   <link rel="icon" type="image/png" href="/assets/images/mbot-favicon.png">
-  <link rel="stylesheet" href="/assets/css/site.css?v=20260722-1">
+  <link rel="stylesheet" href="/assets/css/site.css?v=20260722-2">
 </head>
 <body>
   <a class="skip-link" href="#main-content">Skip to content</a>
@@ -36,6 +36,18 @@
   <main id="main-content" class="doc-shell">
     <article class="doc-content">{{ content }}</article>
   </main>
+  <div id="portal-modal" class="portal-modal" hidden aria-hidden="true">
+    <div class="portal-modal__backdrop" data-modal-cancel></div>
+    <section class="portal-modal__dialog" role="dialog" aria-modal="true" aria-labelledby="portal-modal-title">
+      <div class="portal-modal__icon" aria-hidden="true">✓</div>
+      <p class="eyebrow">Please confirm</p>
+      <h2 id="portal-modal-title">Confirm action</h2>
+      <p id="portal-modal-message"></p>
+      <label id="portal-modal-input-wrap" class="portal-modal__input" hidden><span id="portal-modal-input-label">Value</span><input id="portal-modal-input" autocomplete="off"></label>
+      <div class="portal-modal__actions"><button id="portal-modal-cancel" class="button button--ghost" type="button">Cancel</button><button id="portal-modal-confirm" class="button button--primary" type="button">Confirm</button></div>
+    </section>
+  </div>
+  <div id="portal-toast" class="portal-toast" role="status" aria-live="polite" hidden></div>
   <footer class="site-footer">
     <div class="footer-brand">
       <span class="footer-logo" aria-hidden="true">
@@ -65,5 +77,6 @@
     </nav>
   </footer>
   <script src="/assets/js/site.js?v=20260719-4" defer></script>
+  <script src="/assets/js/portal-common.js?v=20260722-2" defer></script>
 </body>
 </html>

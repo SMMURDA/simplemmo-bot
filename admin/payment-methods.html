@@ -1,0 +1,17 @@
+---
+layout: default
+title: Admin Payment Methods
+permalink: /admin/payment-methods/
+admin_section: payments
+---
+<div class="portal portal--admin" data-admin-portal data-page="payments">
+  {% include admin-nav.html %}
+  <main class="portal-main"><p class="eyebrow">Payment configuration</p><h1>Payment methods</h1>
+    <section class="portal-section"><div class="section-heading"><div><h2>USD conversion</h2><p>USD top-ups are credited to the member's IDR balance using this rate.</p></div></div><form id="exchange-rate-form" class="portal-form portal-form--compact"><label>1 USD equals IDR<input name="usd_to_idr_rate" type="number" min="1000" max="100000" step="1" required></label><button class="button button--primary" type="submit">Save exchange rate</button></form></section>
+    <section class="portal-section"><div class="section-heading"><div><h2 id="payment-editor-title">Add payment method</h2><p>Configure name, description, IDR/USD amounts, confirmation contacts, and SVG icon.</p></div><button id="payment-editor-reset" class="button button--ghost" type="button">New method</button></div>
+      <form id="payment-method-form" class="portal-form payment-editor"><input type="hidden" name="id"><label>Name<input name="name" maxlength="80" required></label><label>Currency<select name="currency"><option value="IDR">IDR</option><option value="USD">USD</option></select></label><label>Preset amounts<input name="preset_amounts" placeholder="10000, 25000, 50000" required></label><label>Minimum amount<input name="min_amount" type="number" min="0.01" step="0.01" required></label><label>SVG icon<select name="icon"><option value="wallet">Wallet</option><option value="bank">Bank</option><option value="paypal">PayPal</option><option value="crypto">Crypto</option><option value="telegram">Telegram</option><option value="email">Email</option></select></label><label>Sort order<input name="sort_order" type="number" value="0"></label><label class="portal-form__wide">Description<textarea name="description" maxlength="300" rows="3"></textarea></label><label class="portal-form__wide">Payment instructions<textarea name="instructions" maxlength="1000" rows="4"></textarea></label><label>Confirmation email<input name="confirmation_email" type="email" maxlength="160" placeholder="ask@topup.eu.org"></label><label>Telegram username<input name="telegram_username" maxlength="40" placeholder="bovalone"></label><label class="switch-label"><input name="is_active" type="checkbox" checked><span>Available to members</span></label><button class="button button--primary portal-form__wide" type="submit">Save payment method</button></form>
+    </section>
+    <section class="portal-section"><h2>Configured methods</h2><div id="admin-payment-methods" class="payment-admin-grid"><div class="portal-skeleton">Loading payment methods…</div></div></section><div id="admin-status" class="portal-status"></div>
+  </main>
+</div>
+<script src="{{ '/assets/js/admin-v2.js?v=20260722-2' | relative_url }}" defer></script>

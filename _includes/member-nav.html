@@ -1,0 +1,10 @@
+<aside class="portal-nav portal-nav--member" aria-label="Member navigation">
+  <div class="portal-nav__profile"><small>MEMBER AREA</small><strong id="portal-name">Member</strong><span id="portal-email">Loading account…</span></div>
+  <a {% if page.account_section == 'overview' %}class="is-active"{% endif %} href="{{ '/accounts/overview/' | relative_url }}">Overview</a>
+  <a {% if page.account_section == 'trial' %}class="is-active"{% endif %} href="{{ '/accounts/trial-license/' | relative_url }}">Trial license</a>
+  <a {% if page.account_section == 'buy' %}class="is-active"{% endif %} href="{{ '/accounts/buy-license/' | relative_url }}">Buy with balance</a>
+  <a {% if page.account_section == 'licenses' %}class="is-active"{% endif %} href="{{ '/accounts/my-licenses/' | relative_url }}">My licenses</a>
+  <a {% if page.account_section == 'topup' %}class="is-active"{% endif %} href="{{ '/accounts/topup/' | relative_url }}">Top up balance</a>
+  <a id="admin-link" href="{{ '/admin/licenses/' | relative_url }}" hidden>Admin panel</a>
+  <button id="portal-logout" class="portal-nav__logout" type="button">Sign out</button>
+</aside>
