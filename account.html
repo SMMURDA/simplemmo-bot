@@ -1,0 +1,17 @@
+---
+layout: default
+title: Member Account
+permalink: /account/
+---
+<div class="portal" data-portal>
+  <aside class="portal-nav"><div><small>MEMBER AREA</small><strong id="portal-name">Account</strong><span id="portal-email"></span></div><button data-tab="overview" class="is-active">Overview</button><button data-tab="trial">Trial license</button><button data-tab="buy">Buy with balance</button><button data-tab="licenses">My licenses</button><button data-tab="topup">Top up balance</button><a id="admin-link" href="/admin/" hidden>Admin panel</a><button id="portal-logout">Sign out</button></aside>
+  <main class="portal-main">
+    <section data-panel="overview"><p class="eyebrow">Member profile</p><h1>Welcome back</h1><div class="portal-stats"><article><small>Balance</small><strong id="balance">Rp0</strong></article><article><small>Member since</small><strong id="member-since">—</strong></article><article><small>Registered email</small><strong id="member-email">—</strong></article><article><small>Account role</small><strong id="member-role">Member</strong></article></div></section>
+    <section data-panel="trial" hidden><h2>One-day trial</h2><p>Create one trial license for this account.</p><button id="create-trial" class="button button--primary">Create trial license</button><div id="trial-result" class="portal-result"></div></section>
+    <section data-panel="buy" hidden><h2>Buy license with balance</h2><div id="package-card" class="portal-card">Loading package…</div><button id="buy-license" class="button button--primary">Buy license</button><div id="buy-result" class="portal-result"></div></section>
+    <section data-panel="licenses" hidden><h2>My licenses</h2><div id="license-list" class="portal-list"></div></section>
+    <section data-panel="topup" hidden><h2>Top up balance</h2><p>Submit a payment request. Balance is credited after admin approval.</p><form id="topup-form" class="portal-form"><label>Amount (IDR)<input name="amount" type="number" min="10000" step="1000" required></label><label>Method<select name="method"><option value="bank_transfer">Bank transfer</option><option value="paypal">PayPal</option><option value="crypto">Crypto</option><option value="manual">Other/manual</option></select></label><label>Payment reference<input name="reference" maxlength="200" placeholder="Transaction ID or note"></label><button class="button button--primary">Submit top-up</button></form><div id="topup-list" class="portal-list"></div></section>
+    <div id="portal-status" class="portal-status"></div>
+  </main>
+</div>
+<script src="{{ '/assets/js/account.js?v=20260722-1' | relative_url }}" defer></script>
