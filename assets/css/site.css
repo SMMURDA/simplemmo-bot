@@ -1092,6 +1092,10 @@ body.image-lightbox-open { overflow: hidden; }
 .confirmation-links img { width: 21px; height: 21px; }
 
 .section-heading { display: flex; align-items: flex-start; justify-content: space-between; gap: 18px; }
+.portal-alert { display: grid; gap: 5px; margin: 0 0 24px; padding: 15px 17px; border: 1px solid var(--border); border-radius: 12px; background: var(--surface); }
+.portal-alert--warning { border-color: rgba(255,196,91,.5); background: rgba(255,196,91,.08); color: #ffe0a3; }
+.portal-alert span { color: var(--muted); line-height: 1.55; }
+.portal-alert code { color: var(--text); }
 .section-heading h2 { margin-bottom: 6px; }
 .section-heading p { margin: 0; color: var(--muted); }
 .portal-form textarea { resize: vertical; padding: 10px 11px; border: 1px solid var(--border); border-radius: 8px; background: var(--canvas); color: var(--text); font: inherit; }
