@@ -1,172 +1,74 @@
 ---
 layout: default
 title: SimpleMMO Bot
-description: Licensed SimpleMMO automation with Telegram control, online activation, and persistent settings.
+description: A licensed SimpleMMO automation companion with Telegram control, secure local configuration, and persistent settings.
 permalink: /
 ---
-<div class="home-page">
-  <section class="hero">
-    <div class="hero-inner">
-      <div>
-        <div class="eyebrow eyebrow--live">Licensed and online</div>
-        <h1>Run your routine from Telegram.</h1>
-        <p>SimpleMMO Bot brings travel, encounters, crafting, quests, banking, healing, and runtime controls into one focused Telegram interface with all automation</p>
-        <div class="actions">
-          <a class="button primary" href="/getting-started/">Get started</a>
-          <a class="button" href="/features/overview/">Explore features</a>
+<div class="landing-v2">
+  <section class="lv-hero">
+    <div class="lv-shell lv-hero__grid">
+      <div class="lv-hero__copy">
+        <div class="lv-kicker"><span></span> Licensed automation companion</div>
+        <h1>Keep your SimpleMMO routine <em>within reach.</em></h1>
+        <p class="lv-lede">Control travel, progression, economy, and alerts from one focused Telegram interface—configured with your own account and credentials.</p>
+        <div class="lv-actions">
+          <a class="lv-button lv-button--primary" href="/getting-started/">Get started <span aria-hidden="true">→</span></a>
+          <a class="lv-button" href="/features/overview/">See all features</a>
         </div>
-        <div class="trust-row" aria-label="Product highlights">
-          <span>Online license validation</span>
-          <span>Windows and Linux builds</span>
-          <span>Your account, your credentials</span>
+        <dl class="lv-proof" aria-label="Product highlights">
+          <div><dt>Local setup</dt><dd>Your credentials stay on your device</dd></div>
+          <div><dt>Telegram-first</dt><dd>Controls, status, and alerts in one place</dd></div>
+          <div><dt>Licensed</dt><dd>Online activation for supported builds</dd></div>
+        </dl>
+      </div>
+      <div class="lv-visual" aria-label="SimpleMMO Bot Telegram dashboard preview">
+        <div class="lv-orb lv-orb--one"></div><div class="lv-orb lv-orb--two"></div>
+        <div class="lv-window lv-window--back">
+          <div class="lv-window__bar"><i></i><i></i><i></i></div>
+          <img src="/assets/images/demo-abyss.png" alt="SimpleMMO Bot controls in Telegram">
         </div>
-      </div>
-      <div class="hero-screenshots" aria-label="SimpleMMO Bot dashboard screenshots">
-        <button class="hero-shot hero-shot--back" type="button" data-hero-preview aria-label="Open Abyss controls screenshot">
-          <img src="/assets/images/demo-abyss.png" alt="SimpleMMO Bot Telegram interface showing Abyss controls">
-        </button>
-        <button class="hero-shot hero-shot--front" type="button" data-hero-preview aria-label="Open dashboard controls screenshot">
-          <img src="/assets/images/demo-dashboard.png" alt="SimpleMMO Bot Telegram interface showing dashboard controls">
-        </button>
-      </div>
-    </div>
-  </section>
-
-  <section class="section soft">
-    <div class="section-inner">
-      <div class="section-heading">
-        <h2>One control surface for the full loop.</h2>
-        <p>Use persistent Telegram menus to review status, change automation, and respond when the game needs your attention.</p>
-      </div>
-      <div class="card-grid">
-        <article class="card"><div class="icon">01</div><h3>Travel and encounters</h3><p>Automate travel cooldowns, NPC encounters, materials, sprint, equipment decisions, and captcha handoff.</p></article>
-        <article class="card"><div class="icon">02</div><h3>Progression tools</h3><p>Manage quests, professions, crafting, energy, healing, potions, temple actions, and Abyss activity.</p></article>
-        <article class="card"><div class="icon">03</div><h3>Economy and reporting</h3><p>Review inventory, sell rules, bank actions, chests, notifications, session dashboards, and persistent daily totals.</p></article>
-      </div>
-    </div>
-  </section>
-
-  <section class="section">
-    <div class="section-inner">
-      <div class="section-heading">
-        <h2>From download to dashboard.</h2>
-        <p>Each user supplies their own SimpleMMO session, Telegram bot, and license key.</p>
-      </div>
-      <div class="steps">
-        <div class="step"><h3>Download</h3><p>Choose the release for Windows or Linux and extract it into a dedicated folder.</p></div>
-        <div class="step"><h3>Configure</h3><p>Copy the environment template and add only your own cookies, browser User-Agent, and Telegram credentials.</p></div>
-        <div class="step"><h3>Activate</h3><p>Enter your license key. The app verifies it online before any SimpleMMO login or automation starts.</p></div>
-      </div>
-    </div>
-  </section>
-
-  <section id="pricing" class="section pricing-section">
-    <div class="section-inner">
-      <div class="section-heading">
-        <div class="eyebrow eyebrow--live">License pricing</div>
-        <h2>Simple plans. Full access.</h2>
-        <p>Every plan unlocks the same automation features. Choose the duration and device allowance that fit your setup.</p>
-      </div>
-      <div class="pricing-grid">
-        <article class="price-card">
-          <div class="price-duration">3-day license</div>
-          <div class="price-row"><span class="price-usd">$5</span><span class="price-local">Rp75,000</span></div>
-          <p class="price-meta">One-time payment · 3 days of access</p>
-          <ul class="price-features">
-            <li>All automation modules</li><li>Telegram control dashboard</li><li>Windows, Linux, and ARM builds</li><li>One registered device</li><li>Online license validation</li><li>Setup and activation support</li>
-          </ul>
-          <a class="button price-button" href="/licensing/">Choose 3 days</a>
-        </article>
-        <article class="price-card">
-          <div class="price-duration">7-day license</div>
-          <div class="price-row"><span class="price-usd">$8</span><span class="price-local">Rp120,000</span></div>
-          <p class="price-meta">One-time payment · 7 days of access</p>
-          <ul class="price-features">
-            <li>All automation modules</li><li>Telegram control dashboard</li><li>Windows, Linux, and ARM builds</li><li>Two registered devices</li><li>Updates during the active period</li><li>Setup and activation support</li>
-          </ul>
-          <a class="button price-button" href="/licensing/">Choose 7 days</a>
-        </article>
-        <article class="price-card">
-          <div class="price-duration">14-day license</div>
-          <div class="price-row"><span class="price-usd">$10</span><span class="price-local">Rp150,000</span></div>
-          <p class="price-meta">One-time payment · 14 days of access</p>
-          <ul class="price-features">
-            <li>All automation modules</li><li>Telegram control dashboard</li><li>Windows, Linux, and ARM builds</li><li>Three registered devices</li><li>Updates during the active period</li><li>Setup and activation support</li>
-          </ul>
-          <a class="button price-button" href="/licensing/">Choose 14 days</a>
-        </article>
-        <article class="price-card featured">
-          <div class="price-badge">Best value</div>
-          <div class="price-duration">30-day license</div>
-          <div class="price-row"><span class="price-usd">$15</span><span class="price-local">Rp225,000</span></div>
-          <p class="price-meta">One-time payment · 30 days of access</p>
-          <ul class="price-features">
-            <li>All automation modules</li><li>Telegram control dashboard</li><li>Windows, Linux, and ARM builds</li><li>Four registered devices</li><li>Updates during the active period</li><li>Setup and activation support</li>
-          </ul>
-          <a class="button primary price-button" href="/licensing/">Choose 30 days</a>
-        </article>
-      </div>
-      <p class="pricing-note">IDR prices use a simple Rp15,000 per USD reference: Rp75,000, Rp120,000, Rp150,000, and Rp225,000. The seller will confirm payment and activation details before purchase.</p>
-    </div>
-  </section>
-
-  <section id="faq" class="section soft faq-section">
-    <div class="section-inner">
-      <div class="section-heading">
-        <div class="eyebrow eyebrow--live">Frequently asked questions</div>
-        <h2>Everything to know before purchasing.</h2>
-        <p>Open a question below to review licensing, activation, compatibility, and support details.</p>
-      </div>
-      <div class="faq-list">
-        <details class="faq-item"><summary>Are all features included in every plan?</summary><div class="faq-answer"><p>Yes. The 3-day, 7-day, 14-day, and 30-day licenses include the same automation modules and Telegram controls. Duration and registered-device allowance vary by plan.</p></div></details>
-        <details class="faq-item"><summary>How much does each license cost?</summary><div class="faq-answer"><p>The listed prices are $5 or Rp75,000 for 3 days, $8 or Rp120,000 for 7 days, $10 or Rp150,000 for 14 days, and $15 or Rp225,000 for 30 days.</p></div></details>
-        <details class="faq-item"><summary>How quickly will I receive my license?</summary><div class="faq-answer"><p>Delivery is handled directly by the seller after payment is confirmed. Contact Telegram, Instagram, or email to confirm current response and delivery times.</p></div></details>
-        <details class="faq-item"><summary>How do I activate the license?</summary><div class="faq-answer"><p>Enter the license key when the application asks for it, or place it in the supported configuration file. The application verifies it online before starting.</p></div></details>
-        <details class="faq-item"><summary>Is an internet connection required?</summary><div class="faq-answer"><p>Yes. The bot uses strict online validation at startup and while running. It will stop when the license server cannot be reached.</p></div></details>
-        <details class="faq-item"><summary>How many devices can use one license?</summary><div class="faq-answer"><p>Device limits depend on the plan: one device for 3 days, two devices for 7 days, three devices for 14 days, and four devices for 30 days. Do not share the key outside the registered devices.</p></div></details>
-        <details class="faq-item"><summary>Can I move my license to another computer or VPS?</summary><div class="faq-answer"><p>Contact the seller before moving. A device reset may be required when the existing activation slot is already in use.</p></div></details>
-        <details class="faq-item"><summary>Does the license renew automatically?</summary><div class="faq-answer"><p>No. These are one-time purchases for the selected duration. Purchase or request an extension when you want additional time.</p></div></details>
-        <details class="faq-item"><summary>Can I extend a license before it expires?</summary><div class="faq-answer"><p>Yes, subject to seller confirmation. Provide your license identifier privately so the remaining period and extension can be checked.</p></div></details>
-        <details class="faq-item"><summary>What happens when the license expires?</summary><div class="faq-answer"><p>Online validation is rejected and the bot does not continue running. Your local configuration remains on your device.</p></div></details>
-        <details class="faq-item"><summary>Which operating systems are supported?</summary><div class="faq-answer"><p>Use the release made for your operating system and architecture. Available packages may include Windows x64, Linux x64, and Linux ARM64.</p></div></details>
-        <details class="faq-item"><summary>Do I need to install Python?</summary><div class="faq-answer"><p>Official compiled releases are intended to run without a separate Python installation. Always follow the instructions included with the downloaded build.</p></div></details>
-        <details class="faq-item"><summary>Do I need my own Telegram bot?</summary><div class="faq-answer"><p>Yes. Each user supplies a personal Telegram bot token and chat ID so commands and notifications remain under that user's control.</p></div></details>
-        <details class="faq-item"><summary>Do I need to share my game credentials with the seller?</summary><div class="faq-answer"><p>No. Never send passwords, cookies, Telegram tokens, API tokens, or completed environment files. You configure your own credentials locally.</p></div></details>
-        <details class="faq-item"><summary>Are updates included?</summary><div class="faq-answer"><p>You may use compatible releases available during the active license period. Review release notes before replacing an existing installation.</p></div></details>
-        <details class="faq-item"><summary>What support is included?</summary><div class="faq-answer"><p>Support covers license activation and basic installation guidance. It does not include recovery of game accounts or third-party service credentials.</p></div></details>
-        <details class="faq-item"><summary>Can I request a refund?</summary><div class="faq-answer"><p>Ask the seller about the current refund terms before paying. Activated digital licenses may have restrictions, subject to applicable consumer law.</p></div></details>
-        <details class="faq-item"><summary>Is using automation risk-free?</summary><div class="faq-answer"><p>No. Automation may violate SimpleMMO rules and can result in restrictions or bans. Every user is responsible for activity performed through their account.</p></div></details>
-      </div>
-      <div class="faq-load-more-wrap">
-        <button class="button faq-load-more" type="button" data-faq-load-more hidden aria-expanded="false">Load more FAQs</button>
-      </div>
-    </div>
-  </section>
-
-  <section class="section">
-    <div class="section-inner">
-      <div class="notice">
-        <div class="notice-copy"><h2>Automation carries account risk.</h2><p>Review SimpleMMO's rules before use. Automation may result in restrictions or bans, and every user is responsible for activity on their own account.</p></div>
-        <a class="button" href="/getting-started/">Read the setup guide</a>
-      </div>
-      <div class="platform-showcase" aria-label="Available platform builds">
-        <div class="platform-kicker">Available builds</div><div class="platform-list">
-          <div class="platform-badge"><img src="/assets/platform/windows.svg" alt=""><span><strong>Windows</strong><small>x64 build</small></span></div>
-          <div class="platform-badge"><img src="/assets/platform/linux.svg" alt=""><span><strong>Linux</strong><small>x64 build</small></span></div>
-          <div class="platform-badge"><img src="/assets/platform/arm.svg" alt=""><span><strong>ARM</strong><small>ARM64 build</small></span></div>
-        </div>
-      </div>
-      <div class="platform-showcase payment-showcase" aria-label="Accepted payment methods">
-        <div class="platform-kicker payment-kicker">Accepted payments</div>
-        <div class="platform-list payment-list">
-          <div class="platform-badge payment-badge"><img src="/assets/payments/paypal.svg" alt=""><span><strong>PayPal</strong><small>Payment</small></span></div>
-          <div class="platform-badge payment-badge"><img src="/assets/payments/bitcoin.svg" alt=""><span><strong>Bitcoin</strong><small>BTC</small></span></div>
-          <div class="platform-badge payment-badge"><img src="/assets/payments/tron.svg" alt=""><span><strong>TRON</strong><small>TRX</small></span></div>
-          <div class="platform-badge payment-badge"><img src="/assets/payments/bnb.svg" alt=""><span><strong>BNB</strong><small>BNB Chain</small></span></div>
-          <div class="platform-badge payment-badge"><img src="/assets/payments/ovo.svg" alt=""><span><strong>OVO</strong><small>E-wallet</small></span></div>
-          <div class="platform-badge payment-badge"><img src="/assets/payments/gopay.svg" alt=""><span><strong>GoPay</strong><small>E-wallet</small></span></div>
+        <div class="lv-window lv-window--front">
+          <div class="lv-window__bar"><i></i><i></i><i></i><span>Live dashboard</span></div>
+          <img src="/assets/images/demo-dashboard.png" alt="SimpleMMO Bot Telegram dashboard">
         </div>
       </div>
     </div>
   </section>
+
+  <section class="lv-section lv-section--features">
+    <div class="lv-shell">
+      <div class="lv-heading"><p class="lv-label">Built for the complete loop</p><h2>Automation where it helps. Controls where they matter.</h2><p>Use the features you need, keep the rest switched off, and review everything from Telegram.</p></div>
+      <div class="lv-feature-grid">
+        <article class="lv-feature"><div class="lv-icon lv-icon--blue"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M4 14c3.4-6.4 7.8-8.7 15-9-1.1 7.3-4.2 12.2-11 14l-1.5-3.2L4 14Z"/><path d="m8.3 14.2 4.8-4.8"/></svg></div><h3>Auto travel</h3><p>Run travel loops with cooldown awareness, route controls, sprint handling, and encounter preferences.</p></article>
+        <article class="lv-feature"><div class="lv-icon lv-icon--violet"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M5 5.5A3.5 3.5 0 0 1 8.5 2h7A3.5 3.5 0 0 1 19 5.5v7a3.5 3.5 0 0 1-3.5 3.5H11L6 21v-5.3A3.5 3.5 0 0 1 5 12.5Z"/><path d="M8.5 9.2h7M8.5 12.5h4.5"/></svg></div><h3>Telegram control</h3><p>Pause, resume, inspect status, change toggles, and receive actionable notifications from your own bot.</p></article>
+        <article class="lv-feature"><div class="lv-icon lv-icon--orange"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 3 5 6v5c0 4.5 2.7 8.1 7 10 4.3-1.9 7-5.5 7-10V6l-7-3Z"/><path d="m9 12 2 2 4-4"/></svg></div><h3>CAPTCHA assistance</h3><p>Use your preferred verification flow, with Telegram/manual controls and optional local AI assistance.</p></article>
+        <article class="lv-feature"><div class="lv-icon lv-icon--green"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M4 19V8l8-4 8 4v11"/><path d="M8 19v-5h8v5M8 9h.01M12 9h.01M16 9h.01"/></svg></div><h3>Crafting & quests</h3><p>Manage crafting, queues, quests, professions, healing, energy, potions, and daily actions.</p></article>
+        <article class="lv-feature"><div class="lv-icon lv-icon--gold"><svg viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="12" r="8"/><path d="M14.5 9.4c-.4-.8-1.3-1.3-2.5-1.3-1.4 0-2.4.7-2.4 1.8 0 2.7 4.9 1.2 4.9 4 0 1.2-1.1 2-2.6 2-1.2 0-2.2-.5-2.7-1.4M12 6.5v11"/></svg></div><h3>Economy tools</h3><p>Review inventory, sell rules, bank movements, keys, chests, and session totals from one dashboard.</p></article>
+        <article class="lv-feature"><div class="lv-icon lv-icon--slate"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 3v4M12 17v4M4.2 7.2 7 10M17 14l2.8 2.8M3 12h4M17 12h4M4.2 16.8 7 14M17 10l2.8-2.8"/><circle cx="12" cy="12" r="3.5"/></svg></div><h3>Persistent settings</h3><p>Keep runtime toggles and notification preferences across restarts, updates, and normal downtime.</p></article>
+      </div>
+    </div>
+  </section>
+
+  <section class="lv-section lv-section--price" id="pricing">
+    <div class="lv-shell lv-price-layout">
+      <div class="lv-price-copy"><p class="lv-label">Straightforward access</p><h2>Everything included.<br>One clear price.</h2><p>Get the complete control suite in a single three-day license. No feature tiers and no hidden upgrade path.</p><a class="lv-text-link" href="/licensing/">Read licensing details <span aria-hidden="true">→</span></a></div>
+      <article class="lv-price-card" aria-label="Three-day license price">
+        <div class="lv-price-card__top"><span>3-day license</span><span class="lv-price-tag">Full access</span></div>
+        <div class="lv-price"><strong>$5</strong><span>USD</span></div>
+        <div class="lv-price-idr">Rp75,000 <span>IDR</span></div>
+        <ul class="lv-price-list">
+          <li>All automation modules</li><li>Telegram dashboard and alerts</li><li>One registered device</li><li>Windows and Linux builds</li><li>Setup and activation guidance</li>
+        </ul>
+        <a class="lv-button lv-button--primary lv-button--wide" href="/licensing/">Choose this license <span aria-hidden="true">→</span></a>
+      </article>
+    </div>
+  </section>
+
+  <section class="lv-section">
+    <div class="lv-shell"><div class="lv-heading lv-heading--center"><p class="lv-label">A focused setup</p><h2>From download to dashboard in three steps.</h2></div>
+      <ol class="lv-steps"><li><span>01</span><div><h3>Download</h3><p>Choose the official build for your operating system and extract it to a permanent folder.</p></div></li><li><span>02</span><div><h3>Configure</h3><p>Add your own SimpleMMO session, Telegram bot, and optional preferences in the local environment file.</p></div></li><li><span>03</span><div><h3>Activate</h3><p>Enter your license key, start the launcher, and manage the session from Telegram.</p></div></li></ol>
+    </div>
+  </section>
+
+  <section class="lv-section lv-section--notice"><div class="lv-shell"><div class="lv-notice"><div><p class="lv-label">Use responsibly</p><h2>Automation carries account risk.</h2><p>Review SimpleMMO rules before use. Each user is responsible for activity performed through their own account and credentials.</p></div><a class="lv-button" href="/getting-started/">Read setup guide</a></div></div></section>
 </div>
