@@ -5,6 +5,7 @@
   const githubButton = document.querySelector('#github-signin');
   const microsoftButton = document.querySelector('#microsoft-signin');
   const gitlabButton = document.querySelector('#gitlab-signin');
+  const telegramButton = document.querySelector('#telegram-signin');
   const signinRow = document.querySelector('#trial-signin-row');
   const account = document.querySelector('#trial-account');
   const action = document.querySelector('#trial-action');
@@ -26,6 +27,7 @@
   let githubConfigured = false;
   let microsoftConfigured = false;
   let gitlabConfigured = false;
+  let telegramConfigured = false;
   let googleConfigured = false;
   if (!status || !googleMount) return;
 
@@ -40,6 +42,7 @@
     if (githubButton) githubButton.hidden = !githubConfigured;
     if (microsoftButton) microsoftButton.hidden = !microsoftConfigured;
     if (gitlabButton) gitlabButton.hidden = !gitlabConfigured;
+    if (telegramButton) telegramButton.hidden = !telegramConfigured;
   };
 
   const request = async (path, options = {}) => {
@@ -137,15 +140,17 @@
     if (githubButton) githubButton.hidden = true;
     if (microsoftButton) microsoftButton.hidden = true;
     if (gitlabButton) gitlabButton.hidden = true;
+    if (telegramButton) telegramButton.hidden = true;
     account.hidden = false;
     const provider = String(data.user.provider || '').toLowerCase();
     if (avatar) {
-      avatar.textContent = provider === 'github' ? 'GH' : (provider === 'microsoft' ? 'MS' : (provider === 'gitlab' ? 'GL' : 'G'));
+      avatar.textContent = provider === 'github' ? 'GH' : (provider === 'microsoft' ? 'MS' : (provider === 'gitlab' ? 'GL' : (provider === 'telegram' ? 'TG' : 'G')));
       avatar.classList.toggle('trial-avatar--github', provider === 'github');
       avatar.classList.toggle('trial-avatar--microsoft', provider === 'microsoft');
       avatar.classList.toggle('trial-avatar--gitlab', provider === 'gitlab');
+      avatar.classList.toggle('trial-avatar--telegram', provider === 'telegram');
     }
-    const providerName = provider === 'github' ? 'GitHub account' : (provider === 'microsoft' ? 'Microsoft account' : (provider === 'gitlab' ? 'GitLab account' : 'Google account'));
+    const providerName = provider === 'github' ? 'GitHub account' : (provider === 'microsoft' ? 'Microsoft account' : (provider === 'gitlab' ? 'GitLab account' : (provider === 'telegram' ? 'Telegram account' : 'Google account')));
     name.textContent = data.user.name || providerName;
     email.textContent = data.user.email;
     if (data.license) {
@@ -163,7 +168,7 @@
       await request('/v1/account');
       window.location.replace('/accounts/overview/');
     } catch {
-      setStatus('Sign in with Google, GitHub, Microsoft, or GitLab to create your trial.', 'neutral');
+      setStatus('Sign in with Google, GitHub, Microsoft, GitLab, or Telegram to create your trial.', 'neutral');
     }
   };
 
@@ -183,6 +188,7 @@
       githubConfigured = Boolean(config.github_enabled);
       microsoftConfigured = Boolean(config.microsoft_enabled);
       gitlabConfigured = Boolean(config.gitlab_enabled);
+      telegramConfigured = Boolean(config.telegram_enabled);
 
       let googleReady = false;
       if (config.google_client_id) {
@@ -206,7 +212,7 @@
           googleReady = true;
         } catch (error) {
           googleMount.hidden = true;
-          if (!githubConfigured && !microsoftConfigured && !gitlabConfigured) throw error;
+          if (!githubConfigured && !microsoftConfigured && !gitlabConfigured && !telegramConfigured) throw error;
         }
       } else {
         googleMount.hidden = true;
@@ -214,7 +220,7 @@
 
       googleConfigured = googleReady;
       syncProviderVisibility();
-      if (!googleReady && !githubConfigured && !microsoftConfigured && !gitlabConfigured) throw new Error('No sign-in provider is configured yet.');
+      if (!googleReady && !githubConfigured && !microsoftConfigured && !gitlabConfigured && !telegramConfigured) throw new Error('No sign-in provider is configured yet.');
       await loadAccount();
       const authError = new URLSearchParams(window.location.search).get('auth_error');
       if (authError && account.hidden) setStatus(authError, 'error');
@@ -277,7 +283,7 @@
     hideLicenseKey();
     if (signinRow) signinRow.hidden = false;
     syncProviderVisibility();
-    setStatus('Signed out. Sign in with Google, GitHub, Microsoft, or GitLab to continue.', 'neutral');
+    setStatus('Signed out. Sign in with Google, GitHub, Microsoft, GitLab, or Telegram to continue.', 'neutral');
   });
 
   initialize();
