@@ -20,6 +20,40 @@ Auto Travel runs the main step loop. It waits for server cooldown, adds a small 
 
 When travel finds an NPC encounter, the bot can attack automatically until the encounter ends. It records NPC kills, EXP, gold, and hit count.
 
+## Battle Arena
+
+Battle Arena can run once or continue automatically. Natural Energy mode waits for regenerated energy; Auto MOE mode pauses travel and uses one Mushroom of Energy when the battle needs energy. The menu reports energy, league progress, wins, hits, and MOE usage.
+
+## Auto World Boss
+
+Auto World Boss reads the current and upcoming boss schedule from the live battle page. When a boss becomes attackable, the bot stores the current travel state, pauses Auto Travel, attacks the boss, and restores the exact previous travel state after the boss finishes or the attack exits safely.
+
+If travel was already paused manually—or held by another blocking feature—the World Boss worker does not force it to resume. The dedicated Telegram menu includes Auto ON/OFF, **View Upcoming World Bosses**, statistics, status, refresh, and a separate notification toggle.
+
+| Method | API | Description |
+|---|---|---|
+| `GET` | `/battle` | Loads `battle.world_boss.upcoming`, the next boss, HP, level, schedule, and attackable/dead state. |
+| `GET` | `/worldboss/attack/{boss_id}?new_page=true` | Loads fresh attack context and tokens for the selected boss. |
+| `DYNAMIC` | Dynamic World Boss attack endpoint | Sends attacks using the endpoint parsed from the live page. |
+
+## Player Battle
+
+Player Battle has manual and automatic modes:
+
+- **Manual Battle** lists opponents that match the active filters. If energy is zero, the bot uses one MOE without a confirmation prompt, performs the selected battle, and restores the previous travel state.
+- **Auto MOE** pauses travel while active, disables Auto Sprint, attacks filtered players, and uses one MOE automatically when energy reaches zero.
+- **Natural Energy** waits for regenerated energy and a configurable interval. Energy is calculated at one point per five minutes, so a 30-minute interval requires six energy before starting the next automatic player battle.
+
+Filters and advanced filters include minimum/maximum level, minimum gold, guild ID, Guild War only, bounty only, include unattackable, and reset. Mode, interval, filters, and toggle state are persisted.
+
+| Method | API | Description |
+|---|---|---|
+| `GET` | `/battle` | Loads the current signed `generate-opponents` endpoint. |
+| `POST` | Dynamic `/api/battle/colosseum/generate-opponents` URL | Generates opponents using the selected filters. |
+| `GET` | `/user/attack/{player_id}?new_page=true` | Loads fresh attack context and tokens. |
+| `POST` | `/api/user/attack/{player_id}` | Performs the player battle action. |
+| `DYNAMIC` | MOE refill endpoint | Uses one MOE without confirmation when the selected mode permits it and energy is empty. |
+
 ## Material Gather
 
 When travel finds material encounters, the bot gathers automatically and reports material amount, player EXP, skill EXP, and level changes if notifications are enabled.
@@ -32,9 +66,11 @@ Auto Equip attempts to equip found equipment through the web flow. It is mutuall
 |---|---|---|
 | `GET` | `/inventory/equip/{item_id}?api=true` | Equips selected equipment item through SimpleMMO inventory flow. |
 
-## Captcha Solver
+## Captcha Solver, Optional AI, and Debug
 
-If bot verification appears, the captcha is sent to Telegram. The user answers with inline buttons.
+If bot verification appears, the captcha can be sent to Telegram and answered with inline buttons. Optional AI assistance is enabled only from the private local configuration. The AI response must end with a validated `FINAL_CHOICE: N`; truncated `MAX_TOKENS`/`LENGTH` output receives one continuation attempt before the solver falls back safely.
+
+The normal **Captcha / Warning** notification toggle remains separate. **Captcha Debug** can mirror the full terminal flow to Telegram for diagnosis. Its title is shown only on the first debug message of each CAPTCHA run, while following messages contain only the raw log line.
 
 | Method | API | Description |
 |---|---|---|

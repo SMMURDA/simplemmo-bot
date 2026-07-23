@@ -42,6 +42,9 @@ The bot is controlled from Telegram using a persistent reply keyboard and inline
 | `/profession` | Opens Profession Center. |
 | `/daily` | Opens Daily Reward Center. |
 | `/abyss` | Opens Abyss Center. |
+| `/battle` | Opens the existing Battle Arena menu. |
+| `/worldboss` / `♛ World Boss` | Opens World Boss status, schedule, statistics, and Auto Attack toggle. |
+| `/playerbattle` / `⚔ Player Battle` | Opens manual/automatic Player Battle, energy mode, interval, filters, and statistics. |
 | `/healer` | Opens Healer Center. |
 | `/autocraft` | Opens Auto Craft menu. |
 | `/craftqueue` | Opens Crafting Queue menu. |
@@ -58,6 +61,7 @@ The bot is controlled from Telegram using a persistent reply keyboard and inline
 | `POST` | `/deleteMessage` | Deletes temporary menus when closed. |
 | `POST` | `/answerCallbackQuery` | Acknowledges inline button actions. |
 | `POST` | `/sendPhoto` | Sends captcha images or image-based content. |
+| `POST` | `/sendMessage` | Also delivers enabled World Boss, Player Battle, and CAPTCHA Debug notifications. |
 | `GET` | `/getUpdates` | Polls messages and callback data. |
 | `GET` | `/getMe` | Checks bot token validity. |
 

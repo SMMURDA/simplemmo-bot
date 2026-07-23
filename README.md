@@ -13,6 +13,7 @@ Visit [topup.eu.org](https://topup.eu.org) for product information, setup instru
 - Feature and API reference
 - Release and installation instructions
 - Security and privacy information
+- Public OAuth provider setup guidance (without client secrets or private Worker source)
 
 The production Python source, license server administration tools, private signing keys, user credentials, and compiled build workspace are not included in this public repository.
 
