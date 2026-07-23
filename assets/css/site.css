@@ -1161,3 +1161,10 @@ body.image-lightbox-open { overflow: hidden; }
 .landing-v2{margin-top:0}
 @media(max-width:900px){.landing-v2{margin-top:0}}
 @media(max-width:600px){.landing-v2{margin-top:0}}
+
+
+/* Comfortable mobile gutters: no zoom adjustment required at default 100% scale. */
+@media(max-width:600px){.landing-v2 .lv-shell{width:min(100% - 48px,var(--lv-max))}.landing-v2 .lv-feature,.landing-v2 .lv-price-card,.landing-v2 .lv-notice{border-radius:14px}}
+
+/* Keep the full-bleed background without introducing horizontal overflow on phones. */
+@media(max-width:600px){.landing-v2{margin-right:0;margin-left:calc(50% - 50vw);width:100vw}}
