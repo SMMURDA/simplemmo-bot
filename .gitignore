@@ -13,3 +13,4 @@ license.key
 secrets/
 *.pem
 *.key
+*.mp4
