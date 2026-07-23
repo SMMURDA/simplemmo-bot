@@ -172,16 +172,6 @@
     }
   };
 
-  const loadGoogle = (clientId) => new Promise((resolve, reject) => {
-    const script = document.createElement('script');
-    script.src = 'https://accounts.google.com/gsi/client';
-    script.async = true;
-    script.defer = true;
-    script.onload = () => resolve(clientId);
-    script.onerror = () => reject(new Error('Google sign-in could not be loaded.'));
-    document.head.appendChild(script);
-  });
-
   const initialize = async () => {
     try {
       const config = await request('/v1/auth/config', { method: 'GET', headers: {} });
@@ -190,34 +180,7 @@
       gitlabConfigured = Boolean(config.gitlab_enabled);
       telegramConfigured = Boolean(config.telegram_enabled);
 
-      let googleReady = false;
-      if (config.google_client_id) {
-        try {
-          await loadGoogle(config.google_client_id);
-          google.accounts.id.initialize({
-            client_id: config.google_client_id,
-            callback: async ({ credential }) => {
-              setStatus('Verifying your Google sign-in…');
-              try {
-                const result = await request('/v1/auth/google', {
-                  method: 'POST',
-                  body: JSON.stringify({ credential }),
-                });
-                window.location.assign('/accounts/overview/');
-              } catch (error) {
-                setStatus(error.message, 'error');
-              }
-            },
-          });
-          googleReady = true;
-        } catch (error) {
-          googleMount.hidden = true;
-          if (!githubConfigured && !microsoftConfigured && !gitlabConfigured && !telegramConfigured) throw error;
-        }
-      } else {
-        googleMount.hidden = true;
-      }
-
+      const googleReady = Boolean(config.google_oauth_enabled);
       googleConfigured = googleReady;
       syncProviderVisibility();
       if (!googleReady && !githubConfigured && !microsoftConfigured && !gitlabConfigured && !telegramConfigured) throw new Error('No sign-in provider is configured yet.');
@@ -228,19 +191,6 @@
       setStatus(error.message, 'error');
     }
   };
-
-  googleMount?.addEventListener('click', () => {
-    if (!googleConfigured || !window.google?.accounts?.id) {
-      setStatus('Google sign-in is not ready yet. Please try again.', 'error');
-      return;
-    }
-    setStatus('Opening Google sign-in…', 'neutral');
-    google.accounts.id.prompt((notification) => {
-      if (notification?.isNotDisplayed?.() || notification?.isSkippedMoment?.()) {
-        setStatus('Google sign-in could not be opened in this browser. Allow identity prompts and try again.', 'error');
-      }
-    });
-  });
 
   create?.addEventListener('click', async () => {
     create.disabled = true;
