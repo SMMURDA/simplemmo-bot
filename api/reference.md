@@ -58,6 +58,30 @@ This page groups the API routes used by the script and explains their purpose.
 | `GET` | `/events?new_page_refresh=true` | Event | Refreshes event list. |
 | `GET` | `/events/{slug}?new_page=true` | Event | Loads selected event detail. |
 | `GET` | `/home` | Game notifications | Loads home page for notification checks. |
+| `GET` | `/battle` | Arena, World Boss, Player Battle | Loads arena endpoints, boss schedule/status, and signed opponent-generation endpoint. |
+| `GET` | `/worldboss/attack/{boss_id}?new_page=true` | Auto World Boss | Loads fresh boss attack context. |
+| `DYNAMIC` | Dynamic World Boss attack endpoint | Auto World Boss | Attacks an available boss using the endpoint parsed from the live page. |
+| `POST` | Dynamic `/api/battle/colosseum/generate-opponents` URL | Player Battle | Generates opponents from normal and advanced filters. |
+| `GET` | `/user/attack/{player_id}?new_page=true` | Player Battle | Loads current player attack context and tokens. |
+| `POST` | `/api/user/attack/{player_id}` | Player Battle | Performs a player battle action. |
+
+## Trial and Member Authentication Routes
+
+These routes belong to the private license Worker, not SimpleMMO. OAuth secrets and account-linking logic must remain server-side.
+
+| Method | API | Description |
+|---|---|---|
+| `GET` | `/v1/auth/config` | Returns enabled providers. Microsoft is shown only when `microsoft_enabled` is true. |
+| `POST` | `/v1/auth/google` | Verifies Google credential and resolves the internal user. |
+| `GET` | `/v1/auth/github` | Starts GitHub OAuth. |
+| `GET` | `/v1/auth/github/callback` | Verifies GitHub callback and resolves/link the internal account. |
+| `GET` | `/v1/auth/microsoft` | Starts Microsoft OAuth with state and PKCE. |
+| `GET` | `/v1/auth/microsoft/callback` | Verifies Microsoft identity and links by accepted verified normalized email. |
+| `POST` | `/v1/auth/logout` | Ends the member session. |
+| `GET` | `/v1/account` | Returns the signed-in internal account and license state. |
+| `POST` | `/v1/trial` | Creates a trial only when the resolved internal user is eligible. |
+
+A Google, GitHub, or Microsoft identity with the same accepted verified normalized email must resolve to the same internal `user_id`. See [Microsoft Login Setup]({{ '/microsoft-login-setup/' | relative_url }}) for conflict handling and safe deployment.
 
 ## Telegram Routes
 

@@ -920,7 +920,7 @@ body.image-lightbox-open { overflow: hidden; }
 }
 
 
-/* Google + GitHub sign-in options for the free trial. */
+/* Google, GitHub, and Microsoft sign-in options for the free trial. */
 .trial-login-options {
   width: min(100%, 320px);
   display: grid;
@@ -930,6 +930,7 @@ body.image-lightbox-open { overflow: hidden; }
 .trial-login-options[hidden],
 .trial-row--signin[hidden],
 .github-signin[hidden],
+.microsoft-signin[hidden],
 .trial-login-divider[hidden] { display: none !important; }
 .trial-login-divider {
   display: grid;
@@ -947,7 +948,7 @@ body.image-lightbox-open { overflow: hidden; }
   background: var(--border);
 }
 .trial-login-divider span { padding: 0 2px; }
-.github-signin {
+.provider-signin {
   min-height: 44px;
   display: inline-flex;
   align-items: center;
@@ -964,26 +965,30 @@ body.image-lightbox-open { overflow: hidden; }
   text-decoration: none;
   transition: transform .18s ease, border-color .18s ease, background-color .18s ease;
 }
-.github-signin:hover {
+.provider-signin:hover {
   transform: translateY(-1px);
   border-color: rgba(255,255,255,.42);
   background: #30363d;
   color: #ffffff;
 }
-.github-signin:focus-visible {
+.provider-signin:focus-visible {
   outline: 3px solid color-mix(in srgb, var(--blue) 45%, transparent);
   outline-offset: 3px;
 }
-.github-signin svg { width: 21px; height: 21px; flex: 0 0 21px; fill: currentColor; }
+.provider-signin svg { width: 21px; height: 21px; flex: 0 0 21px; }
+.github-signin svg { fill: currentColor; }
 .trial-avatar--github { background: #24292f; color: #ffffff; font-size: 11px; }
+.microsoft-signin { background: #ffffff; border-color: #8c8c8c; color: #2f2f2f; }
+.microsoft-signin:hover { background: #f5f5f5; border-color: #5f5f5f; color: #111111; }
+.trial-avatar--microsoft { background: #ffffff; border: 1px solid #8c8c8c; color: #2f2f2f; font-size: 10px; }
 .trial-shell--v5 .trial-status--error { display: block !important; margin: 10px auto; text-align: center; }
 @media (max-width: 420px) {
   .trial-login-options { width: 100%; }
-  .github-signin { width: 100%; }
+  .provider-signin { width: 100%; }
 }
 @media (prefers-reduced-motion: reduce) {
-  .github-signin { transition: none; }
-  .github-signin:hover { transform: none; }
+  .provider-signin { transition: none; }
+  .provider-signin:hover { transform: none; }
 }
 
 

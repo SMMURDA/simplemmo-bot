@@ -57,7 +57,10 @@ Notification settings are persistent and can be toggled from Telegram.
 | NPC Kill | Sends NPC kill summary. |
 | Auto Sell | Sends Auto Sell result messages. |
 | Auto Equip | Sends Auto Equip result messages. |
-| Captcha / Warning | Sends captcha and warning messages. |
+| Captcha / Warning | Sends the normal captcha and warning flow. |
+| Captcha Debug | Mirrors terminal CAPTCHA logs to Telegram without changing the normal captcha toggle. |
+| World Boss | Sends boss available, attack, completion, and error/status notifications. |
+| Player Battle | Sends auto mode, result, MOE, and stop/error notifications. |
 | Hourly Report | Sends periodic dashboard report. |
 
 | File | Description |
@@ -72,7 +75,7 @@ Important toggles and selected options survive restarts through local JSON stora
 |---|---|
 | `data/runtime_settings.json` | Stores runtime feature toggles and selected values. |
 
-Saved values include Auto Equip, Auto Sell, Auto Sell rarity, Auto Sprint, Auto Quest, Auto Craft, Auto MOE, Auto Healer, Auto Abyss, Bank Auto Deposit, and related quantities/options.
+Saved values include Auto Equip, Auto Sell, Auto Sell rarity, Auto Sprint, Auto Quest, Auto Craft, Auto MOE, Auto Healer, Auto Abyss, Battle Arena, Auto World Boss, Player Battle mode/interval/filters, Bank Auto Deposit, and related quantities/options.
 
 ## Event Center
 
