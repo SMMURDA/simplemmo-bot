@@ -134,7 +134,7 @@ Jika `gitlab_enabled` false, periksa kedua secret GitLab dan pastikan secret dip
 
 Deploy isi paket frontend GitLab-ready ke repository yang menjalankan `https://topup.eu.org`, lalu tunggu GitHub Pages selesai.
 
-Halaman `/trial/` menampilkan provider yang aktif saja. Pada desktop tampil satu baris horizontal; pada mobile tampil grid 2×2 agar tidak overflow. Setiap tombol hanya berisi logo dan nama provider.
+Halaman `/trial/` menampilkan provider yang aktif saja. Pada desktop dan mobile provider tampil dalam dua baris terpusat agar tidak overflow. Setiap tombol hanya berisi logo dan nama provider.
 
 ## 7. Uji login
 

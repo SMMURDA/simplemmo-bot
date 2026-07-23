@@ -202,3 +202,33 @@ document.querySelectorAll('[data-license-examples]').forEach((exampleGroup) => {
   });
   activate(tabs.find((tab) => tab.classList.contains('is-active'))?.dataset.licenseTab || tabs[0]?.dataset.licenseTab);
 });
+
+
+// Session-aware Trial/Dashboard navigation.
+const accountNavLink = document.querySelector('#account-nav-link');
+if (accountNavLink) {
+  const trialHref = accountNavLink.dataset.trialHref || '/trial/';
+  const dashboardHref = accountNavLink.dataset.dashboardHref || '/accounts/';
+  let accountNavState = 'checking';
+  const resolveAccountNavigation = fetch('https://license.topup.eu.org/v1/account', {
+    method: 'GET',
+    credentials: 'include',
+    headers: { Accept: 'application/json' },
+  }).then((response) => {
+    accountNavState = response.ok ? 'authenticated' : 'guest';
+    accountNavLink.textContent = response.ok ? 'Dashboard' : 'Trial';
+    accountNavLink.href = response.ok ? dashboardHref : trialHref;
+    return accountNavState;
+  }).catch(() => {
+    accountNavState = 'guest';
+    accountNavLink.textContent = 'Trial';
+    accountNavLink.href = trialHref;
+    return accountNavState;
+  });
+  accountNavLink.addEventListener('click', async (event) => {
+    if (accountNavState !== 'checking') return;
+    event.preventDefault();
+    await resolveAccountNavigation;
+    window.location.assign(accountNavState === 'authenticated' ? dashboardHref : trialHref);
+  });
+}
