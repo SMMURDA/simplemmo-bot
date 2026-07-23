@@ -1223,3 +1223,18 @@ body.image-lightbox-open { overflow: hidden; }
 @media (max-width: 300px) {
   .trial-shell--v5 .trial-login-options { grid-template-columns: 1fr; }
 }
+
+
+/* Telegram OIDC provider and five-provider responsive arrangement. */
+.trial-shell--v5 .provider-signin--telegram svg { width: 23px; height: 23px; }
+.trial-avatar--telegram { background:#229ed9; color:#fff; font-size:10px; }
+@media (max-width:540px) and (min-width:351px) {
+  .trial-shell--v5 .trial-login-options { width:min(100%,360px); grid-template-columns:repeat(6,minmax(0,1fr)); }
+  .trial-shell--v5 .trial-login-options > * { grid-column:span 2; font-size:12px; padding:0 7px!important; }
+  .trial-shell--v5 .trial-login-options > :nth-child(4) { grid-column:2 / span 2; }
+  .trial-shell--v5 .trial-login-options > :nth-child(5) { grid-column:4 / span 2; }
+}
+@media (max-width:350px) {
+  .trial-shell--v5 .trial-login-options { grid-template-columns:repeat(2,minmax(0,1fr)); }
+  .trial-shell--v5 .trial-login-options > :last-child { grid-column:1 / -1; width:min(100%,150px)!important; justify-self:center; }
+}

@@ -15,6 +15,7 @@ Visit [topup.eu.org](https://topup.eu.org) for product information, setup instru
 - Security and privacy information
 - Public OAuth provider setup guidance (without client secrets or private Worker source)
 - GitLab OAuth setup guide: `GITLAB_LOGIN_SETUP.md`
+- Telegram OIDC setup guide: `TELEGRAM_LOGIN_SETUP.md`
 
 The production Python source, license server administration tools, private signing keys, user credentials, and compiled build workspace are not included in this public repository.
 
