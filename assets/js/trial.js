@@ -4,8 +4,7 @@
   const googleMount = document.querySelector('#google-signin');
   const githubButton = document.querySelector('#github-signin');
   const microsoftButton = document.querySelector('#microsoft-signin');
-  const githubDivider = document.querySelector('#github-login-divider');
-  const microsoftDivider = document.querySelector('#microsoft-login-divider');
+  const gitlabButton = document.querySelector('#gitlab-signin');
   const signinRow = document.querySelector('#trial-signin-row');
   const account = document.querySelector('#trial-account');
   const action = document.querySelector('#trial-action');
@@ -26,6 +25,7 @@
   const avatar = document.querySelector('#trial-avatar');
   let githubConfigured = false;
   let microsoftConfigured = false;
+  let gitlabConfigured = false;
   let googleConfigured = false;
   if (!status || !googleMount) return;
 
@@ -37,12 +37,9 @@
 
   const syncProviderVisibility = () => {
     googleMount.hidden = !googleConfigured;
-    let hasVisibleProvider = googleConfigured;
     if (githubButton) githubButton.hidden = !githubConfigured;
-    if (githubDivider) githubDivider.hidden = !githubConfigured || !hasVisibleProvider;
-    if (githubConfigured) hasVisibleProvider = true;
     if (microsoftButton) microsoftButton.hidden = !microsoftConfigured;
-    if (microsoftDivider) microsoftDivider.hidden = !microsoftConfigured || !hasVisibleProvider;
+    if (gitlabButton) gitlabButton.hidden = !gitlabConfigured;
   };
 
   const request = async (path, options = {}) => {
@@ -139,16 +136,16 @@
     googleMount.hidden = true;
     if (githubButton) githubButton.hidden = true;
     if (microsoftButton) microsoftButton.hidden = true;
-    if (githubDivider) githubDivider.hidden = true;
-    if (microsoftDivider) microsoftDivider.hidden = true;
+    if (gitlabButton) gitlabButton.hidden = true;
     account.hidden = false;
     const provider = String(data.user.provider || '').toLowerCase();
     if (avatar) {
-      avatar.textContent = provider === 'github' ? 'GH' : (provider === 'microsoft' ? 'MS' : 'G');
+      avatar.textContent = provider === 'github' ? 'GH' : (provider === 'microsoft' ? 'MS' : (provider === 'gitlab' ? 'GL' : 'G'));
       avatar.classList.toggle('trial-avatar--github', provider === 'github');
       avatar.classList.toggle('trial-avatar--microsoft', provider === 'microsoft');
+      avatar.classList.toggle('trial-avatar--gitlab', provider === 'gitlab');
     }
-    const providerName = provider === 'github' ? 'GitHub account' : (provider === 'microsoft' ? 'Microsoft account' : 'Google account');
+    const providerName = provider === 'github' ? 'GitHub account' : (provider === 'microsoft' ? 'Microsoft account' : (provider === 'gitlab' ? 'GitLab account' : 'Google account'));
     name.textContent = data.user.name || providerName;
     email.textContent = data.user.email;
     if (data.license) {
@@ -166,7 +163,7 @@
       await request('/v1/account');
       window.location.replace('/accounts/overview/');
     } catch {
-      setStatus('Sign in with Google, GitHub, or Microsoft to create your trial.', 'neutral');
+      setStatus('Sign in with Google, GitHub, Microsoft, or GitLab to create your trial.', 'neutral');
     }
   };
 
@@ -185,6 +182,7 @@
       const config = await request('/v1/auth/config', { method: 'GET', headers: {} });
       githubConfigured = Boolean(config.github_enabled);
       microsoftConfigured = Boolean(config.microsoft_enabled);
+      gitlabConfigured = Boolean(config.gitlab_enabled);
 
       let googleReady = false;
       if (config.google_client_id) {
@@ -205,17 +203,10 @@
               }
             },
           });
-          google.accounts.id.renderButton(googleMount, {
-            theme: 'outline',
-            size: 'large',
-            text: 'continue_with',
-            shape: 'rect',
-            width: 320,
-          });
           googleReady = true;
         } catch (error) {
           googleMount.hidden = true;
-          if (!githubConfigured && !microsoftConfigured) throw error;
+          if (!githubConfigured && !microsoftConfigured && !gitlabConfigured) throw error;
         }
       } else {
         googleMount.hidden = true;
@@ -223,7 +214,7 @@
 
       googleConfigured = googleReady;
       syncProviderVisibility();
-      if (!googleReady && !githubConfigured && !microsoftConfigured) throw new Error('No sign-in provider is configured yet.');
+      if (!googleReady && !githubConfigured && !microsoftConfigured && !gitlabConfigured) throw new Error('No sign-in provider is configured yet.');
       await loadAccount();
       const authError = new URLSearchParams(window.location.search).get('auth_error');
       if (authError && account.hidden) setStatus(authError, 'error');
@@ -231,6 +222,19 @@
       setStatus(error.message, 'error');
     }
   };
+
+  googleMount?.addEventListener('click', () => {
+    if (!googleConfigured || !window.google?.accounts?.id) {
+      setStatus('Google sign-in is not ready yet. Please try again.', 'error');
+      return;
+    }
+    setStatus('Opening Google sign-in…', 'neutral');
+    google.accounts.id.prompt((notification) => {
+      if (notification?.isNotDisplayed?.() || notification?.isSkippedMoment?.()) {
+        setStatus('Google sign-in could not be opened in this browser. Allow identity prompts and try again.', 'error');
+      }
+    });
+  });
 
   create?.addEventListener('click', async () => {
     create.disabled = true;
@@ -273,7 +277,7 @@
     hideLicenseKey();
     if (signinRow) signinRow.hidden = false;
     syncProviderVisibility();
-    setStatus('Signed out. Sign in with Google, GitHub, or Microsoft to continue.', 'neutral');
+    setStatus('Signed out. Sign in with Google, GitHub, Microsoft, or GitLab to continue.', 'neutral');
   });
 
   initialize();
