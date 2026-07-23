@@ -40,7 +40,7 @@ The frontend keeps the Microsoft button hidden unless `/v1/auth/config` explicit
 
 ## Link by verified email
 
-Microsoft must behave like the existing GitHub login and resolve to the same internal user when the verified email matches an existing Google or GitHub account.
+Microsoft must behave like the existing GitHub login and resolve to the same internal user when the verified email matches an existing Google, GitHub, or GitLab account.
 
 Use this server-side order inside one database transaction:
 
@@ -50,7 +50,7 @@ Use this server-side order inside one database transaction:
 4. Normalize the email with `trim().toLowerCase()` and store a dedicated normalized value.
 5. Look up the provider identity by Microsoft subject/object ID.
 6. If no Microsoft identity exists, look up the existing internal user by normalized email.
-7. If the email matches a Google/GitHub user, attach the Microsoft identity to that same internal `user_id`; do **not** create a second balance, trial, role, or license owner.
+7. If the email matches a Google/GitHub/GitLab user, attach the Microsoft identity to that same internal `user_id`; do **not** create a second balance, trial, role, or license owner.
 8. If no user matches, create one internal user and one Microsoft identity row.
 9. Reject conflicts where the Microsoft identity is already attached to a different internal user.
 10. Create the portal session for the resolved internal user.

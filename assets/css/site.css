@@ -1173,3 +1173,53 @@ body.image-lightbox-open { overflow: hidden; }
 
 /* Keep the full-bleed background without introducing horizontal overflow on phones. */
 @media(max-width:600px){.landing-v2{margin-right:0;margin-left:calc(50% - 50vw);width:100vw}}
+
+
+/* Compact horizontal OAuth provider row: icon + provider name only. */
+.trial-shell--v5 .trial-row--signin { width: 100% !important; margin: 18px auto 20px !important; }
+.trial-shell--v5 .trial-login-options {
+  width: auto;
+  max-width: 100%;
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  align-items: center;
+  gap: 10px;
+}
+.trial-shell--v5 .provider-signin,
+.trial-shell--v5 .google-signin {
+  width: auto !important;
+  min-width: 112px !important;
+  min-height: 46px;
+  display: inline-flex !important;
+  align-items: center;
+  justify-content: center !important;
+  gap: 9px;
+  margin: 0 !important;
+  padding: 0 15px !important;
+  border: 1px solid rgba(255,255,255,.16) !important;
+  border-radius: 12px !important;
+  background: rgba(255,255,255,.045) !important;
+  color: var(--text) !important;
+  box-shadow: 0 8px 20px rgba(0,0,0,.12) !important;
+  font: 700 13px/1 inherit;
+  text-decoration: none;
+  cursor: pointer;
+}
+.trial-shell--v5 .provider-signin:hover,
+.trial-shell--v5 .google-signin:hover { transform: translateY(-2px); border-color: color-mix(in srgb,var(--blue) 55%,var(--border)) !important; background: rgba(255,255,255,.075) !important; }
+.trial-shell--v5 .provider-signin svg,
+.trial-shell--v5 .google-signin svg { width: 21px; height: 21px; flex: 0 0 21px; }
+.trial-shell--v5 .provider-signin--github svg { fill: #fff; }
+.trial-shell--v5 .provider-signin--gitlab svg { width: 23px; height: 23px; }
+.trial-shell--v5 .provider-signin[hidden],
+.trial-shell--v5 .google-signin[hidden] { display: none !important; }
+.trial-avatar--gitlab { background: #2b1538; color: #fc6d26; font-size: 10px; }
+@media (max-width: 540px) {
+  .trial-shell--v5 .trial-login-options { width: min(100%, 330px); display: grid; grid-template-columns: repeat(2,minmax(0,1fr)); }
+  .trial-shell--v5 .provider-signin,
+  .trial-shell--v5 .google-signin { width: 100% !important; min-width: 0 !important; padding: 0 11px !important; }
+}
+@media (max-width: 300px) {
+  .trial-shell--v5 .trial-login-options { grid-template-columns: 1fr; }
+}
