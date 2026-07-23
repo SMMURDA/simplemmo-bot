@@ -208,7 +208,7 @@ document.querySelectorAll('[data-license-examples]').forEach((exampleGroup) => {
 const accountNavLink = document.querySelector('#account-nav-link');
 if (accountNavLink) {
   const trialHref = accountNavLink.dataset.trialHref || '/trial/';
-  const dashboardHref = accountNavLink.dataset.dashboardHref || '/accounts/';
+  const dashboardHref = accountNavLink.dataset.dashboardHref || '/accounts/overview/';
   let accountNavState = 'checking';
   const resolveAccountNavigation = fetch('https://license.topup.eu.org/v1/account', {
     method: 'GET',
