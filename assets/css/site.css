@@ -1238,3 +1238,24 @@ body.image-lightbox-open { overflow: hidden; }
   .trial-shell--v5 .trial-login-options { grid-template-columns:repeat(2,minmax(0,1fr)); }
   .trial-shell--v5 .trial-login-options > :last-child { grid-column:1 / -1; width:min(100%,150px)!important; justify-self:center; }
 }
+
+
+/* Final OAuth arrangement: two centered rows (3 + 2) on desktop and mobile. */
+.trial-shell--v5 .trial-login-options {
+  width:min(100%,420px)!important;
+  display:grid!important;
+  grid-template-columns:repeat(6,minmax(0,1fr))!important;
+  gap:10px!important;
+}
+.trial-shell--v5 .trial-login-options > * {
+  grid-column:span 2!important;
+  width:100%!important;
+  min-width:0!important;
+}
+.trial-shell--v5 .trial-login-options > :nth-child(4) { grid-column:2 / span 2!important; }
+.trial-shell--v5 .trial-login-options > :nth-child(5) { grid-column:4 / span 2!important; }
+@media(max-width:350px) {
+  .trial-shell--v5 .trial-login-options { grid-template-columns:repeat(2,minmax(0,1fr))!important; width:min(100%,300px)!important; }
+  .trial-shell--v5 .trial-login-options > * { grid-column:auto!important; }
+  .trial-shell--v5 .trial-login-options > :last-child { grid-column:1 / -1!important; width:min(100%,145px)!important; justify-self:center; }
+}

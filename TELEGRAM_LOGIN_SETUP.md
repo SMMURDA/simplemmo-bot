@@ -75,7 +75,7 @@ Harus memuat `"telegram_enabled": true`.
 
 ## 5. Deploy frontend
 
-Deploy paket GitHub Pages Telegram-ready. Tombol Telegram hanya tampil ketika config backend aktif. Desktop menampilkan lima provider satu baris; mobile memakai susunan 3+2 atau dua kolom pada layar lebih kecil.
+Deploy paket GitHub Pages Telegram-ready. Tombol Telegram hanya tampil ketika config backend aktif. Desktop dan mobile memakai dua baris terpusat dengan susunan 3+2; layar sangat kecil memakai dua kolom.
 
 ## 6. Uji
 
