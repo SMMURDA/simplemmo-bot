@@ -228,18 +228,20 @@ if (accountNavLink) {
   const trialHref = accountNavLink.dataset.trialHref || '/trial/';
   const dashboardHref = accountNavLink.dataset.dashboardHref || '/accounts/overview/';
   let accountNavState = 'checking';
+  const navLabel = accountNavLink.querySelector('.nav-label');
+  const setNavText = (text) => { if (navLabel) navLabel.textContent = text; else accountNavLink.textContent = text; };
   const resolveAccountNavigation = fetch('https://license.topup.eu.org/v1/account', {
     method: 'GET',
     credentials: 'include',
     headers: { Accept: 'application/json' },
   }).then((response) => {
     accountNavState = response.ok ? 'authenticated' : 'guest';
-    accountNavLink.textContent = response.ok ? 'Dashboard' : 'Trial';
+    setNavText(response.ok ? 'Dashboard' : 'Trial');
     accountNavLink.href = response.ok ? dashboardHref : trialHref;
     return accountNavState;
   }).catch(() => {
     accountNavState = 'guest';
-    accountNavLink.textContent = 'Trial';
+    setNavText('Trial');
     accountNavLink.href = trialHref;
     return accountNavState;
   });
