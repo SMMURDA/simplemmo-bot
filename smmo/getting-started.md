@@ -1,9 +1,10 @@
 ---
-title: Getting Started
-permalink: /getting-started/
+title: "Getting Started — SimpleMMO Bot"
+permalink: /smmo/getting-started/
+product: smmo
 ---
 
-{% include product-switcher.html simplemmo_href="/getting-started/" vhack_href="/vhack/getting-started/" %}
+{% include product-switcher.html simplemmo_href="/smmo/getting-started/" vhack_href="/vhack/getting-started/" %}
 
 # Getting Started
 
@@ -13,7 +14,7 @@ This guide takes you from a downloaded release to a verified, running bot. Every
 
 ## 1. Download the correct release
 
-Open the [Downloads]({{ '/downloads/' | relative_url }}) page and choose the package for your operating system:
+Open the [Downloads]({{ '/smmo/downloads/' | relative_url }}) page and choose the package for your operating system:
 
 - `windows-x64` for 64-bit Windows 10 or 11.
 - `linux-x64` for a 64-bit Intel/AMD Linux server.
@@ -39,7 +40,7 @@ cp .env.example .env
 nano .env
 ```
 
-Fill the file with your own game cookies, browser User-Agent, and Telegram credentials. See [Configuration]({{ '/configuration/' | relative_url }}) for every field.
+Fill the file with your own game cookies, browser User-Agent, and Telegram credentials. See [Configuration]({{ '/smmo/configuration/' | relative_url }}) for every field.
 
 ## 3. Start the launcher
 
@@ -68,7 +69,7 @@ For systemd or other non-interactive services, place the key in `.env`:
 SMMO_LICENSE_KEY=SMMO-XXXXX-XXXXX-XXXXX-XXXXX
 ```
 
-Read [Licensing]({{ '/licensing/' | relative_url }}) for activation and device-limit details.
+Read [Licensing]({{ '/smmo/licensing/' | relative_url }}) for activation and device-limit details.
 
 ## 5. Confirm the startup sequence
 

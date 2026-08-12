@@ -1,9 +1,10 @@
 ---
-title: Troubleshooting
-permalink: /troubleshooting/
+title: "Troubleshooting — SimpleMMO Bot"
+permalink: /smmo/troubleshooting/
+product: smmo
 ---
 
-{% include product-switcher.html simplemmo_href="/troubleshooting/" vhack_href="/vhack/troubleshooting/" %}
+{% include product-switcher.html simplemmo_href="/smmo/troubleshooting/" vhack_href="/vhack/troubleshooting/" %}
 
 # Troubleshooting
 

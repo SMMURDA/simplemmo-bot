@@ -1,9 +1,10 @@
 ---
-title: Settings, Notifications, and Dashboard
-permalink: /features/settings-dashboard/
+title: "Settings & Dashboard — SimpleMMO Bot"
+permalink: /smmo/features/settings-dashboard/
+product: smmo
 ---
 
-{% include product-switcher.html simplemmo_href="/features/settings-dashboard/" vhack_href="/vhack/features/web-dashboard/" %}
+{% include product-switcher.html simplemmo_href="/smmo/features/settings-dashboard/" vhack_href="/vhack/features/web-dashboard/" %}
 
 # Settings, Notifications & Dashboard
 
@@ -116,11 +117,11 @@ Debug Panel checks common failure points such as cookies, CSRF, API token, Teleg
 ## Continue Reading
 
 <nav class="continue-reading" aria-label="Feature navigation">
-  <a class="continue-reading-card continue-reading-card--previous" href="{{ '/features/crafting/' | relative_url }}">
+  <a class="continue-reading-card continue-reading-card--previous" href="{{ '/smmo/features/crafting/' | relative_url }}">
     <span class="continue-reading-label"><span aria-hidden="true">←</span> Previous</span>
     <strong>Crafting System</strong>
   </a>
-  <a class="continue-reading-card continue-reading-card--next" href="{{ '/api/reference/' | relative_url }}">
+  <a class="continue-reading-card continue-reading-card--next" href="{{ '/smmo/api/reference/' | relative_url }}">
     <span class="continue-reading-label">Next <span aria-hidden="true">→</span></span>
     <strong>API Reference</strong>
   </a>

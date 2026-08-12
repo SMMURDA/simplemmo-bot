@@ -1,9 +1,10 @@
 ---
-title: Automation Features
-permalink: /features/automation/
+title: "Automation — SimpleMMO Bot"
+permalink: /smmo/features/automation/
+product: smmo
 ---
 
-{% include product-switcher.html simplemmo_href="/features/automation/" vhack_href="/vhack/features/automation/" %}
+{% include product-switcher.html simplemmo_href="/smmo/features/automation/" vhack_href="/vhack/features/automation/" %}
 
 # Automation Features
 
@@ -130,11 +131,11 @@ Temple menu shows worship status, god options, reset time, diamonds, and extra w
 ## Continue Reading
 
 <nav class="continue-reading" aria-label="Feature navigation">
-  <a class="continue-reading-card continue-reading-card--previous" href="{{ '/features/telegram-controls/' | relative_url }}">
+  <a class="continue-reading-card continue-reading-card--previous" href="{{ '/smmo/features/telegram-controls/' | relative_url }}">
     <span class="continue-reading-label"><span aria-hidden="true">←</span> Previous</span>
     <strong>Telegram Controls</strong>
   </a>
-  <a class="continue-reading-card continue-reading-card--next" href="{{ '/features/economy/' | relative_url }}">
+  <a class="continue-reading-card continue-reading-card--next" href="{{ '/smmo/features/economy/' | relative_url }}">
     <span class="continue-reading-label">Next <span aria-hidden="true">→</span></span>
     <strong>Inventory, Bank & Economy</strong>
   </a>

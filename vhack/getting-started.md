@@ -4,7 +4,7 @@ permalink: /vhack/getting-started/
 product: vhack
 ---
 
-{% include product-switcher.html simplemmo_href="/getting-started/" vhack_href="/vhack/getting-started/" %}
+{% include product-switcher.html simplemmo_href="/smmo/getting-started/" vhack_href="/vhack/getting-started/" %}
 
 # Getting Started — VHack Revolution Bot
 

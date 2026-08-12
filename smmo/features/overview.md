@@ -1,9 +1,10 @@
 ---
-title: Feature Overview
-permalink: /features/overview/
+title: "Feature Overview — SimpleMMO Bot"
+permalink: /smmo/features/overview/
+product: smmo
 ---
 
-{% include product-switcher.html simplemmo_href="/features/overview/" vhack_href="/vhack/features/overview/" %}
+{% include product-switcher.html simplemmo_href="/smmo/features/overview/" vhack_href="/vhack/features/overview/" %}
 
 # Feature Overview
 
@@ -58,7 +59,7 @@ This page lists every main feature available in the script.
     <span class="continue-reading-label"><span aria-hidden="true">←</span> Previous</span>
     <strong>Home</strong>
   </a>
-  <a class="continue-reading-card continue-reading-card--next" href="{{ '/features/telegram-controls/' | relative_url }}">
+  <a class="continue-reading-card continue-reading-card--next" href="{{ '/smmo/features/telegram-controls/' | relative_url }}">
     <span class="continue-reading-label">Next <span aria-hidden="true">→</span></span>
     <strong>Telegram Controls</strong>
   </a>

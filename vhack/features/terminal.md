@@ -4,7 +4,7 @@ permalink: /vhack/features/terminal/
 product: vhack
 ---
 
-{% include product-switcher.html simplemmo_href="/features/telegram-controls/" vhack_href="/vhack/features/terminal/" %}
+{% include product-switcher.html simplemmo_href="/smmo/features/telegram-controls/" vhack_href="/vhack/features/terminal/" %}
 
 # Terminal Interface — VHack Revolution Bot
 

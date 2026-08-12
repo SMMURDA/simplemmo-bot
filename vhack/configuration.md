@@ -4,7 +4,7 @@ permalink: /vhack/configuration/
 product: vhack
 ---
 
-{% include product-switcher.html simplemmo_href="/configuration/" vhack_href="/vhack/configuration/" %}
+{% include product-switcher.html simplemmo_href="/smmo/configuration/" vhack_href="/vhack/configuration/" %}
 
 # Configuration — VHack Revolution Bot
 

@@ -4,7 +4,7 @@ permalink: /vhack/features/automation/
 product: vhack
 ---
 
-{% include product-switcher.html simplemmo_href="/features/automation/" vhack_href="/vhack/features/automation/" %}
+{% include product-switcher.html simplemmo_href="/smmo/features/automation/" vhack_href="/vhack/features/automation/" %}
 
 # Automation — VHack Revolution Bot
 

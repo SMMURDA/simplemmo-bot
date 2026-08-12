@@ -1,9 +1,10 @@
 ---
-title: Downloads
-permalink: /downloads/
+title: "Downloads — SimpleMMO Bot"
+permalink: /smmo/downloads/
+product: smmo
 ---
 
-{% include product-switcher.html simplemmo_href="/downloads/" vhack_href="/vhack/downloads/" %}
+{% include product-switcher.html simplemmo_href="/smmo/downloads/" vhack_href="/vhack/downloads/" %}
 
 # Downloads
 
@@ -57,4 +58,4 @@ Unsigned or newly released executables may trigger a Windows reputation prompt. 
 
 ## Before launching
 
-Read [Getting Started]({{ '/getting-started/' | relative_url }}) and prepare your own SimpleMMO and Telegram credentials. Do not use a configuration supplied by another person.
+Read [Getting Started]({{ '/smmo/getting-started/' | relative_url }}) and prepare your own SimpleMMO and Telegram credentials. Do not use a configuration supplied by another person.

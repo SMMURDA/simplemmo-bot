@@ -4,7 +4,7 @@ permalink: /vhack/features/web-dashboard/
 product: vhack
 ---
 
-{% include product-switcher.html simplemmo_href="/features/settings-dashboard/" vhack_href="/vhack/features/web-dashboard/" %}
+{% include product-switcher.html simplemmo_href="/smmo/features/settings-dashboard/" vhack_href="/vhack/features/web-dashboard/" %}
 
 # Web Dashboard — VHack Revolution Bot
 
