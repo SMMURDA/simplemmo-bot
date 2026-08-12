@@ -3,6 +3,8 @@ title: Troubleshooting
 permalink: /troubleshooting/
 ---
 
+{% include product-switcher.html simplemmo_href="/troubleshooting/" vhack_href="/vhack/troubleshooting/" %}
+
 # Troubleshooting
 
 ## The launcher cannot find the bot

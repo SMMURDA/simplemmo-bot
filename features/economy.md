@@ -3,6 +3,8 @@ title: Inventory, Bank, and Economy
 permalink: /features/economy/
 ---
 
+{% include product-switcher.html simplemmo_href="/features/economy/" %}
+
 # Inventory, Bank & Economy
 
 [← Back to Home](/)

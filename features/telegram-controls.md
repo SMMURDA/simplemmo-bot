@@ -3,6 +3,8 @@ title: Telegram Controls
 permalink: /features/telegram-controls/
 ---
 
+{% include product-switcher.html simplemmo_href="/features/telegram-controls/" vhack_href="/vhack/features/chat/" %}
+
 # Telegram Controls
 
 [← Back to Home](/)
