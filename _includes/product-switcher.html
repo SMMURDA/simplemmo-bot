@@ -3,29 +3,39 @@
 <nav class="product-switcher" aria-label="Product documentation selector">
   <div class="product-switcher__inner">
     <span class="product-switcher__label">Documentation</span>
-    <div class="product-switcher__tabs">
+    <div class="product-switcher__tabs" role="tablist">
       <a class="product-switcher__tab {% unless is_vhack %}product-switcher__tab--active{% endunless %}"
          href="{{ include.simplemmo_href | default: '/getting-started/' }}"
-         {% unless is_vhack %}aria-current="page"{% endunless %}>
+         role="tab"
+         {% unless is_vhack %}aria-selected="true"{% endunless %}>
+        <span class="product-switcher__dot" aria-hidden="true"></span>
         <svg viewBox="0 0 24 24" aria-hidden="true" width="18" height="18" fill="none" stroke="currentColor" stroke-width="2"><path d="M4 14c3.4-6.4 7.8-8.7 15-9-1.1 7.3-4.2 12.2-11 14l-1.5-3.2L4 14Z"/><path d="m8.3 14.2 4.8-4.8"/></svg>
-        SimpleMMO Bot
+        <span class="product-switcher__text">SimpleMMO Bot</span>
       </a>
       <a class="product-switcher__tab {% if is_vhack %}product-switcher__tab--active{% endif %}"
          href="{{ include.vhack_href | default: '/vhack/getting-started/' }}"
-         {% if is_vhack %}aria-current="page"{% endif %}>
+         role="tab"
+         {% if is_vhack %}aria-selected="true"{% endif %}>
+        <span class="product-switcher__dot" aria-hidden="true"></span>
         <svg viewBox="0 0 24 24" aria-hidden="true" width="18" height="18" fill="none" stroke="currentColor" stroke-width="2"><path d="M13 3 5 14h7l-1 7 8-11h-7l1-7Z"/><path d="M3 6h5M2 10h4"/></svg>
-        VHack Revolution
+        <span class="product-switcher__text">VHack Revolution</span>
       </a>
     </div>
   </div>
 </nav>
 <style>
 .product-switcher{border-bottom:1px solid var(--border,rgba(112,221,240,.18));background:var(--surface,#151a25);margin:0 -9999px;padding:0 9999px}
-.product-switcher__inner{max-width:var(--max,1120px);margin:0 auto;padding:12px 0;display:flex;align-items:center;gap:16px;flex-wrap:wrap}
-.product-switcher__label{font-size:.75rem;font-weight:700;text-transform:uppercase;letter-spacing:.1em;color:var(--muted,#b6c0cf);white-space:nowrap}
-.product-switcher__tabs{display:flex;gap:6px}
-.product-switcher__tab{display:inline-flex;align-items:center;gap:7px;padding:7px 16px;border-radius:8px;font-size:.85rem;font-weight:600;color:var(--muted,#b6c0cf);text-decoration:none;border:1px solid transparent;transition:all .2s}
-.product-switcher__tab:hover{color:var(--text,#f7f9fc);background:var(--surface-2,#202838);border-color:var(--border,rgba(112,221,240,.18))}
-.product-switcher__tab--active{color:var(--blue,#46d9ed);background:var(--blue-soft,rgba(70,217,237,.12));border-color:var(--border,rgba(112,221,240,.18))}
-.product-switcher__tab svg{flex-shrink:0}
+.product-switcher__inner{max-width:var(--max,1120px);margin:0 auto;padding:14px 0;display:flex;align-items:center;gap:16px;flex-wrap:wrap}
+.product-switcher__label{font-size:.72rem;font-weight:700;text-transform:uppercase;letter-spacing:.12em;color:var(--muted,#b6c0cf);white-space:nowrap;opacity:.7}
+.product-switcher__tabs{display:flex;gap:8px}
+.product-switcher__tab{display:inline-flex;align-items:center;gap:8px;padding:8px 18px;border-radius:10px;font-size:.85rem;font-weight:600;color:var(--muted,#b6c0cf);text-decoration:none;border:1px solid transparent;transition:all .25s ease;position:relative;opacity:.55}
+.product-switcher__tab:hover{opacity:.8;color:var(--text,#f7f9fc);background:var(--surface-2,#202838);border-color:var(--border,rgba(112,221,240,.18))}
+.product-switcher__tab--active{opacity:1;color:#fff;background:linear-gradient(135deg,rgba(70,217,237,.15),rgba(70,217,237,.08));border-color:var(--blue,#46d9ed);box-shadow:0 0 16px rgba(70,217,237,.12),0 0 4px rgba(70,217,237,.08);font-weight:700}
+.product-switcher__dot{width:8px;height:8px;border-radius:50%;background:transparent;transition:all .25s ease;flex-shrink:0}
+.product-switcher__tab--active .product-switcher__dot{background:var(--blue,#46d9ed);box-shadow:0 0 8px var(--blue,#46d9ed),0 0 3px var(--blue,#46d9ed);animation:ps-pulse 2s ease-in-out infinite}
+.product-switcher__tab svg{flex-shrink:0;opacity:.6;transition:opacity .25s}
+.product-switcher__tab--active svg{opacity:1}
+.product-switcher__text{letter-spacing:-.01em}
+@keyframes ps-pulse{0%,100%{box-shadow:0 0 8px var(--blue,#46d9ed),0 0 3px var(--blue,#46d9ed)}50%{box-shadow:0 0 14px var(--blue,#46d9ed),0 0 6px var(--blue,#46d9ed)}}
+@media(max-width:520px){.product-switcher__label{display:none}.product-switcher__tab{padding:7px 12px;font-size:.8rem}}
 </style>

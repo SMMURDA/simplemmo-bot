@@ -7,7 +7,25 @@ permalink: /vhack/downloads/
 
 # Downloads — VHack Revolution Bot
 
-VHack Revolution Bot is a Node.js application that runs from source code. There are no pre-compiled binaries — just clone the repository and run.
+VHack Revolution Bot is distributed directly by the developer. Contact through any of these channels to request access:
+
+<div class="license-contact-grid" aria-label="Contact developer">
+  <a class="license-contact-card" href="https://t.me/bovalone" target="_blank" rel="noopener noreferrer">
+    <span class="license-contact-icon" aria-hidden="true"><img src="/assets/icons/license-telegram.svg" alt=""></span>
+    <span class="license-contact-copy"><strong>Telegram</strong><small>@bovalone</small></span>
+    <span class="license-contact-arrow" aria-hidden="true">→</span>
+  </a>
+  <a class="license-contact-card" href="mailto:ask@topup.eu.org">
+    <span class="license-contact-icon" aria-hidden="true"><img src="/assets/icons/license-email.svg" alt=""></span>
+    <span class="license-contact-copy"><strong>Email</strong><small>ask@topup.eu.org</small></span>
+    <span class="license-contact-arrow" aria-hidden="true">→</span>
+  </a>
+  <a class="license-contact-card" href="https://instagram.com/bovalonee" target="_blank" rel="noopener noreferrer">
+    <span class="license-contact-icon" aria-hidden="true"><img src="/assets/icons/license-instagram.svg" alt=""></span>
+    <span class="license-contact-copy"><strong>Instagram</strong><small>@bovalonee</small></span>
+    <span class="license-contact-arrow" aria-hidden="true">→</span>
+  </a>
+</div>
 
 ## Requirements
 
@@ -15,24 +33,9 @@ VHack Revolution Bot is a Node.js application that runs from source code. There 
 - npm (included with Node.js)
 - A vHack.cc account with valid login session credentials
 
-## Get the source
-
-```bash
-git clone <repository-url> vhack-bot
-cd vhack-bot
-npm install
-```
-
-## Running
-
-| Command | Description |
-|---|---|
-| `npm run terminal` | Start the terminal interface (LightTerminal) |
-| `npm run web` | Start the web dashboard on `http://127.0.0.1:3000` |
-| `npm test` | Run offline smoke tests |
-| `npm run check` | Syntax-check all source files |
-
 ## What's included
+
+After receiving access, the project contains:
 
 ```text
 vhack-bot/
@@ -61,17 +64,14 @@ vhack-bot/
 └── package.json         # Node.js dependencies
 ```
 
-## Update
+## Running
 
-To get the latest version:
-
-```bash
-cd vhack-bot
-git pull
-npm install
-```
-
-Your `.env` file is preserved since it's in `.gitignore`.
+| Command | Description |
+|---|---|
+| `npm run terminal` | Start the terminal interface (LightTerminal) |
+| `npm run web` | Start the web dashboard on `http://127.0.0.1:3000` |
+| `npm test` | Run offline smoke tests |
+| `npm run check` | Syntax-check all source files |
 
 ## System compatibility
 
