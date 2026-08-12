@@ -3,6 +3,8 @@ title: Automation Features
 permalink: /features/automation/
 ---
 
+{% include product-switcher.html simplemmo_href="/features/automation/" vhack_href="/vhack/features/automation/" %}
+
 # Automation Features
 
 [← Back to Home](/)

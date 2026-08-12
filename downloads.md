@@ -3,6 +3,8 @@ title: Downloads
 permalink: /downloads/
 ---
 
+{% include product-switcher.html simplemmo_href="/downloads/" vhack_href="/vhack/downloads/" %}
+
 # Downloads
 
 Official builds are distributed through the **GitHub Releases** page associated with this repository. The buttons below always point to the newest published release.

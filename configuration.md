@@ -3,6 +3,8 @@ title: Configuration
 permalink: /configuration/
 ---
 
+{% include product-switcher.html simplemmo_href="/configuration/" vhack_href="/vhack/configuration/" %}
+
 # Configuration
 
 The `.env` file stores local settings and credentials. Keep it private, never commit it to GitHub, and never attach it to a support issue.

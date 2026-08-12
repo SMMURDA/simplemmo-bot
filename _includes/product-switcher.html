@@ -1,0 +1,31 @@
+{%- assign current_url = page.url | remove: 'index.html' -%}
+{%- assign is_vhack = current_url contains '/vhack/' -%}
+<nav class="product-switcher" aria-label="Product documentation selector">
+  <div class="product-switcher__inner">
+    <span class="product-switcher__label">Documentation</span>
+    <div class="product-switcher__tabs">
+      <a class="product-switcher__tab {% unless is_vhack %}product-switcher__tab--active{% endunless %}"
+         href="{{ include.simplemmo_href | default: '/getting-started/' }}"
+         {% unless is_vhack %}aria-current="page"{% endunless %}>
+        <svg viewBox="0 0 24 24" aria-hidden="true" width="18" height="18" fill="none" stroke="currentColor" stroke-width="2"><path d="M4 14c3.4-6.4 7.8-8.7 15-9-1.1 7.3-4.2 12.2-11 14l-1.5-3.2L4 14Z"/><path d="m8.3 14.2 4.8-4.8"/></svg>
+        SimpleMMO Bot
+      </a>
+      <a class="product-switcher__tab {% if is_vhack %}product-switcher__tab--active{% endif %}"
+         href="{{ include.vhack_href | default: '/vhack/getting-started/' }}"
+         {% if is_vhack %}aria-current="page"{% endif %}>
+        <svg viewBox="0 0 24 24" aria-hidden="true" width="18" height="18" fill="none" stroke="currentColor" stroke-width="2"><path d="M13 3 5 14h7l-1 7 8-11h-7l1-7Z"/><path d="M3 6h5M2 10h4"/></svg>
+        VHack Revolution
+      </a>
+    </div>
+  </div>
+</nav>
+<style>
+.product-switcher{border-bottom:1px solid var(--border,rgba(112,221,240,.18));background:var(--surface,#151a25);margin:0 -9999px;padding:0 9999px}
+.product-switcher__inner{max-width:var(--max,1120px);margin:0 auto;padding:12px 0;display:flex;align-items:center;gap:16px;flex-wrap:wrap}
+.product-switcher__label{font-size:.75rem;font-weight:700;text-transform:uppercase;letter-spacing:.1em;color:var(--muted,#b6c0cf);white-space:nowrap}
+.product-switcher__tabs{display:flex;gap:6px}
+.product-switcher__tab{display:inline-flex;align-items:center;gap:7px;padding:7px 16px;border-radius:8px;font-size:.85rem;font-weight:600;color:var(--muted,#b6c0cf);text-decoration:none;border:1px solid transparent;transition:all .2s}
+.product-switcher__tab:hover{color:var(--text,#f7f9fc);background:var(--surface-2,#202838);border-color:var(--border,rgba(112,221,240,.18))}
+.product-switcher__tab--active{color:var(--blue,#46d9ed);background:var(--blue-soft,rgba(70,217,237,.12));border-color:var(--border,rgba(112,221,240,.18))}
+.product-switcher__tab svg{flex-shrink:0}
+</style>

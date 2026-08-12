@@ -3,6 +3,8 @@ title: Settings, Notifications, and Dashboard
 permalink: /features/settings-dashboard/
 ---
 
+{% include product-switcher.html simplemmo_href="/features/settings-dashboard/" vhack_href="/vhack/features/web-dashboard/" %}
+
 # Settings, Notifications & Dashboard
 
 [← Back to Home](/)

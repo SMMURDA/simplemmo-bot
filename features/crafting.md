@@ -3,6 +3,8 @@ title: Crafting System
 permalink: /features/crafting/
 ---
 
+{% include product-switcher.html simplemmo_href="/features/crafting/" %}
+
 # Crafting System
 
 [← Back to Home](/)

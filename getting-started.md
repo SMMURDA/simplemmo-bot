@@ -3,6 +3,8 @@ title: Getting Started
 permalink: /getting-started/
 ---
 
+{% include product-switcher.html simplemmo_href="/getting-started/" vhack_href="/vhack/getting-started/" %}
+
 # Getting Started
 
 This guide takes you from a downloaded release to a verified, running bot. Every user must supply their **own** SimpleMMO session, Telegram bot, and license key.
