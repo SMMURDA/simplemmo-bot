@@ -4,7 +4,7 @@ permalink: /vhack/downloads/
 product: vhack
 ---
 
-{% include product-switcher.html simplemmo_href="/downloads/" vhack_href="/vhack/downloads/" %}
+{% include product-switcher.html simplemmo_href="/smmo/downloads/" vhack_href="/vhack/downloads/" %}
 
 # Downloads — VHack Revolution Bot
 

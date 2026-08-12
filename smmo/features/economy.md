@@ -1,9 +1,10 @@
 ---
-title: Inventory, Bank, and Economy
-permalink: /features/economy/
+title: "Economy — SimpleMMO Bot"
+permalink: /smmo/features/economy/
+product: smmo
 ---
 
-{% include product-switcher.html simplemmo_href="/features/economy/" %}
+{% include product-switcher.html simplemmo_href="/smmo/features/economy/" %}
 
 # Inventory, Bank & Economy
 
@@ -116,11 +117,11 @@ Potion Center lists owned potions, quantities, active effects, and supports poti
 ## Continue Reading
 
 <nav class="continue-reading" aria-label="Feature navigation">
-  <a class="continue-reading-card continue-reading-card--previous" href="{{ '/features/automation/' | relative_url }}">
+  <a class="continue-reading-card continue-reading-card--previous" href="{{ '/smmo/features/automation/' | relative_url }}">
     <span class="continue-reading-label"><span aria-hidden="true">←</span> Previous</span>
     <strong>Automation Features</strong>
   </a>
-  <a class="continue-reading-card continue-reading-card--next" href="{{ '/features/crafting/' | relative_url }}">
+  <a class="continue-reading-card continue-reading-card--next" href="{{ '/smmo/features/crafting/' | relative_url }}">
     <span class="continue-reading-label">Next <span aria-hidden="true">→</span></span>
     <strong>Crafting System</strong>
   </a>

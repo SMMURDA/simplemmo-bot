@@ -4,7 +4,7 @@ permalink: /vhack/troubleshooting/
 product: vhack
 ---
 
-{% include product-switcher.html simplemmo_href="/troubleshooting/" vhack_href="/vhack/troubleshooting/" %}
+{% include product-switcher.html simplemmo_href="/smmo/troubleshooting/" vhack_href="/vhack/troubleshooting/" %}
 
 # Troubleshooting — VHack Revolution Bot
 

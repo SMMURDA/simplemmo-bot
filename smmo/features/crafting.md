@@ -1,9 +1,10 @@
 ---
-title: Crafting System
-permalink: /features/crafting/
+title: "Crafting — SimpleMMO Bot"
+permalink: /smmo/features/crafting/
+product: smmo
 ---
 
-{% include product-switcher.html simplemmo_href="/features/crafting/" %}
+{% include product-switcher.html simplemmo_href="/smmo/features/crafting/" %}
 
 # Crafting System
 
@@ -55,11 +56,11 @@ Crafting Queue allows multiple crafting jobs to be queued. The queue can run in 
 ## Continue Reading
 
 <nav class="continue-reading" aria-label="Feature navigation">
-  <a class="continue-reading-card continue-reading-card--previous" href="{{ '/features/economy/' | relative_url }}">
+  <a class="continue-reading-card continue-reading-card--previous" href="{{ '/smmo/features/economy/' | relative_url }}">
     <span class="continue-reading-label"><span aria-hidden="true">←</span> Previous</span>
     <strong>Inventory, Bank & Economy</strong>
   </a>
-  <a class="continue-reading-card continue-reading-card--next" href="{{ '/features/settings-dashboard/' | relative_url }}">
+  <a class="continue-reading-card continue-reading-card--next" href="{{ '/smmo/features/settings-dashboard/' | relative_url }}">
     <span class="continue-reading-label">Next <span aria-hidden="true">→</span></span>
     <strong>Settings, Notifications & Dashboard</strong>
   </a>
