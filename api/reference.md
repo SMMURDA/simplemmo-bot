@@ -81,7 +81,7 @@ These routes belong to the private license Worker, not SimpleMMO. OAuth secrets 
 | `GET` | `/v1/account` | Returns the signed-in internal account and license state. |
 | `POST` | `/v1/trial` | Creates a trial only when the resolved internal user is eligible. |
 
-A Google, GitHub, or Microsoft identity with the same accepted verified normalized email must resolve to the same internal `user_id`. See [Microsoft Login Setup]({{ '/microsoft-login-setup/' | relative_url }}) for conflict handling and safe deployment.
+A Google, GitHub, or Microsoft identity with the same accepted verified normalized email must resolve to the same internal `user_id`. Contact the developer for conflict handling and safe deployment.
 
 ## Telegram Routes
 
@@ -99,4 +99,4 @@ A Google, GitHub, or Microsoft identity with the same accepted verified normaliz
 
 ## Continue Reading
 
-← Previous: [Settings, Notifications & Dashboard]({{ '/features/settings-dashboard/' | relative_url }}) | Back to [Home](/)
+← Previous: [Settings, Notifications & Dashboard]({{ '/smmo/features/settings-dashboard/' | relative_url }}) | Back to [Home](/)
