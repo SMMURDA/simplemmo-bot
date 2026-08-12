@@ -1,6 +1,7 @@
 ---
 title: "VHack Revolution — Terminal Interface"
 permalink: /vhack/features/terminal/
+product: vhack
 ---
 
 {% include product-switcher.html simplemmo_href="/features/telegram-controls/" vhack_href="/vhack/features/terminal/" %}

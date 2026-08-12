@@ -1,6 +1,7 @@
 ---
 title: "VHack Revolution — Getting Started"
 permalink: /vhack/getting-started/
+product: vhack
 ---
 
 {% include product-switcher.html simplemmo_href="/getting-started/" vhack_href="/vhack/getting-started/" %}

@@ -1,6 +1,7 @@
 ---
 title: "VHack Revolution — Troubleshooting"
 permalink: /vhack/troubleshooting/
+product: vhack
 ---
 
 {% include product-switcher.html simplemmo_href="/troubleshooting/" vhack_href="/vhack/troubleshooting/" %}
