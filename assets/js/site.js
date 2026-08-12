@@ -204,6 +204,24 @@ document.querySelectorAll('[data-license-examples]').forEach((exampleGroup) => {
 });
 
 
+// Product switcher: highlight the active product tab.
+(function initProductSwitcher() {
+  const nav = document.querySelector('.product-switcher');
+  if (!nav) return;
+  let active = nav.getAttribute('data-active');
+  if (!active || active === 'smmo' || active === 'vhack') {
+    // Use frontmatter value directly
+  } else {
+    active = null;
+  }
+  if (!active) {
+    active = window.location.pathname.indexOf('/vhack/') !== -1 ? 'vhack' : 'smmo';
+  }
+  nav.querySelectorAll('.ps-tab').forEach((tab) => {
+    tab.classList.toggle('ps-on', tab.getAttribute('data-product') === active);
+  });
+})();
+
 // Session-aware Trial/Dashboard navigation.
 const accountNavLink = document.querySelector('#account-nav-link');
 if (accountNavLink) {

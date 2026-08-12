@@ -3,13 +3,13 @@
   <div class="product-switcher__inner">
     <span class="product-switcher__label">Docs</span>
     <div class="product-switcher__tabs">
-      <a class="ps-tab ps-tab--smmo" data-product="smmo"
+      <a class="ps-tab" data-product="smmo"
          href="{{ include.simplemmo_href | default: '/getting-started/' }}">
         <span class="ps-tab__dot"></span>
         <svg viewBox="0 0 24 24" aria-hidden="true" width="18" height="18" fill="none" stroke="currentColor" stroke-width="2"><path d="M4 14c3.4-6.4 7.8-8.7 15-9-1.1 7.3-4.2 12.2-11 14l-1.5-3.2L4 14Z"/><path d="m8.3 14.2 4.8-4.8"/></svg>
         <span>SimpleMMO Bot</span>
       </a>
-      <a class="ps-tab ps-tab--vhack" data-product="vhack"
+      <a class="ps-tab" data-product="vhack"
          href="{{ include.vhack_href | default: '/vhack/getting-started/' }}">
         <span class="ps-tab__dot"></span>
         <svg viewBox="0 0 24 24" aria-hidden="true" width="18" height="18" fill="none" stroke="currentColor" stroke-width="2"><path d="M13 3 5 14h7l-1 7 8-11h-7l1-7Z"/><path d="M3 6h5M2 10h4"/></svg>
@@ -18,53 +18,19 @@
     </div>
   </div>
 </nav>
-<script>
-(function(){
-  var nav = document.querySelector('.product-switcher');
-  if (!nav) return;
-  var active = nav.getAttribute('data-active');
-  if (!active || active === '') {
-    active = window.location.pathname.indexOf('/vhack/') !== -1 ? 'vhack' : 'smmo';
-  }
-  var tabs = nav.querySelectorAll('.ps-tab');
-  for (var i = 0; i < tabs.length; i++) {
-    if (tabs[i].getAttribute('data-product') === active) {
-      tabs[i].classList.add('ps-on');
-    } else {
-      tabs[i].classList.remove('ps-on');
-    }
-  }
-})();
-</script>
 <style>
-/* ── Wrapper ── */
 .product-switcher{background:#151a25;border-bottom:1px solid rgba(112,221,240,.18);margin:0 -9999px;padding:0 9999px}
 .product-switcher__inner{max-width:1120px;margin:0 auto;padding:14px 32px;display:flex;align-items:center;gap:20px;flex-wrap:wrap}
 .product-switcher__label{font-size:.7rem;font-weight:700;text-transform:uppercase;letter-spacing:.14em;color:#5a6478;white-space:nowrap}
 .product-switcher__tabs{display:flex;gap:10px}
-
-/* ── Tab base (inactive — always dim) ── */
 .ps-tab{display:inline-flex;align-items:center;gap:8px;padding:9px 20px;border-radius:10px;font-size:.85rem;font-weight:550;color:#556178;text-decoration:none;border:2px solid #1c2535;background:#0f1520;transition:all .2s ease;cursor:pointer}
 .ps-tab:hover{color:#9aabc2;border-color:#283548;background:#141d2c}
 .ps-tab svg{opacity:.35;transition:opacity .2s}
 .ps-tab__dot{width:9px;height:9px;border-radius:50%;background:#1c2535;flex-shrink:0;transition:all .3s ease}
-
-/* ── Tab active (bright & glowing) ── */
-.ps-tab.ps-on{color:#fff;font-weight:700;background:#0c2233;border-color:#46d9ed;box-shadow:0 0 24px rgba(70,217,237,.20),0 0 8px rgba(70,217,237,.12),inset 0 1px 0 rgba(70,217,237,.06)}
+.ps-tab.ps-on{color:#fff !important;font-weight:700;background:#0c2233 !important;border-color:#46d9ed !important;box-shadow:0 0 24px rgba(70,217,237,.20),0 0 8px rgba(70,217,237,.12)}
 .ps-tab.ps-on:hover{color:#fff;border-color:#46d9ed}
 .ps-tab.ps-on svg{opacity:1;stroke:#46d9ed}
 .ps-tab.ps-on .ps-tab__dot{background:#46d9ed;box-shadow:0 0 12px #46d9ed,0 0 5px #46d9ed;animation:ps-dot-pulse 2s ease-in-out infinite}
-
-@keyframes ps-dot-pulse{
-  0%,100%{box-shadow:0 0 12px #46d9ed,0 0 5px #46d9ed;transform:scale(1)}
-  50%{box-shadow:0 0 20px #46d9ed,0 0 10px #46d9ed;transform:scale(1.2)}
-}
-
-/* ── Mobile ── */
-@media(max-width:520px){
-  .product-switcher__label{display:none}
-  .product-switcher__inner{padding:12px 16px}
-  .ps-tab{padding:8px 14px;font-size:.8rem;gap:6px}
-  .ps-tab__dot{width:7px;height:7px}
-}
+@keyframes ps-dot-pulse{0%,100%{box-shadow:0 0 12px #46d9ed,0 0 5px #46d9ed;transform:scale(1)}50%{box-shadow:0 0 20px #46d9ed,0 0 10px #46d9ed;transform:scale(1.2)}}
+@media(max-width:520px){.product-switcher__label{display:none}.product-switcher__inner{padding:12px 16px}.ps-tab{padding:8px 14px;font-size:.8rem;gap:6px}.ps-tab__dot{width:7px;height:7px}}
 </style>
