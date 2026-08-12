@@ -6,7 +6,7 @@ product: smmo
 
 {% include product-switcher.html simplemmo_href="/smmo/features/overview/" vhack_href="/vhack/features/overview/" %}
 
-# Feature Overview
+# Feature Overview — SimpleMMO Bot
 
 [← Back to Home](/)
 

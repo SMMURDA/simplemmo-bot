@@ -6,7 +6,7 @@ product: smmo
 
 {% include product-switcher.html simplemmo_href="/smmo/features/economy/" %}
 
-# Inventory, Bank & Economy
+# Economy — SimpleMMO Bot
 
 [← Back to Home](/)
 

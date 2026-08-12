@@ -6,7 +6,7 @@ product: smmo
 
 {% include product-switcher.html simplemmo_href="/smmo/features/settings-dashboard/" vhack_href="/vhack/features/web-dashboard/" %}
 
-# Settings, Notifications & Dashboard
+# Settings & Dashboard — SimpleMMO Bot
 
 [← Back to Home](/)
 

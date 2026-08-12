@@ -6,7 +6,7 @@ product: smmo
 
 {% include product-switcher.html simplemmo_href="/smmo/downloads/" vhack_href="/vhack/downloads/" %}
 
-# Downloads
+# Downloads — SimpleMMO Bot
 
 Official builds are distributed through the **GitHub Releases** page associated with this repository. The buttons below always point to the newest published release.
 
