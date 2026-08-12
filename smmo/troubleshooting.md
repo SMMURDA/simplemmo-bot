@@ -6,7 +6,7 @@ product: smmo
 
 {% include product-switcher.html simplemmo_href="/smmo/troubleshooting/" vhack_href="/vhack/troubleshooting/" %}
 
-# Troubleshooting
+# Troubleshooting — SimpleMMO Bot
 
 ## The launcher cannot find the bot
 

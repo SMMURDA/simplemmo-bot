@@ -6,7 +6,7 @@ product: smmo
 
 {% include product-switcher.html simplemmo_href="/smmo/features/telegram-controls/" vhack_href="/vhack/features/chat/" %}
 
-# Telegram Controls
+# Telegram Controls — SimpleMMO Bot
 
 [← Back to Home](/)
 

@@ -6,7 +6,7 @@ product: smmo
 
 {% include product-switcher.html simplemmo_href="/smmo/configuration/" vhack_href="/vhack/configuration/" %}
 
-# Configuration
+# Configuration — SimpleMMO Bot
 
 The `.env` file stores local settings and credentials. Keep it private, never commit it to GitHub, and never attach it to a support issue.
 

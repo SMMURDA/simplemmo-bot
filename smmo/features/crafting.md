@@ -6,7 +6,7 @@ product: smmo
 
 {% include product-switcher.html simplemmo_href="/smmo/features/crafting/" %}
 
-# Crafting System
+# Crafting — SimpleMMO Bot
 
 [← Back to Home](/)
 

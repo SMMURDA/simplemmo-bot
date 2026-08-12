@@ -6,7 +6,7 @@ product: smmo
 
 {% include product-switcher.html simplemmo_href="/smmo/getting-started/" vhack_href="/vhack/getting-started/" %}
 
-# Getting Started
+# Getting Started — SimpleMMO Bot
 
 This guide takes you from a downloaded release to a verified, running bot. Every user must supply their **own** SimpleMMO session, Telegram bot, and license key.
 
