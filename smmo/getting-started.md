@@ -69,7 +69,7 @@ For systemd or other non-interactive services, place the key in `.env`:
 SMMO_LICENSE_KEY=SMMO-XXXXX-XXXXX-XXXXX-XXXXX
 ```
 
-Read [Licensing]({{ '/smmo/licensing/' | relative_url }}) for activation and device-limit details.
+Read [Licensing]({{ '/licensing/' | relative_url }}) for activation and device-limit details.
 
 ## 5. Confirm the startup sequence
 
