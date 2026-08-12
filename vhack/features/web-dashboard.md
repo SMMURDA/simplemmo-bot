@@ -1,6 +1,7 @@
 ---
 title: "VHack Revolution — Web Dashboard"
 permalink: /vhack/features/web-dashboard/
+product: vhack
 ---
 
 {% include product-switcher.html simplemmo_href="/features/settings-dashboard/" vhack_href="/vhack/features/web-dashboard/" %}

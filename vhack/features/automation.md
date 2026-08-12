@@ -1,6 +1,7 @@
 ---
 title: "VHack Revolution — Automation"
 permalink: /vhack/features/automation/
+product: vhack
 ---
 
 {% include product-switcher.html simplemmo_href="/features/automation/" vhack_href="/vhack/features/automation/" %}

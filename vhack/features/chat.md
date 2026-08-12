@@ -1,6 +1,7 @@
 ---
 title: "VHack Revolution — Chat"
 permalink: /vhack/features/chat/
+product: vhack
 ---
 
 {% include product-switcher.html simplemmo_href="/features/telegram-controls/" vhack_href="/vhack/features/chat/" %}
