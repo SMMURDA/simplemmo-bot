@@ -7,24 +7,48 @@ permalink: /vhack/getting-started/
 
 # Getting Started — VHack Revolution Bot
 
-This guide takes you from source code to a running VHack Revolution Bot with either the terminal interface or web dashboard.
+This guide takes you from getting access to running the bot with either the terminal interface or web dashboard.
 
 > This tool automates interactions with vHack.cc. Use at your own risk and review the game's terms before use.
 
-## 1. Requirements
+## 1. Get access
+
+VHack Revolution Bot is distributed directly by the developer. Contact through any of these channels to request access:
+
+<div class="license-contact-grid" aria-label="Contact developer">
+  <a class="license-contact-card" href="https://t.me/bovalone" target="_blank" rel="noopener noreferrer">
+    <span class="license-contact-icon" aria-hidden="true"><img src="/assets/icons/license-telegram.svg" alt=""></span>
+    <span class="license-contact-copy"><strong>Telegram</strong><small>@bovalone</small></span>
+    <span class="license-contact-arrow" aria-hidden="true">→</span>
+  </a>
+  <a class="license-contact-card" href="mailto:ask@topup.eu.org">
+    <span class="license-contact-icon" aria-hidden="true"><img src="/assets/icons/license-email.svg" alt=""></span>
+    <span class="license-contact-copy"><strong>Email</strong><small>ask@topup.eu.org</small></span>
+    <span class="license-contact-arrow" aria-hidden="true">→</span>
+  </a>
+  <a class="license-contact-card" href="https://instagram.com/bovalonee" target="_blank" rel="noopener noreferrer">
+    <span class="license-contact-icon" aria-hidden="true"><img src="/assets/icons/license-instagram.svg" alt=""></span>
+    <span class="license-contact-copy"><strong>Instagram</strong><small>@bovalonee</small></span>
+    <span class="license-contact-arrow" aria-hidden="true">→</span>
+  </a>
+</div>
+
+After receiving access, you will get the project files and setup instructions.
+
+## 2. Requirements
 
 - **Node.js 18** or newer
 - A vHack.cc account with valid login session credentials
 - A terminal emulator (for LightTerminal) or a web browser (for Web Dashboard)
 
-## 2. Clone or download the project
+## 3. Install dependencies
 
 ```bash
-git clone <repository-url> vhack-bot
 cd vhack-bot
+npm install
 ```
 
-## 3. Create your configuration
+## 4. Create your configuration
 
 Copy `.env.example` to `.env` and fill with your own credentials:
 
@@ -43,12 +67,6 @@ VHACK_PLATFORM=Windows
 ```
 
 See [Configuration]({{ '/vhack/configuration/' | relative_url }}) for every field and how to obtain these values.
-
-## 4. Install dependencies
-
-```bash
-npm install
-```
 
 ## 5. Choose your interface
 
