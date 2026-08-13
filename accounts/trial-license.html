@@ -54,6 +54,7 @@ account_section: trial
         var body={};
         try{body=JSON.parse(opts.body||'{}')}catch(e){}
         body.device_fingerprint=fp;
+        if(window._turnstileToken)body.turnstile_token=window._turnstileToken;
         opts.body=JSON.stringify(body);
         return _origFetch.call(window,url,opts);
       });
@@ -61,5 +62,19 @@ account_section: trial
     return _origFetch.apply(this,arguments);
   };
 })();
+</script>
+<div id="turnstile-container" style="display:flex;justify-content:center;margin:16px 0;" hidden></div>
+<script src="https://challenges.cloudflare.com/turnstile/v0/api.js?onload=_smoInitTurnstile" async defer></script>
+<script>
+window._smoInitTurnstile=function(){
+  var container=document.getElementById('turnstile-container');
+  if(!container)return;
+  container.hidden=false;
+  turnstile.render(container,{
+    sitekey:'0x4AAAAAABfAKE_REPLACE_WITH_REAL_KEY',
+    theme:'dark',
+    callback:function(token){window._turnstileToken=token;}
+  });
+};
 </script>
 <script src="{{ '/assets/js/portal-v2.js?v=20260722-3' | relative_url }}" defer></script>
