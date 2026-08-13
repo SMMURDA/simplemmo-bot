@@ -59,10 +59,10 @@
 
   confirmButton.addEventListener('click', () => close(promptMode ? input.value : true));
   cancelButton.addEventListener('click', () => close(promptMode ? null : false));
-  modal.querySelector('[data-modal-cancel]').addEventListener('click', () => close(promptMode ? null : false));
+  modal.querySelector('[data-modal-cancel]').addEventListener('click', () => close(null));
   document.addEventListener('keydown', (event) => {
     if (modal.hidden) return;
-    if (event.key === 'Escape') close(promptMode ? null : false);
+    if (event.key === 'Escape') close(null);
     if (event.key === 'Enter' && document.activeElement !== cancelButton) close(promptMode ? input.value : true);
   });
 

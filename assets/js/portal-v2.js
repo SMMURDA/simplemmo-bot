@@ -44,9 +44,9 @@
         confirmText: 'Telegram',
         cancelText: 'Email',
         tone: 'danger',
-      }).then((telegram) => {
-        if (telegram) window.open('https://t.me/bovalone', '_blank');
-        else window.location.href = 'mailto:ask@topup.eu.org';
+      }).then((result) => {
+        if (result === true) window.open('https://t.me/bovalone', '_blank');
+        else if (result === false) window.location.href = 'mailto:ask@topup.eu.org';
       });
       return;
     }
