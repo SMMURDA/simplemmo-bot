@@ -151,6 +151,7 @@
       <div class="license-card__top"><span class="license-type">${license.source === 'trial' ? 'Trial license' : 'Member license'}</span><span class="status-pill status-pill--${escapeHtml(license.status)}">${escapeHtml(license.status)}</span></div>
       <div class="license-card__meta"><div><small>Expires</small><strong>${formatDate(license.expires_at)}</strong></div><div><small>Devices</small><strong>${Number(license.max_devices || 1)}</strong></div></div>
       ${license.license_key ? `<div class="license-key-row"><code>${escapeHtml(license.license_key)}</code><button class="button button--ghost" type="button" data-copy-license="${escapeHtml(license.id)}">Copy</button></div>` : '<p class="license-hidden-note">License key unavailable for this status.</p>'}
+      ${license.revoke_message ? `<div class="license-revoke-message"><strong>Message from admin:</strong><p>${escapeHtml(license.revoke_message)}</p></div>` : ''}
     </article>`;
 
   const initLicenses = async (account) => {

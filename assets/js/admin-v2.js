@@ -46,9 +46,20 @@
 
     list.querySelectorAll('[data-license-status]').forEach((button) => button.addEventListener('click', async () => {
       const next = button.dataset.next;
-      const approved = await confirmAction({ title: `${next === 'active' ? 'Enable' : 'Block'} this license?`, message: 'The license status changes immediately for future validation checks.', confirmText: next === 'active' ? 'Enable license' : 'Block license', tone: next === 'active' ? 'primary' : 'danger' });
-      if (!approved) return;
-      await post(`/v1/admin/licenses/${button.dataset.licenseStatus}/status`, { status: next });
+      const isBlock = next === 'revoked';
+      const result = await confirmAction({
+        title: `${isBlock ? 'Block' : 'Enable'} this license?`,
+        message: isBlock
+          ? 'The license will be revoked immediately. Optionally include a message visible to the user explaining why.'
+          : 'The license status changes immediately for future validation checks.',
+        confirmText: isBlock ? 'Block license' : 'Enable license',
+        tone: isBlock ? 'danger' : 'primary',
+        prompt: isBlock ? { label: 'Revoke message (optional)', type: 'text', value: '', placeholder: 'e.g. Abuse detected, multiple accounts on same device' } : null,
+      });
+      if (isBlock ? result === null : !result) return;
+      const body = { status: next };
+      if (isBlock) body.message = String(result || '').trim();
+      await post(`/v1/admin/licenses/${button.dataset.licenseStatus}/status`, body);
       window.portalToast('License status updated.');
       await loadLicenses();
     }));
