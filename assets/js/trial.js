@@ -31,11 +31,17 @@
   let googleConfigured = false;
   if (!status || !googleMount) return;
 
-  const errorContacts = document.querySelector('#trial-error-contacts');
+  const errorModal = document.querySelector('#error-modal');
+  const errorModalMsg = document.querySelector('#error-modal-msg');
   const setStatus = (message, kind = '') => {
     status.textContent = message;
     status.className = `trial-status${kind ? ` trial-status--${kind}` : ''}`;
-    if (errorContacts) errorContacts.classList.toggle('is-visible', kind === 'error');
+    if (kind === 'error' && errorModal) {
+      if (errorModalMsg) errorModalMsg.textContent = message;
+      errorModal.classList.add('is-visible');
+    } else if (errorModal) {
+      errorModal.classList.remove('is-visible');
+    }
   };
 
 

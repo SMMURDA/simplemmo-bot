@@ -39,8 +39,14 @@
     if (!element) return;
     element.textContent = text || '';
     element.dataset.tone = tone;
-    const errContacts = document.querySelector('.portal-error-contacts');
-    if (errContacts) errContacts.classList.toggle('is-visible', tone === 'error');
+    const modal = document.querySelector('#error-modal');
+    const modalMsg = document.querySelector('#error-modal-msg');
+    if (tone === 'error' && modal) {
+      if (modalMsg) modalMsg.textContent = text || 'Something went wrong';
+      modal.classList.add('is-visible');
+    } else if (modal) {
+      modal.classList.remove('is-visible');
+    }
   };
 
   const confirmAction = (options) => window.portalConfirm(options);
