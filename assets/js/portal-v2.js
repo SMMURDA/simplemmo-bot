@@ -39,13 +39,16 @@
     if (!element) return;
     element.textContent = text || '';
     element.dataset.tone = tone;
-    const modal = document.querySelector('#error-modal');
-    const modalMsg = document.querySelector('#error-modal-msg');
-    if (tone === 'error' && modal) {
-      if (modalMsg) modalMsg.textContent = text || 'Something went wrong';
-      modal.classList.add('is-visible');
-    } else if (modal) {
-      modal.classList.remove('is-visible');
+    if (tone === 'error' && window.portalConfirm) {
+      window.portalConfirm({
+        title: 'Something went wrong',
+        message: (text || 'An unexpected error occurred.') + '\n\nEmail: ask@topup.eu.org',
+        confirmText: 'Contact via Telegram',
+        cancelText: 'Close',
+        tone: 'danger',
+      }).then((contacted) => {
+        if (contacted) window.open('https://t.me/bovalone', '_blank');
+      });
     }
   };
 
