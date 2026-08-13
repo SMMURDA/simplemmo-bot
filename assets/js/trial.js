@@ -98,30 +98,8 @@
     parts.push(`pixelRatio:${window.devicePixelRatio || 1}`);
     parts.push(`tz:${new Date().getTimezoneOffset()}`);
     parts.push(`hwConcurrency:${navigator.hardwareConcurrency || 0}`);
-    parts.push(`deviceMemory:${navigator.deviceMemory || 0}`);
     parts.push(`platform:${navigator.platform || ''}`);
     parts.push(`language:${navigator.language || ''}`);
-    parts.push(`ua:${navigator.userAgent || ''}`);
-
-    try {
-      const canvas = document.createElement('canvas');
-      canvas.width = 220;
-      canvas.height = 36;
-      const ctx = canvas.getContext('2d');
-      if (ctx) {
-        ctx.textBaseline = 'top';
-        ctx.font = '14px Arial';
-        ctx.fillStyle = '#f60';
-        ctx.fillRect(0, 0, 100, 20);
-        ctx.fillStyle = '#069';
-        ctx.fillText('smmo-trial-fp', 2, 15);
-        ctx.fillStyle = 'rgba(102, 204, 0, 0.7)';
-        ctx.beginPath();
-        ctx.arc(180, 18, 12, 0, Math.PI * 2);
-        ctx.fill();
-        parts.push(`canvas:${canvas.toDataURL().slice(0, 120)}`);
-      }
-    } catch {}
 
     try {
       const canvas = document.createElement('canvas');
@@ -129,8 +107,7 @@
       if (gl) {
         const debugInfo = gl.getExtension('WEBGL_debug_renderer_info');
         if (debugInfo) {
-          parts.push(`webglVendor:${gl.getParameter(debugInfo.UNMASKED_VENDOR_WEBGL)}`);
-          parts.push(`webglRenderer:${gl.getParameter(debugInfo.UNMASKED_RENDERER_WEBGL)}`);
+          parts.push(`gpu:${gl.getParameter(debugInfo.UNMASKED_VENDOR_WEBGL)}|${gl.getParameter(debugInfo.UNMASKED_RENDERER_WEBGL)}`);
         }
       }
     } catch {}
