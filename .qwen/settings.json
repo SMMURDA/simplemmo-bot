@@ -15,7 +15,22 @@
       "Bash(mkdir *)",
       "Bash(git reset *)",
       "Bash(git mv *)",
-      "Bash(rmdir *)"
+      "Bash(rmdir *)",
+      "Bash(echo *)",
+      "Bash(chmod *)",
+      "Read(//root/SimpleMMO-ENCODE/license-server/src/index.js/**)",
+      "WebFetch(topup.eu.org)",
+      "Bash(curl *)",
+      "Bash(dig *)",
+      "Bash(cp *)",
+      "Monitor(do *)",
+      "Monitor(echo *)",
+      "Monitor(then *)",
+      "Monitor(break)",
+      "Monitor(fi)",
+      "Monitor(sleep *)",
+      "Monitor(done)",
+      "Bash(rm *)"
     ]
   },
   "$version": 4
