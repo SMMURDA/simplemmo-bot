@@ -45,6 +45,58 @@
     if (telegramButton) telegramButton.hidden = !telegramConfigured;
   };
 
+  const collectFingerprint = async () => {
+    const parts = [];
+
+    parts.push(`screen:${screen.width}x${screen.height}`);
+    parts.push(`colorDepth:${screen.colorDepth}`);
+    parts.push(`pixelRatio:${window.devicePixelRatio || 1}`);
+    parts.push(`tz:${new Date().getTimezoneOffset()}`);
+    parts.push(`hwConcurrency:${navigator.hardwareConcurrency || 0}`);
+    parts.push(`deviceMemory:${navigator.deviceMemory || 0}`);
+    parts.push(`platform:${navigator.platform || ''}`);
+    parts.push(`language:${navigator.language || ''}`);
+
+    try {
+      const canvas = document.createElement('canvas');
+      canvas.width = 220;
+      canvas.height = 36;
+      const ctx = canvas.getContext('2d');
+      if (ctx) {
+        ctx.textBaseline = 'top';
+        ctx.font = '14px Arial';
+        ctx.fillStyle = '#f60';
+        ctx.fillRect(0, 0, 100, 20);
+        ctx.fillStyle = '#069';
+        ctx.fillText('smmo-trial-fp', 2, 15);
+        ctx.fillStyle = 'rgba(102, 204, 0, 0.7)';
+        ctx.beginPath();
+        ctx.arc(180, 18, 12, 0, Math.PI * 2);
+        ctx.fill();
+        parts.push(`canvas:${canvas.toDataURL().slice(0, 120)}`);
+      }
+    } catch {}
+
+    try {
+      const canvas = document.createElement('canvas');
+      const gl = canvas.getContext('webgl') || canvas.getContext('experimental-webgl');
+      if (gl) {
+        const debugInfo = gl.getExtension('WEBGL_debug_renderer_info');
+        if (debugInfo) {
+          parts.push(`webglVendor:${gl.getParameter(debugInfo.UNMASKED_VENDOR_WEBGL)}`);
+          parts.push(`webglRenderer:${gl.getParameter(debugInfo.UNMASKED_RENDERER_WEBGL)}`);
+        }
+      }
+    } catch {}
+
+    const raw = parts.join('|');
+    const buffer = new TextEncoder().encode(raw);
+    const hashBuffer = await crypto.subtle.digest('SHA-256', buffer);
+    return Array.from(new Uint8Array(hashBuffer))
+      .map((b) => b.toString(16).padStart(2, '0'))
+      .join('');
+  };
+
   const request = async (path, options = {}) => {
     const response = await fetch(`${API}${path}`, {
       credentials: 'include',
@@ -196,7 +248,11 @@
     create.disabled = true;
     setStatus('Creating your trial license…');
     try {
-      const result = await request('/v1/trial', { method: 'POST', body: '{}' });
+      const deviceFingerprint = await collectFingerprint();
+      const result = await request('/v1/trial', {
+        method: 'POST',
+        body: JSON.stringify({ device_fingerprint: deviceFingerprint }),
+      });
       renderLicense({
         status: 'active',
         expires_at: result.expires_at,
