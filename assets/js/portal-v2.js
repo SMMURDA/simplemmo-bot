@@ -37,19 +37,20 @@
   const setStatus = (text, tone = 'neutral') => {
     const element = $('#portal-status');
     if (!element) return;
-    element.textContent = text || '';
-    element.dataset.tone = tone;
     if (tone === 'error' && window.portalConfirm) {
       window.portalConfirm({
-        title: 'Something went wrong',
-        message: (text || 'An unexpected error occurred.') + '\n\nEmail: ask@topup.eu.org',
+        title: text || 'An unexpected error occurred.',
+        message: 'Need help? Contact us directly.\n\nEmail: ask@topup.eu.org',
         confirmText: 'Contact via Telegram',
         cancelText: 'Close',
         tone: 'danger',
       }).then((contacted) => {
         if (contacted) window.open('https://t.me/bovalone', '_blank');
       });
+      return;
     }
+    element.textContent = text || '';
+    element.dataset.tone = tone;
   };
 
   const confirmAction = (options) => window.portalConfirm(options);
