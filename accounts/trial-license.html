@@ -41,11 +41,9 @@ account_section: trial
     p.push('pr:'+(window.devicePixelRatio||1));
     p.push('tz:'+new Date().getTimezoneOffset());
     p.push('hw:'+(navigator.hardwareConcurrency||0));
-    p.push('dm:'+(navigator.deviceMemory||0));
     p.push('pl:'+(navigator.platform||''));
-    p.push('ua:'+(navigator.userAgent||''));
-    try{var c=document.createElement('canvas');c.width=220;c.height=36;var x=c.getContext('2d');if(x){x.textBaseline='top';x.font='14px Arial';x.fillStyle='#f60';x.fillRect(0,0,100,20);x.fillStyle='#069';x.fillText('smmo-fp',2,15);x.fillStyle='rgba(102,204,0,0.7)';x.beginPath();x.arc(180,18,12,0,Math.PI*2);x.fill();p.push('cv:'+c.toDataURL().slice(0,120))}}catch(e){}
-    try{var c2=document.createElement('canvas');var gl=c2.getContext('webgl');if(gl){var di=gl.getExtension('WEBGL_debug_renderer_info');if(di){p.push('wv:'+gl.getParameter(di.UNMASKED_VENDOR_WEBGL));p.push('wr:'+gl.getParameter(di.UNMASKED_RENDERER_WEBGL))}}}catch(e){}
+    p.push('lang:'+(navigator.language||''));
+    try{var c2=document.createElement('canvas');var gl=c2.getContext('webgl');if(gl){var di=gl.getExtension('WEBGL_debug_renderer_info');if(di){p.push('gpu:'+gl.getParameter(di.UNMASKED_VENDOR_WEBGL)+'|'+gl.getParameter(di.UNMASKED_RENDERER_WEBGL))}}}catch(e){}
     _fp=sha256(p.join('|'));
     return Promise.resolve(_fp);
   }
