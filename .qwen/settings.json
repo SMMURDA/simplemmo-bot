@@ -30,7 +30,9 @@
       "Monitor(fi)",
       "Monitor(sleep *)",
       "Monitor(done)",
-      "Bash(rm *)"
+      "Bash(rm *)",
+      "Bash(npx *)",
+      "Bash(source *)"
     ]
   },
   "$version": 4
