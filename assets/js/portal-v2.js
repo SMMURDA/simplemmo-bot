@@ -40,12 +40,13 @@
     if (tone === 'error' && window.portalConfirm) {
       window.portalConfirm({
         title: text || 'An unexpected error occurred.',
-        message: 'Need help? Contact us directly.\n\nEmail: ask@topup.eu.org',
-        confirmText: 'Contact via Telegram',
-        cancelText: 'Close',
+        message: 'Need help? Contact us directly.',
+        confirmText: 'Telegram',
+        cancelText: 'Email',
         tone: 'danger',
-      }).then((contacted) => {
-        if (contacted) window.open('https://t.me/bovalone', '_blank');
+      }).then((telegram) => {
+        if (telegram) window.open('https://t.me/bovalone', '_blank');
+        else window.location.href = 'mailto:ask@topup.eu.org';
       });
       return;
     }
