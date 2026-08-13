@@ -39,6 +39,8 @@
     if (!element) return;
     element.textContent = text || '';
     element.dataset.tone = tone;
+    const errContacts = document.querySelector('.portal-error-contacts');
+    if (errContacts) errContacts.classList.toggle('is-visible', tone === 'error');
   };
 
   const confirmAction = (options) => window.portalConfirm(options);

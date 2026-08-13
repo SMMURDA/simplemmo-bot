@@ -31,9 +31,11 @@
   let googleConfigured = false;
   if (!status || !googleMount) return;
 
+  const errorContacts = document.querySelector('#trial-error-contacts');
   const setStatus = (message, kind = '') => {
     status.textContent = message;
     status.className = `trial-status${kind ? ` trial-status--${kind}` : ''}`;
+    if (errorContacts) errorContacts.classList.toggle('is-visible', kind === 'error');
   };
 
 
