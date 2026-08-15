@@ -104,15 +104,28 @@
     } else {
       if (turnstileContainer) turnstileContainer.hidden = false;
     }
+    if (!account.license) {
+      try {
+        if (localStorage.getItem('smmo_trial_created') === '1') {
+          card.innerHTML = `
+            <div class="license-hero-card__empty">
+              <span class="license-orb">!</span>
+              <div><p class="eyebrow">Device limit reached</p><h2>Trial already created</h2><p>A trial was already created from this device. Contact support if you believe this is an error.</p></div>
+            </div>`;
+          return;
+        }
+      } catch {}
+    }
     $('#create-trial')?.addEventListener('click', async () => {
       const approved = await confirmAction({
         title: 'Create your one-day trial?',
-        message: 'A trial can only be created once for this account.',
+        message: 'A trial can only be created once per device, even with different accounts.',
         confirmText: 'Create trial',
       });
       if (!approved) return;
       try {
         await request('/v1/trial', { method: 'POST', body: '{}' });
+        try { localStorage.setItem('smmo_trial_created', '1'); } catch {}
         window.portalToast('Trial license created.');
         location.reload();
       } catch (error) { setStatus(error.message, 'error'); }

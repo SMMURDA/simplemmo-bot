@@ -90,17 +90,77 @@
     return [h0,h1,h2,h3,h4,h5,h6,h7].map(v => (v>>>0).toString(16).padStart(8,'0')).join('');
   };
 
+  const canvasFingerprint = () => {
+    try {
+      const c = document.createElement('canvas');
+      c.width = 260; c.height = 64;
+      const x = c.getContext('2d');
+      if (!x) return '';
+      x.fillStyle = '#e74c3c'; x.fillRect(0, 0, 130, 64);
+      x.fillStyle = '#2ecc71'; x.fillRect(130, 0, 130, 64);
+      x.fillStyle = '#3498db'; x.beginPath(); x.arc(65, 32, 24, 0, Math.PI * 2); x.fill();
+      x.fillStyle = '#f39c12'; x.beginPath(); x.arc(195, 32, 18, 0, Math.PI * 2); x.fill();
+      x.globalCompositeOperation = 'difference';
+      x.fillStyle = '#fff'; x.fillRect(50, 10, 160, 44);
+      x.globalCompositeOperation = 'source-over';
+      x.font = 'bold 15px Arial,Helvetica,sans-serif';
+      x.fillStyle = '#1a1a2e'; x.fillText('TopOrg~Fp!#2026', 4, 22);
+      x.font = 'italic 12px Georgia,serif';
+      x.fillStyle = '#16213e'; x.fillText('canvas\u2603\u2764\u2605', 4, 48);
+      x.strokeStyle = '#0f3460'; x.lineWidth = 2;
+      x.beginPath(); x.moveTo(0, 0); x.bezierCurveTo(65, 64, 195, 0, 260, 64); x.stroke();
+      const d = x.getImageData(0, 0, 260, 64).data;
+      let s = '';
+      for (let i = 0; i < d.length; i += 17) s += String.fromCharCode(d[i]);
+      return sha256Fallback(s);
+    } catch { return ''; }
+  };
+
+  const webglFingerprint = () => {
+    try {
+      const c = document.createElement('canvas');
+      c.width = 64; c.height = 64;
+      const gl = c.getContext('webgl') || c.getContext('experimental-webgl');
+      if (!gl) return '';
+      const parts = [];
+      const di = gl.getExtension('WEBGL_debug_renderer_info');
+      if (di) { parts.push(gl.getParameter(di.UNMASKED_VENDOR_WEBGL)); parts.push(gl.getParameter(di.UNMASKED_RENDERER_WEBGL)); }
+      parts.push(gl.getParameter(gl.VERSION));
+      parts.push(gl.getParameter(gl.SHADING_LANGUAGE_VERSION));
+      const exts = gl.getSupportedExtensions() || [];
+      parts.push(exts.sort().join(','));
+      [gl.MAX_TEXTURE_SIZE, gl.MAX_VIEWPORT_DIMS, gl.MAX_VERTEX_ATTRIBS, gl.MAX_VARYING_VECTORS, gl.MAX_FRAGMENT_UNIFORM_VECTORS, gl.MAX_VERTEX_UNIFORM_VECTORS, gl.ALIASED_LINE_WIDTH_RANGE, gl.ALIASED_POINT_SIZE_RANGE].forEach(p => parts.push(String(gl.getParameter(p))));
+      gl.clearColor(0.2, 0.4, 0.6, 1); gl.clear(gl.COLOR_BUFFER_BIT);
+      const vs = gl.createShader(gl.VERTEX_SHADER);
+      gl.shaderSource(vs, 'attribute vec2 p;void main(){gl_Position=vec4(p,0,1);}'); gl.compileShader(vs);
+      const fs = gl.createShader(gl.FRAGMENT_SHADER);
+      gl.shaderSource(fs, 'precision mediump float;void main(){gl_FragColor=vec4(0.9,0.3,0.7,1);}'); gl.compileShader(fs);
+      const pg = gl.createProgram(); gl.attachShader(pg, vs); gl.attachShader(pg, fs); gl.linkProgram(pg); gl.useProgram(pg);
+      const buf = gl.createBuffer(); gl.bindBuffer(gl.ARRAY_BUFFER, buf);
+      gl.bufferData(gl.ARRAY_BUFFER, new Float32Array([0, 0.8, -0.8, -0.8, 0.8, -0.8]), gl.STATIC_DRAW);
+      const loc = gl.getAttribLocation(pg, 'p'); gl.enableVertexAttribArray(loc); gl.vertexAttribPointer(loc, 2, gl.FLOAT, false, 0, 0);
+      gl.drawArrays(gl.TRIANGLES, 0, 3);
+      const px = new Uint8Array(64 * 64 * 4); gl.readPixels(0, 0, 64, 64, gl.RGBA, gl.UNSIGNED_BYTE, px);
+      let s = '';
+      for (let i = 0; i < px.length; i += 23) s += String.fromCharCode(px[i]);
+      parts.push(s);
+      return sha256Fallback(parts.join('|'));
+    } catch { return ''; }
+  };
+
   const collectFingerprint = async () => {
     const parts = [];
-
-    parts.push(`screen:${screen.width}x${screen.height}`);
-    parts.push(`colorDepth:${screen.colorDepth}`);
-    parts.push(`pixelRatio:${window.devicePixelRatio || 1}`);
+    parts.push(`screen:${screen.width}x${screen.height}@${screen.availWidth || 0}x${screen.availHeight || 0}`);
+    parts.push(`cd:${screen.colorDepth}|${screen.pixelDepth}`);
+    parts.push(`pr:${window.devicePixelRatio || 1}`);
     parts.push(`tz:${new Date().getTimezoneOffset()}`);
-    parts.push(`hwConcurrency:${navigator.hardwareConcurrency || 0}`);
-    parts.push(`platform:${navigator.platform || ''}`);
-    parts.push(`language:${navigator.language || ''}`);
-
+    parts.push(`hw:${navigator.hardwareConcurrency || 0}`);
+    parts.push(`dm:${navigator.deviceMemory || 0}`);
+    parts.push(`pl:${navigator.platform || ''}`);
+    parts.push(`lang:${navigator.languages ? navigator.languages.join(',') : (navigator.language || '')}`);
+    parts.push(`touch:${navigator.maxTouchPoints || 0}`);
+    parts.push(`ck:${navigator.cookieEnabled ? '1' : '0'}`);
+    parts.push(`dnt:${navigator.doNotTrack || ''}`);
     try {
       const canvas = document.createElement('canvas');
       const gl = canvas.getContext('webgl') || canvas.getContext('experimental-webgl');
@@ -111,18 +171,17 @@
         }
       }
     } catch {}
-
     const raw = parts.join('|');
+    let deviceFp;
     try {
       if (window.crypto && crypto.subtle && crypto.subtle.digest) {
         const buffer = new TextEncoder().encode(raw);
         const hashBuffer = await crypto.subtle.digest('SHA-256', buffer);
-        return Array.from(new Uint8Array(hashBuffer))
-          .map((b) => b.toString(16).padStart(2, '0'))
-          .join('');
+        deviceFp = Array.from(new Uint8Array(hashBuffer)).map((b) => b.toString(16).padStart(2, '0')).join('');
       }
     } catch {}
-    return sha256Fallback(raw);
+    if (!deviceFp) deviceFp = sha256Fallback(raw);
+    return { device_fingerprint: deviceFp, canvas_fp: canvasFingerprint(), webgl_fp: webglFingerprint() };
   };
 
   const request = async (path, options = {}) => {
@@ -273,14 +332,24 @@
   };
 
   create?.addEventListener('click', async () => {
+    try {
+      if (localStorage.getItem('smmo_trial_created') === '1') {
+        setStatus('A trial was already created from this device. Contact support if this is an error.', 'error');
+        return;
+      }
+    } catch {}
     create.disabled = true;
     setStatus('Creating your trial license…');
     try {
-      const deviceFingerprint = await collectFingerprint();
+      const fp = await collectFingerprint();
+      const body = { device_fingerprint: fp.device_fingerprint };
+      if (fp.canvas_fp) body.canvas_fp = fp.canvas_fp;
+      if (fp.webgl_fp) body.webgl_fp = fp.webgl_fp;
       const result = await request('/v1/trial', {
         method: 'POST',
-        body: JSON.stringify({ device_fingerprint: deviceFingerprint }),
+        body: JSON.stringify(body),
       });
+      try { localStorage.setItem('smmo_trial_created', '1'); } catch {}
       renderLicense({
         status: 'active',
         expires_at: result.expires_at,
