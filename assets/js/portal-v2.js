@@ -98,6 +98,12 @@
   const initTrial = async (account) => {
     const card = $('#trial-license-card');
     card.innerHTML = trialCard(account.license);
+    const turnstileContainer = document.getElementById('turnstile-container');
+    if (account.license) {
+      if (turnstileContainer) turnstileContainer.hidden = true;
+    } else {
+      if (turnstileContainer) turnstileContainer.hidden = false;
+    }
     $('#create-trial')?.addEventListener('click', async () => {
       const approved = await confirmAction({
         title: 'Create your one-day trial?',
