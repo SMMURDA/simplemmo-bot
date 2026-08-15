@@ -330,22 +330,24 @@
   };
 
   const initEmailVerification = (prefillEmail) => {
+    const isTelegram = prefillEmail.startsWith('Telegram ID');
+    const emailValue = isTelegram ? '' : prefillEmail;
     const emailSection = document.createElement('div');
     emailSection.id = 'trial-email-section';
     emailSection.className = 'trial-row trial-row--email';
     emailSection.innerHTML = `
       <span class="trial-step">2</span>
-      <div class="trial-row__copy" style="flex:1">
+      <div class="trial-row__copy" style="flex:1;min-width:0">
         <h2>Verify your email</h2>
         <p>Only @gmail.com addresses are accepted. A 6-digit code will be sent.</p>
-        <input id="trial-verify-email" type="email" placeholder="yourname@gmail.com" value="${prefillEmail}" ${prefillEmail ? 'readonly' : ''} style="width:100%;padding:10px 14px;border-radius:8px;border:1px solid var(--border,#334155);background:var(--surface,#1e293b);color:inherit;margin:8px 0;font-size:14px">
-        <div id="trial-otp-row" hidden style="display:flex;gap:8px;align-items:center;margin-top:8px">
-          <input id="trial-otp-input" type="text" inputmode="numeric" maxlength="6" placeholder="6-digit code" style="flex:1;padding:10px 14px;border-radius:8px;border:1px solid var(--border,#334155);background:var(--surface,#1e293b);color:inherit;font-size:18px;letter-spacing:6px;text-align:center">
-          <button id="trial-verify-btn" class="button button--primary" type="button">Verify</button>
+        <input id="trial-verify-email" type="email" placeholder="yourname@gmail.com" value="${emailValue}" ${prefillEmail && !isTelegram ? 'readonly' : ''} style="width:100%;padding:12px 14px;border-radius:8px;border:1px solid var(--border,#334155);background:var(--surface,#1e293b);color:inherit;margin:8px 0;font-size:16px;box-sizing:border-box">
+        <div id="trial-otp-row" hidden style="display:flex;gap:8px;align-items:center;margin-top:8px;flex-wrap:wrap">
+          <input id="trial-otp-input" type="text" inputmode="numeric" maxlength="6" placeholder="6-digit code" style="flex:1;min-width:120px;padding:12px 14px;border-radius:8px;border:1px solid var(--border,#334155);background:var(--surface,#1e293b);color:inherit;font-size:20px;letter-spacing:8px;text-align:center;box-sizing:border-box">
+          <button id="trial-verify-btn" class="button button--primary" type="button" style="white-space:nowrap">Verify</button>
         </div>
         <p id="trial-email-status" style="font-size:13px;margin:6px 0 0;color:var(--muted,#94a3b8)"></p>
       </div>
-      <button id="trial-send-otp" class="button button--primary" type="button">Send code</button>`;
+      <button id="trial-send-otp" class="button button--primary" type="button" style="white-space:nowrap;align-self:flex-start;margin-top:4px">Send code</button>`;
     if (action && action.parentNode) action.parentNode.insertBefore(emailSection, action);
     const emailInput = emailSection.querySelector('#trial-verify-email');
     const sendBtn = emailSection.querySelector('#trial-send-otp');
@@ -353,6 +355,22 @@
     const otpInput = emailSection.querySelector('#trial-otp-input');
     const verifyBtn = emailSection.querySelector('#trial-verify-btn');
     const emailStatus = emailSection.querySelector('#trial-email-status');
+    let cooldownTimer = null;
+    const startCooldown = () => {
+      let seconds = 60;
+      sendBtn.disabled = true;
+      sendBtn.textContent = `Resend (${seconds}s)`;
+      cooldownTimer = setInterval(() => {
+        seconds--;
+        sendBtn.textContent = `Resend (${seconds}s)`;
+        if (seconds <= 0) {
+          clearInterval(cooldownTimer);
+          cooldownTimer = null;
+          sendBtn.disabled = false;
+          sendBtn.textContent = 'Resend code';
+        }
+      }, 1000);
+    };
     sendBtn.addEventListener('click', async () => {
       const em = emailInput.value.trim().toLowerCase();
       if (!em.endsWith('@gmail.com')) { emailStatus.textContent = 'Only @gmail.com addresses are accepted.'; emailStatus.style.color = '#ef4444'; return; }
@@ -360,9 +378,10 @@
       try {
         const res = await request('/v1/trial/request-otp', { method: 'POST', body: JSON.stringify({ email: em }) });
         emailStatus.textContent = res.message || 'Code sent. Check your inbox.'; emailStatus.style.color = '#22c55e';
-        otpRow.hidden = false; otpInput.focus(); sendBtn.textContent = 'Resend';
-      } catch (err) { emailStatus.textContent = err.message; emailStatus.style.color = '#ef4444'; }
-      finally { sendBtn.disabled = false; }
+        otpRow.hidden = false; otpInput.focus();
+        sendBtn.textContent = 'Resend';
+        startCooldown();
+      } catch (err) { emailStatus.textContent = err.message; emailStatus.style.color = '#ef4444'; sendBtn.disabled = false; }
     });
     verifyBtn.addEventListener('click', async () => {
       const otp = otpInput.value.trim();
@@ -372,6 +391,7 @@
         await request('/v1/trial/verify-otp', { method: 'POST', body: JSON.stringify({ email: emailInput.value.trim().toLowerCase(), otp }) });
         emailStatus.textContent = 'Email verified! Redirecting…'; emailStatus.style.color = '#22c55e';
         emailSection.innerHTML = '<span class="trial-step trial-step--done" aria-hidden="true">✓</span><div class="trial-row__copy"><h2>Email verified</h2><p>Redirecting to your dashboard…</p></div>';
+        if (cooldownTimer) clearInterval(cooldownTimer);
         setTimeout(() => window.location.replace('/accounts/trial-license/'), 1500);
       } catch (err) { emailStatus.textContent = err.message; emailStatus.style.color = '#ef4444'; }
       finally { verifyBtn.disabled = false; }
