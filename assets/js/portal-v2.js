@@ -275,6 +275,10 @@
     bindLogout();
     try {
       const account = await hydrateProfile();
+      if (!account.otp_verified && page !== 'verify') {
+        location.replace('/accounts/verify/');
+        return;
+      }
       if (page === 'overview') initOverview(account);
       if (page === 'trial') await initTrial(account);
       if (page === 'buy') await initBuy(account);
