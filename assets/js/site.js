@@ -1,17 +1,21 @@
 const button = document.querySelector('.nav-toggle');
-const navigation = document.querySelector('.site-nav');
+const allNavs = document.querySelectorAll('.site-nav');
 
-if (button && navigation) {
+if (button && allNavs.length) {
   button.addEventListener('click', () => {
     const open = button.getAttribute('aria-expanded') === 'true';
     button.setAttribute('aria-expanded', String(!open));
-    navigation.classList.toggle('is-open', !open);
+    allNavs.forEach((nav) => {
+      if (!nav.hidden) nav.classList.toggle('is-open', !open);
+    });
   });
 
-  navigation.querySelectorAll('a').forEach((link) => {
-    link.addEventListener('click', () => {
-      button.setAttribute('aria-expanded', 'false');
-      navigation.classList.remove('is-open');
+  allNavs.forEach((nav) => {
+    nav.querySelectorAll('a').forEach((link) => {
+      link.addEventListener('click', () => {
+        button.setAttribute('aria-expanded', 'false');
+        allNavs.forEach((n) => n.classList.remove('is-open'));
+      });
     });
   });
 }

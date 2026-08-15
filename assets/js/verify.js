@@ -21,8 +21,10 @@
 
   const hydrateProfile = async () => {
     const account = await request('/v1/account');
-    $('#portal-name').textContent = account.user.name || 'Member';
-    $('#portal-email').textContent = account.user.email;
+    const pn = $('#portal-name');
+    const pe = $('#portal-email');
+    if (pn) pn.textContent = account.user.name || 'Member';
+    if (pe) pe.textContent = account.user.email;
     const adminLink = $('#admin-link');
     if (adminLink) adminLink.hidden = account.user.role !== 'admin';
     return account;

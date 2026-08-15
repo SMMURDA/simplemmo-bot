@@ -59,11 +59,12 @@
 
   const hydrateProfile = async () => {
     const account = await request('/v1/account');
-    const profile = account.user;
-    $('#portal-name').textContent = profile.name || 'Member';
-    $('#portal-email').textContent = profile.email;
+    const portalName = $('#portal-name');
+    const portalEmail = $('#portal-email');
+    if (portalName) portalName.textContent = account.user.name || 'Member';
+    if (portalEmail) portalEmail.textContent = account.user.email;
     const adminLink = $('#admin-link');
-    if (adminLink) adminLink.hidden = profile.role !== 'admin';
+    if (adminLink) adminLink.hidden = account.user.role !== 'admin';
     return account;
   };
 
