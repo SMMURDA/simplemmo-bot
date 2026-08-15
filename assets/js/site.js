@@ -222,33 +222,46 @@ document.querySelectorAll('[data-license-examples]').forEach((exampleGroup) => {
   });
 })();
 
-// Session-aware Trial/Dashboard navigation.
-const accountNavLink = document.querySelector('#account-nav-link');
-if (accountNavLink) {
-  const trialHref = accountNavLink.dataset.trialHref || '/trial/';
-  const dashboardHref = accountNavLink.dataset.dashboardHref || '/accounts/overview/';
-  let accountNavState = 'checking';
-  const navLabel = accountNavLink.querySelector('.nav-label');
-  const setNavText = (text) => { if (navLabel) navLabel.textContent = text; else accountNavLink.textContent = text; };
-  const resolveAccountNavigation = fetch('https://license.topup.eu.org/v1/account', {
+// Session-aware navigation: toggle between guest nav and member nav.
+const guestNav = document.querySelector('[data-nav="guest"]');
+const memberNav = document.querySelector('[data-nav="member"]');
+const navToggle = document.querySelector('.nav-toggle');
+
+const showNav = (nav) => {
+  if (guestNav) guestNav.hidden = nav !== 'guest';
+  if (memberNav) memberNav.hidden = nav !== 'member';
+  if (navToggle) {
+    navToggle.setAttribute('aria-controls', nav === 'member' ? 'member-nav' : 'site-nav');
+  }
+};
+
+if (guestNav || memberNav) {
+  fetch('https://license.topup.eu.org/v1/account', {
     method: 'GET',
     credentials: 'include',
     headers: { Accept: 'application/json' },
   }).then((response) => {
-    accountNavState = response.ok ? 'authenticated' : 'guest';
-    setNavText(response.ok ? 'Dashboard' : 'Trial');
-    accountNavLink.href = response.ok ? dashboardHref : trialHref;
-    return accountNavState;
+    if (response.ok) return response.json();
+    throw new Error('not authenticated');
+  }).then((data) => {
+    showNav('member');
+    const adminLink = document.querySelector('#member-admin-link');
+    if (adminLink && data.user?.role === 'admin') adminLink.hidden = false;
+    const logoutBtn = document.querySelector('#header-logout');
+    if (logoutBtn) {
+      logoutBtn.addEventListener('click', async () => {
+        try {
+          await fetch('https://license.topup.eu.org/v1/auth/logout', {
+            method: 'POST', credentials: 'include',
+            headers: { 'Content-Type': 'application/json' },
+            body: '{}',
+          });
+        } catch {}
+        showNav('guest');
+        location.replace('/trial/');
+      });
+    }
   }).catch(() => {
-    accountNavState = 'guest';
-    setNavText('Trial');
-    accountNavLink.href = trialHref;
-    return accountNavState;
-  });
-  accountNavLink.addEventListener('click', async (event) => {
-    if (accountNavState !== 'checking') return;
-    event.preventDefault();
-    await resolveAccountNavigation;
-    window.location.assign(accountNavState === 'authenticated' ? dashboardHref : trialHref);
+    showNav('guest');
   });
 }
