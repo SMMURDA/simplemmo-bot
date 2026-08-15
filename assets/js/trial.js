@@ -380,12 +380,14 @@
   const loadAccount = async () => {
     try {
       const data = await request('/v1/account');
-      if (data.license) {
+      console.log('[Trial] account data:', JSON.stringify({ hasLicense: !!data.license, status: data.license?.status, email: data.user?.email }));
+      if (data.license && data.license.status === 'active') {
         window.location.replace('/accounts/overview/');
       } else {
         showAccount(data);
       }
-    } catch {
+    } catch (err) {
+      console.log('[Trial] loadAccount error:', err.message);
       setStatus('Sign in with Google, GitHub, Microsoft, GitLab, or Telegram to create your trial.', 'neutral');
     }
   };
