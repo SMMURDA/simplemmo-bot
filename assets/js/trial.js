@@ -406,14 +406,8 @@
 
   const loadAccount = async () => {
     try {
-      const data = await request('/v1/account');
-      if (data.license && data.license.status === 'active') {
-        window.location.replace('/accounts/overview/');
-      } else if (data.otp_verified) {
-        window.location.replace('/accounts/trial-license/');
-      } else {
-        showAccount(data);
-      }
+      await request('/v1/account');
+      window.location.replace('/accounts/trial-license/');
     } catch {
       setStatus('Sign in with Google, GitHub, Microsoft, GitLab, or Telegram to create your trial.', 'neutral');
     }

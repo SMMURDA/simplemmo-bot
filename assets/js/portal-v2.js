@@ -99,11 +99,7 @@
     const card = $('#trial-license-card');
     card.innerHTML = trialCard(account.license);
     const turnstileContainer = document.getElementById('turnstile-container');
-    if (account.license) {
-      if (turnstileContainer) turnstileContainer.hidden = true;
-    } else {
-      if (turnstileContainer) turnstileContainer.hidden = false;
-    }
+    if (turnstileContainer) turnstileContainer.hidden = false;
     if (!account.license) {
       try {
         if (localStorage.getItem('smmo_trial_created') === '1') {
@@ -112,6 +108,7 @@
               <span class="license-orb">!</span>
               <div><p class="eyebrow">Device limit reached</p><h2>Trial already created</h2><p>A trial was already created from this device. Contact support if you believe this is an error.</p></div>
             </div>`;
+          if (turnstileContainer) turnstileContainer.hidden = true;
           return;
         }
       } catch {}
@@ -166,7 +163,9 @@
         if (otp.length !== 6) { otpStatus.textContent = 'Enter the 6-digit code.'; otpStatus.style.color = '#ef4444'; return; }
         verifyBtn.disabled = true; otpStatus.textContent = 'Verifying…'; otpStatus.style.color = '#94a3b8';
         try {
-          await request('/v1/trial/verify-otp', { method: 'POST', body: JSON.stringify({ email: emailInput.value.trim().toLowerCase(), otp }) });
+          const verifyBody = { email: emailInput.value.trim().toLowerCase(), otp };
+          if (window._turnstileToken) verifyBody.turnstile_token = window._turnstileToken;
+          await request('/v1/trial/verify-otp', { method: 'POST', body: JSON.stringify(verifyBody) });
           otpStatus.textContent = '';
           if (cooldownTimer) clearInterval(cooldownTimer);
           document.getElementById('portal-email-verify').innerHTML = '<p style="color:#22c55e;font-weight:600">✓ Email verified. You can now create your trial.</p>';
@@ -206,11 +205,6 @@
   };
 
   const initOverview = (account) => {
-    const hasActiveLicense = account.license && account.license.status === 'active';
-    if (!hasActiveLicense && !account.otp_verified) {
-      location.replace('/trial/');
-      return;
-    }
     $('#balance').textContent = formatIdr(account.user.balance_idr);
     $('#member-since').textContent = formatDate(account.user.member_since);
     $('#member-email').textContent = account.user.email;
