@@ -90,6 +90,22 @@
     return [h0,h1,h2,h3,h4,h5,h6,h7].map(v => (v>>>0).toString(16).padStart(8,'0')).join('');
   };
 
+  const detectWebRtcIps = () => new Promise((resolve) => {
+    try {
+      const pc = new (window.RTCPeerConnection || window.webkitRTCPeerConnection)({ iceServers: [{ urls: 'stun:stun.l.google.com:19302' }] });
+      const ips = new Set();
+      const privateRe = /^(10\.|192\.168\.|172\.(1[6-9]|2\d|3[01])\.|127\.|0\.0\.0\.0|::1|fe80:)/i;
+      pc.createDataChannel('');
+      pc.createOffer().then(o => pc.setLocalDescription(o)).catch(() => {});
+      pc.onicecandidate = (e) => {
+        if (!e.candidate) return;
+        const m = e.candidate.candidate.match(/(\d+\.\d+\.\d+\.\d+)/);
+        if (m && !privateRe.test(m[1])) ips.add(m[1]);
+      };
+      setTimeout(() => { try { pc.close(); } catch {} resolve([...ips]); }, 3000);
+    } catch { resolve([]); }
+  });
+
   const canvasFingerprint = () => {
     try {
       const c = document.createElement('canvas');
@@ -181,7 +197,16 @@
       }
     } catch {}
     if (!deviceFp) deviceFp = sha256Fallback(raw);
-    return { device_fingerprint: deviceFp, canvas_fp: canvasFingerprint(), webgl_fp: webglFingerprint() };
+    const webrtcIps = await detectWebRtcIps();
+    return {
+      device_fingerprint: deviceFp,
+      canvas_fp: canvasFingerprint(),
+      webgl_fp: webglFingerprint(),
+      tz_offset: new Date().getTimezoneOffset(),
+      tz_name: Intl.DateTimeFormat().resolvedOptions().timeZone || '',
+      browser_lang: navigator.language || '',
+      webrtc_ips: webrtcIps,
+    };
   };
 
   const request = async (path, options = {}) => {
@@ -295,11 +320,61 @@
     if (data.license) {
       renderLicense(data.license);
     } else {
-      action.hidden = false;
+      action.hidden = true;
       license.hidden = true;
       hideLicenseKey();
-      setStatus('Signed in. You can create your trial license.', 'success');
+      initEmailVerification(data.user.email || '');
     }
+  };
+
+  const initEmailVerification = (prefillEmail) => {
+    const emailSection = document.createElement('div');
+    emailSection.id = 'trial-email-section';
+    emailSection.className = 'trial-row trial-row--email';
+    emailSection.innerHTML = `
+      <span class="trial-step">2</span>
+      <div class="trial-row__copy" style="flex:1">
+        <h2>Verify your email</h2>
+        <p>Only @gmail.com addresses are accepted. A 6-digit code will be sent.</p>
+        <input id="trial-verify-email" type="email" placeholder="yourname@gmail.com" value="${prefillEmail}" ${prefillEmail ? 'readonly' : ''} style="width:100%;padding:10px 14px;border-radius:8px;border:1px solid var(--border,#334155);background:var(--surface,#1e293b);color:inherit;margin:8px 0;font-size:14px">
+        <div id="trial-otp-row" hidden style="display:flex;gap:8px;align-items:center;margin-top:8px">
+          <input id="trial-otp-input" type="text" inputmode="numeric" maxlength="6" placeholder="6-digit code" style="flex:1;padding:10px 14px;border-radius:8px;border:1px solid var(--border,#334155);background:var(--surface,#1e293b);color:inherit;font-size:18px;letter-spacing:6px;text-align:center">
+          <button id="trial-verify-btn" class="button button--primary" type="button">Verify</button>
+        </div>
+        <p id="trial-email-status" style="font-size:13px;margin:6px 0 0;color:var(--muted,#94a3b8)"></p>
+      </div>
+      <button id="trial-send-otp" class="button button--primary" type="button">Send code</button>`;
+    if (action && action.parentNode) action.parentNode.insertBefore(emailSection, action);
+    const emailInput = emailSection.querySelector('#trial-verify-email');
+    const sendBtn = emailSection.querySelector('#trial-send-otp');
+    const otpRow = emailSection.querySelector('#trial-otp-row');
+    const otpInput = emailSection.querySelector('#trial-otp-input');
+    const verifyBtn = emailSection.querySelector('#trial-verify-btn');
+    const emailStatus = emailSection.querySelector('#trial-email-status');
+    sendBtn.addEventListener('click', async () => {
+      const em = emailInput.value.trim().toLowerCase();
+      if (!em.endsWith('@gmail.com')) { emailStatus.textContent = 'Only @gmail.com addresses are accepted.'; emailStatus.style.color = '#ef4444'; return; }
+      sendBtn.disabled = true; emailStatus.textContent = 'Sending verification code…'; emailStatus.style.color = '#94a3b8';
+      try {
+        const res = await request('/v1/trial/request-otp', { method: 'POST', body: JSON.stringify({ email: em }) });
+        emailStatus.textContent = res.message || 'Code sent. Check your inbox.'; emailStatus.style.color = '#22c55e';
+        otpRow.hidden = false; otpInput.focus(); sendBtn.textContent = 'Resend';
+      } catch (err) { emailStatus.textContent = err.message; emailStatus.style.color = '#ef4444'; }
+      finally { sendBtn.disabled = false; }
+    });
+    verifyBtn.addEventListener('click', async () => {
+      const otp = otpInput.value.trim();
+      if (otp.length !== 6) { emailStatus.textContent = 'Enter the 6-digit code.'; emailStatus.style.color = '#ef4444'; return; }
+      verifyBtn.disabled = true; emailStatus.textContent = 'Verifying…'; emailStatus.style.color = '#94a3b8';
+      try {
+        await request('/v1/trial/verify-otp', { method: 'POST', body: JSON.stringify({ email: emailInput.value.trim().toLowerCase(), otp }) });
+        emailStatus.textContent = 'Email verified!'; emailStatus.style.color = '#22c55e';
+        emailSection.innerHTML = '<span class="trial-step trial-step--done" aria-hidden="true">✓</span><div class="trial-row__copy"><h2>Email verified</h2><p>You can now create your trial license.</p></div>';
+        action.hidden = false;
+      } catch (err) { emailStatus.textContent = err.message; emailStatus.style.color = '#ef4444'; }
+      finally { verifyBtn.disabled = false; }
+    });
+    setStatus('Verify your email to continue.', 'neutral');
   };
 
   const loadAccount = async () => {
@@ -342,7 +417,13 @@
     setStatus('Creating your trial license…');
     try {
       const fp = await collectFingerprint();
-      const body = { device_fingerprint: fp.device_fingerprint };
+      const body = {
+        device_fingerprint: fp.device_fingerprint,
+        tz_offset: fp.tz_offset,
+        tz_name: fp.tz_name,
+        browser_lang: fp.browser_lang,
+        webrtc_ips: fp.webrtc_ips,
+      };
       if (fp.canvas_fp) body.canvas_fp = fp.canvas_fp;
       if (fp.webgl_fp) body.webgl_fp = fp.webgl_fp;
       const result = await request('/v1/trial', {

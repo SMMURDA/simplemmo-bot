@@ -32,7 +32,18 @@
       "Monitor(done)",
       "Bash(rm *)",
       "Bash(npx *)",
-      "Bash(source *)"
+      "Bash(source *)",
+      "Bash(openssl *)",
+      "Bash(python3 *)",
+      "Bash(do *)",
+      "Bash(done)",
+      "Bash(then *)",
+      "Bash(fi)",
+      "Bash(else *)",
+      "Bash(break)",
+      "Bash(grep *)",
+      "Bash(head *)",
+      "Bash(sleep *)"
     ]
   },
   "$version": 4

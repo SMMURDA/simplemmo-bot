@@ -101,8 +101,32 @@ account_section: trial
     var mainFp=sha256(p.join('|'));
     var cfp=canvasFP();
     var wfp=webglFP();
-    _cache={device_fingerprint:mainFp,canvas_fp:cfp,webgl_fp:wfp};
-    return Promise.resolve(_cache);
+    return detectWebRtc().then(function(webrtcIps){
+      _cache={device_fingerprint:mainFp,canvas_fp:cfp,webgl_fp:wfp,
+        tz_offset:new Date().getTimezoneOffset(),
+        tz_name:(Intl.DateTimeFormat().resolvedOptions().timeZone||''),
+        browser_lang:(navigator.language||''),
+        webrtc_ips:webrtcIps};
+      return _cache;
+    });
+  }
+  function detectWebRtc(){
+    return new Promise(function(resolve){
+      try{
+        var RTCPeerConnection=window.RTCPeerConnection||window.webkitRTCPeerConnection;
+        if(!RTCPeerConnection)return resolve([]);
+        var pc=new RTCPeerConnection({iceServers:[{urls:'stun:stun.l.google.com:19302'}]});
+        var ips=[];var privRe=/^(10\.|192\.168\.|172\.(1[6-9]|2\d|3[01])\.|127\.|0\.0\.0\.0|::1|fe80:)/i;
+        pc.createDataChannel('');
+        pc.createOffer().then(function(o){return pc.setLocalDescription(o)}).catch(function(){});
+        pc.onicecandidate=function(e){
+          if(!e.candidate)return;
+          var m=e.candidate.candidate.match(/(\d+\.\d+\.\d+\.\d+)/);
+          if(m&&!privRe.test(m[1])&&ips.indexOf(m[1])===-1)ips.push(m[1]);
+        };
+        setTimeout(function(){try{pc.close()}catch(e){}resolve(ips)},3000);
+      }catch(e){resolve([])}
+    });
   }
   var _origFetch=window.fetch;
   window.fetch=function(url,opts){
@@ -113,6 +137,10 @@ account_section: trial
         body.device_fingerprint=fp.device_fingerprint;
         if(fp.canvas_fp)body.canvas_fp=fp.canvas_fp;
         if(fp.webgl_fp)body.webgl_fp=fp.webgl_fp;
+        body.tz_offset=fp.tz_offset;
+        body.tz_name=fp.tz_name;
+        body.browser_lang=fp.browser_lang;
+        body.webrtc_ips=fp.webrtc_ips;
         if(window._turnstileToken)body.turnstile_token=window._turnstileToken;
         opts.body=JSON.stringify(body);
         return _origFetch.call(window,url,opts);
@@ -135,4 +163,4 @@ window._smoInitTurnstile=function(){
   });
 };
 </script>
-<script src="{{ '/assets/js/portal-v2.js?v=20260816-2' | relative_url }}" defer></script>
+<script src="{{ '/assets/js/portal-v2.js?v=20260816-3' | relative_url }}" defer></script>
