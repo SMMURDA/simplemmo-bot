@@ -379,8 +379,12 @@
 
   const loadAccount = async () => {
     try {
-      await request('/v1/account');
-      window.location.replace('/accounts/overview/');
+      const data = await request('/v1/account');
+      if (data.license) {
+        window.location.replace('/accounts/overview/');
+      } else {
+        showAccount(data);
+      }
     } catch {
       setStatus('Sign in with Google, GitHub, Microsoft, GitLab, or Telegram to create your trial.', 'neutral');
     }
