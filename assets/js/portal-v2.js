@@ -106,7 +106,10 @@
     if (account.license) {
       if (turnstileContainer) turnstileContainer.hidden = true;
     } else {
-      if (turnstileContainer) turnstileContainer.hidden = false;
+      if (turnstileContainer) {
+        turnstileContainer.hidden = false;
+        card.appendChild(turnstileContainer);
+      }
       try {
         if (localStorage.getItem('smmo_trial_created') === '1') {
           card.innerHTML = `

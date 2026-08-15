@@ -15,6 +15,7 @@ account_section: verify
       <button id="verify-send-otp" class="button button--primary" type="button" style="width:100%">Send verification code</button>
       <div id="verify-otp-section" hidden style="margin-top:16px">
         <input id="verify-otp-input" type="text" inputmode="numeric" maxlength="6" placeholder="6-digit code" style="width:100%;padding:14px;border-radius:8px;border:1px solid var(--border,#334155);background:var(--card,#0f172a);color:inherit;font-size:22px;letter-spacing:8px;text-align:center;box-sizing:border-box;margin-bottom:12px">
+        <div id="turnstile-container" style="display:flex;justify-content:center;margin:8px 0 12px;"></div>
         <button id="verify-confirm" class="button button--primary" type="button" style="width:100%">Verify code</button>
       </div>
       <p id="verify-status" style="font-size:13px;margin:10px 0 0"></p>
@@ -22,13 +23,11 @@ account_section: verify
     <div id="portal-status" class="portal-status" aria-live="polite"></div>
   </main>
 </div>
-<div id="turnstile-container" style="display:flex;justify-content:center;margin:16px 0;" hidden></div>
 <script src="https://challenges.cloudflare.com/turnstile/v0/api.js?onload=_verifyInitTurnstile" async defer></script>
 <script>
 window._verifyInitTurnstile=function(){
   var container=document.getElementById('turnstile-container');
   if(!container)return;
-  container.hidden=false;
   turnstile.render(container,{
     sitekey:'0x4AAAAAAEPVdV5Afm0YAJ2b',
     theme:'dark',
