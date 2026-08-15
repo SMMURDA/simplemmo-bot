@@ -215,6 +215,13 @@
     $('#member-since').textContent = formatDate(account.user.member_since);
     $('#member-email').textContent = account.user.email;
     $('#member-role').textContent = account.user.role === 'admin' ? 'Administrator' : 'Member';
+    const memberEmail = $('#member-email');
+    if (memberEmail && account.otp_verified) {
+      const badge = document.createElement('span');
+      badge.style.cssText = 'display:inline-flex;align-items:center;gap:4px;color:#3b82f6;font-size:12px;font-weight:600;margin-top:2px';
+      badge.innerHTML = '<svg width="14" height="14" viewBox="0 0 24 24" fill="#3b82f6"><path d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z"/></svg> Verified';
+      memberEmail.parentNode.insertBefore(badge, memberEmail.nextSibling);
+    }
   };
 
   const initBuy = async (account) => {

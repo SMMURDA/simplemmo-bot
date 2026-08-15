@@ -377,6 +377,11 @@
       sendBtn.disabled = true; emailStatus.textContent = 'Sending verification code…'; emailStatus.style.color = '#94a3b8';
       try {
         const res = await request('/v1/trial/request-otp', { method: 'POST', body: JSON.stringify({ email: em }) });
+        if (res.already_verified) {
+          emailStatus.textContent = 'Already verified! Redirecting…'; emailStatus.style.color = '#22c55e';
+          setTimeout(() => window.location.replace('/accounts/trial-license/'), 1000);
+          return;
+        }
         emailStatus.textContent = res.message || 'Code sent. Check your inbox.'; emailStatus.style.color = '#22c55e';
         otpRow.hidden = false; otpInput.focus();
         sendBtn.textContent = 'Resend';
@@ -404,6 +409,8 @@
       const data = await request('/v1/account');
       if (data.license && data.license.status === 'active') {
         window.location.replace('/accounts/overview/');
+      } else if (data.otp_verified) {
+        window.location.replace('/accounts/trial-license/');
       } else {
         showAccount(data);
       }
