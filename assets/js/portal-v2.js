@@ -100,7 +100,7 @@
     card.innerHTML = trialCard(account.license);
     const turnstileContainer = document.getElementById('turnstile-container');
     if (!account.otp_verified) {
-      location.replace('/trial/');
+      location.replace('/accounts/verify/');
       return;
     }
     if (account.license) {

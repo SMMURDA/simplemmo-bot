@@ -414,7 +414,7 @@
       if (data.otp_verified) {
         window.location.replace(data.license && data.license.status === 'active' ? '/accounts/overview/' : '/accounts/trial-license/');
       } else {
-        showAccount(data);
+        window.location.replace('/accounts/verify/');
       }
     } catch {
       setStatus('Sign in with Google, GitHub, Microsoft, GitLab, or Telegram to create your trial.', 'neutral');
