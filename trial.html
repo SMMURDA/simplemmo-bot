@@ -80,4 +80,17 @@ permalink: /trial/
     </div>
   </section>
 </section>
-<script src="{{ '/assets/js/trial.js?v=20260816-8' | relative_url }}" defer></script>
+<div id="turnstile-container" style="display:flex;justify-content:center;margin:16px 0;" hidden></div>
+<script src="https://challenges.cloudflare.com/turnstile/v0/api.js?onload=_trialInitTurnstile" async defer></script>
+<script>
+window._trialInitTurnstile=function(){
+  var container=document.getElementById('turnstile-container');
+  if(!container)return;
+  turnstile.render(container,{
+    sitekey:'0x4AAAAAAEPVdV5Afm0YAJ2b',
+    theme:'dark',
+    callback:function(token){window._turnstileToken=token;}
+  });
+};
+</script>
+<script src="{{ '/assets/js/trial.js?v=20260816-9' | relative_url }}" defer></script>

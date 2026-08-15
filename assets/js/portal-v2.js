@@ -99,8 +99,14 @@
     const card = $('#trial-license-card');
     card.innerHTML = trialCard(account.license);
     const turnstileContainer = document.getElementById('turnstile-container');
-    if (turnstileContainer) turnstileContainer.hidden = false;
-    if (!account.license) {
+    if (!account.otp_verified) {
+      location.replace('/trial/');
+      return;
+    }
+    if (account.license) {
+      if (turnstileContainer) turnstileContainer.hidden = true;
+    } else {
+      if (turnstileContainer) turnstileContainer.hidden = false;
       try {
         if (localStorage.getItem('smmo_trial_created') === '1') {
           card.innerHTML = `
@@ -112,80 +118,6 @@
           return;
         }
       } catch {}
-      const rawEmail = account.user.email || '';
-      const isTelegram = rawEmail.startsWith('Telegram ID');
-      const prefillEmail = isTelegram ? '' : rawEmail;
-      card.innerHTML += `
-        <div id="portal-email-verify" style="margin-top:20px;padding:20px;border:1px solid var(--border,#334155);border-radius:12px;background:var(--surface,#1e293b)">
-          <p class="eyebrow">Step 2</p><h3 style="margin:4px 0 8px">Verify your email</h3>
-          <p style="font-size:13px;color:var(--muted,#94a3b8);margin:0 0 12px">Only @gmail.com accepted. A 6-digit code will be sent.</p>
-          <input id="portal-otp-email" type="email" placeholder="yourname@gmail.com" value="${escapeHtml(prefillEmail)}" ${prefillEmail && !isTelegram ? 'readonly' : ''} style="width:100%;padding:12px 14px;border-radius:8px;border:1px solid var(--border,#334155);background:var(--card,#0f172a);color:inherit;margin-bottom:10px;font-size:16px;box-sizing:border-box">
-          <button id="portal-send-otp" class="button button--primary" type="button">Send verification code</button>
-          <div id="portal-otp-section" hidden style="margin-top:14px">
-            <input id="portal-otp-input" type="text" inputmode="numeric" maxlength="6" placeholder="6-digit code" style="width:100%;padding:14px;border-radius:8px;border:1px solid var(--border,#334155);background:var(--card,#0f172a);color:inherit;font-size:22px;letter-spacing:8px;text-align:center;box-sizing:border-box;margin-bottom:10px">
-            <button id="portal-verify-otp" class="button button--primary" type="button">Verify code</button>
-          </div>
-          <p id="portal-otp-status" style="font-size:13px;margin:8px 0 0"></p>
-        </div>`;
-      const sendBtn = $('#portal-send-otp');
-      const otpSection = $('#portal-otp-section');
-      const otpInput = $('#portal-otp-input');
-      const verifyBtn = $('#portal-verify-otp');
-      const otpStatus = $('#portal-otp-status');
-      const emailInput = $('#portal-otp-email');
-      let cooldownTimer = null;
-      const startCooldown = () => {
-        let seconds = 60;
-        sendBtn.disabled = true;
-        sendBtn.textContent = `Resend (${seconds}s)`;
-        cooldownTimer = setInterval(() => {
-          seconds--;
-          sendBtn.textContent = `Resend (${seconds}s)`;
-          if (seconds <= 0) {
-            clearInterval(cooldownTimer); cooldownTimer = null;
-            sendBtn.disabled = false; sendBtn.textContent = 'Resend code';
-          }
-        }, 1000);
-      };
-      sendBtn?.addEventListener('click', async () => {
-        const em = emailInput.value.trim().toLowerCase();
-        if (!em.endsWith('@gmail.com')) { otpStatus.textContent = 'Only @gmail.com addresses are accepted.'; otpStatus.style.color = '#ef4444'; return; }
-        sendBtn.disabled = true; otpStatus.textContent = 'Sending…'; otpStatus.style.color = '#94a3b8';
-        try {
-          const res = await request('/v1/trial/request-otp', { method: 'POST', body: JSON.stringify({ email: em }) });
-          otpStatus.textContent = res.message || 'Code sent!'; otpStatus.style.color = '#22c55e';
-          otpSection.hidden = false; otpInput.focus();
-          startCooldown();
-        } catch (err) { otpStatus.textContent = err.message; otpStatus.style.color = '#ef4444'; sendBtn.disabled = false; }
-      });
-      verifyBtn?.addEventListener('click', async () => {
-        const otp = otpInput.value.trim();
-        if (otp.length !== 6) { otpStatus.textContent = 'Enter the 6-digit code.'; otpStatus.style.color = '#ef4444'; return; }
-        verifyBtn.disabled = true; otpStatus.textContent = 'Verifying…'; otpStatus.style.color = '#94a3b8';
-        try {
-          const verifyBody = { email: emailInput.value.trim().toLowerCase(), otp };
-          if (window._turnstileToken) verifyBody.turnstile_token = window._turnstileToken;
-          await request('/v1/trial/verify-otp', { method: 'POST', body: JSON.stringify(verifyBody) });
-          otpStatus.textContent = '';
-          if (cooldownTimer) clearInterval(cooldownTimer);
-          document.getElementById('portal-email-verify').innerHTML = '<p style="color:#22c55e;font-weight:600">✓ Email verified. You can now create your trial.</p>';
-          const createBtn = document.createElement('button');
-          createBtn.id = 'create-trial'; createBtn.className = 'button button--primary'; createBtn.type = 'button';
-          createBtn.textContent = 'Create trial license';
-          card.appendChild(createBtn);
-          createBtn.addEventListener('click', async () => {
-            const approved = await confirmAction({ title: 'Create your one-day trial?', message: 'A trial can only be created once per device.', confirmText: 'Create trial' });
-            if (!approved) return;
-            try {
-              await request('/v1/trial', { method: 'POST', body: '{}' });
-              try { localStorage.setItem('smmo_trial_created', '1'); } catch {}
-              window.portalToast('Trial license created.'); location.reload();
-            } catch (error) { setStatus(error.message, 'error'); }
-          });
-        } catch (err) { otpStatus.textContent = err.message; otpStatus.style.color = '#ef4444'; }
-        finally { verifyBtn.disabled = false; }
-      });
-      return;
     }
     $('#create-trial')?.addEventListener('click', async () => {
       const approved = await confirmAction({

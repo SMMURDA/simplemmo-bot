@@ -308,6 +308,8 @@
     account.hidden = false;
     const accountNavLink = document.querySelector('#account-nav-link');
     if (accountNavLink) accountNavLink.hidden = true;
+    const turnstileContainer = document.getElementById('turnstile-container');
+    if (turnstileContainer) turnstileContainer.hidden = false;
     const provider = String(data.user.provider || '').toLowerCase();
     if (avatar) {
       avatar.textContent = provider === 'github' ? 'GH' : (provider === 'microsoft' ? 'MS' : (provider === 'gitlab' ? 'GL' : (provider === 'telegram' ? 'TG' : 'G')));
@@ -393,7 +395,9 @@
       if (otp.length !== 6) { emailStatus.textContent = 'Enter the 6-digit code.'; emailStatus.style.color = '#ef4444'; return; }
       verifyBtn.disabled = true; emailStatus.textContent = 'Verifying…'; emailStatus.style.color = '#94a3b8';
       try {
-        await request('/v1/trial/verify-otp', { method: 'POST', body: JSON.stringify({ email: emailInput.value.trim().toLowerCase(), otp }) });
+        const verifyBody = { email: emailInput.value.trim().toLowerCase(), otp };
+        if (window._turnstileToken) verifyBody.turnstile_token = window._turnstileToken;
+        await request('/v1/trial/verify-otp', { method: 'POST', body: JSON.stringify(verifyBody) });
         emailStatus.textContent = 'Email verified! Redirecting…'; emailStatus.style.color = '#22c55e';
         emailSection.innerHTML = '<span class="trial-step trial-step--done" aria-hidden="true">✓</span><div class="trial-row__copy"><h2>Email verified</h2><p>Redirecting to your dashboard…</p></div>';
         if (cooldownTimer) clearInterval(cooldownTimer);
@@ -406,8 +410,12 @@
 
   const loadAccount = async () => {
     try {
-      await request('/v1/account');
-      window.location.replace('/accounts/trial-license/');
+      const data = await request('/v1/account');
+      if (data.otp_verified) {
+        window.location.replace(data.license && data.license.status === 'active' ? '/accounts/overview/' : '/accounts/trial-license/');
+      } else {
+        showAccount(data);
+      }
     } catch {
       setStatus('Sign in with Google, GitHub, Microsoft, GitLab, or Telegram to create your trial.', 'neutral');
     }
