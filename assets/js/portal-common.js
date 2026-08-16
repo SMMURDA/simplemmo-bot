@@ -89,4 +89,37 @@
   window.portalConfirm = open;
   window.portalToast = showToast;
   window.portalCopy = copyWithConfirmation;
+
+  // CSRF + HMAC auto-headers for fetch
+  const getCookie = (name) => {
+    const match = document.cookie.match(new RegExp('(?:^|; )' + name + '=([^;]*)'));
+    return match ? decodeURIComponent(match[1]) : null;
+  };
+  const hmacSha256 = async (message, key) => {
+    const enc = new TextEncoder();
+    const keyBytes = enc.encode(key);
+    const cryptoKey = await crypto.subtle.importKey('raw', keyBytes, { name: 'HMAC', hash: 'SHA-256' }, false, ['sign']);
+    const sig = await crypto.subtle.sign('HMAC', cryptoKey, enc.encode(message));
+    return btoa(String.fromCharCode(...new Uint8Array(sig)))
+      .replace(/\+/g, '-').replace(/\//g, '_').replace(/=+$/, '');
+  };
+  const origFetch = window.fetch;
+  window.fetch = async function(url, options = {}) {
+    const csrfToken = getCookie('csrf_token');
+    const hmacKey = getCookie('hmac_key');
+    if (csrfToken || hmacKey) {
+      options.headers = options.headers || {};
+      if (csrfToken && !options.headers['X-CSRF-Token']) {
+        options.headers['X-CSRF-Token'] = csrfToken;
+      }
+      if (hmacKey && options.method === 'POST' && !options.headers['X-Signature']) {
+        const timestamp = Date.now().toString();
+        const body = options.body || '';
+        const sig = await hmacSha256(body + timestamp, hmacKey);
+        options.headers['X-Signature'] = sig;
+        options.headers['X-Timestamp'] = timestamp;
+      }
+    }
+    return origFetch.call(window, url, options);
+  };
 })();
