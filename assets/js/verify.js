@@ -47,6 +47,7 @@
 
   const initVerify = (account) => {
     if (account.otp_verified) {
+      try { sessionStorage.removeItem('otp_email'); } catch {}
       location.replace(account.license && account.license.status === 'active' ? '/accounts/overview/' : '/accounts/trial-license/');
       return;
     }
@@ -81,6 +82,18 @@
       }, 1000);
     };
 
+    // Restore OTP state from sessionStorage if user reloaded
+    try {
+      const savedEmail = sessionStorage.getItem('otp_email');
+      if (savedEmail) {
+        emailInput.value = savedEmail;
+        if (!isTelegram) emailInput.readOnly = true;
+        otpSection.hidden = false;
+        status.textContent = 'Code was sent. Enter the 6-digit code from your email, or resend below.';
+        status.style.color = '#94a3b8';
+      }
+    } catch {}
+
     sendBtn.addEventListener('click', async () => {
       const em = emailInput.value.trim().toLowerCase();
       if (!em.endsWith('@gmail.com')) { status.textContent = 'Only @gmail.com addresses are accepted.'; status.style.color = '#ef4444'; return; }
@@ -88,10 +101,12 @@
       try {
         const res = await request('/v1/trial/request-otp', { method: 'POST', body: JSON.stringify({ email: em }) });
         if (res.already_verified) {
+          try { sessionStorage.removeItem('otp_email'); } catch {}
           status.textContent = 'Already verified! Redirecting…'; status.style.color = '#22c55e';
           setTimeout(() => location.replace('/accounts/trial-license/'), 1000);
           return;
         }
+        try { sessionStorage.setItem('otp_email', em); } catch {}
         status.textContent = res.message || 'Code sent. Check your inbox.'; status.style.color = '#22c55e';
         otpSection.hidden = false; otpInput.focus();
         startCooldown();
@@ -110,6 +125,7 @@
         if (window._turnstileToken) body.turnstile_token = window._turnstileToken;
         await request('/v1/trial/verify-otp', { method: 'POST', body: JSON.stringify(body) });
         if (cooldownTimer) clearInterval(cooldownTimer);
+        try { sessionStorage.removeItem('otp_email'); } catch {}
         status.textContent = '';
         document.getElementById('verify-card').innerHTML = '<div style="text-align:center;padding:20px 0"><svg width="48" height="48" viewBox="0 0 24 24" fill="#22c55e"><path d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z"/></svg><h3 style="color:#22c55e;margin:12px 0 4px">Email Verified!</h3><p style="color:#94a3b8">Redirecting to your dashboard…</p></div>';
         const ts = document.getElementById('turnstile-container');
