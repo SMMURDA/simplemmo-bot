@@ -208,6 +208,45 @@
     await loadMethods();
   };
 
+  const loadUsers = async () => {
+    const users = await request('/v1/admin/users');
+    const table = $('#users-table');
+    if (!users.users || !users.users.length) {
+      table.innerHTML = '<p style="color:var(--muted)">No users found.</p>';
+      return;
+    }
+    const rows = users.users.map(u => `
+      <tr>
+        <td style="max-width:180px;overflow:hidden;text-overflow:ellipsis;white-space:nowrap" title="${escapeHtml(u.email)}">${escapeHtml(u.email)}</td>
+        <td>${escapeHtml(u.display_name || '—')}</td>
+        <td>${u.role === 'admin' ? '👑 Admin' : 'Member'}</td>
+        <td>${u.trial_license_id ? '✅ Yes' : '—'}</td>
+        <td>${u.email_verified_at ? '✅' : '❌'}</td>
+        <td>${formatDate(u.created_at)}</td>
+        <td style="display:flex;gap:4px;flex-wrap:wrap">
+          <button class="button button--small" data-action="reset" data-id="${u.id}" title="Reset trial">↺ Reset</button>
+          <button class="button button--small button--danger" data-action="delete" data-id="${u.id}" title="Delete user">🗑 Delete</button>
+        </td>
+      </tr>`).join('');
+    table.innerHTML = `<table style="width:100%;border-collapse:collapse"><thead><tr><th>Email</th><th>Name</th><th>Role</th><th>Trial</th><th>Verified</th><th>Joined</th><th>Actions</th></tr></thead><tbody>${rows}</tbody></table>`;
+    table.querySelectorAll('[data-action="reset"]').forEach(btn => {
+      btn.addEventListener('click', async () => {
+        const id = btn.dataset.id;
+        if (!await confirmAction({ title: 'Reset trial?', message: 'Revoke trial license + clear devices. User can create new trial.', confirmText: 'Reset', tone: 'danger' })) return;
+        try { await post(`/v1/admin/users/${id}/reset-trial`, {}); setStatus('Trial reset.', 'success'); loadUsers(); }
+        catch (e) { setStatus(e.message, 'error'); }
+      });
+    });
+    table.querySelectorAll('[data-action="delete"]').forEach(btn => {
+      btn.addEventListener('click', async () => {
+        const id = btn.dataset.id;
+        if (!await confirmAction({ title: 'Delete user?', message: 'This will delete all user data: licenses, devices, topups. Cannot be undone.', confirmText: 'Delete permanently', tone: 'danger' })) return;
+        try { await request(`/v1/admin/users/${id}`, { method: 'DELETE' }); setStatus('User deleted.', 'success'); loadUsers(); }
+        catch (e) { setStatus(e.message, 'error'); }
+      });
+    });
+  };
+
   document.addEventListener('DOMContentLoaded', async () => {
     bindLogout();
     try {
@@ -215,6 +254,21 @@
       if (page === 'licenses') await initLicenses();
       if (page === 'topups') await loadTopups();
       if (page === 'payments') await initPayments();
+      if (page === 'users') {
+        await loadUsers();
+        const overrideBtn = $('#override-btn');
+        overrideBtn?.addEventListener('click', async () => {
+          const email = $('#override-email')?.value.trim();
+          if (!email) { $('#override-status').textContent = 'Enter email.'; return; }
+          overrideBtn.disabled = true;
+          try {
+            const res = await post('/v1/admin/trial-override', { email });
+            $('#override-status').textContent = res.message; $('#override-status').style.color = '#22c55e';
+            loadUsers();
+          } catch (e) { $('#override-status').textContent = e.message; $('#override-status').style.color = '#ef4444'; }
+          finally { overrideBtn.disabled = false; }
+        });
+      }
     } catch (error) {
       if (error.status === 401) return location.replace('/trial/');
       if (error.status === 403) return location.replace('/accounts/overview/');

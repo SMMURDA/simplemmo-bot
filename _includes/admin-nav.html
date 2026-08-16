@@ -4,5 +4,6 @@
   <a {% if page.admin_section == 'licenses' %}class="is-active"{% endif %} href="{{ '/admin/licenses/' | relative_url }}">Licenses</a>
   <a {% if page.admin_section == 'topups' %}class="is-active"{% endif %} href="{{ '/admin/topups/' | relative_url }}">Top-up requests</a>
   <a {% if page.admin_section == 'payments' %}class="is-active"{% endif %} href="{{ '/admin/payment-methods/' | relative_url }}">Payment methods</a>
+  <a {% if page.admin_section == 'users' %}class="is-active"{% endif %} href="{{ '/admin/users/' | relative_url }}">Users</a>
   <button id="admin-logout" class="portal-nav__logout" type="button">Sign out</button>
 </aside>
