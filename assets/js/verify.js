@@ -66,8 +66,8 @@
     }
 
     let cooldownTimer = null;
-    const startCooldown = () => {
-      let seconds = 60;
+    const startCooldown = (sec = 60) => {
+      let seconds = sec;
       sendBtn.disabled = true;
       sendBtn.textContent = `Resend (${seconds}s)`;
       cooldownTimer = setInterval(() => {
@@ -112,7 +112,12 @@
         startCooldown();
       } catch (err) {
         status.textContent = err.message; status.style.color = '#ef4444';
-        sendBtn.disabled = false;
+        if (err.status === 429) {
+          try { const body = JSON.parse(err.message); } catch {}
+          startCooldown(60);
+        } else {
+          sendBtn.disabled = false;
+        }
       }
     });
 
