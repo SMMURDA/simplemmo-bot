@@ -1,0 +1,14 @@
+{
+  "mangle": {
+    "reserved": [
+      "portalConfirm", "portalToast", "portalCopy",
+      "setStatus", "renderLicense", "hideLicenseKey",
+      "showAccount", "initEmailVerification", "loadAccount",
+      "hydrateProfile", "initTrial", "initOverview", "initBuy",
+      "initLicenses", "initTopup", "initVerify", "bindLogout",
+      "request", "copyValue", "confirmAction",
+      "formatIdr", "formatDate", "escapeHtml", "trialCard",
+      "getCookie", "hmacSha256"
+    ]
+  }
+}
