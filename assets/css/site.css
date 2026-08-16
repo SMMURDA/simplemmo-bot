@@ -1051,6 +1051,8 @@ body.image-lightbox-open { overflow: hidden; }
 .license-revoke-message { margin-top: 14px; padding: 14px 16px; border: 1px solid color-mix(in srgb, var(--red) 35%, var(--border)); border-radius: 11px; background: var(--red-soft); }
 .license-revoke-message strong { display: block; margin-bottom: 6px; font-size: 12px; text-transform: uppercase; letter-spacing: .06em; color: var(--red); }
 .license-revoke-message p { margin: 0; font-size: 14px; color: var(--text); line-height: 1.6; }
+#turnstile-container { max-width: 300px; margin-left: auto; margin-right: auto; }
+#turnstile-container iframe { max-width: 300px !important; }
 .status-pill { display: inline-flex; align-items: center; width: fit-content; padding: 5px 9px; border: 1px solid var(--border); border-radius: 999px; color: var(--muted); font-size: 11px; font-weight: 800; text-transform: uppercase; letter-spacing: .05em; }
 .status-pill--active, .status-pill--approved { border-color: rgba(80,227,164,.38); background: rgba(80,227,164,.1); color: #83f0c2; }
 .status-pill--pending { border-color: rgba(255,196,91,.38); background: rgba(255,196,91,.1); color: #ffd78c; }

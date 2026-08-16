@@ -109,7 +109,11 @@
     } else {
       if (turnstileContainer) {
         turnstileContainer.hidden = false;
-        card.appendChild(turnstileContainer);
+        turnstileContainer.style.maxWidth = '300px';
+        const createBtn = $('#create-trial');
+        if (createBtn && createBtn.parentNode) {
+          createBtn.parentNode.insertBefore(turnstileContainer, createBtn);
+        }
       }
     }
     $('#create-trial')?.addEventListener('click', async () => {
