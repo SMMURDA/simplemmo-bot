@@ -111,17 +111,6 @@
         turnstileContainer.hidden = false;
         card.appendChild(turnstileContainer);
       }
-      try {
-        if (localStorage.getItem('smmo_trial_created') === '1') {
-          card.innerHTML = `
-            <div class="license-hero-card__empty">
-              <span class="license-orb">!</span>
-              <div><p class="eyebrow">Device limit reached</p><h2>Trial already created</h2><p>A trial was already created from this device. Contact support if you believe this is an error.</p></div>
-            </div>`;
-          if (turnstileContainer) turnstileContainer.hidden = true;
-          return;
-        }
-      } catch {}
     }
     $('#create-trial')?.addEventListener('click', async () => {
       const approved = await confirmAction({
@@ -132,7 +121,6 @@
       if (!approved) return;
       try {
         await request('/v1/trial', { method: 'POST', body: '{}' });
-        try { localStorage.setItem('smmo_trial_created', '1'); } catch {}
         window.portalToast('Trial license created.');
         location.reload();
       } catch (error) { setStatus(error.message, 'error'); }

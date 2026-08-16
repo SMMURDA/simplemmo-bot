@@ -442,12 +442,6 @@
   };
 
   create?.addEventListener('click', async () => {
-    try {
-      if (localStorage.getItem('smmo_trial_created') === '1') {
-        setStatus('A trial was already created from this device. Contact support if this is an error.', 'error');
-        return;
-      }
-    } catch {}
     create.disabled = true;
     setStatus('Creating your trial license…');
     try {
@@ -465,7 +459,6 @@
         method: 'POST',
         body: JSON.stringify(body),
       });
-      try { localStorage.setItem('smmo_trial_created', '1'); } catch {}
       renderLicense({
         status: 'active',
         expires_at: result.expires_at,
