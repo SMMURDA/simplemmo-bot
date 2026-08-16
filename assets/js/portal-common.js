@@ -120,26 +120,6 @@
         options.headers['X-Timestamp'] = timestamp;
       }
     }
-    return origFetch.call(window, url, options).then(async (response) => {
-      const encKey = getCookie('enc_key');
-      if (!encKey || !response.ok) return response;
-      const clone = response.clone();
-      const body = await clone.json().catch(() => null);
-      if (!body || !body.data || !body.tag || !body.iv) return response;
-      try {
-        const keyBytes = new TextEncoder().encode(encKey).slice(0, 32);
-        const cryptoKey = await crypto.subtle.importKey('raw', keyBytes, { name: 'AES-GCM' }, false, ['decrypt']);
-        const iv = new Uint8Array(atob(body.iv.replace(/-/g, '+').replace(/_/g, '/')).split('').map(c => c.charCodeAt(0)));
-        const data = new Uint8Array(atob(body.data.replace(/-/g, '+').replace(/_/g, '/')).split('').map(c => c.charCodeAt(0)));
-        const tag = new Uint8Array(atob(body.tag.replace(/-/g, '+').replace(/_/g, '/')).split('').map(c => c.charCodeAt(0)));
-        const combined = new Uint8Array(data.length + tag.length);
-        combined.set(data); combined.set(tag, data.length);
-        const decrypted = await crypto.subtle.decrypt({ name: 'AES-GCM', iv }, cryptoKey, combined);
-        const json = JSON.parse(new TextDecoder().decode(decrypted));
-        return new Response(JSON.stringify(json), { status: response.status, headers: response.headers });
-      } catch {
-        return response;
-      }
-    });
+    return origFetch.call(window, url, options);
   };
 })();
