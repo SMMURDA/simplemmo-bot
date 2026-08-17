@@ -150,16 +150,19 @@ account_section: trial
 })();
 </script>
 <div id="turnstile-container" style="display:flex;justify-content:center;margin:8px 0;" hidden></div>
-<script src="https://challenges.cloudflare.com/turnstile/v0/api.js?onload=_smoInitTurnstile" async defer></script>
+<script src="https://challenges.cloudflare.com/turnstile/v0/api.js" async defer></script>
 <script>
-window._smoInitTurnstile=function(){
+window._renderTurnstile=function(){
   var container=document.getElementById('turnstile-container');
-  if(!container)return;
+  if(!container||container.dataset.rendered)return;
+  if(typeof turnstile==='undefined')return setTimeout(window._renderTurnstile,200);
+  container.hidden=false;
   turnstile.render(container,{
     sitekey:'0x4AAAAAAEPVdV5Afm0YAJ2b',
     theme:'dark',
     callback:function(token){window._turnstileToken=token;}
   });
+  container.dataset.rendered='1';
 };
 </script>
 <script src="{{ '/assets/js/portal-v2.js?v=20260816-15' | relative_url }}" defer></script>
