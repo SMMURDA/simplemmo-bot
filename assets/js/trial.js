@@ -223,7 +223,12 @@
       ...options,
     });
     const data = await response.json().catch(() => ({}));
-    if (!response.ok) throw new Error(data.message || 'Request failed. Please try again.');
+    if (!response.ok) {
+      const err = new Error(data.message || 'Request failed. Please try again.');
+      err.status = response.status;
+      err.cooldown_sec = data.cooldown_sec;
+      throw err;
+    }
     return data;
   };
 
@@ -364,21 +369,37 @@
     const verifyBtn = emailSection.querySelector('#trial-verify-btn');
     const emailStatus = emailSection.querySelector('#trial-email-status');
     let cooldownTimer = null;
-    const startCooldown = () => {
-      let seconds = 60;
+    const CD_KEY = 'otp_cooldown_end';
+    const formatTime = (s) => s >= 60 ? `${Math.floor(s/60)}:${String(s%60).padStart(2,'0')}` : `${s}s`;
+    const startCooldown = (totalSeconds = 60) => {
+      let remaining = Math.max(1, Math.ceil(totalSeconds));
+      if (cooldownTimer) clearInterval(cooldownTimer);
+      try { localStorage.setItem(CD_KEY, String(Date.now() + remaining * 1000)); } catch {}
       sendBtn.disabled = true;
-      sendBtn.textContent = `Resend (${seconds}s)`;
+      sendBtn.textContent = `Resend (${formatTime(remaining)})`;
       cooldownTimer = setInterval(() => {
-        seconds--;
-        sendBtn.textContent = `Resend (${seconds}s)`;
-        if (seconds <= 0) {
+        remaining--;
+        if (remaining <= 0) {
           clearInterval(cooldownTimer);
           cooldownTimer = null;
           sendBtn.disabled = false;
           sendBtn.textContent = 'Resend code';
+          try { localStorage.removeItem(CD_KEY); } catch {}
+        } else {
+          sendBtn.textContent = `Resend (${formatTime(remaining)})`;
         }
       }, 1000);
     };
+    try {
+      const savedEnd = Number(localStorage.getItem(CD_KEY) || 0);
+      const remaining = Math.ceil((savedEnd - Date.now()) / 1000);
+      if (remaining > 0) {
+        startCooldown(remaining);
+        emailStatus.textContent = 'Cooldown active. Wait before requesting a new code.';
+        emailStatus.style.color = '#f59e0b';
+        otpRow.hidden = false;
+      }
+    } catch {}
     sendBtn.addEventListener('click', async () => {
       const em = emailInput.value.trim().toLowerCase();
       if (!em.endsWith('@gmail.com')) { emailStatus.textContent = 'Only @gmail.com addresses are accepted.'; emailStatus.style.color = '#ef4444'; return; }
@@ -387,14 +408,19 @@
         const res = await request('/v1/trial/request-otp', { method: 'POST', body: JSON.stringify({ email: em }) });
         if (res.already_verified) {
           emailStatus.textContent = 'Already verified! Redirecting…'; emailStatus.style.color = '#22c55e';
+          try { localStorage.removeItem(CD_KEY); } catch {}
           setTimeout(() => window.location.replace('/accounts/trial-license/'), 1000);
           return;
         }
         emailStatus.textContent = res.message || 'Code sent. Check your inbox.'; emailStatus.style.color = '#22c55e';
         otpRow.hidden = false; otpInput.focus();
         sendBtn.textContent = 'Resend';
-        startCooldown();
-      } catch (err) { emailStatus.textContent = err.message; emailStatus.style.color = '#ef4444'; sendBtn.disabled = false; }
+        startCooldown(60);
+      } catch (err) {
+        emailStatus.textContent = err.message; emailStatus.style.color = '#ef4444';
+        if (err.cooldown_sec) { startCooldown(err.cooldown_sec); }
+        else { sendBtn.disabled = false; }
+      }
     });
     verifyBtn.addEventListener('click', async () => {
       const otp = otpInput.value.trim();
