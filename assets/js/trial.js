@@ -212,7 +212,6 @@
   const request = async (path, options = {}) => {
     const baseHeaders = {
       'Accept': 'application/json, text/plain, */*',
-      'X-Requested-With': 'XMLHttpRequest',
       'Sec-Fetch-Site': 'cross-site',
       'Sec-Fetch-Mode': 'cors',
       'Sec-Fetch-Dest': 'empty',
