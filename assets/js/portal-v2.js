@@ -115,12 +115,12 @@
       if (turnstileContainer) turnstileContainer.hidden = true;
     } else {
       if (turnstileContainer) {
-        turnstileContainer.hidden = false;
         turnstileContainer.style.maxWidth = '300px';
         const createBtn = $('#create-trial');
         if (createBtn && createBtn.parentNode) {
           createBtn.parentNode.insertBefore(turnstileContainer, createBtn);
         }
+        if (typeof window._renderTurnstile === 'function') window._renderTurnstile();
       }
     }
     $('#create-trial')?.addEventListener('click', async () => {

@@ -315,8 +315,7 @@
     account.hidden = false;
     const accountNavLink = document.querySelector('#account-nav-link');
     if (accountNavLink) accountNavLink.hidden = true;
-    const turnstileContainer = document.getElementById('turnstile-container');
-    if (turnstileContainer) turnstileContainer.hidden = false;
+    if (typeof window._renderTurnstile === 'function') window._renderTurnstile();
     const provider = String(data.user.provider || '').toLowerCase();
     if (avatar) {
       avatar.textContent = provider === 'github' ? 'GH' : (provider === 'microsoft' ? 'MS' : (provider === 'gitlab' ? 'GL' : (provider === 'telegram' ? 'TG' : 'G')));
