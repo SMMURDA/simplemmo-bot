@@ -210,9 +210,17 @@
   };
 
   const request = async (path, options = {}) => {
+    const baseHeaders = {
+      'Accept': 'application/json, text/plain, */*',
+      'X-Requested-With': 'XMLHttpRequest',
+      'Sec-Fetch-Site': 'cross-site',
+      'Sec-Fetch-Mode': 'cors',
+      'Sec-Fetch-Dest': 'empty',
+    };
+    if (options.body || !options.method || options.method === 'POST') baseHeaders['Content-Type'] = 'application/json';
     const response = await fetch(`${API}${path}`, {
       credentials: 'include',
-      headers: { 'Content-Type': 'application/json', ...(options.headers || {}) },
+      headers: { ...baseHeaders, ...(options.headers || {}) },
       ...options,
     });
     const data = await response.json().catch(() => ({}));
