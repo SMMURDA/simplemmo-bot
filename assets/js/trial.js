@@ -415,7 +415,7 @@
         emailStatus.textContent = res.message || 'Code sent. Check your inbox.'; emailStatus.style.color = '#22c55e';
         otpRow.hidden = false; otpInput.focus();
         sendBtn.textContent = 'Resend';
-        startCooldown(60);
+        startCooldown(res.cooldown_sec || 60);
       } catch (err) {
         emailStatus.textContent = err.message; emailStatus.style.color = '#ef4444';
         if (err.cooldown_sec) { startCooldown(err.cooldown_sec); }
