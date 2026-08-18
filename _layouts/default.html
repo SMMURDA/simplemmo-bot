@@ -118,14 +118,24 @@
     </div>
   </div>
   <script>
-  if(window.__mt){
-    var d=window.__mt,o=document.getElementById('maintenance-overlay');
-    if(d.title)document.getElementById('mt-title').textContent=d.title;
-    if(d.message)document.getElementById('mt-message').textContent=d.message;
-    o.hidden=false;o.style.display='flex';
-    document.documentElement.style.visibility='visible';
-    document.body.style.overflow='hidden';
-  }
+  (function(){
+    var shown=!!window.__mt;
+    function showMT(d){
+      if(shown)return;shown=true;
+      var o=document.getElementById('maintenance-overlay');
+      if(d.title)document.getElementById('mt-title').textContent=d.title;
+      if(d.message)document.getElementById('mt-message').textContent=d.message;
+      o.hidden=false;o.style.display='flex';
+      document.body.style.overflow='hidden';
+    }
+    if(window.__mt)showMT(window.__mt);
+    setInterval(function(){
+      if(shown)return;
+      fetch('/maintenance.json?t='+Date.now()).then(function(r){return r.json()}).then(function(d){
+        if(d.enabled)showMT(d);
+      }).catch(function(){});
+    },30000);
+  })();
   </script>
 </body>
 </html>
