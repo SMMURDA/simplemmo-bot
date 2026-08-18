@@ -126,6 +126,7 @@
       if(d.title)document.getElementById('mt-title').textContent=d.title;
       if(d.message)document.getElementById('mt-message').textContent=d.message;
       o.hidden=false;o.style.display='flex';
+      document.documentElement.style.visibility='visible';
       document.body.style.overflow='hidden';
     }
     if(window.__mt)showMT(window.__mt);
