@@ -93,5 +93,30 @@
   </footer>
   <script src="/assets/js/site.js?v=20260816-5" defer></script>
   <script src="/assets/js/portal-common.js?v=20260816-4" defer></script>
+  <div id="maintenance-overlay" hidden style="position:fixed;inset:0;z-index:99999;display:none;align-items:center;justify-content:center;background:rgba(13,16,24,.97);backdrop-filter:blur(8px)">
+    <div style="text-align:center;max-width:480px;padding:40px 24px">
+      <div style="font-size:64px;margin-bottom:24px">🔧</div>
+      <h1 id="mt-title" style="font-size:28px;font-weight:800;color:#fff;margin:0 0 12px">Under Maintenance</h1>
+      <p id="mt-message" style="font-size:16px;color:#94a3b8;line-height:1.6;margin:0 0 32px">We're currently performing scheduled maintenance. Please check back shortly.</p>
+      <div style="display:flex;gap:12px;justify-content:center;flex-wrap:wrap">
+        <a href="https://t.me/bovalone" style="display:inline-flex;align-items:center;gap:8px;padding:12px 24px;border-radius:8px;background:#3b82f6;color:#fff;text-decoration:none;font-weight:600;font-size:14px">
+          <svg viewBox="0 0 24 24" width="16" height="16" fill="currentColor"><path d="M20.6 4.2 17.8 19c-.2 1-1 1.25-1.8.78l-4.35-3.2-2.1 2.03c-.23.23-.43.43-.88.43l.31-4.43 8.07-7.3c.35-.31-.08-.49-.54-.18l-9.98 6.28-4.3-1.34c-.94-.29-.95-.94.2-1.39l16.8-6.47c.78-.29 1.46.18 1.37.99Z"/></svg>
+          Contact Support
+        </a>
+        <button onclick="location.reload()" style="padding:12px 24px;border-radius:8px;background:transparent;color:#94a3b8;border:1px solid #334155;cursor:pointer;font-weight:600;font-size:14px">Refresh Page</button>
+      </div>
+    </div>
+  </div>
+  <script>
+  fetch('/maintenance.json?t='+Date.now()).then(r=>r.json()).then(d=>{
+    if(d.enabled){
+      var o=document.getElementById('maintenance-overlay');
+      if(d.title)document.getElementById('mt-title').textContent=d.title;
+      if(d.message)document.getElementById('mt-message').textContent=d.message;
+      o.hidden=false;o.style.display='flex';
+      document.body.style.overflow='hidden';
+    }
+  }).catch(()=>{});
+  </script>
 </body>
 </html>
