@@ -119,9 +119,10 @@
   </div>
   <script>
   (function(){
-    var shown=!!window.__mt;
+    var mtShown=!!window.__mt;
+    var GH_URL='https://smmurda.github.io/simplemmo-bot/maintenance.json';
     function showMT(d){
-      if(shown)return;shown=true;
+      if(mtShown)return;mtShown=true;
       var o=document.getElementById('maintenance-overlay');
       if(d.title)document.getElementById('mt-title').textContent=d.title;
       if(d.message)document.getElementById('mt-message').textContent=d.message;
@@ -129,13 +130,17 @@
       document.documentElement.style.visibility='visible';
       document.body.style.overflow='hidden';
     }
+    function hideMT(){
+      if(!mtShown)return;mtShown=false;
+      location.reload();
+    }
     if(window.__mt)showMT(window.__mt);
     setInterval(function(){
-      if(shown)return;
-      fetch('/maintenance.json?t='+Date.now()).then(function(r){return r.json()}).then(function(d){
-        if(d.enabled)showMT(d);
+      fetch(GH_URL+'?t='+Date.now()).then(function(r){return r.json()}).then(function(d){
+        if(d.enabled&&!mtShown)showMT(d);
+        if(!d.enabled&&mtShown)hideMT();
       }).catch(function(){});
-    },30000);
+    },15000);
   })();
   </script>
 </body>
