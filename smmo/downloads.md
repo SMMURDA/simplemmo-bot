@@ -22,7 +22,7 @@ Official builds are distributed through the **GitHub Releases** page associated 
   </a>
   <a class="download-card download-card--linux" href="https://github.com/SMMURDA/simplemmo-bot/releases/latest/download/SimpleMMO-Bot-Linux-x64.tar.gz">
     <span class="download-icon download-icon--linux" aria-hidden="true">
-      <img src="/assets/platform/linux.svg" alt="">
+      <img src="/assets/platform/linux-tux.png" alt="">
     </span>
     <span class="download-copy"><strong>Linux 64-bit</strong><small>Latest release · SimpleMMO-Bot-Linux-x64.tar.gz</small></span>
     <span class="download-action">Download <span aria-hidden="true">↓</span></span>
