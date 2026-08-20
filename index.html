@@ -24,14 +24,19 @@ permalink: /
       </div>
       <div class="lv-visual" aria-label="Topup Org automation dashboard preview">
         <div class="lv-orb lv-orb--one"></div><div class="lv-orb lv-orb--two"></div>
-        <div class="lv-window lv-window--back">
+        <div class="lv-window lv-window--back" id="window-back">
           <div class="lv-window__bar"><i></i><i></i><i></i></div>
           <img src="/assets/images/demo-abyss.png" alt="SimpleMMO Bot controls in Telegram">
         </div>
-        <div class="lv-window lv-window--front">
+        <div class="lv-window lv-window--front" id="window-front">
           <div class="lv-window__bar"><i></i><i></i><i></i><span>Live dashboard</span></div>
           <img src="/assets/images/demo-dashboard.png" alt="Topup Org Telegram dashboard">
         </div>
+        <button class="lv-swap-btn" id="swap-btn" aria-label="Swap images">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" width="20" height="20">
+            <path d="M7 16V4m0 0L3 8m4-4l4 4M17 8v12m0 0l4-4m-4 4l-4-4"/>
+          </svg>
+        </button>
       </div>
     </div>
   </section>
@@ -140,3 +145,31 @@ permalink: /
   <!-- Notice -->
   <section class="lv-section lv-section--notice"><div class="lv-shell"><div class="lv-notice"><div><p class="lv-label">Use responsibly</p><h2>Automation carries account risk.</h2><p>Review each game's rules before use. Each user is responsible for activity performed through their own account and credentials.</p></div><a class="lv-button" href="/smmo/getting-started/">Read setup guide</a></div></div></section>
 </div>
+
+<script>
+(function() {
+  const swapBtn = document.getElementById('swap-btn');
+  const windowBack = document.getElementById('window-back');
+  const windowFront = document.getElementById('window-front');
+  
+  if (swapBtn && windowBack && windowFront) {
+    let swapped = false;
+    
+    swapBtn.addEventListener('click', function() {
+      swapped = !swapped;
+      
+      if (swapped) {
+        windowBack.classList.remove('lv-window--back');
+        windowBack.classList.add('lv-window--front');
+        windowFront.classList.remove('lv-window--front');
+        windowFront.classList.add('lv-window--back');
+      } else {
+        windowBack.classList.remove('lv-window--front');
+        windowBack.classList.add('lv-window--back');
+        windowFront.classList.remove('lv-window--back');
+        windowFront.classList.add('lv-window--front');
+      }
+    });
+  }
+})();
+</script>
