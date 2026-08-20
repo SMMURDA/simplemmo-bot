@@ -33,8 +33,11 @@ permalink: /
           <img src="/assets/images/demo-dashboard.png" alt="Topup Org Telegram dashboard">
         </div>
         <button class="lv-swap-btn" id="swap-btn" aria-label="Swap images">
-          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" width="20" height="20">
-            <path d="M7 16V4m0 0L3 8m4-4l4 4M17 8v12m0 0l4-4m-4 4l-4-4"/>
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" width="24" height="24">
+            <path d="M16 3l4 4-4 4"/>
+            <path d="M20 7H4"/>
+            <path d="M8 21l-4-4 4-4"/>
+            <path d="M4 17h16"/>
           </svg>
         </button>
       </div>
@@ -151,25 +154,73 @@ permalink: /
   const swapBtn = document.getElementById('swap-btn');
   const windowBack = document.getElementById('window-back');
   const windowFront = document.getElementById('window-front');
+  const visualContainer = document.querySelector('.lv-visual');
   
-  if (swapBtn && windowBack && windowFront) {
-    let swapped = false;
+  if (!swapBtn || !windowBack || !windowFront || !visualContainer) return;
+  
+  let swapped = false;
+  let touchStartX = 0;
+  let touchStartY = 0;
+  let touchEndX = 0;
+  let touchEndY = 0;
+  
+  function swapImages() {
+    swapped = !swapped;
     
-    swapBtn.addEventListener('click', function() {
-      swapped = !swapped;
-      
-      if (swapped) {
-        windowBack.classList.remove('lv-window--back');
-        windowBack.classList.add('lv-window--front');
-        windowFront.classList.remove('lv-window--front');
-        windowFront.classList.add('lv-window--back');
-      } else {
-        windowBack.classList.remove('lv-window--front');
-        windowBack.classList.add('lv-window--back');
-        windowFront.classList.remove('lv-window--back');
-        windowFront.classList.add('lv-window--front');
-      }
-    });
+    if (swapped) {
+      windowBack.classList.remove('lv-window--back');
+      windowBack.classList.add('lv-window--front');
+      windowFront.classList.remove('lv-window--front');
+      windowFront.classList.add('lv-window--back');
+    } else {
+      windowBack.classList.remove('lv-window--front');
+      windowBack.classList.add('lv-window--back');
+      windowFront.classList.remove('lv-window--back');
+      windowFront.classList.add('lv-window--front');
+    }
   }
+  
+  // PC: Button click
+  swapBtn.addEventListener('click', swapImages);
+  
+  // Mobile: Touch/swipe gesture
+  visualContainer.addEventListener('touchstart', function(e) {
+    touchStartX = e.changedTouches[0].screenX;
+    touchStartY = e.changedTouches[0].screenY;
+  }, { passive: true });
+  
+  visualContainer.addEventListener('touchend', function(e) {
+    touchEndX = e.changedTouches[0].screenX;
+    touchEndY = e.changedTouches[0].screenY;
+    handleSwipe();
+  }, { passive: true });
+  
+  function handleSwipe() {
+    const deltaX = touchEndX - touchStartX;
+    const deltaY = touchEndY - touchStartY;
+    const minSwipeDistance = 50;
+    
+    // Detect horizontal or vertical swipe
+    if (Math.abs(deltaX) > Math.abs(deltaY)) {
+      // Horizontal swipe
+      if (Math.abs(deltaX) > minSwipeDistance) {
+        swapImages();
+      }
+    } else {
+      // Vertical swipe
+      if (Math.abs(deltaY) > minSwipeDistance) {
+        swapImages();
+      }
+    }
+  }
+  
+  // Hide button on mobile, show on desktop
+  function checkDevice() {
+    const isMobile = window.innerWidth <= 768 || 'ontouchstart' in window;
+    swapBtn.style.display = isMobile ? 'none' : 'flex';
+  }
+  
+  checkDevice();
+  window.addEventListener('resize', checkDevice);
 })();
 </script>
