@@ -106,7 +106,7 @@
     } catch { resolve([]); }
   });
 
-  const canvasFingerprint = () => {
+  const canvasFingerprint = async () => {
     try {
       const c = document.createElement('canvas');
       c.width = 260; c.height = 64;
@@ -128,11 +128,18 @@
       const d = x.getImageData(0, 0, 260, 64).data;
       let s = '';
       for (let i = 0; i < d.length; i += 17) s += String.fromCharCode(d[i]);
+      
+      // Use crypto.subtle if available (async, non-blocking)
+      if (window.crypto && crypto.subtle && crypto.subtle.digest) {
+        const buffer = new TextEncoder().encode(s);
+        const hashBuffer = await crypto.subtle.digest('SHA-256', buffer);
+        return Array.from(new Uint8Array(hashBuffer)).map(b => b.toString(16).padStart(2, '0')).join('');
+      }
       return sha256Fallback(s);
     } catch { return ''; }
   };
 
-  const webglFingerprint = () => {
+  const webglFingerprint = async () => {
     try {
       const c = document.createElement('canvas');
       c.width = 64; c.height = 64;
@@ -160,6 +167,13 @@
       let s = '';
       for (let i = 0; i < px.length; i += 23) s += String.fromCharCode(px[i]);
       parts.push(s);
+      
+      // Use crypto.subtle if available (async, non-blocking)
+      if (window.crypto && crypto.subtle && crypto.subtle.digest) {
+        const buffer = new TextEncoder().encode(parts.join('|'));
+        const hashBuffer = await crypto.subtle.digest('SHA-256', buffer);
+        return Array.from(new Uint8Array(hashBuffer)).map(b => b.toString(16).padStart(2, '0')).join('');
+      }
       return sha256Fallback(parts.join('|'));
     } catch { return ''; }
   };
@@ -198,10 +212,14 @@
     } catch {}
     if (!deviceFp) deviceFp = sha256Fallback(raw);
     const webrtcIps = await detectWebRtcIps();
+    const [canvas_fp, webgl_fp] = await Promise.all([
+      canvasFingerprint(),
+      webglFingerprint()
+    ]);
     return {
       device_fingerprint: deviceFp,
-      canvas_fp: canvasFingerprint(),
-      webgl_fp: webglFingerprint(),
+      canvas_fp,
+      webgl_fp,
       tz_offset: new Date().getTimezoneOffset(),
       tz_name: Intl.DateTimeFormat().resolvedOptions().timeZone || '',
       browser_lang: navigator.language || '',

@@ -1,7 +1,23 @@
+# ── Global security headers ──
 /*
   Strict-Transport-Security: max-age=31536000; includeSubDomains; preload
   X-Content-Type-Options: nosniff
   X-Frame-Options: DENY
   Referrer-Policy: strict-origin-when-cross-origin
   Permissions-Policy: geolocation=(), microphone=(), camera=()
-  X-XSS-Protection: 1; mode=block
+
+# ── Static assets (CSS, JS, images, fonts) ──
+# Versioned assets get immutable long cache; unversioned get 1 day.
+# The Cloudflare Worker overrides these when proxying, but these apply
+# for direct GitHub Pages access.
+/assets/*
+  Cache-Control: public, max-age=31536000, immutable
+  Access-Control-Allow-Origin: *
+
+# ── HTML pages: no browser cache, short edge cache ──
+/*.html
+  Cache-Control: public, max-age=0, must-revalidate
+
+# ── Maintenance flag: short cache ──
+/maintenance.json
+  Cache-Control: public, max-age=60

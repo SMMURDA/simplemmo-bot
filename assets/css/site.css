@@ -454,9 +454,9 @@ body.image-lightbox-open { overflow: hidden; }
 
 
 /* Icon motion: small, purposeful cues that also work without motion. */
-@keyframes live-pulse {
-  0%, 100% { box-shadow: 0 0 0 4px var(--green-soft), 0 0 0 0 rgba(124, 230, 178, .45); }
-  55% { box-shadow: 0 0 0 5px var(--green-soft), 0 0 0 9px rgba(124, 230, 178, 0); }
+@keyframes live-pulse-scale {
+  0%, 100% { transform: scale(1); opacity: 1; }
+  55% { transform: scale(2.2); opacity: 0; }
 }
 @keyframes icon-float {
   0%, 100% { transform: translateY(0) rotate(0); }
@@ -476,11 +476,33 @@ body.image-lightbox-open { overflow: hidden; }
   45% { transform: translateY(3px); }
 }
 
-.eyebrow--live::before { animation: live-pulse 2.3s ease-out infinite; }
-.brand-mark img, .footer-logo img { animation: icon-float 4.5s ease-in-out infinite; }
-.platform-badge img { animation: icon-float 4.8s ease-in-out infinite; }
+.eyebrow--live::before { 
+  animation: live-pulse-scale 2.3s ease-out infinite; 
+  will-change: transform, opacity;
+}
+.brand-mark img, .footer-logo img { 
+  animation: icon-float 4.5s ease-in-out infinite;
+  animation-play-state: paused;
+}
+.brand-mark:hover img, .footer-logo:hover img {
+  animation-play-state: running;
+}
+.platform-badge img { 
+  animation: icon-float 4.8s ease-in-out infinite;
+  animation-play-state: paused;
+}
+.platform-badge:hover img {
+  animation-play-state: running;
+}
 .platform-badge:nth-child(2) img { animation-delay: -.9s; }
 .platform-badge:nth-child(3) img { animation-delay: -1.8s; }
+.payment-badge img {
+  animation: icon-float 4.8s ease-in-out infinite;
+  animation-play-state: paused;
+}
+.payment-badge:hover img {
+  animation-play-state: running;
+}
 .payment-badge:nth-child(2) img { animation-delay: -.7s; }
 .payment-badge:nth-child(3) img { animation-delay: -1.4s; }
 .payment-badge:nth-child(4) img { animation-delay: -2.1s; }
