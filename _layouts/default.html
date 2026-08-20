@@ -10,6 +10,10 @@
   <script>if(location.hostname.indexOf('github.io')!==-1){location.replace('https://topup.eu.org'+location.pathname.replace('/simplemmo-bot','')+location.search+location.hash)}</script>
   <meta name="referrer" content="strict-origin-when-cross-origin">
   {% seo %}
+  <meta property="og:image" content="https://topup.eu.org/assets/images/mbot-png.png">
+  <meta name="twitter:image" content="https://topup.eu.org/assets/images/mbot-png.png">
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:description" content="Game automation tools with Telegram control">
   <link rel="icon" type="image/png" href="/assets/images/mbot-favicon.png">
   
   <!-- Resource hints for performance -->
@@ -19,18 +23,6 @@
   <link rel="preload" href="/assets/images/mbot-logo.webp" as="image" type="image/webp">
   
   <link rel="stylesheet" href="/assets/css/site.min.css?v=20260820-1">
-  <script>
-  (function(){
-    var x=new XMLHttpRequest();
-    x.open('GET','/maintenance.json?t='+Date.now(),true);
-    x.onload=function(){
-      try{var d=JSON.parse(x.responseText);
-      if(d.enabled){window.__mt=d;document.documentElement.style.visibility='hidden';}
-      }catch(e){}
-    };
-    x.send();
-  })();
-  </script>
 </head>
 <body>
   <a class="skip-link" href="#main-content">Skip to content</a>
@@ -114,9 +106,9 @@
       </a>
     </nav>
   </footer>
-  <script src="/assets/js/site.js?v=20260816-5" defer></script>
+  <script src="/assets/js/site.min.js?v=20260820-2" defer></script>
   {% unless page.skip_portal_common %}
-  <script src="/assets/js/portal-common.js?v=20260816-4" defer></script>
+  <script src="/assets/js/portal-common.min.js?v=20260820-2" defer></script>
   {% endunless %}
   <div id="maintenance-overlay" hidden style="position:fixed;inset:0;z-index:99999;display:none;align-items:center;justify-content:center;background:rgba(13,16,24,.97);backdrop-filter:blur(8px)">
     <div style="text-align:center;max-width:480px;padding:40px 24px">
@@ -133,6 +125,18 @@
       </div>
     </div>
   </div>
+  <script>
+  (function(){
+    var x=new XMLHttpRequest();
+    x.open('GET','/maintenance.json?t='+Date.now(),true);
+    x.onload=function(){
+      try{var d=JSON.parse(x.responseText);
+      if(d.enabled){window.__mt=d;document.documentElement.style.visibility='hidden';}
+      }catch(e){}
+    };
+    x.send();
+  })();
+  </script>
   <script>
   (function(){
     var mtShown=false;
