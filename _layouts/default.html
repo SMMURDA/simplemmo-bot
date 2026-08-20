@@ -11,14 +11,24 @@
   <meta name="referrer" content="strict-origin-when-cross-origin">
   {% seo %}
   <link rel="icon" type="image/png" href="/assets/images/mbot-favicon.png">
-  <link rel="stylesheet" href="/assets/css/site.css?v=20260816-3">
+  
+  <!-- Resource hints for performance -->
+  <link rel="preconnect" href="https://license.topup.eu.org" crossorigin>
+  <link rel="preconnect" href="https://challenges.cloudflare.com" crossorigin>
+  <link rel="dns-prefetch" href="https://smmurda.github.io">
+  <link rel="preload" href="/assets/css/site.min.css?v=20260820-1" as="style">
+  
+  <link rel="stylesheet" href="/assets/css/site.min.css?v=20260820-1">
   <script>
   (function(){
     var x=new XMLHttpRequest();
-    x.open('GET','/maintenance.json?t='+Date.now(),false);
-    try{x.send();var d=JSON.parse(x.responseText);
-    if(d.enabled){window.__mt=d;document.documentElement.style.visibility='hidden';}
-    }catch(e){}
+    x.open('GET','/maintenance.json?t='+Date.now(),true);
+    x.onload=function(){
+      try{var d=JSON.parse(x.responseText);
+      if(d.enabled){window.__mt=d;document.documentElement.style.visibility='hidden';}
+      }catch(e){}
+    };
+    x.send();
   })();
   </script>
 </head>
