@@ -1760,6 +1760,106 @@ body.image-lightbox-open { overflow: hidden; }
   .license-card__meta { grid-template-columns: 1fr; }
   .portal-stats article { min-height: auto; padding: 18px; }
 }
+
+/* ── Mobile responsive fixes ── */
+@media (max-width: 768px) {
+  .doc-content:has([data-member-portal]),
+  .doc-content:has([data-admin-portal]) {
+    width: calc(100% - 24px) !important;
+    padding-left: 12px;
+    padding-right: 12px;
+    padding-top: 20px !important;
+  }
+  .portal { max-width: 100% !important; }
+  .portal-main { max-width: 100% !important; padding: 0 0 40px; }
+  .portal-main > h1 { font-size: 26px; margin-bottom: 16px; }
+  .portal-main > .eyebrow { font-size: 11px; }
+  .portal-main > .portal-lede { font-size: 14px; margin-bottom: 16px; }
+
+  /* Nav: horizontal scroll */
+  .portal-nav {
+    overflow-x: auto;
+    flex-wrap: nowrap;
+    gap: 2px;
+    padding: 8px;
+    margin-bottom: 16px;
+    -webkit-overflow-scrolling: touch;
+    scrollbar-width: none;
+  }
+  .portal-nav::-webkit-scrollbar { display: none; }
+  .portal-nav a, .portal-nav button {
+    white-space: nowrap;
+    flex-shrink: 0;
+    min-height: 36px;
+    font-size: 12px;
+    padding: 0 10px;
+  }
+  .portal-nav__profile { display: none !important; }
+
+  /* Stats: single column */
+  .portal-stats, .portal-stats-grid { grid-template-columns: 1fr !important; }
+
+  /* Cards: full width */
+  .portal-hero, .purchase-card, .license-hero-card, .confirmation-card,
+  .portal-welcome, .topup-builder fieldset {
+    padding: 16px !important;
+    border-radius: 12px !important;
+  }
+
+  /* Forms: full width */
+  .portal-form { max-width: 100% !important; padding: 16px !important; }
+  .portal-form input, .portal-form select { min-height: 42px; font-size: 16px; }
+  .topup-builder fieldset { padding: 14px; }
+
+  /* Lists */
+  .portal-list { gap: 8px; }
+  .portal-card { padding: 14px; flex-direction: column; align-items: stretch; }
+  .portal-card code { max-width: 100%; width: 100%; overflow-x: auto; }
+  .portal-actions { gap: 6px; }
+  .portal-actions button { min-height: 38px; font-size: 13px; flex: 1; }
+
+  /* License cards */
+  .license-grid { grid-template-columns: 1fr; }
+  .payment-method-grid { grid-template-columns: 1fr; }
+
+  /* Admin specific */
+  .admin-card { padding: 14px; border-radius: 12px; }
+  .admin-card__header { flex-direction: column; align-items: flex-start; gap: 8px; }
+  .admin-card__actions { width: 100%; flex-wrap: wrap; }
+  .admin-card__actions button { flex: 1; min-height: 36px; font-size: 12px; }
+  .admin-table-wrap { overflow-x: auto; -webkit-overflow-scrolling: touch; }
+  .admin-table { min-width: 500px; }
+  .admin-table th, .admin-table td { padding: 10px 12px; font-size: 12px; }
+
+  /* Modal */
+  .portal-modal__dialog { padding: 24px 20px; margin: 16px; border-radius: 16px; }
+  .portal-modal__actions { flex-direction: column; gap: 8px; }
+  .portal-modal__actions .button { width: 100%; }
+
+  /* License checker */
+  .license-checker { padding: 14px; }
+  .license-checker__row { flex-direction: column; }
+  .license-checker__btn { width: 100%; }
+  .license-checker__details { grid-template-columns: auto 1fr; font-size: 12px; }
+}
+
+@media (max-width: 480px) {
+  .doc-content:has([data-member-portal]),
+  .doc-content:has([data-admin-portal]) {
+    width: calc(100% - 16px) !important;
+    padding-left: 8px;
+    padding-right: 8px;
+  }
+  .portal-main > h1 { font-size: 22px; }
+  .portal-hero, .purchase-card, .license-hero-card, .confirmation-card,
+  .portal-welcome, .topup-builder fieldset, .portal-form {
+    padding: 14px !important;
+  }
+  .portal-stats article { padding: 14px; }
+  .portal-stats strong { font-size: 18px; }
+  .admin-card { padding: 12px; }
+  .admin-table { min-width: 420px; font-size: 11px; }
+}
 @media (prefers-reduced-motion: reduce) {
   .portal-modal__dialog { animation: none; }
   .portal-toast { animation: none; }
