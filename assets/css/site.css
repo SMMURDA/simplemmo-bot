@@ -1826,13 +1826,48 @@ body.image-lightbox-open { overflow: hidden; }
   /* License hero card mobile */
   .license-hero-card {
     display: block !important;
+    padding: 16px !important;
+    border-radius: 14px !important;
+    box-shadow: 0 12px 30px rgba(0,0,0,.14) !important;
   }
   .license-hero-card__empty {
     flex-direction: column !important;
+    align-items: stretch !important;
+    gap: 12px !important;
+    margin-bottom: 14px !important;
+  }
+  .license-hero-card__empty > div { margin-bottom: 0; }
+  .license-hero-card__empty .eyebrow { font-size: 10px; margin-bottom: 2px; }
+  .license-hero-card__empty h2 { font-size: 20px !important; margin: 2px 0 4px; line-height: 1.2; }
+  .license-hero-card__empty p { font-size: 13px; line-height: 1.5; margin: 0; }
+  .license-hero-card__empty .button { width: 100%; text-align: center; margin-top: 4px; }
+  .license-hero-card__head {
+    flex-direction: column !important;
+    gap: 8px !important;
     align-items: flex-start !important;
   }
   .license-hero-card__head h2 {
-    font-size: 22px !important;
+    font-size: 20px !important;
+    margin: 2px 0 4px !important;
+  }
+  .license-hero-card__head .eyebrow { font-size: 10px; margin-bottom: 0; }
+  .license-hero-card .license-key-row {
+    flex-direction: column !important;
+    gap: 8px !important;
+  }
+  .license-hero-card .license-key-row code {
+    font-size: 12px;
+    padding: 10px;
+    word-break: break-all;
+    white-space: normal;
+  }
+  .license-hero-card .license-key-row .button {
+    width: 100%;
+    text-align: center;
+  }
+  .license-hero-card .license-hidden-note {
+    font-size: 12px;
+    margin: 8px 0 0;
   }
 
   /* Welcome section */
