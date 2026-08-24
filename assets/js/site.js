@@ -269,3 +269,21 @@ if (guestNav || memberNav) {
     showNav('guest');
   });
 }
+
+// Dynamic pricing: fetch from license server and update landing page price card.
+(() => {
+  const card = document.querySelector('[data-dynamic-pricing]');
+  if (!card) return;
+  const formatIdr = (value) => 'Rp' + new Intl.NumberFormat('id-ID').format(Number(value || 0));
+  fetch('https://license.topup.eu.org/v1/pricing', { headers: { Accept: 'application/json' } })
+    .then((r) => { if (!r.ok) throw new Error('pricing fetch failed'); return r.json(); })
+    .then((data) => {
+      const usdEl = document.getElementById('smmo-price-usd');
+      const durEl = document.getElementById('smmo-price-duration');
+      const idrEl = document.getElementById('smmo-price-idr');
+      if (usdEl) usdEl.textContent = '$' + (data.price_usd ?? 5);
+      if (durEl) durEl.textContent = 'USD / ' + (data.duration_days ?? 30) + ' days';
+      if (idrEl) idrEl.innerHTML = formatIdr(data.price_idr ?? 75000) + ' <span>IDR</span>';
+    })
+    .catch(() => { /* keep hardcoded defaults on error */ });
+})();

@@ -21,6 +21,7 @@
     return data;
   };
   const post = (path, body) => request(path, { method: 'POST', body: JSON.stringify(body) });
+  const put = (path, body) => request(path, { method: 'PUT', body: JSON.stringify(body) });
   const confirmAction = (options) => window.portalConfirm(options);
   const setStatus = (text, tone = 'neutral') => { const element = $('#admin-status'); if (element) { element.textContent = text || ''; element.dataset.tone = tone; } };
 
@@ -247,6 +248,49 @@
     });
   };
 
+  const initPricing = async () => {
+    const form = $('#pricing-form');
+    const updatedLabel = $('#pricing-updated');
+    const saveBtn = $('#pricing-save-btn');
+    try {
+      const response = await fetch('https://license.topup.eu.org/v1/pricing', { headers: { Accept: 'application/json' } });
+      if (!response.ok) throw new Error('Failed to load pricing.');
+      const data = await response.json();
+      form.elements.price_usd.value = data.price_usd ?? 5;
+      form.elements.price_idr.value = data.price_idr ?? 75000;
+      form.elements.duration_days.value = data.duration_days ?? 30;
+      if (data.updated_at && updatedLabel) {
+        updatedLabel.textContent = 'Last updated: ' + formatDate(data.updated_at);
+      }
+    } catch (error) {
+      setStatus(error.message, 'error');
+    }
+    form.addEventListener('submit', async (event) => {
+      event.preventDefault();
+      const values = new FormData(form);
+      const body = {
+        price_usd: Number(values.get('price_usd')),
+        price_idr: Number(values.get('price_idr')),
+        duration_days: Number(values.get('duration_days')),
+      };
+      const approved = await confirmAction({
+        title: 'Update license pricing?',
+        message: `$${body.price_usd} USD / Rp${new Intl.NumberFormat('id-ID').format(body.price_idr)} IDR for ${body.duration_days} days. This change is visible to all visitors immediately.`,
+        confirmText: 'Save pricing',
+      });
+      if (!approved) return;
+      saveBtn.disabled = true;
+      try {
+        const result = await put('/v1/admin/pricing', body);
+        window.portalToast('Pricing updated successfully.');
+        if (result.pricing?.updated_at && updatedLabel) {
+          updatedLabel.textContent = 'Last updated: ' + formatDate(result.pricing.updated_at);
+        }
+      } catch (error) { setStatus(error.message, 'error'); }
+      finally { saveBtn.disabled = false; }
+    });
+  };
+
   document.addEventListener('DOMContentLoaded', async () => {
     bindLogout();
     try {
@@ -254,6 +298,7 @@
       if (page === 'licenses') await initLicenses();
       if (page === 'topups') await loadTopups();
       if (page === 'payments') await initPayments();
+      if (page === 'pricing') await initPricing();
       if (page === 'users') {
         await loadUsers();
         const overrideBtn = $('#override-btn');

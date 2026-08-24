@@ -1,0 +1,22 @@
+---
+layout: default
+title: Admin Pricing
+permalink: /admin/pricing/
+admin_section: pricing
+---
+<div class="portal portal--admin" data-admin-portal data-page="pricing">
+  {% include admin-nav.html %}
+  <main class="portal-main"><p class="eyebrow">Pricing configuration</p><h1>License pricing</h1>
+    <section class="portal-section"><div class="section-heading"><div><h2>SimpleMMO Bot license price</h2><p>Update the public price and duration shown on the landing page and buy-license screen.</p></div></div>
+      <form id="pricing-form" class="portal-form portal-form--inline">
+        <label>Price USD<input name="price_usd" type="number" min="0" step="0.01" required placeholder="5"></label>
+        <label>Price IDR<input name="price_idr" type="number" min="0" step="1" required placeholder="75000"></label>
+        <label>Duration (days)<input name="duration_days" type="number" min="1" max="3650" step="1" required placeholder="30"></label>
+        <button class="button button--primary" type="submit" id="pricing-save-btn">Save pricing</button>
+      </form>
+      <p id="pricing-updated" style="font-size:13px;color:var(--muted,#94a3b8);margin:8px 0 0"></p>
+    </section>
+    <div id="admin-status" class="portal-status" aria-live="polite"></div>
+  </main>
+</div>
+<script src="{{ '/assets/js/admin-v2.js?v=20260816-2' | relative_url }}" defer></script>

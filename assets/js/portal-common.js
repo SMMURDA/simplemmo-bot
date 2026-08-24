@@ -112,7 +112,8 @@
       if (csrfToken && !options.headers['X-CSRF-Token']) {
         options.headers['X-CSRF-Token'] = csrfToken;
       }
-      if (hmacKey && options.method === 'POST' && !options.headers['X-Signature']) {
+      const method = (options.method || 'GET').toUpperCase();
+      if (hmacKey && (method === 'POST' || method === 'PUT' || method === 'DELETE') && !options.headers['X-Signature']) {
         const timestamp = Date.now().toString();
         const body = options.body || '';
         const sig = await hmacSha256(body + timestamp, hmacKey);
