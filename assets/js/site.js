@@ -304,15 +304,34 @@ if (guestNav || memberNav) {
   const result = document.getElementById('license-check-result');
   const esc = (s) => { const d = document.createElement('div'); d.textContent = s; return d.innerHTML; };
   const formatDate = (iso) => { if (!iso) return '—'; const d = new Date(iso); return d.toLocaleDateString('en-GB', { day: '2-digit', month: 'short', year: 'numeric' }) + ' ' + d.toLocaleTimeString('en-GB', { hour: '2-digit', minute: '2-digit' }); };
+  const MAX_CHECKS = 5;
+  const WINDOW_MS = 60000;
+  const checkTimestamps = [];
+
+  const showResult = (cls, html) => {
+    result.className = 'license-checker__result ' + cls;
+    result.innerHTML = html;
+    result.hidden = false;
+  };
 
   form.addEventListener('submit', async (e) => {
     e.preventDefault();
     const key = (input.value || '').trim();
     if (!key) return;
+
+    const now = Date.now();
+    while (checkTimestamps.length && checkTimestamps[0] <= now - WINDOW_MS) checkTimestamps.shift();
+    if (checkTimestamps.length >= MAX_CHECKS) {
+      const waitSec = Math.ceil((checkTimestamps[0] + WINDOW_MS - now) / 1000);
+      showResult('license-checker__result--warning', `<div class="license-checker__status"><span class="license-checker__status-icon">⏳</span> Rate Limited</div><p>You've reached the limit of ${MAX_CHECKS} checks per minute. Try again in <strong>${waitSec}s</strong>.</p>`);
+      return;
+    }
+
     btn.disabled = true;
     btn.textContent = 'Checking…';
     result.hidden = true;
     result.className = 'license-checker__result';
+    checkTimestamps.push(now);
     try {
       const res = await fetch('https://license.topup.eu.org/v1/license-status', {
         method: 'POST',
@@ -320,30 +339,26 @@ if (guestNav || memberNav) {
         body: JSON.stringify({ license_key: key }),
       });
       const data = await res.json();
-      if (!res.ok) {
-        result.classList.add('license-checker__result--error');
-        result.innerHTML = `<div class="license-checker__status"><span class="license-checker__status-icon">❌</span> Error</div><p>${esc(data.message || 'Something went wrong.')}</p>`;
+      if (res.status === 429) {
+        showResult('license-checker__result--warning', `<div class="license-checker__status"><span class="license-checker__status-icon">⏳</span> Rate Limited</div><p>${esc(data.message || 'Too many requests. Please wait.')}</p>`);
+      } else if (!res.ok) {
+        showResult('license-checker__result--error', `<div class="license-checker__status"><span class="license-checker__status-icon">❌</span> Error</div><p>${esc(data.message || 'Something went wrong.')}</p>`);
       } else if (data.active) {
         const lic = data.license || {};
-        result.classList.add('license-checker__result--success');
-        result.innerHTML = `<div class="license-checker__status"><span class="license-checker__status-icon">✅</span> Active</div><dl class="license-checker__details"><dt>Key</dt><dd>${esc(lic.key_masked || '—')}</dd><dt>Expires</dt><dd>${formatDate(lic.expires_at)} (${lic.expires_in_days ?? '?'} days left)</dd><dt>Created</dt><dd>${formatDate(lic.created_at)}</dd><dt>Devices</dt><dd>${lic.active_devices ?? 0} / ${lic.max_devices ?? '?'}</dd></dl>`;
+        showResult('license-checker__result--success', `<div class="license-checker__status"><span class="license-checker__status-icon">✅</span> Active</div><dl class="license-checker__details"><dt>Key</dt><dd>${esc(lic.key_masked || '—')}</dd><dt>Expires</dt><dd>${formatDate(lic.expires_at)} (${lic.expires_in_days ?? '?'} days left)</dd><dt>Created</dt><dd>${formatDate(lic.created_at)}</dd><dt>Devices</dt><dd>${lic.active_devices ?? 0} / ${lic.max_devices ?? '?'}</dd></dl>`);
       } else {
         const lic = data.license || {};
         const warn = data.status === 'expired' || data.status === 'revoked';
-        result.classList.add(warn ? 'license-checker__result--warning' : 'license-checker__result--error');
         const icon = data.status === 'expired' ? '⏰' : data.status === 'revoked' ? '🚫' : '❌';
         const label = (data.status || 'inactive').charAt(0).toUpperCase() + (data.status || 'inactive').slice(1);
         let details = '';
         if (lic.key_masked) {
           details = `<dl class="license-checker__details"><dt>Key</dt><dd>${esc(lic.key_masked)}</dd><dt>Expires</dt><dd>${formatDate(lic.expires_at)}</dd><dt>Created</dt><dd>${formatDate(lic.created_at)}</dd><dt>Devices</dt><dd>${lic.active_devices ?? 0} / ${lic.max_devices ?? '?'}</dd></dl>`;
         }
-        result.innerHTML = `<div class="license-checker__status"><span class="license-checker__status-icon">${icon}</span> ${esc(label)}</div><p>${esc(data.message || 'License is not active.')}</p>${details}`;
+        showResult(warn ? 'license-checker__result--warning' : 'license-checker__result--error', `<div class="license-checker__status"><span class="license-checker__status-icon">${icon}</span> ${esc(label)}</div><p>${esc(data.message || 'License is not active.')}</p>${details}`);
       }
-      result.hidden = false;
     } catch (err) {
-      result.classList.add('license-checker__result--error');
-      result.innerHTML = `<div class="license-checker__status"><span class="license-checker__status-icon">❌</span> Connection Error</div><p>Could not reach the license server. Please try again later.</p>`;
-      result.hidden = false;
+      showResult('license-checker__result--error', `<div class="license-checker__status"><span class="license-checker__status-icon">❌</span> Connection Error</div><p>Could not reach the license server. Please try again later.</p>`);
     }
     btn.disabled = false;
     btn.textContent = 'Check';
