@@ -1067,9 +1067,15 @@ body.image-lightbox-open { overflow: hidden; }
 .portal-status[data-tone="success"] { color: var(--green); }
 
 .license-hero-card, .purchase-card, .confirmation-card { position: relative; overflow: hidden; padding: clamp(22px, 4vw, 34px); border: 1px solid color-mix(in srgb, var(--blue) 25%, var(--border)); border-radius: 20px; background: radial-gradient(circle at 92% 8%, rgba(61,211,238,.12), transparent 31%), linear-gradient(145deg, var(--surface), rgba(15,21,32,.8)); box-shadow: 0 26px 60px rgba(0,0,0,.18); }
-.license-hero-card__head { display: flex; justify-content: space-between; gap: 20px; align-items: flex-start; }
-.license-hero-card__head h2, .purchase-card h2, .confirmation-card h2 { margin: 4px 0 7px; font-size: clamp(26px, 4vw, 36px); }
-.license-hero-card__empty { display: flex; gap: 20px; align-items: center; margin-bottom: 24px; }
+.license-hero-card__head { display: flex; justify-content: space-between; gap: 16px; align-items: center; margin-bottom: 16px; }
+.license-hero-card__head > div { min-width: 0; }
+.license-hero-card__head h2, .purchase-card h2, .confirmation-card h2 { margin: 4px 0 4px; font-size: clamp(22px, 3vw, 30px); line-height: 1.2; }
+.license-hero-card__head .eyebrow { margin-bottom: 2px; font-size: 11px; }
+.license-hero-card__empty { display: flex; gap: 20px; align-items: center; justify-content: space-between; margin-bottom: 0; }
+.license-hero-card__empty > div { min-width: 0; }
+.license-hero-card__empty h2 { font-size: clamp(22px, 3vw, 28px); margin: 4px 0 6px; line-height: 1.2; }
+.license-hero-card__empty p { font-size: 14px; margin: 0; color: var(--muted); line-height: 1.5; }
+.license-hero-card__empty .button { flex-shrink: 0; white-space: nowrap; }
 .license-orb { width: 74px; height: 74px; flex: 0 0 74px; display: grid; place-items: center; border: 1px solid var(--blue); border-radius: 22px; background: var(--blue-soft); color: var(--blue); font-size: 21px; font-weight: 900; }
 .license-detail-grid { display: grid; grid-template-columns: repeat(2, minmax(0,1fr)); gap: 12px; margin: 24px 0; }
 .license-detail-grid > div, .license-card__meta > div { display: grid; gap: 6px; padding: 14px; border: 1px solid var(--border); border-radius: 11px; background: rgba(0,0,0,.12); }
