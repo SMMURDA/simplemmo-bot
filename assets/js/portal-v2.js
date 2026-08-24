@@ -92,7 +92,7 @@
   const trialCard = (license) => {
     if (!license) return `
       <div class="license-hero-card__empty">
-        <span class="license-orb">24h</span>
+        <img src="/assets/icons/license-24hours.png" alt="24h trial" class="license-orb-img">
         <div><p class="eyebrow">Available once</p><h2>Your trial is ready</h2><p>Create a one-day license linked permanently to this account.</p></div>
       </div>
       <button id="create-trial" class="button button--primary" type="button">Create trial license</button>`;
@@ -158,7 +158,7 @@
     const pkg = data.packages[0];
     const card = $('#package-card');
     card.innerHTML = `
-      <div class="purchase-card__icon"><img src="${iconBase}wallet.svg" alt=""></div>
+      <div class="purchase-card__icon"><img src="/assets/icons/license-7days.png" alt="7-day license"></div>
       <div class="purchase-card__copy"><p class="eyebrow">${escapeHtml(pkg.name)}</p><h2>${formatIdr(pkg.price_idr)}</h2><p>${pkg.days} days · ${pkg.max_devices} device${pkg.max_devices === 1 ? '' : 's'}</p><small>Current balance: ${formatIdr(account.user.balance_idr)}</small></div>
       <button id="buy-license" class="button button--primary" type="button">Buy license</button>`;
     $('#buy-license').addEventListener('click', async () => {
