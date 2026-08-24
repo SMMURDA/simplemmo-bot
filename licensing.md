@@ -45,6 +45,19 @@ Ready to purchase a license or need help choosing one? Contact us through any of
 
 ## Check license status
 
+Use the form below to instantly check whether a license is active, expired, or revoked.
+
+<div class="license-checker" id="license-checker">
+  <form class="license-checker__form" id="license-check-form" autocomplete="off">
+    <label class="license-checker__label" for="license-check-input">License Key</label>
+    <div class="license-checker__row">
+      <input class="license-checker__input" type="text" id="license-check-input" name="license_key" placeholder="SMMO-XXXXX-XXXXX-XXXXX-XXXXX" required spellcheck="false" autocomplete="off">
+      <button class="license-checker__btn button" type="submit" id="license-check-btn">Check</button>
+    </div>
+  </form>
+  <div class="license-checker__result" id="license-check-result" hidden></div>
+</div>
+
 Use this read-only endpoint to inspect a license without activating a new device or updating its last-check timestamp.
 
 <div class="api-endpoint-card" aria-label="License status endpoint">

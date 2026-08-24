@@ -1328,3 +1328,24 @@ body.image-lightbox-open { overflow: hidden; }
 
 /* Window transition */
 .lv-window{transition:all .5s cubic-bezier(.4,0,.2,1)}
+
+/* License checker */
+.license-checker{margin:1.5rem 0 2rem;padding:1.5rem;background:var(--card-bg,rgba(255,255,255,.04));border:1px solid var(--card-border,rgba(255,255,255,.08));border-radius:12px}
+.license-checker__label{display:block;font-size:.875rem;font-weight:600;margin-bottom:.5rem;color:var(--text-muted,#9ca3af)}
+.license-checker__row{display:flex;gap:.75rem}
+.license-checker__input{flex:1;padding:.75rem 1rem;background:var(--input-bg,rgba(255,255,255,.06));border:1px solid var(--input-border,rgba(255,255,255,.12));border-radius:8px;color:var(--text,#e5e7eb);font-family:ui-monospace,SFMono-Regular,Menlo,monospace;font-size:.95rem;letter-spacing:.5px;transition:border-color .2s}
+.license-checker__input:focus{outline:none;border-color:var(--accent,#6366f1);box-shadow:0 0 0 3px rgba(99,102,241,.15)}
+.license-checker__input::placeholder{color:var(--text-muted,#6b7280);opacity:.6}
+.license-checker__btn{white-space:nowrap;padding:.75rem 1.5rem}
+.license-checker__btn:disabled{opacity:.6;cursor:not-allowed}
+.license-checker__result{margin-top:1.25rem;padding:1.25rem;border-radius:10px;animation:checkerFadeIn .3s ease}
+@keyframes checkerFadeIn{from{opacity:0;transform:translateY(8px)}to{opacity:1;transform:translateY(0)}}
+.license-checker__result--success{background:rgba(34,197,94,.08);border:1px solid rgba(34,197,94,.25)}
+.license-checker__result--error{background:rgba(239,68,68,.08);border:1px solid rgba(239,68,68,.25)}
+.license-checker__result--warning{background:rgba(234,179,8,.08);border:1px solid rgba(234,179,8,.25)}
+.license-checker__status{display:flex;align-items:center;gap:.5rem;font-weight:700;font-size:1.1rem;margin-bottom:.75rem}
+.license-checker__status-icon{font-size:1.25rem}
+.license-checker__details{display:grid;grid-template-columns:auto 1fr;gap:.375rem 1rem;font-size:.875rem}
+.license-checker__details dt{color:var(--text-muted,#9ca3af);font-weight:500}
+.license-checker__details dd{color:var(--text,#e5e7eb);font-family:ui-monospace,SFMono-Regular,Menlo,monospace}
+@media(max-width:480px){.license-checker__row{flex-direction:column}}

@@ -294,3 +294,58 @@ if (guestNav || memberNav) {
     })
     .catch(() => { /* keep hardcoded defaults on error */ });
 })();
+
+// License checker: paste key, press check, see result.
+(() => {
+  const form = document.getElementById('license-check-form');
+  if (!form) return;
+  const input = document.getElementById('license-check-input');
+  const btn = document.getElementById('license-check-btn');
+  const result = document.getElementById('license-check-result');
+  const esc = (s) => { const d = document.createElement('div'); d.textContent = s; return d.innerHTML; };
+  const formatDate = (iso) => { if (!iso) return '—'; const d = new Date(iso); return d.toLocaleDateString('en-GB', { day: '2-digit', month: 'short', year: 'numeric' }) + ' ' + d.toLocaleTimeString('en-GB', { hour: '2-digit', minute: '2-digit' }); };
+
+  form.addEventListener('submit', async (e) => {
+    e.preventDefault();
+    const key = (input.value || '').trim();
+    if (!key) return;
+    btn.disabled = true;
+    btn.textContent = 'Checking…';
+    result.hidden = true;
+    result.className = 'license-checker__result';
+    try {
+      const res = await fetch('https://license.topup.eu.org/v1/license-status', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json', 'Accept': 'application/json' },
+        body: JSON.stringify({ license_key: key }),
+      });
+      const data = await res.json();
+      if (!res.ok) {
+        result.classList.add('license-checker__result--error');
+        result.innerHTML = `<div class="license-checker__status"><span class="license-checker__status-icon">❌</span> Error</div><p>${esc(data.message || 'Something went wrong.')}</p>`;
+      } else if (data.active) {
+        const lic = data.license || {};
+        result.classList.add('license-checker__result--success');
+        result.innerHTML = `<div class="license-checker__status"><span class="license-checker__status-icon">✅</span> Active</div><dl class="license-checker__details"><dt>Key</dt><dd>${esc(lic.key_masked || '—')}</dd><dt>Expires</dt><dd>${formatDate(lic.expires_at)} (${lic.expires_in_days ?? '?'} days left)</dd><dt>Created</dt><dd>${formatDate(lic.created_at)}</dd><dt>Devices</dt><dd>${lic.active_devices ?? 0} / ${lic.max_devices ?? '?'}</dd></dl>`;
+      } else {
+        const lic = data.license || {};
+        const warn = data.status === 'expired' || data.status === 'revoked';
+        result.classList.add(warn ? 'license-checker__result--warning' : 'license-checker__result--error');
+        const icon = data.status === 'expired' ? '⏰' : data.status === 'revoked' ? '🚫' : '❌';
+        const label = (data.status || 'inactive').charAt(0).toUpperCase() + (data.status || 'inactive').slice(1);
+        let details = '';
+        if (lic.key_masked) {
+          details = `<dl class="license-checker__details"><dt>Key</dt><dd>${esc(lic.key_masked)}</dd><dt>Expires</dt><dd>${formatDate(lic.expires_at)}</dd><dt>Created</dt><dd>${formatDate(lic.created_at)}</dd><dt>Devices</dt><dd>${lic.active_devices ?? 0} / ${lic.max_devices ?? '?'}</dd></dl>`;
+        }
+        result.innerHTML = `<div class="license-checker__status"><span class="license-checker__status-icon">${icon}</span> ${esc(label)}</div><p>${esc(data.message || 'License is not active.')}</p>${details}`;
+      }
+      result.hidden = false;
+    } catch (err) {
+      result.classList.add('license-checker__result--error');
+      result.innerHTML = `<div class="license-checker__status"><span class="license-checker__status-icon">❌</span> Connection Error</div><p>Could not reach the license server. Please try again later.</p>`;
+      result.hidden = false;
+    }
+    btn.disabled = false;
+    btn.textContent = 'Check';
+  });
+})();
