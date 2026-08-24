@@ -1195,6 +1195,19 @@ body.image-lightbox-open { overflow: hidden; }
 }
 
 
+/* ── Portal Centering & Alignment Fix ── */
+.portal { max-width: 880px; margin-left: auto; margin-right: auto; }
+.portal-main { max-width: 880px; }
+.portal-main > h1, .portal-main > .eyebrow, .portal-main > .portal-lede { text-align: left; }
+.portal-stats, .portal-stats-grid { max-width: 100%; }
+.portal-hero, .purchase-card, .license-hero-card, .confirmation-card { max-width: 100%; box-sizing: border-box; }
+.topup-builder { max-width: 100%; box-sizing: border-box; }
+.topup-builder fieldset { max-width: 100%; box-sizing: border-box; }
+.payment-method-grid { max-width: 100%; }
+.portal-list { max-width: 100%; }
+.license-grid { max-width: 100%; }
+.portal-form { max-width: 100%; }
+
 /* ── Member Portal v2 Redesign — Professional, Centered, Elegant ── */
 
 /* Container: wider, centered */
