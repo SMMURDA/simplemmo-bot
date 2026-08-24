@@ -158,7 +158,7 @@
     const pkg = data.packages[0];
     const card = $('#package-card');
     card.innerHTML = `
-      <div class="purchase-card__icon"><img src="/assets/icons/license-7days.png" alt="7-day license"></div>
+      <div class="purchase-card__icon"><img src="/assets/icons/license-7days.png?v=2" alt="7-day license"></div>
       <div class="purchase-card__copy"><p class="eyebrow">${escapeHtml(pkg.name)}</p><h2>${formatIdr(pkg.price_idr)}</h2><p>${pkg.days} days · ${pkg.max_devices} device${pkg.max_devices === 1 ? '' : 's'}</p><small>Current balance: ${formatIdr(account.user.balance_idr)}</small></div>
       <button id="buy-license" class="button button--primary" type="button">Buy license</button>`;
     $('#buy-license').addEventListener('click', async () => {
