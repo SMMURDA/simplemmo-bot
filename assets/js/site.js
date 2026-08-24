@@ -281,9 +281,16 @@ if (guestNav || memberNav) {
       const usdEl = document.getElementById('smmo-price-usd');
       const durEl = document.getElementById('smmo-price-duration');
       const idrEl = document.getElementById('smmo-price-idr');
-      if (usdEl) usdEl.textContent = '$' + (data.price_usd ?? 5);
-      if (durEl) durEl.textContent = 'USD / ' + (data.duration_days ?? 30) + ' days';
-      if (idrEl) idrEl.innerHTML = formatIdr(data.price_idr ?? 75000) + ' <span>IDR</span>';
+      const isFree = Number(data.price_usd) === 0 && Number(data.price_idr) === 0;
+      if (isFree) {
+        if (usdEl) usdEl.textContent = 'FREE';
+        if (durEl) durEl.textContent = '/ ' + (data.duration_days ?? 30) + ' days';
+        if (idrEl) idrEl.innerHTML = 'FREE <span>IDR</span>';
+      } else {
+        if (usdEl) usdEl.textContent = '$' + (data.price_usd ?? 5);
+        if (durEl) durEl.textContent = 'USD / ' + (data.duration_days ?? 30) + ' days';
+        if (idrEl) idrEl.innerHTML = (Number(data.price_idr) === 0 ? 'FREE' : formatIdr(data.price_idr ?? 75000)) + ' <span>IDR</span>';
+      }
     })
     .catch(() => { /* keep hardcoded defaults on error */ });
 })();
