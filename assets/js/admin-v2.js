@@ -43,7 +43,7 @@
     const data = await request('/v1/admin/licenses');
     const list = $('#admin-licenses');
     list.innerHTML = data.licenses.length ? data.licenses.map((license) => `
-      <article class="portal-card admin-license-card"><div><strong>${escapeHtml(license.customer)}</strong><small>${escapeHtml(license.status)} · ${license.active_devices}/${license.max_devices} devices · expires ${formatDate(license.expires_at)}</small></div><div class="portal-actions"><button type="button" data-license-status="${escapeHtml(license.id)}" data-next="${license.status === 'active' ? 'revoked' : 'active'}">${license.status === 'active' ? 'Block' : 'Enable'}</button><button type="button" data-license-extend="${escapeHtml(license.id)}">Extend</button><button type="button" data-license-reset="${escapeHtml(license.id)}">Reset devices</button></div></article>`).join('') : '<p>No licenses found.</p>';
+      <article class="admin-card"><div class="admin-card__header"><div class="admin-card__info"><strong>${escapeHtml(license.customer)}</strong><small><span class="status-pill status-pill--${escapeHtml(license.status)}">${escapeHtml(license.status)}</span> · ${license.active_devices}/${license.max_devices} devices · expires ${formatDate(license.expires_at)}</small></div><div class="admin-card__actions"><button type="button" data-license-status="${escapeHtml(license.id)}" data-next="${license.status === 'active' ? 'revoked' : 'active'}">${license.status === 'active' ? 'Block' : 'Enable'}</button><button type="button" data-license-extend="${escapeHtml(license.id)}">Extend</button><button type="button" data-license-reset="${escapeHtml(license.id)}">Reset devices</button></div></div></article>`).join('') : '<p class="admin-hint">No licenses found.</p>';
 
     list.querySelectorAll('[data-license-status]').forEach((button) => button.addEventListener('click', async () => {
       const next = button.dataset.next;
@@ -104,7 +104,7 @@
     const data = await request('/v1/admin/topups');
     const list = $('#admin-topups');
     list.innerHTML = data.topups.length ? data.topups.map((topup) => `
-      <article class="portal-card topup-admin-card"><div><strong>${escapeHtml(topup.email)} · ${formatAmount(topup.display_amount_minor ?? topup.amount_idr, topup.currency || 'IDR')}</strong><small>${escapeHtml(topup.method)} · ${escapeHtml(topup.reference || 'No reference')} · ${formatDate(topup.created_at)}</small><p>${escapeHtml(topup.confirmation_message || '')}</p></div><div><span class="status-pill status-pill--${escapeHtml(topup.status)}">${escapeHtml(topup.status)}</span>${topup.status === 'pending' ? `<div class="portal-actions"><button type="button" data-topup-action="approved" data-topup-id="${escapeHtml(topup.id)}">Approve</button><button type="button" data-topup-action="rejected" data-topup-id="${escapeHtml(topup.id)}">Reject</button></div>` : ''}</div></article>`).join('') : '<p>No top-up requests found.</p>';
+      <article class="admin-card"><div class="admin-card__header"><div class="admin-card__info"><strong>${escapeHtml(topup.email)} · ${formatAmount(topup.display_amount_minor ?? topup.amount_idr, topup.currency || 'IDR')}</strong><small>${escapeHtml(topup.method)} · ${escapeHtml(topup.reference || 'No reference')} · ${formatDate(topup.created_at)}</small>${topup.confirmation_message ? `<p>${escapeHtml(topup.confirmation_message)}</p>` : ''}</div><div class="admin-card__actions"><span class="status-pill status-pill--${escapeHtml(topup.status)}">${escapeHtml(topup.status)}</span>${topup.status === 'pending' ? `<button type="button" data-topup-action="approved" data-topup-id="${escapeHtml(topup.id)}">Approve</button><button type="button" data-topup-action="rejected" data-topup-id="${escapeHtml(topup.id)}">Reject</button>` : ''}</div></div></article>`).join('') : '<p class="admin-hint">No top-up requests found.</p>';
     list.querySelectorAll('[data-topup-action]').forEach((button) => button.addEventListener('click', async () => {
       const approvedStatus = button.dataset.topupAction === 'approved';
       const approved = await confirmAction({ title: approvedStatus ? 'Approve this payment?' : 'Reject this top-up?', message: approvedStatus ? 'The converted IDR amount will be credited exactly once.' : 'The member balance will not change.', confirmText: approvedStatus ? 'Approve and credit' : 'Reject request', tone: approvedStatus ? 'primary' : 'danger' });
@@ -213,23 +213,20 @@
     const users = await request('/v1/admin/users');
     const table = $('#users-table');
     if (!users.users || !users.users.length) {
-      table.innerHTML = '<p style="color:var(--muted)">No users found.</p>';
+      table.innerHTML = '<p class="admin-hint">No users found.</p>';
       return;
     }
     const rows = users.users.map(u => `
       <tr>
-        <td style="max-width:180px;overflow:hidden;text-overflow:ellipsis;white-space:nowrap" title="${escapeHtml(u.email)}">${escapeHtml(u.email)}</td>
+        <td style="max-width:200px;overflow:hidden;text-overflow:ellipsis;white-space:nowrap" title="${escapeHtml(u.email)}">${escapeHtml(u.email)}</td>
         <td>${escapeHtml(u.display_name || '—')}</td>
-        <td>${u.role === 'admin' ? '👑 Admin' : 'Member'}</td>
-        <td>${u.trial_license_id ? '✅ Yes' : '—'}</td>
-        <td>${u.email_verified_at ? '✅' : '❌'}</td>
-        <td>${formatDate(u.created_at)}</td>
-        <td style="display:flex;gap:4px;flex-wrap:wrap">
-          <button class="button button--small" data-action="reset" data-id="${u.id}" title="Reset trial">↺ Reset</button>
-          <button class="button button--small button--danger" data-action="delete" data-id="${u.id}" title="Delete user">🗑 Delete</button>
-        </td>
+        <td><span class="status-pill status-pill--${u.role === 'admin' ? 'active' : 'pending'}">${u.role === 'admin' ? 'Admin' : 'Member'}</span></td>
+        <td>${u.trial_license_id ? '<span class="status-pill status-pill--active">Yes</span>' : '<span class="muted">—</span>'}</td>
+        <td>${u.email_verified_at ? '<span class="status-pill status-pill--active">Verified</span>' : '<span class="status-pill status-pill--revoked">No</span>'}</td>
+        <td class="muted">${formatDate(u.created_at)}</td>
+        <td><div class="actions-cell"><button class="button button--small" data-action="reset" data-id="${u.id}" title="Reset trial">↺ Reset</button><button class="button button--small button--danger" data-action="delete" data-id="${u.id}" title="Delete user">🗑 Delete</button></div></td>
       </tr>`).join('');
-    table.innerHTML = `<table style="width:100%;border-collapse:collapse"><thead><tr><th>Email</th><th>Name</th><th>Role</th><th>Trial</th><th>Verified</th><th>Joined</th><th>Actions</th></tr></thead><tbody>${rows}</tbody></table>`;
+    table.innerHTML = `<table class="admin-table"><thead><tr><th>Email</th><th>Name</th><th>Role</th><th>Trial</th><th>Verified</th><th>Joined</th><th>Actions</th></tr></thead><tbody>${rows}</tbody></table>`;
     table.querySelectorAll('[data-action="reset"]').forEach(btn => {
       btn.addEventListener('click', async () => {
         const id = btn.dataset.id;

@@ -7,21 +7,22 @@ admin_section: users
 <div class="portal portal--admin" data-admin-portal data-page="users">
   {% include admin-nav.html %}
   <main class="portal-main">
+    <p class="eyebrow">User administration</p>
     <h1>User Management</h1>
     <div class="portal-status" id="admin-status" aria-live="polite"></div>
-    <section class="admin-section" style="margin-top:20px">
-      <h2 style="margin:0 0 4px">Trial Override</h2>
-      <p style="font-size:13px;color:var(--muted,#94a3b8);margin:0 0 12px">Allow a user to create a new trial even if they previously had one.</p>
-      <div style="display:flex;gap:8px;flex-wrap:wrap">
-        <input id="override-email" type="email" placeholder="user@gmail.com" style="flex:1;min-width:200px;padding:10px 14px;border-radius:8px;border:1px solid var(--border,#334155);background:var(--card,#0f172a);color:inherit;font-size:14px">
-        <button id="override-btn" class="button button--primary" type="button" style="white-space:nowrap">Override Trial</button>
+    <section class="portal-section">
+      <h2>Trial Override</h2>
+      <p>Allow a user to create a new trial even if they previously had one.</p>
+      <div class="admin-input-row">
+        <input id="override-email" class="admin-input" type="email" placeholder="user@gmail.com">
+        <button id="override-btn" class="button button--primary" type="button">Override Trial</button>
       </div>
-      <p id="override-status" style="font-size:13px;margin:8px 0 0"></p>
+      <p id="override-status" class="admin-hint"></p>
     </section>
-    <section class="admin-section" style="margin-top:32px">
+    <section class="portal-section">
       <h2>All Users</h2>
-      <div id="users-table" style="overflow-x:auto;margin-top:12px">
-        <p style="color:var(--muted)">Loading…</p>
+      <div id="users-table" class="admin-table-wrap">
+        <div class="portal-skeleton">Loading users…</div>
       </div>
     </section>
   </main>
