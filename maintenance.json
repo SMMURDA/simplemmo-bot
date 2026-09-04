@@ -1,1 +1,1 @@
-{"enabled": true, "services": ["request-otp","features","my-licenses","get-account","licensing","trial","edgeproxy","logout-api","homepage","devpage","license-status-api","verify-otp","downloads","license-status","auth-config","health-check","payment-methods","license-check-api","create-trial","topups","license-check","packages","license-api","smmo-docs","vhack-docs","auth"]}
+{"enabled": true, "services": ["trial"]}
