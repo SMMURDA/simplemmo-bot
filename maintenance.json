@@ -1,1 +1,1 @@
-{"enabled": false}
+{"enabled": true, "services": ["request-otp","trial","verify-otp","create-trial"]}
