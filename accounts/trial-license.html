@@ -3,6 +3,8 @@ layout: default
 title: Trial License
 permalink: /accounts/trial-license/
 account_section: trial
+noindex: true
+sitemap: false
 ---
 <div class="portal" data-member-portal data-page="trial">
   <main class="portal-main">
@@ -15,8 +17,7 @@ account_section: trial
 (function(){
   var _cache=null;
   function sha256(s){
-    var h0=0x6a09e667,h1=0xbb67ae85,h2=0x3c6ef372,h3=0xa54ff53a,
-        h4=0x510e527f,h5=0x9b05688c,h6=0x1f83d9ab,h7=0x5be0cd19;
+    var h0=0x6a09e667,h1=0xbb67ae85,h2=0x3c6ef372,h3=0xa54ff53a,h4=0x510e527f,h5=0x9b05688c,h6=0x1f83d9ab,h7=0x5be0cd19;
     var b=new TextEncoder().encode(s),bl=b.length*8;
     var p=new Uint8Array(Math.ceil((b.length+9)/64)*64);p.set(b);p[b.length]=0x80;
     var dv=new DataView(p.buffer);dv.setUint32(p.length-4,bl,false);
@@ -27,7 +28,7 @@ account_section: trial
       for(var i=0;i<16;i++)w[i]=dv.getInt32(o+i*4,false);
       for(var i=16;i<64;i++){var s0=R(w[i-15],7)^R(w[i-15],18)^(w[i-15]>>>3);var s1=R(w[i-2],17)^R(w[i-2],19)^(w[i-2]>>>10);w[i]=(w[i-16]+s0+w[i-7]+s1)|0}
       var a=h0,b=h1,c=h2,d=h3,e=h4,f=h5,g=h6,h=h7;
-      for(var i=0;i<64;i++){var S1=R(e,6)^R(e,11)^R(e,25);var ch=(e&f)^(~e&g);var t1=(h+S1+ch+K[i]+w[i])|0;var S0=R(a,2)^R(a,13)^R(a,22);var mj=(a&b)^(a&c)^(b&c);var t2=(S0+mj)|0;h=g;g=f;f=e;e=(d+t1)|0;d=c;c=b;b=a;a=(t1+t2)|0}
+      for(var i=0;i<64;i++){var S1=R(e,6)^R(e,11)^R(e,25);var ch=(e&f)^(~e&g);var t1=(h+S1+ch+K[i]+w[i])|0;var S0=R(a,2)^R(a,13)^R(a,22);var maj=(a&b)^(a&c)^(b&c);var t2=(S0+maj)|0;h=g;g=f;f=e;e=(d+t1)|0;d=c;c=b;b=a;a=(t1+t2)|0}
       h0=(h0+a)|0;h1=(h1+b)|0;h2=(h2+c)|0;h3=(h3+d)|0;h4=(h4+e)|0;h5=(h5+f)|0;h6=(h6+g)|0;h7=(h7+h)|0;
     }
     return[h0,h1,h2,h3,h4,h5,h6,h7].map(function(v){return(v>>>0).toString(16).padStart(8,'0')}).join('');
@@ -67,10 +68,8 @@ account_section: trial
       var exts=gl.getSupportedExtensions()||[];parts.push(exts.sort().join(','));
       [gl.MAX_TEXTURE_SIZE,gl.MAX_VIEWPORT_DIMS,gl.MAX_VERTEX_ATTRIBS,gl.MAX_VARYING_VECTORS,gl.MAX_FRAGMENT_UNIFORM_VECTORS,gl.MAX_VERTEX_UNIFORM_VECTORS,gl.ALIASED_LINE_WIDTH_RANGE,gl.ALIASED_POINT_SIZE_RANGE].forEach(function(p){parts.push(String(gl.getParameter(p)));});
       gl.clearColor(0.2,0.4,0.6,1);gl.clear(gl.COLOR_BUFFER_BIT);
-      var vs=gl.createShader(gl.VERTEX_SHADER);
-      gl.shaderSource(vs,'attribute vec2 p;void main(){gl_Position=vec4(p,0,1);}');gl.compileShader(vs);
-      var fs=gl.createShader(gl.FRAGMENT_SHADER);
-      gl.shaderSource(fs,'precision mediump float;void main(){gl_FragColor=vec4(0.9,0.3,0.7,1);}');gl.compileShader(fs);
+      var vs=gl.createShader(gl.VERTEX_SHADER);gl.shaderSource(vs,'attribute vec2 p;void main(){gl_Position=vec4(p,0,1);}');gl.compileShader(vs);
+      var fs=gl.createShader(gl.FRAGMENT_SHADER);gl.shaderSource(fs,'precision mediump float;void main(){gl_FragColor=vec4(0.9,0.3,0.7,1);}');gl.compileShader(fs);
       var pg=gl.createProgram();gl.attachShader(pg,vs);gl.attachShader(pg,fs);gl.linkProgram(pg);gl.useProgram(pg);
       var buf=gl.createBuffer();gl.bindBuffer(gl.ARRAY_BUFFER,buf);
       gl.bufferData(gl.ARRAY_BUFFER,new Float32Array([0,0.8,-0.8,-0.8,0.8,-0.8]),gl.STATIC_DRAW);
@@ -101,11 +100,7 @@ account_section: trial
     var cfp=canvasFP();
     var wfp=webglFP();
     return detectWebRtc().then(function(webrtcIps){
-      _cache={device_fingerprint:mainFp,canvas_fp:cfp,webgl_fp:wfp,
-        tz_offset:new Date().getTimezoneOffset(),
-        tz_name:(Intl.DateTimeFormat().resolvedOptions().timeZone||''),
-        browser_lang:(navigator.language||''),
-        webrtc_ips:webrtcIps};
+      _cache={device_fingerprint:mainFp,canvas_fp:cfp,webgl_fp:wfp,tz_offset:new Date().getTimezoneOffset(),tz_name:(Intl.DateTimeFormat().resolvedOptions().timeZone||''),browser_lang:(navigator.language||''),webrtc_ips:webrtcIps};
       return _cache;
     });
   }
@@ -157,11 +152,7 @@ window._renderTurnstile=function(){
   if(!container||container.dataset.rendered)return;
   if(typeof turnstile==='undefined')return setTimeout(window._renderTurnstile,200);
   container.hidden=false;
-  turnstile.render(container,{
-    sitekey:'0x4AAAAAAEPVdV5Afm0YAJ2b',
-    theme:'dark',
-    callback:function(token){window._turnstileToken=token;}
-  });
+  turnstile.render(container,{sitekey:'0x4AAAAAAEPVdV5Afm0YAJ2b',theme:'dark',callback:function(token){window._turnstileToken=token;}});
   container.dataset.rendered='1';
 };
 </script>
