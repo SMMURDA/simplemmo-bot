@@ -8,9 +8,9 @@ product: smmo
 
 # Getting Started — SimpleMMO Bot
 
-This guide takes you from a downloaded release to a verified, running bot. Every user must supply their **own** SimpleMMO session, Telegram bot, and license key.
+> **Educational guide.** This guide takes you from a downloaded release to a verified, running bot. It is provided for **educational and personal use only**. Every user must supply their **own** SimpleMMO session, Telegram bot, and license key. You are responsible for reviewing and complying with SimpleMMO's terms of service before using any automation. Automation may violate SimpleMMO rules and may result in account restrictions — review the applicable terms before use.
 
-> Automation may violate SimpleMMO rules and may result in account restrictions. Review the applicable terms before use.
+This guide takes you from a downloaded release to a verified, running bot. Every user must supply their **own** SimpleMMO session, Telegram bot, and license key.
 
 ## 1. Download the correct release
 

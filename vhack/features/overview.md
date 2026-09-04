@@ -10,6 +10,8 @@ product: vhack
 
 [← Back to Home]({{ '/' | relative_url }})
 
+> **Educational guide.** This page lists every main feature available in VHack Revolution Bot. It is provided for **educational and personal use only**. You are responsible for reviewing and complying with vHack.cc's terms of service before using any automation. Automation may carry account risk — always use it at your own discretion.
+
 This page lists every main feature available in VHack Revolution Bot.
 
 ## Automation

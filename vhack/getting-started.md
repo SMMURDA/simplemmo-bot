@@ -8,9 +8,9 @@ product: vhack
 
 # Getting Started — VHack Revolution Bot
 
-This guide takes you from getting access to running the bot with either the terminal interface or web dashboard.
+> **Educational guide.** This guide takes you from getting access to running the bot with either the terminal interface or web dashboard. It is provided for **educational and personal use only**. This tool automates interactions with vHack.cc. Use at your own risk and review the game's terms before use.
 
-> This tool automates interactions with vHack.cc. Use at your own risk and review the game's terms before use.
+This guide takes you from getting access to running the bot with either the terminal interface or web dashboard.
 
 ## 1. Get access
 
@@ -81,7 +81,7 @@ npm run terminal
 node terminal.js
 ```
 
-Press number keys `1`–`0` and letters `C`, `S` to navigate between pages. See [Terminal]({{ '/vhack/features/terminal/' | relative_url }}) for all 12 pages and keyboard shortcuts.
+Press number keys `1–0` and letters `C`, `S` to navigate between pages. See [Terminal]({{ '/vhack/features/terminal/' | relative_url }}) for all 12 pages and keyboard shortcuts.
 
 ### Web Dashboard
 

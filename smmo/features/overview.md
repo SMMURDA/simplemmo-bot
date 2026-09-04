@@ -8,7 +8,9 @@ product: smmo
 
 # Feature Overview — SimpleMMO Bot
 
-[← Back to Home](/)
+[← Back to Home]({{ '/' | relative_url }})
+
+> **Educational guide.** This page lists every main feature available in the script. It is provided for **educational and personal use only**. You are responsible for reviewing and complying with SimpleMMO's terms of service before using any automation. Automation may carry account risk — always use it at your own discretion.
 
 This page lists every main feature available in the script.
 
@@ -21,7 +23,7 @@ This page lists every main feature available in the script.
 | Battle Arena | Runs arena battles with Natural Energy or Auto MOE mode and session statistics. |
 | Auto World Boss | Monitors the live boss schedule, pauses travel during an available boss fight, attacks automatically, and restores the previous travel state afterward. |
 | Player Battle | Supports manual targets, Auto MOE, timed Natural Energy mode, opponent filters, and advanced filters. |
-| Material Gather | Gathers material encounters automatically and reports material results. |
+| Material Gatherer | Gathers material encounters automatically and reports material results. |
 | Auto Equip | Equips found equipment through the SimpleMMO web flow. Mutually exclusive with Auto Sell. |
 | Auto Sell | Automatically sells found equipment by selected rarity and supports inventory sell filters. |
 | Captcha Solver | Sends captcha images to Telegram and lets the user answer with inline buttons. |
