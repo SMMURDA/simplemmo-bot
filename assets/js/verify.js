@@ -53,36 +53,35 @@
     }
     const rawEmail = account.user.email || '';
     const isTelegram = rawEmail.startsWith('Telegram ID');
-    const emailInput = $('#verify-email');
     const otpSection = $('#verify-otp-section');
     const otpInput = $('#verify-otp-input');
     const verifyBtn = $('#verify-confirm');
     const status = $('#verify-status');
 
-    if (!isTelegram && rawEmail) {
-      emailInput.value = rawEmail;
-      emailInput.readOnly = true;
-    }
-
     // OTP dikirim otomatis saat login/daftar dan berlaku 24 jam.
     // Tidak ada tombol "Send OTP" lagi. Input langsung ditampilkan.
     otpSection.hidden = false;
-    status.textContent = 'A 6-digit code was sent to your email and is valid for 24 hours. Enter it below.';
-    status.style.color = '#94a3b8';
+    status.textContent = '';
     otpInput.focus();
 
     // Jika belum ada kode valid (mis. kedaluwarsa setelah logout+login), minta otomatis.
     const ensureOtp = async () => {
       try {
-        const res = await request('/v1/trial/request-otp', { method: 'POST', body: JSON.stringify({ email: emailInput.value.trim().toLowerCase() }) });
+        const res = await request('/v1/trial/request-otp', { method: 'POST', body: JSON.stringify({ email: rawEmail.trim().toLowerCase() }) });
         if (res.already_verified) {
           try { sessionStorage.removeItem('otp_email'); } catch {}
           status.textContent = 'Already verified! Redirecting…'; status.style.color = '#22c55e';
           setTimeout(() => location.replace('/accounts/trial-license/'), 1000);
           return;
         }
-        status.textContent = res.message || 'A 6-digit code was sent to your email. Valid for 24 hours.';
-        status.style.color = '#22c55e';
+        // Tampilkan notice "Valid for 24 Hours" hanya sekali per sesi (bukan setiap refresh).
+        let shown = false;
+        try { shown = sessionStorage.getItem('otp_notice_shown') === '1'; } catch {}
+        if (!shown) {
+          status.textContent = 'Valid for 24 Hours';
+          status.style.color = '#94a3b8';
+          try { sessionStorage.setItem('otp_notice_shown', '1'); } catch {}
+        }
       } catch (err) {
         // Kode masih valid → tidak perlu kirim ulang; tampilkan pesan netral.
         status.textContent = 'Enter the 6-digit code from your email.';
@@ -96,7 +95,7 @@
       if (otp.length !== 6) { status.textContent = 'Enter the 6-digit code.'; status.style.color = '#ef4444'; return; }
       verifyBtn.disabled = true; status.textContent = 'Verifying…'; status.style.color = '#94a3b8';
       try {
-        const body = { email: emailInput.value.trim().toLowerCase(), otp };
+        const body = { email: rawEmail.trim().toLowerCase(), otp };
         if (window._turnstileToken) body.turnstile_token = window._turnstileToken;
         await request('/v1/trial/verify-otp', { method: 'POST', body: JSON.stringify(body) });
         try { sessionStorage.removeItem('otp_email'); } catch {}
