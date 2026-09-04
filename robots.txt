@@ -3,6 +3,7 @@ Allow: /
 Disallow: /admin/
 Disallow: /accounts/
 Disallow: /account/
+Disallow: /trial/
 Disallow: /404.html
 
 Sitemap: https://topup.eu.org/sitemap.xml
