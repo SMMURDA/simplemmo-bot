@@ -10,6 +10,19 @@ product: smmo
 
 [← Back to Home](/)
 
+> **Educational guide.** This page explains how the SimpleMMO Bot's automation features work and how to use them responsibly. It is provided for **educational and personal use only**. You are responsible for reviewing and complying with SimpleMMO's terms of service before using any automation. Automation may carry account risk — always use it at your own discretion.
+
+## How automation works
+
+The bot reduces repetitive manual work by reading the same game state you would see in your browser, respecting server cooldowns, and performing one action at a time with a built-in safety delay. It does not bypass the game's own limits — it simply removes the tedious clicking.
+
+## Responsible-use tips
+
+* **Start small.** Enable one feature at a time and observe how it behaves before adding more.
+* **Respect cooldowns.** The built-in safety delays keep actions within normal pacing.
+* **Monitor your session.** Keep an eye on the dashboard and notifications.
+* **Know the rules.** Read the game's terms of service before enabling any automation.
+
 ## Auto Travel
 
 Auto Travel runs the main step loop. It waits for server cooldown, adds a small safety delay, and then performs the next travel step.
@@ -31,7 +44,7 @@ Battle Arena can run once or continue automatically. Natural Energy mode waits f
 
 Auto World Boss reads the current and upcoming boss schedule from the live battle page. When a boss becomes attackable, the bot stores the current travel state, pauses Auto Travel, attacks the boss, and restores the exact previous travel state after the boss finishes or the attack exits safely.
 
-If travel was already paused manually—or held by another blocking feature—the World Boss worker does not force it to resume. The dedicated Telegram menu includes Auto ON/OFF, **View Upcoming World Bosses**, statistics, status, refresh, and a separate notification toggle.
+If travel was already paused manually — or held by another blocking feature — the World Boss worker does not force it to resume. The dedicated Telegram menu includes Auto ON/OFF, **View Upcoming World Bosses**, statistics, status, refresh, and a separate notification toggle.
 
 | Method | API | Description |
 |---|---|---|
@@ -57,7 +70,7 @@ Filters and advanced filters include minimum/maximum level, minimum gold, guild 
 | `POST` | `/api/user/attack/{player_id}` | Performs the player battle action. |
 | `DYNAMIC` | MOE refill endpoint | Uses one MOE without confirmation when the selected mode permits it and energy is empty. |
 
-## Material Gather
+## Material Gatherer
 
 When travel finds material encounters, the bot gathers automatically and reports material amount, player EXP, skill EXP, and level changes if notifications are enabled.
 
@@ -73,7 +86,7 @@ Auto Equip attempts to equip found equipment through the web flow. It is mutuall
 
 If bot verification appears, the captcha can be sent to Telegram and answered with inline buttons. Optional AI assistance is enabled only from the private local configuration. The AI response must end with a validated `FINAL_CHOICE: N`; truncated `MAX_TOKENS`/`LENGTH` output receives one continuation attempt before the solver falls back safely.
 
-The normal **Captcha / Warning** notification toggle remains separate. **Captcha Debug** can mirror the full terminal flow to Telegram for diagnosis. Its title is shown only on the first debug message of each CAPTCHA run, while following messages contain only the raw log line.
+The normal **Captcha / Warning** notification toggle remains separate. **Captcha Debug** can mirror the full terminal flow to Telegram for diagnostics. Its title is shown only on the first debug message of each CAPTCHA run, while following messages contain only the raw log line.
 
 | Method | API | Description |
 |---|---|---|

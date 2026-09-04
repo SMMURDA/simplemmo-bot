@@ -10,6 +10,19 @@ product: vhack
 
 [← Back to Home]({{ '/' | relative_url }})
 
+> **Educational guide.** This page explains how the VHack Revolution Bot's automation features work and how to use them responsibly. It is provided for **educational and personal use only**. You are responsible for reviewing and complying with vHack.cc's terms of service before using any automation. Automation may carry account risk — always use it at your own discretion.
+
+## How automation works
+
+This tool automates interactions with vHack.cc to reduce repetitive manual work. It reads the same game state you would see in the game, respects server pacing, and performs actions one at a time. It is intended to help you understand game mechanics and optimise your own gameplay, not to bypass the game's rules.
+
+## Responsible-use tips
+
+- **Start small.** Enable one module at a time and observe how it behaves.
+- **Respect pacing.** The built-in delays keep actions within normal game pacing.
+- **Monitor your session.** Keep an eye on the dashboard and notifications.
+- **Know the rules.** Read the game's terms of service before enabling any automation.
+
 ## Priority Mode
 
 When multiple automations want to run simultaneously, Priority Mode determines execution order:
@@ -28,7 +41,7 @@ Repeatedly performs: **Network refresh → Scan → Exploit → Repeat**.
 ### Configuration
 
 | Setting | Description |
-|---|---|
+|---|---|---|
 | Max rounds | Number of farm cycles before stopping |
 | IPs per round | How many targets to exploit per round |
 | Delays | Timing between actions |
@@ -44,7 +57,7 @@ With threshold 50 and 10 targets/round, voucher processing triggers every 5 roun
 
 | Key | Action |
 |---|---|
-| `A` | Toggle Auto Farm startup (runs only when NC Miner/Bounty idle) |
+| `A` | Toggle Auto Farm start (runs only when NC Miner/Bounty idle) |
 | `F` | Start / pause / resume Farm |
 | `X` | Stop Farm |
 
@@ -145,7 +158,7 @@ Uses the existing authenticated session and preserves registered chat and bounty
 
 ## Continue Reading
 
-<nav class="continue-reading" aria-label="Feature navigation">
+<nav aria-label="Feature navigation">
   <a class="continue-reading-card continue-reading-card--previous" href="{{ '/vhack/features/overview/' | relative_url }}">
     <span class="continue-reading-label"><span aria-hidden="true">←</span> Previous</span>
     <strong>Feature Overview</strong>
