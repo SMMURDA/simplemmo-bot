@@ -1,38 +1,38 @@
 ---
-title: Tentang Kami
+title: About Us
 permalink: /about/
 ---
 
-# Tentang Topup Org
+# About Topup Org
 
-Selamat datang di **Topup Org** — rumah bagi alat otomatisasi game yang dirancang untuk membantu pemain mengelola akun game favorit mereka dengan lebih mudah dan efisien. Kami menyediakan dua produk utama:
+Welcome to **Topup Org** — home of game automation tools designed to help players manage their favorite game accounts more easily and efficiently. We provide two main products:
 
-- **SimpleMMO Bot** — otomatisasi berlisensi untuk game SimpleMMO dengan kontrol penuh melalui Telegram.
-- **vHack Revolutions** — terminal dan web automation untuk vHack.cc, lengkap dengan auto farm, NC miner, bounty, voucher, dan live chat.
+- **SimpleMMO Bot** — licensed automation for the SimpleMMO game with full control via Telegram.
+- **vHack Revolutions** — terminal and web automation for vHack.cc, complete with auto farm, NC miner, bounty, voucher, and live chat.
 
-## Tujuan Kami
+## Our Mission
 
-Kami percaya bahwa bermain game seharusnya menyenangkan, bukan melelahkan. Tujuan kami adalah memberikan **alat otomatisasi yang andal, transparan, dan mudah digunakan** sehingga Anda dapat mengelola aktivitas dalam game secara efisien — sambil tetap menjaga kendali penuh di tangan Anda.
+We believe playing games should be fun, not exhausting. Our goal is to provide **reliable, transparent, and easy-to-use automation tools** so you can manage your in-game activities efficiently — while keeping full control in your hands.
 
-Nilai yang kami pegang:
+The values we hold:
 
-- **Kendali penuh di tangan Anda** — semua kredensial dan konfigurasi disimpan secara lokal di perangkat Anda.
-- **Transparansi** — tanpa biaya tersembunyi, tanpa praktik yang menyesatkan.
-- **Edukasi & penggunaan pribadi** — kami mendorong penggunaan yang bertanggung jawab.
+- **Full control in your hands** — all credentials and configurations are stored locally on your device.
+- **Transparency** — no hidden fees, no misleading practices.
+- **Education & personal use** — we encourage responsible usage.
 
-## Cara Menghubungi Kami
+## Contact Us
 
-Kami senang mendengar dari Anda! Jika Anda memiliki pertanyaan, masukan, atau membutuhkan bantuan:
+We'd love to hear from you! If you have questions, feedback, or need assistance:
 
 - **Email:** [ask@topup.eu.org](mailto:ask@topup.eu.org)
 - **Telegram:** [@bovalone](https://t.me/bovalone)
 - **Instagram:** [@bovalonee](https://instagram.com/bovalonee)
-- **Status Layanan:** [status.topup.eu.org](https://status.topup.eu.org)
+- **Service Status:** [status.topup.eu.org](https://status.topup.eu.org)
 
 ## Disclaimer
 
-Konten dan alat yang kami sediakan ditujukan untuk **tujuan edukasi dan penggunaan pribadi**. Pengguna bertanggung jawab penuh untuk mematuhi **Ketentuan Layanan (ToS)** dari setiap game yang digunakan. Kami tidak mendorong pelanggaran aturan, penyalahgunaan API, atau aktivitas yang melanggar kebijakan pihak ketiga. Gunakan setiap alat secara bijak dan bertanggung jawab.
+The content and tools we provide are intended for **educational and personal use**. Users are fully responsible for complying with the **Terms of Service (ToS)** of each game they use. We do not encourage rule violations, API abuse, or activities that breach third-party policies. Please use every tool wisely and responsibly.
 
-## Privasi
+## Privacy
 
-Kami menghargai privasi Anda. Silakan baca [Kebijakan Privasi](/privacy/) kami untuk memahami bagaimana data Anda ditangani dan dilindungi.
+We value your privacy. Please read our [Privacy Policy](/privacy/) to understand how your data is handled and protected.
