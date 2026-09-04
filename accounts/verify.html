@@ -15,13 +15,51 @@ sitemap: false
       <div id="verify-otp-section" style="margin-top:16px">
         <input id="verify-otp-input" type="text" inputmode="numeric" maxlength="6" placeholder="6-digit code" style="width:100%;padding:14px;border-radius:8px;border:1px solid var(--border,#334155);background:var(--card,#0f172a);color:inherit;font-size:22px;font-family:'SF Mono','Cascadia Code','Consolas','Menlo',monospace;letter-spacing:6px;text-align:center;box-sizing:border-box;margin-bottom:16px">
         <div id="turnstile-container" style="display:flex;justify-content:center;margin:8px 0 12px;"></div>
-        <button id="verify-confirm" class="btn btn--primary" type="button" style="width:100%">Verify code</button>
+        <button id="verify-confirm" type="button">Verify code</button>
       </div>
-      <p id="verify-status" style="font-size:13px;margin:10px 0 0"></p>
     </section>
     <div id="portal-status" class="portal-status" aria-live="polite"></div>
   </main>
 </div>
+<style>
+  #verify-confirm {
+    width: 100%;
+    padding: 14px 20px;
+    border: none;
+    border-radius: 10px;
+    background: linear-gradient(135deg, #6366f1 0%, #8b5cf6 50%, #a855f7 100%);
+    color: #fff;
+    font-size: 15px;
+    font-weight: 600;
+    letter-spacing: .3px;
+    cursor: pointer;
+    box-shadow: 0 4px 14px rgba(139,92,246,.35);
+    transition: transform .15s ease, box-shadow .2s ease, filter .2s ease;
+  }
+  #verify-confirm:hover {
+    transform: translateY(-1px);
+    box-shadow: 0 8px 22px rgba(139,92,246,.45);
+    filter: brightness(1.05);
+  }
+  #verify-confirm:active {
+    transform: translateY(0);
+    box-shadow: 0 3px 10px rgba(139,92,246,.3);
+  }
+  #verify-confirm:disabled {
+    opacity: .6;
+    cursor: not-allowed;
+    transform: none;
+    box-shadow: none;
+  }
+  @keyframes verify-shake {
+    0%,100% { transform: translateX(0); }
+    20% { transform: translateX(-6px); }
+    40% { transform: translateX(6px); }
+    60% { transform: translateX(-4px); }
+    80% { transform: translateX(4px); }
+  }
+  .verify-shake { animation: verify-shake .4s ease; }
+</style>
 <script src="https://challenges.cloudflare.com/turnstile/v0/api.js?onload=_verifyInitTurnstile" async defer></script>
 <script>
 window._verifyInitTurnstile=function(){
@@ -31,4 +69,4 @@ window._verifyInitTurnstile=function(){
 };
 </script>
 <script src="{{ '/assets/js/portal-common.min.js?v=20260820-2' | relative_url }}" defer></script>
-<script src="{{ '/assets/js/verify.js?v=20260904-2' | relative_url }}" defer></script>
+<script src="{{ '/assets/js/verify.js?v=20260904-3' | relative_url }}" defer></script>

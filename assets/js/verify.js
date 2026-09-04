@@ -56,12 +56,10 @@
     const otpSection = $('#verify-otp-section');
     const otpInput = $('#verify-otp-input');
     const verifyBtn = $('#verify-confirm');
-    const status = $('#verify-status');
 
     // OTP dikirim otomatis saat login/daftar dan berlaku 24 jam.
     // Tidak ada tombol "Send OTP" lagi. Input langsung ditampilkan.
     otpSection.hidden = false;
-    status.textContent = '';
     otpInput.focus();
 
     // Jika belum ada kode valid (mis. kedaluwarsa setelah logout+login), minta otomatis.
@@ -70,43 +68,37 @@
         const res = await request('/v1/trial/request-otp', { method: 'POST', body: JSON.stringify({ email: rawEmail.trim().toLowerCase() }) });
         if (res.already_verified) {
           try { sessionStorage.removeItem('otp_email'); } catch {}
-          status.textContent = 'Already verified! Redirecting…'; status.style.color = '#22c55e';
-          setTimeout(() => location.replace('/accounts/trial-license/'), 1000);
+          setTimeout(() => location.replace('/accounts/trial-account/'), 1000);
           return;
         }
-        // Tampilkan notice "Valid for 24 Hours" hanya sekali per sesi (bukan setiap refresh).
-        let shown = false;
-        try { shown = sessionStorage.getItem('otp_notice_shown') === '1'; } catch {}
-        if (!shown) {
-          status.textContent = 'Valid for 24 Hours';
-          status.style.color = '#94a3b8';
-          try { sessionStorage.setItem('otp_notice_shown', '1'); } catch {}
-        }
       } catch (err) {
-        // Kode masih valid → tidak perlu kirim ulang; tampilkan pesan netral.
-        status.textContent = 'Enter the 6-digit code from your email.';
-        status.style.color = '#94a3b8';
+        // Kode masih valid → tidak perlu kirim ulang; tidak menampilkan apa pun.
       }
     };
     ensureOtp();
 
     verifyBtn.addEventListener('click', async () => {
       const otp = otpInput.value.trim();
-      if (otp.length !== 6) { status.textContent = 'Enter the 6-digit code.'; status.style.color = '#ef4444'; return; }
-      verifyBtn.disabled = true; status.textContent = 'Verifying…'; status.style.color = '#94a3b8';
+      if (otp.length !== 6) {
+        otpInput.classList.add('verify-shake');
+        setTimeout(() => otpInput.classList.remove('verify-shake'), 450);
+        return;
+      }
+      verifyBtn.disabled = true;
+      verifyBtn.textContent = 'Verifying…';
       try {
         const body = { email: rawEmail.trim().toLowerCase(), otp };
         if (window._turnstileToken) body.turnstile_token = window._turnstileToken;
         await request('/v1/trial/verify-otp', { method: 'POST', body: JSON.stringify(body) });
         try { sessionStorage.removeItem('otp_email'); } catch {}
-        status.textContent = '';
         document.getElementById('verify-card').innerHTML = '<div style="text-align:center;padding:20px 0"><svg width="48" height="48" viewBox="0 0 24 24" fill="#22c55e"><path d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z"/></svg><h3 style="color:#22c55e;margin:12px 0 4px">Email Verified!</h3><p style="color:#94a3b8">Redirecting to your dashboard…</p></div>';
         const ts = document.getElementById('turnstile-container');
         if (ts) ts.hidden = true;
-        setTimeout(() => location.replace('/accounts/trial-license/'), 1500);
+        setTimeout(() => location.replace('/accounts/trial-account/'), 1500);
       } catch (err) {
-        status.textContent = err.message; status.style.color = '#ef4444';
-      } finally { verifyBtn.disabled = false; }
+        otpInput.classList.add('verify-shake');
+        setTimeout(() => otpInput.classList.remove('verify-shake'), 450);
+      } finally { verifyBtn.disabled = false; verifyBtn.textContent = 'Verify code'; }
     });
   };
 
