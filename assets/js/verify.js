@@ -54,7 +54,6 @@
     const rawEmail = account.user.email || '';
     const isTelegram = rawEmail.startsWith('Telegram ID');
     const emailInput = $('#verify-email');
-    const sendBtn = $('#verify-send-otp');
     const otpSection = $('#verify-otp-section');
     const otpInput = $('#verify-otp-input');
     const verifyBtn = $('#verify-confirm');
@@ -65,61 +64,32 @@
       emailInput.readOnly = true;
     }
 
-    let cooldownTimer = null;
-    const startCooldown = (sec = 60) => {
-      let seconds = sec;
-      sendBtn.disabled = true;
-      sendBtn.textContent = `Resend (${seconds}s)`;
-      cooldownTimer = setInterval(() => {
-        seconds--;
-        sendBtn.textContent = `Resend (${seconds}s)`;
-        if (seconds <= 0) {
-          clearInterval(cooldownTimer);
-          cooldownTimer = null;
-          sendBtn.disabled = false;
-          sendBtn.textContent = 'Resend code';
-        }
-      }, 1000);
-    };
+    // OTP dikirim otomatis saat login/daftar dan berlaku 24 jam.
+    // Tidak ada tombol "Send OTP" lagi. Input langsung ditampilkan.
+    otpSection.hidden = false;
+    status.textContent = 'A 6-digit code was sent to your email and is valid for 24 hours. Enter it below.';
+    status.style.color = '#94a3b8';
+    otpInput.focus();
 
-    // Restore OTP state from sessionStorage if user reloaded
-    try {
-      const savedEmail = sessionStorage.getItem('otp_email');
-      if (savedEmail) {
-        emailInput.value = savedEmail;
-        if (!isTelegram) emailInput.readOnly = true;
-        otpSection.hidden = false;
-        status.textContent = 'Code was sent. Enter the 6-digit code from your email, or resend below.';
-        status.style.color = '#94a3b8';
-      }
-    } catch {}
-
-    sendBtn.addEventListener('click', async () => {
-      const em = emailInput.value.trim().toLowerCase();
-      if (!em.endsWith('@gmail.com')) { status.textContent = 'Only @gmail.com addresses are accepted.'; status.style.color = '#ef4444'; return; }
-      sendBtn.disabled = true; status.textContent = 'Sending verification code…'; status.style.color = '#94a3b8';
+    // Jika belum ada kode valid (mis. kedaluwarsa setelah logout+login), minta otomatis.
+    const ensureOtp = async () => {
       try {
-        const res = await request('/v1/trial/request-otp', { method: 'POST', body: JSON.stringify({ email: em }) });
+        const res = await request('/v1/trial/request-otp', { method: 'POST', body: JSON.stringify({ email: emailInput.value.trim().toLowerCase() }) });
         if (res.already_verified) {
           try { sessionStorage.removeItem('otp_email'); } catch {}
           status.textContent = 'Already verified! Redirecting…'; status.style.color = '#22c55e';
           setTimeout(() => location.replace('/accounts/trial-license/'), 1000);
           return;
         }
-        try { sessionStorage.setItem('otp_email', em); } catch {}
-        status.textContent = res.message || 'Code sent. Check your inbox.'; status.style.color = '#22c55e';
-        otpSection.hidden = false; otpInput.focus();
-        startCooldown();
+        status.textContent = res.message || 'A 6-digit code was sent to your email. Valid for 24 hours.';
+        status.style.color = '#22c55e';
       } catch (err) {
-        status.textContent = err.message; status.style.color = '#ef4444';
-        if (err.status === 429) {
-          try { const body = JSON.parse(err.message); } catch {}
-          startCooldown(60);
-        } else {
-          sendBtn.disabled = false;
-        }
+        // Kode masih valid → tidak perlu kirim ulang; tampilkan pesan netral.
+        status.textContent = 'Enter the 6-digit code from your email.';
+        status.style.color = '#94a3b8';
       }
-    });
+    };
+    ensureOtp();
 
     verifyBtn.addEventListener('click', async () => {
       const otp = otpInput.value.trim();
@@ -129,7 +99,6 @@
         const body = { email: emailInput.value.trim().toLowerCase(), otp };
         if (window._turnstileToken) body.turnstile_token = window._turnstileToken;
         await request('/v1/trial/verify-otp', { method: 'POST', body: JSON.stringify(body) });
-        if (cooldownTimer) clearInterval(cooldownTimer);
         try { sessionStorage.removeItem('otp_email'); } catch {}
         status.textContent = '';
         document.getElementById('verify-card').innerHTML = '<div style="text-align:center;padding:20px 0"><svg width="48" height="48" viewBox="0 0 24 24" fill="#22c55e"><path d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z"/></svg><h3 style="color:#22c55e;margin:12px 0 4px">Email Verified!</h3><p style="color:#94a3b8">Redirecting to your dashboard…</p></div>';
