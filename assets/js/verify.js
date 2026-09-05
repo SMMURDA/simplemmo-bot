@@ -77,7 +77,7 @@
         const res = await request('/v1/trial/request-otp', { method: 'POST', body: JSON.stringify({ email: rawEmail.trim().toLowerCase() }) });
         if (res.already_verified) {
           try { sessionStorage.removeItem('otp_email'); } catch {}
-          setTimeout(() => location.replace('/accounts/trial-account/'), 1000);
+          setTimeout(() => location.replace('/accounts/overview/'), 1000);
           return;
         }
       } catch (err) {
@@ -104,7 +104,7 @@
         document.getElementById('verify-card').innerHTML = '<div style="text-align:center;padding:20px 0"><svg width="48" height="48" viewBox="0 0 24 24" fill="#22c55e"><path d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z"/></svg><h3 style="color:#22c55e;margin:12px 0 4px">Email Verified!</h3><p style="color:#94a3b8">Redirecting to your dashboard…</p></div>';
         const ts = document.getElementById('turnstile-container');
         if (ts) ts.hidden = true;
-        setTimeout(() => location.replace('/accounts/trial-account/'), 1500);
+        setTimeout(() => location.replace('/accounts/overview/'), 1500);
       } catch (err) {
         otpInput.classList.add('verify-shake');
         setTimeout(() => otpInput.classList.remove('verify-shake'), 450);
