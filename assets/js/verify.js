@@ -63,6 +63,15 @@
     otpInput.focus();
 
     // Jika belum ada kode valid (mis. kedaluwarsa setelah logout+login), minta otomatis.
+    const showError = (message) => {
+      const status = $('#portal-status');
+      if (status) {
+        status.textContent = message;
+        status.dataset.tone = 'error';
+        status.hidden = false;
+      }
+      if (window.portalToast) window.portalToast(message, 'error');
+    };
     const ensureOtp = async () => {
       try {
         const res = await request('/v1/trial/request-otp', { method: 'POST', body: JSON.stringify({ email: rawEmail.trim().toLowerCase() }) });
@@ -72,7 +81,8 @@
           return;
         }
       } catch (err) {
-        // Kode masih valid → tidak perlu kirim ulang; tidak menampilkan apa pun.
+        // Tampilkan error yang jelas agar user tahu OTP gagal dikirim / server error.
+        showError(err.message || 'Gagal mengirim kode verifikasi. Silakan coba lagi.');
       }
     };
     ensureOtp();
@@ -98,6 +108,7 @@
       } catch (err) {
         otpInput.classList.add('verify-shake');
         setTimeout(() => otpInput.classList.remove('verify-shake'), 450);
+        showError(err.message || 'Verifikasi gagal. Silakan coba lagi.');
       } finally { verifyBtn.disabled = false; verifyBtn.textContent = 'Verify code'; }
     });
   };
