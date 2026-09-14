@@ -10,7 +10,7 @@ _Last updated: September 4, 2026_
 
 ## Acceptance of terms
 
-By creating an account or a trial license, you agree to use Topup Org tools at your own risk and in accordance with these terms, applicable laws, and all third-party terms.
+By creating an account or a trial license, you agree to use TOPUP AUTOMOTION tools at your own risk and in accordance with these terms, applicable laws, and all third-party terms.
 
 ## Use of the service
 

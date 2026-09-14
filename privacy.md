@@ -7,7 +7,7 @@ permalink: /privacy/
 
 _Last updated: September 4, 2026_
 
-This Privacy Policy explains how Topup Org ("we", "us") handles information when you use our website and our game automation tools (SimpleMMO Bot and vHack Revolutions).
+This Privacy Policy explains how TOPUP AUTOMOTION ("we", "us") handles information when you use our website and our game automation tools (SimpleMMO Bot and vHack Revolutions).
 
 ## Local data
 

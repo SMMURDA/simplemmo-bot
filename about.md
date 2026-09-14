@@ -3,9 +3,9 @@ title: About Us
 permalink: /about/
 ---
 
-# About Topup Org
+# About TOPUP AUTOMOTION
 
-Welcome to **Topup Org** — home of game automation tools designed to help players manage their favorite game accounts more easily and efficiently. We provide two main products:
+Welcome to **TOPUP AUTOMOTION** — home of game automation tools designed to help players manage their favorite game accounts more easily and efficiently. We provide two main products:
 
 - **SimpleMMO Bot** — licensed automation for the SimpleMMO game with full control via Telegram.
 - **vHack Revolutions** — terminal and web automation for vHack.cc, complete with auto farm, NC miner, bounty, voucher, and live chat.
