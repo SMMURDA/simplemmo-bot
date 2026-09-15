@@ -7,7 +7,14 @@
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <meta name="theme-color" content="#0B0A12">
   <script>!function(){try{var d=document.documentElement,t=localStorage.getItem("theme");d.setAttribute("data-theme",t==="dark"?"dark":"light")}catch(e){}}();</script>
-  <meta http-equiv="Content-Security-Policy" content="default-src 'self'; script-src 'self' 'unsafe-inline' https://license.topup.eu.org https://challenges.cloudflare.com https://pagead2.googlesyndication.com https://*.googlesyndication.com https://*.googleadservices.com; style-src 'self' 'unsafe-inline'; img-src 'self' data: https:; connect-src 'self' https://license.topup.eu.org https://smmurda.github.io https://pagead2.googlesyndication.com https://*.googlesyndication.com https://*.googleadservices.com; frame-src https://challenges.cloudflare.com https://googleads.g.doubleclick.net https://*.googlesyndication.com; font-src 'self' data:;">
+  <!--
+    Duplicated verbatim by the Cloudflare Worker proxying this site
+    (see SITE_CSP in tools/maintenance-worker/src/index.js).
+    Browsers enforce every delivered policy as an intersection, so the two
+    copies MUST stay identical — when they drifted, the stricter copy
+    silently blocked AdSense.
+  -->
+  <meta http-equiv="Content-Security-Policy" content="default-src 'self'; script-src 'self' 'unsafe-inline' 'unsafe-eval' https://pagead2.googlesyndication.com https://*.googlesyndication.com https://*.googleadservices.com https://*.doubleclick.net https://adservice.google.com https://challenges.cloudflare.com; style-src 'self' 'unsafe-inline'; img-src 'self' data: https:; font-src 'self' data:; connect-src 'self' https://license.topup.eu.org https://smmurda.github.io https://pagead2.googlesyndication.com https://*.googlesyndication.com https://*.googleadservices.com https://*.doubleclick.net https://challenges.cloudflare.com; frame-src https://challenges.cloudflare.com https://googleads.g.doubleclick.net https://*.googlesyndication.com https://*.doubleclick.net; object-src 'none'; base-uri 'self'; form-action 'self'; frame-ancestors 'none';">
   <meta http-equiv="X-Content-Type-Options" content="nosniff">
   <meta name="referrer" content="strict-origin-when-cross-origin">
   {% seo %}

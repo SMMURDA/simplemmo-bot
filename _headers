@@ -1,15 +1,27 @@
+# ── Cloudflare Pages / Netlify style headers file ──
+#
+# IMPORTANT: GitHub Pages IGNORES this file entirely. The live headers for
+# https://topup.eu.org are set by the Cloudflare Worker that proxies GitHub
+# Pages — see the `newResponse.headers.set(...)` block at the end of fetch()
+# in SimpleMMO-ENCODE/tools/maintenance-worker/src/index.js.
+#
+# This file is kept as the single readable reference of what production
+# actually sends, and so the values are ready if the site is ever moved to
+# Cloudflare Pages (which does honour `_headers`).
+#
 # ── Global security headers ──
 /*
   Strict-Transport-Security: max-age=31536000; includeSubDomains; preload
   X-Content-Type-Options: nosniff
   X-Frame-Options: DENY
   Referrer-Policy: strict-origin-when-cross-origin
-  Permissions-Policy: geolocation=(), microphone=(), camera=()
+  Permissions-Policy: camera=(), microphone=(), geolocation=(), payment=()
+  Cross-Origin-Opener-Policy: same-origin
+  Cross-Origin-Resource-Policy: same-origin
+  Content-Security-Policy: default-src 'self'; script-src 'self' 'unsafe-inline' 'unsafe-eval' https://pagead2.googlesyndication.com https://*.googlesyndication.com https://*.googleadservices.com https://*.doubleclick.net https://adservice.google.com https://challenges.cloudflare.com; style-src 'self' 'unsafe-inline'; img-src 'self' data: https:; font-src 'self' data:; connect-src 'self' https://license.topup.eu.org https://smmurda.github.io https://pagead2.googlesyndication.com https://*.googlesyndication.com https://*.googleadservices.com https://*.doubleclick.net https://challenges.cloudflare.com; frame-src https://challenges.cloudflare.com https://googleads.g.doubleclick.net https://*.googlesyndication.com https://*.doubleclick.net; object-src 'none'; base-uri 'self'; form-action 'self'; frame-ancestors 'none';
 
 # ── Static assets (CSS, JS, images, fonts) ──
 # Versioned assets get immutable long cache; unversioned get 1 day.
-# The Cloudflare Worker overrides these when proxying, but these apply
-# for direct GitHub Pages access.
 /assets/*
   Cache-Control: public, max-age=31536000, immutable
   Access-Control-Allow-Origin: *
