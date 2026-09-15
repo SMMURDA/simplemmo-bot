@@ -3101,3 +3101,30 @@ article.doc-content:has(.trial-shell--v5){padding:26px 0 22px}
 html[data-theme="light"] .lv-term__bar{background:rgba(0,0,0,.03)}
 html[data-theme="light"] .lv-term{box-shadow:0 18px 44px rgba(36,29,51,.12)}
 @media(max-width:900px){.lv-term-grid{grid-template-columns:1fr;gap:12px;margin-bottom:20px}}
+
+/* ── landing: vHack terminal — zoom trigger + mobile swipe ────────────
+   Each capture is a button so the shared .image-lightbox (site.js) can
+   open it full size. Below 900px the pair becomes a snap carousel so a
+   phone user swipes between them instead of scrolling two tall images. */
+.lv-term__zoom{display:block;width:100%;padding:0;border:0;background:none;cursor:zoom-in;position:relative;-webkit-tap-highlight-color:transparent}
+.lv-term__zoom:focus-visible{outline:2px solid var(--blue);outline-offset:-3px}
+.lv-term__hint{position:absolute;right:10px;bottom:10px;width:30px;height:30px;display:grid;place-items:center;border-radius:8px;background:rgba(11,10,18,.66);color:#fff;opacity:0;transition:opacity .2s ease;pointer-events:none}
+.lv-term__hint svg{width:16px;height:16px}
+.lv-term__zoom:hover .lv-term__hint,.lv-term__zoom:focus-visible .lv-term__hint{opacity:1}
+@media(hover:none){.lv-term__hint{opacity:.85}}
+
+@media(max-width:900px){
+  .lv-term-grid{
+    display:flex;
+    grid-template-columns:none;
+    overflow-x:auto;
+    scroll-snap-type:x mandatory;
+    -webkit-overflow-scrolling:touch;
+    scrollbar-width:none;
+    gap:12px;
+    margin:0 -16px 20px;
+    padding:0 16px 6px;
+  }
+  .lv-term-grid::-webkit-scrollbar{display:none}
+  .lv-term{flex:0 0 86%;scroll-snap-align:center}
+}
