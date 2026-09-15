@@ -2922,9 +2922,23 @@ html[data-theme="light"] .highlight .na{color:#1D4ED8}
 html[data-theme="light"] .hero-shot{background:#E9E2F5}
 html[data-theme="light"] .hero-shot::before{background:rgba(250,247,255,.72)}
 
-/* ── header: keep the nav and theme toggle grouped in the top-right corner ── */
-.header-inner > .site-nav{margin-left:auto}
-@media(max-width:860px){
-  .header-inner > .nav-toggle{margin-left:auto}
-  .header-inner > .theme-toggle{margin-left:0}
-}
+/* ── header: toggle + nav grouped in the top-right corner, order [theme][nav] ── */
+.header-inner > .theme-toggle{margin-left:auto}
+
+/* ── light theme: remaining light-on-light text ── */
+html[data-theme="light"] .doc-content .highlight code{color:#3F4550}
+html[data-theme="light"] .license-curl-mark{color:#3F5560}
+html[data-theme="light"] .api-status--danger{color:#B3274D}
+html[data-theme="light"] .trial-shell--v5 .trial-step--expired{color:#B3274D}
+html[data-theme="light"] .portal-badge--rejected{color:#B3274D}
+html[data-theme="light"] .portal-status[data-tone="error"]{color:#B3274D}
+html[data-theme="light"] .portal-status[data-tone="success"]{color:#0F7A4A}
+html[data-theme="light"] .license-key-row code{color:#2F4550}
+html[data-theme="light"] .license-hidden-note{color:#B3274D}
+html[data-theme="light"] .confirmation-card code{color:#3F4550}
+html[data-theme="light"] .lv-payment{color:#6B6288}
+html[data-theme="light"] .price-badge{color:#B3274D}
+html[data-theme="light"] .http-method--delete{color:#B3274D}
+html[data-theme="light"] .portal-toast{color:#0F7A4A}
+html[data-theme="light"] .portal-toast{background:#EAF7F1;border-color:rgba(15,122,74,.24)}
+html[data-theme="light"] .portal-toast[data-tone="error"]{color:#B3274D;background:#FDECF1;border-color:rgba(179,39,77,.24)}
