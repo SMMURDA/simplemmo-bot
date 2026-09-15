@@ -106,6 +106,6 @@ window._renderTurnstile=function(){
   container.dataset.widgetId=id;
   container.dataset.tsTheme=want;
 };
-document.addEventListener('themechange',function(){window._renderTurnstile();});
+document.addEventListener('themechange',function(){var c=document.getElementById('turnstile-container');if(c&&c.dataset.widgetId)window._renderTurnstile();});
 </script>
 <script src="{{ '/assets/js/trial.js?v=20260820-14' | relative_url }}" defer></script>
