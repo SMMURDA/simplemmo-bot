@@ -2867,3 +2867,64 @@ html[data-theme="dark"] body{transition:background-color .25s ease,color .25s ea
 .theme-toggle svg{width:18px;height:18px;display:block}
 html[data-theme="light"] .theme-toggle{background:rgba(0,0,0,.02)}
 @media(max-width:600px){.theme-toggle{width:34px;height:34px}}
+
+/* ── light theme: status pills, badges, code + syntax ── */
+html[data-theme="light"] .status-pill--active,
+html[data-theme="light"] .status-pill--approved,
+html[data-theme="light"] .portal-status[data-tone="success"]{color:#0F7A4A}
+html[data-theme="light"] .status-pill--pending{color:#8A6B00}
+html[data-theme="light"] .status-pill--expired,
+html[data-theme="light"] .status-pill--revoked,
+html[data-theme="light"] .status-pill--rejected,
+html[data-theme="light"] .status-pill--disabled,
+html[data-theme="light"] .portal-status[data-tone="error"],
+html[data-theme="light"] .portal-badge--rejected,
+html[data-theme="light"] .price-badge,
+html[data-theme="light"] .api-status--danger,
+html[data-theme="light"] .trial-shell--v5 .trial-step--expired,
+html[data-theme="light"] .license-hidden-note{color:#B3274D}
+html[data-theme="light"] .portal-alert--warning{color:#8A6B00}
+html[data-theme="light"] .faq-item[open] summary::after,
+html[data-theme="light"] .lv-swap-btn{color:#C93FB0}
+
+/* toasts: flip to a light card */
+html[data-theme="light"] .portal-toast{background:#EAF7F1;color:#0F7A4A;border-color:rgba(15,122,74,.24)}
+html[data-theme="light"] .portal-toast[data-tone="error"]{background:#FDECF1;color:#B3274D;border-color:rgba(179,39,77,.24)}
+
+/* HTTP method chips */
+html[data-theme="light"] .http-method--patch{color:#6B32C4}
+html[data-theme="light"] .http-method--post,
+html[data-theme="light"] .http-method--delete{color:#B3274D}
+
+/* inline / block code inside docs and cards */
+html[data-theme="light"] .doc-content td code,
+html[data-theme="light"] .doc-content .highlight code,
+html[data-theme="light"] .license-key-row code,
+html[data-theme="light"] .confirmation-card code{background:var(--code);color:var(--text)}
+
+/* rouge / highlight syntax on a light code background */
+html[data-theme="light"] .highlight .s,html[data-theme="light"] .highlight .s1,
+html[data-theme="light"] .highlight .s2,html[data-theme="light"] .highlight .sa,
+html[data-theme="light"] .highlight .dl{color:#2E7D32}
+html[data-theme="light"] .highlight .nc,html[data-theme="light"] .highlight .ne,
+html[data-theme="light"] .highlight .nn{color:#9A6B00}
+html[data-theme="light"] .highlight .o,html[data-theme="light"] .highlight .p{color:#0F6E8C}
+html[data-theme="light"] .highlight .k,html[data-theme="light"] .highlight .kd,
+html[data-theme="light"] .highlight .kn,html[data-theme="light"] .highlight .kp,
+html[data-theme="light"] .highlight .kr,html[data-theme="light"] .highlight .kt{color:#7C3AED}
+html[data-theme="light"] .highlight .mi,html[data-theme="light"] .highlight .mf,
+html[data-theme="light"] .highlight .mh,html[data-theme="light"] .highlight .il{color:#C2410C}
+html[data-theme="light"] .highlight .nf,html[data-theme="light"] .highlight .fm,
+html[data-theme="light"] .highlight .nb,html[data-theme="light"] .highlight .nx,
+html[data-theme="light"] .highlight .na{color:#1D4ED8}
+
+/* hero screenshot overlays stay legible on a light canvas */
+html[data-theme="light"] .hero-shot{background:#E9E2F5}
+html[data-theme="light"] .hero-shot::before{background:rgba(250,247,255,.72)}
+
+/* ── header: keep the nav and theme toggle grouped in the top-right corner ── */
+.header-inner > .site-nav{margin-left:auto}
+@media(max-width:860px){
+  .header-inner > .nav-toggle{margin-left:auto}
+  .header-inner > .theme-toggle{margin-left:0}
+}
