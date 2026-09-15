@@ -3068,3 +3068,7 @@ html[data-theme="light"] .trial-shell--v5 .provider-signin--github svg{fill:#241
   .trial-feature-chip strong{font-size:12px}
   .trial-rule{margin:12px 0}
 }
+
+/* the shared main{padding-bottom:64px} plus the shell margin still left
+   ~120px of blank space before the footer on /trial/; trim it there */
+main:has(.trial-shell--v5){padding-bottom:24px}
