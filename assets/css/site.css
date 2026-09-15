@@ -2960,8 +2960,21 @@ html[data-theme="light"] .portal-toast{color:#0F7A4A}
 html[data-theme="light"] .portal-toast{background:#EAF7F1;border-color:rgba(15,122,74,.24)}
 html[data-theme="light"] .portal-toast[data-tone="error"]{color:#B3274D;background:#FDECF1;border-color:rgba(179,39,77,.24)}
 
-/* ── header nav: stop labels wrapping and clipping at the right edge ── */
+/* ── header: fit the nav without wrapping or clipping ────────────────
+   Measured at 1440px the nav needed ~994px but only ~762px was free.
+   Reclaim it by tightening the link padding/size/gap, letting the header
+   run wider than the content column, and dropping the brand wordmark
+   once space gets tight. Below ~1040px the hamburger takes over.        */
+.header-inner{max-width:1280px}
+.site-nav{gap:3px;flex-wrap:nowrap;min-width:0}
 .site-nav a,.site-nav button{white-space:nowrap;flex-shrink:0}
+.site-nav a{padding:0 9px;font-size:13px}
 .header-inner .brand span{white-space:nowrap}
-.site-nav{flex-wrap:nowrap;min-width:0}
-@media(max-width:1100px){.header-inner{padding:0 20px}.site-nav{gap:2px}.site-nav a{font-size:13px}}
+@media(max-width:1280px){
+  .header-inner{padding:0 22px}
+  .header-inner .brand span{display:none}      /* keep the logo, drop the wordmark */
+}
+@media(max-width:1040px){
+  .site-nav{display:none}
+  .header-inner .nav-toggle{display:block}
+}
