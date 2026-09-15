@@ -64,6 +64,12 @@
   <!-- Critical CSS inlined for fast LCP -->
   <style>
     :root{color-scheme:dark;--canvas:#0B0A12;--surface:#15121F;--surface-2:#1C1828;--text:#F5F3FF;--muted:#A79FC0;--border:rgba(252,132,252,.14);--blue:#FC84FC;--blue-soft:rgba(252,132,252,.12);--green:#7CE6B2;--green-soft:rgba(124,230,178,.12);--orange:#FCE40C;--orange-soft:rgba(252,228,12,.11);--red:#FF5C8A;--red-soft:rgba(255,92,138,.12);--code:#08070E;--card:#15121F;--card-bg:rgba(255,255,255,.04);--card-border:rgba(255,255,255,.08);--input-bg:rgba(255,255,255,.06);--input-border:rgba(255,255,255,.12);--accent:#FC84FC;--radius:12px;--shadow:0 1px 2px rgba(0,0,0,.35),0 10px 30px rgba(0,0,0,.24);--max:1120px}
+    html[data-theme="light"]{color-scheme:light; --canvas:#FAF7FF; --surface:#FFFFFF; --surface-2:#F4EEFB; --text:#241D33; --muted:#6B6288; --border:rgba(124,58,130,.16); --blue:#B7309E; --blue-soft:rgba(183,48,158,.10); --green:#0F6B47; --green-soft:rgba(15,107,71,.10); --orange:#7A5E00; --orange-soft:rgba(122,94,0,.10); --red:#C42B52; --red-soft:rgba(196,43,82,.10); --code:#F4EEFB;--text-muted:#6B6288;--card:#FFFFFF;--card-bg:#F4EEFB;--card-border:rgba(124,58,130,.16);--input-bg:#FFFFFF;--input-border:rgba(124,58,130,.22);--accent:#B7309E; --shadow:0 1px 2px rgba(36,29,51,.07), 0 10px 30px rgba(36,29,51,.06); /* landing-page tokens */ --lv-ink:#241D33; --lv-muted:#6B6288; --lv-line:rgba(124,58,130,.16); --lv-panel:#FFFFFF; --lv-panel-2:#F4EEFB; --lv-blue:#B7309E; --lv-blue-strong:#A82E92; --lv-green:#0F6B47; --lv-orange:#7A5E00; --lv-violet:#6B32C4;}
+    /* critical light overrides: these two live in the inline block with
+       dark values, so without them the header and the primary button
+       label flash dark until the async stylesheet lands. */
+    html[data-theme="light"] .site-header{background:rgba(250,247,255,.95)}
+    html[data-theme="light"] .button.primary{color:#FFFFFF}
     *{box-sizing:border-box}
     html{scroll-behavior:smooth}
     body{margin:0;background:radial-gradient(circle at 82% -10%,rgba(252,132,252,.10),transparent 30%),radial-gradient(circle at 12% 18%,rgba(252,228,12,.06),transparent 26%),var(--canvas);color:var(--text);font:16px/1.65 -apple-system,BlinkMacSystemFont,"Segoe UI",Arial,sans-serif;text-rendering:optimizeLegibility;isolation:isolate}
