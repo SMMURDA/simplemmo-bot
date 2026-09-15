@@ -12,6 +12,17 @@ product: smmo
 
 This guide takes you from a downloaded release to a verified, running bot. Every user must supply their **own** SimpleMMO session, Telegram bot, and license key.
 
+<div class="lv-term-grid lv-term-grid--docs">
+  <figure class="lv-term">
+    <div class="lv-term__bar"><i></i><i></i><i></i><span>dashboard</span></div>
+    <button class="lv-term__zoom" type="button" data-hero-preview data-full="/assets/images/demo-dashboard-1600w.webp" aria-label="View SimpleMMO Bot Telegram dashboard full size"><picture><source type="image/webp" srcset="/assets/images/demo-dashboard-800w.webp 800w, /assets/images/demo-dashboard-1200w.webp 1200w" sizes="(max-width:900px) 92vw, 44vw"><img src="/assets/images/demo-dashboard-800w.png" width="1600" height="447" loading="lazy" decoding="async" alt="SimpleMMO Bot Telegram dashboard"></picture><span class="lv-term__hint" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="11" cy="11" r="7"/><path d="m20 20-3.5-3.5M11 8v6M8 11h6"/></svg></span></button>
+  </figure>
+  <figure class="lv-term">
+    <div class="lv-term__bar"><i></i><i></i><i></i><span>abyss run</span></div>
+    <button class="lv-term__zoom" type="button" data-hero-preview data-full="/assets/images/demo-abyss-1600w.webp" aria-label="View SimpleMMO Bot abyss automation output full size"><picture><source type="image/webp" srcset="/assets/images/demo-abyss-800w.webp 800w, /assets/images/demo-abyss-1200w.webp 1200w" sizes="(max-width:900px) 92vw, 44vw"><img src="/assets/images/demo-abyss-800w.png" width="1600" height="447" loading="lazy" decoding="async" alt="SimpleMMO Bot abyss automation output"></picture><span class="lv-term__hint" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="11" cy="11" r="7"/><path d="m20 20-3.5-3.5M11 8v6M8 11h6"/></svg></span></button>
+  </figure>
+</div>
+
 ## 1. Download the correct release
 
 Open the [Downloads]({{ '/smmo/downloads/' | relative_url }}) page and choose the package for your operating system:

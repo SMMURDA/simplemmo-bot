@@ -12,6 +12,17 @@ product: vhack
 
 This guide takes you from getting access to running the bot with either the terminal interface or web dashboard.
 
+<div class="lv-term-grid lv-term-grid--docs">
+  <figure class="lv-term">
+    <div class="lv-term__bar"><i></i><i></i><i></i><span>automation</span></div>
+    <button class="lv-term__zoom" type="button" data-hero-preview data-full="/assets/images/demo-vhack-automation-1600w.webp" aria-label="View vHack Revolution Bot automation panel full size"><picture><source type="image/webp" srcset="/assets/images/demo-vhack-automation-800w.webp 800w, /assets/images/demo-vhack-automation-1200w.webp 1200w" sizes="(max-width:900px) 92vw, 44vw"><img src="/assets/images/demo-vhack-automation-800w.png" width="1600" height="980" loading="lazy" decoding="async" alt="vHack Revolution Bot automation panel"></picture><span class="lv-term__hint" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="11" cy="11" r="7"/><path d="m20 20-3.5-3.5M11 8v6M8 11h6"/></svg></span></button>
+  </figure>
+  <figure class="lv-term">
+    <div class="lv-term__bar"><i></i><i></i><i></i><span>recent activity</span></div>
+    <button class="lv-term__zoom" type="button" data-hero-preview data-full="/assets/images/demo-vhack-activity-1600w.webp" aria-label="View vHack Revolution Bot activity log full size"><picture><source type="image/webp" srcset="/assets/images/demo-vhack-activity-800w.webp 800w, /assets/images/demo-vhack-activity-1200w.webp 1200w" sizes="(max-width:900px) 92vw, 44vw"><img src="/assets/images/demo-vhack-activity-800w.png" width="1600" height="980" loading="lazy" decoding="async" alt="vHack Revolution Bot activity log"></picture><span class="lv-term__hint" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="11" cy="11" r="7"/><path d="m20 20-3.5-3.5M11 8v6M8 11h6"/></svg></span></button>
+  </figure>
+</div>
+
 ## 1. Get access
 
 VHack Revolution Bot is distributed directly by the developer. Contact through any of these channels to request access:
