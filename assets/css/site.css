@@ -3072,3 +3072,11 @@ html[data-theme="light"] .trial-shell--v5 .provider-signin--github svg{fill:#241
 /* the shared main{padding-bottom:64px} plus the shell margin still left
    ~120px of blank space before the footer on /trial/; trim it there */
 main:has(.trial-shell--v5){padding-bottom:24px}
+
+/* The trial page is wrapped by article.doc-content, whose 64px/88px
+   vertical padding is sized for long-form docs — it was adding ~120px of
+   blank canvas after the last section. Trim it just for this page. */
+article.doc-content:has(.trial-shell--v5){padding:26px 0 22px}
+@media(max-width:600px){
+  article.doc-content:has(.trial-shell--v5){padding:16px 0 16px}
+}
