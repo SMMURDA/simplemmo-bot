@@ -364,3 +364,32 @@ if (guestNav || memberNav) {
     btn.textContent = 'Check';
   });
 })();
+
+/* ── Theme toggle (dark / light) ─────────────────────────────────────────
+   The initial theme is decided by the inline head script to avoid a flash
+   of the wrong colours; this only handles user toggling + icon state. */
+(function () {
+  const root = document.documentElement;
+  const btn = document.getElementById('themeToggle');
+  if (!btn) return;
+  const sun = btn.querySelector('.icon-sun');
+  const moon = btn.querySelector('.icon-moon');
+
+  const apply = (light) => {
+    root.setAttribute('data-theme', light ? 'light' : 'dark');
+    if (sun) sun.style.display = light ? 'none' : 'block';
+    if (moon) moon.style.display = light ? 'block' : 'none';
+    btn.setAttribute('aria-pressed', String(light));
+    btn.setAttribute('aria-label', light ? 'Switch to dark mode' : 'Switch to light mode');
+    const mt = document.querySelector('meta[name="theme-color"]');
+    if (mt) mt.setAttribute('content', light ? '#FAF7FF' : '#0B0A12');
+  };
+
+  apply(root.getAttribute('data-theme') === 'light');
+
+  btn.addEventListener('click', () => {
+    const next = root.getAttribute('data-theme') !== 'light';
+    try { localStorage.setItem('theme', next ? 'light' : 'dark'); } catch (e) {}
+    apply(next);
+  });
+})();
