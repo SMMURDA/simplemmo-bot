@@ -3085,3 +3085,19 @@ article.doc-content:has(.trial-shell--v5){padding:26px 0 22px}
 @media(max-width:600px){
   article.doc-content:has(.trial-shell--v5){padding:16px 0 16px}
 }
+
+/* ── landing: vHack terminal screenshots ──────────────────────────────
+   Same visual language as the hero's lv-window frames (traffic-light bar,
+   rounded shell, soft shadow) but laid out in normal flow so it can sit
+   inside a section, and stacking on narrow screens.                     */
+.lv-term-grid{display:grid;grid-template-columns:1fr 1fr;gap:14px;margin:0 0 24px}
+.lv-term{margin:0;position:relative;overflow:hidden;border:1px solid var(--lv-line);border-radius:14px;background:var(--lv-panel);box-shadow:0 18px 44px rgba(0,0,0,.16)}
+.lv-term__bar{display:flex;align-items:center;gap:6px;height:30px;padding:0 12px;background:rgba(255,255,255,.04);border-bottom:1px solid var(--lv-line)}
+.lv-term__bar i{width:7px;height:7px;border-radius:50%;background:#ff796d}
+.lv-term__bar i:nth-child(2){background:#f1c76b}
+.lv-term__bar i:nth-child(3){background:#7CE6B2}
+.lv-term__bar span{margin-left:auto;color:var(--lv-muted);font-size:10px;font-weight:700;letter-spacing:.08em;text-transform:uppercase}
+.lv-term img{display:block;width:100%;height:auto}
+html[data-theme="light"] .lv-term__bar{background:rgba(0,0,0,.03)}
+html[data-theme="light"] .lv-term{box-shadow:0 18px 44px rgba(36,29,51,.12)}
+@media(max-width:900px){.lv-term-grid{grid-template-columns:1fr;gap:12px;margin-bottom:20px}}
