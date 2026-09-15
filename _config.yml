@@ -17,8 +17,11 @@ markdown: kramdown
 highlighter: rouge
 permalink: pretty
 
+# jekyll-seo-tag is deliberately absent: it emitted a second og:*/twitter:*
+# set next to the explicit block in _layouts/default.html, and its small
+# "summary" twitter:card won over the intended summary_large_image. Title,
+# description and canonical are written out in the layout instead.
 plugins:
-  - jekyll-seo-tag
   - jekyll-sitemap
 
 exclude:

@@ -17,7 +17,17 @@
   <meta http-equiv="Content-Security-Policy" content="default-src 'self'; script-src 'self' 'unsafe-inline' 'unsafe-eval' https://pagead2.googlesyndication.com https://*.googlesyndication.com https://*.googleadservices.com https://*.doubleclick.net https://adservice.google.com https://challenges.cloudflare.com; style-src 'self' 'unsafe-inline'; img-src 'self' data: https:; font-src 'self' data:; connect-src 'self' https://license.topup.eu.org https://smmurda.github.io https://pagead2.googlesyndication.com https://*.googlesyndication.com https://*.googleadservices.com https://*.doubleclick.net https://challenges.cloudflare.com; frame-src https://challenges.cloudflare.com https://googleads.g.doubleclick.net https://*.googlesyndication.com https://*.doubleclick.net; object-src 'none'; base-uri 'self'; form-action 'self'; frame-ancestors 'none';">
   <meta http-equiv="X-Content-Type-Options" content="nosniff">
   <meta name="referrer" content="strict-origin-when-cross-origin">
-  {% seo %}
+  <!--
+    Title/description/canonical are written out here instead of using the
+    jekyll-seo-tag plugin. The plugin emitted its own og:* and twitter:*
+    set alongside the explicit block further down, so every one of those
+    tags appeared twice — and because the plugin defaulted to a small
+    "summary" card, its copy silently won over the summary_large_image
+    below. One source, one tag each.
+  -->
+  <title>{% if page.title %}{{ page.title | escape }} | {{ site.title }}{% else %}{{ site.title }}{% endif %}</title>
+  <meta name="description" content="{{ page.description | default: site.description | escape }}">
+  <link rel="canonical" href="{{ site.url }}{{ page.url }}">
   {% if page.noindex %}
   <meta name="robots" content="noindex, nofollow">
   {% endif %}
@@ -42,8 +52,8 @@
   </script>
   <meta property="og:type" content="website">
   <meta property="og:site_name" content="TOPUP AUTOMOTION">
-  <meta property="og:title" content="{{ page.title | default: 'TOPUP AUTOMOTION — Game Automation Tools' }}">
-  <meta property="og:description" content="{{ page.description | default: 'Game automation tools with Telegram, Terminal, and Web control.' }}">
+  <meta property="og:title" content="{{ page.title | default: 'TOPUP AUTOMOTION — Game Automation Tools' | escape }}">
+  <meta property="og:description" content="{{ page.description | default: 'Game automation tools with Telegram, Terminal, and Web control.' | escape }}">
   <meta property="og:url" content="https://topup.eu.org{{ page.url }}">
   <meta property="og:image" content="https://topup.eu.org/assets/images/site-og.png?v=9">
   <meta property="og:image:width" content="1200">
@@ -54,8 +64,8 @@
   <meta name="twitter:card" content="summary_large_image">
   <meta name="twitter:site" content="@bovalone">
   <meta name="twitter:creator" content="@bovalone">
-  <meta name="twitter:title" content="{{ page.title | default: 'TOPUP AUTOMOTION' }}">
-  <meta name="twitter:description" content="{{ page.description | default: 'Game automation tools with Telegram, Terminal, and Web control.' }}">
+  <meta name="twitter:title" content="{{ page.title | default: 'TOPUP AUTOMOTION' | escape }}">
+  <meta name="twitter:description" content="{{ page.description | default: 'Game automation tools with Telegram, Terminal, and Web control.' | escape }}">
   <meta name="twitter:image" content="https://topup.eu.org/assets/images/site-og.png?v=9">
   <link rel="icon" type="image/png" sizes="32x32" href="/assets/images/favicon-32.png">
   <link rel="icon" type="image/png" sizes="192x192" href="/assets/images/favicon-192.png">
