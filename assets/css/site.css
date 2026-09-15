@@ -2976,8 +2976,13 @@ html[data-theme="light"] .portal-toast[data-tone="error"]{color:#B3274D;backgrou
    hidden — only .brand-mark's sibling text would be, and we no longer
    do that. */
 @media(max-width:1260px){
-  .site-nav{display:none}
   .header-inner .nav-toggle{display:block}
+  /* The open-state rules live in a <=860px block, so raising the
+     breakpoint to 1260px left the hamburger rendering but dead: the nav
+     was hidden with nothing to reveal it. Mirror the dropdown styling. */
+  .site-nav{display:none;position:absolute;top:60px;left:16px;right:16px;padding:8px;border:1px solid var(--border);border-radius:12px;background:var(--canvas);box-shadow:var(--shadow)}
+  .site-nav.is-open{display:grid}
+  .site-nav a{width:100%}
 }
 
 /* ── light theme: modal / dialog popups ──────────────────────────────
