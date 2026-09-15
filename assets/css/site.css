@@ -2794,6 +2794,23 @@ html[data-theme="light"]{
   --lv-violet:#6B32C4;
 }
 
+/* ── light theme: .landing-v2 redeclares the --lv-* tokens locally, so the
+   html-level override does not reach it. Override the tokens on the element
+   itself (higher specificity) or every landing text stays dark-theme white. ── */
+html[data-theme="light"] .landing-v2{
+  --lv-ink:#241D33;
+  --lv-muted:#6B6288;
+  --lv-line:rgba(124,58,130,.16);
+  --lv-panel:#FFFFFF;
+  --lv-panel-2:#F4EEFB;
+  --lv-blue:#C93FB0;
+  --lv-blue-strong:#A82E92;
+  --lv-green:#16855A;
+  --lv-orange:#8A6B00;
+  --lv-violet:#6B32C4;
+  color:#241D33;
+}
+
 /* ── shell ── */
 html[data-theme="light"] body{
   background:radial-gradient(circle at 82% -10%,rgba(252,132,252,.10),transparent 30%),radial-gradient(circle at 12% 18%,rgba(252,228,12,.10),transparent 26%),var(--canvas);
