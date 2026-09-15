@@ -2771,11 +2771,11 @@ html[data-theme="light"]{
   --muted:#6B6288;
   --border:rgba(124,58,130,.16);
   --blue:#B7309E;
-  --blue-soft:rgba(201,63,176,.10);
+  --blue-soft:rgba(183,48,158,.10);
   --green:#0F6B47;
-  --green-soft:rgba(22,133,90,.10);
+  --green-soft:rgba(15,107,71,.10);
   --orange:#7A5E00;
-  --orange-soft:rgba(138,107,0,.10);
+  --orange-soft:rgba(122,94,0,.10);
   --red:#C42B52;
   --red-soft:rgba(196,43,82,.10);
   --code:#F4EEFB;--text-muted:#6B6288;
@@ -2864,8 +2864,8 @@ html[data-theme="light"] .lv-price-idr span{color:#6B6288}
 html[data-theme="light"] .lv-price-list li{color:#4A4260}
 html[data-theme="light"] .lv-steps span{color:#A82E92}
 html[data-theme="light"] .lv-notice .lv-label{color:#7A5E00}
-html[data-theme="light"] .lv-price-tag{background:rgba(22,133,90,.12);color:#0F6B47}
-html[data-theme="light"] .lv-button--primary{background:linear-gradient(135deg,#B7309E,#E055C8);color:#FFFFFF;box-shadow:0 10px 28px rgba(201,63,176,.24)}
+html[data-theme="light"] .lv-price-tag{background:rgba(15,107,71,.12);color:#0F6B47}
+html[data-theme="light"] .lv-button--primary{background:linear-gradient(135deg,#B7309E,#E055C8);color:#FFFFFF;box-shadow:0 10px 28px rgba(183,48,158,.24)}
 html[data-theme="light"] .lv-button--primary:hover{background:linear-gradient(135deg,#A82E92,#B7309E)}
 
 /* ── code blocks ── */
