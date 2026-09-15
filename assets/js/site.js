@@ -164,7 +164,7 @@ if (heroPreviewButtons.length) {
   heroPreviewButtons.forEach((button) => button.addEventListener('click', () => {
     const image = button.querySelector('img');
     trigger = button;
-    previewImage.src = image.currentSrc || image.src;
+    previewImage.src = button.dataset.full || image.currentSrc || image.src;
     previewImage.alt = image.alt;
     lightbox.hidden = false;
     requestAnimationFrame(() => lightbox.classList.add('is-open'));
