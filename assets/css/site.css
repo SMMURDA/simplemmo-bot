@@ -3030,3 +3030,12 @@ html[data-theme="light"] .lv-swap-btn:hover{
   border-color:rgba(183,48,158,.75);
   color:#A82E92;
 }
+
+/* ── light theme: provider logos ─────────────────────────────────────
+   Every provider logo ships with its own brand colours except GitHub,
+   which is inverted to white for dark backgrounds
+   (.provider-signin--github svg{fill:#fff}). On /trial/ the v5 shell
+   then repaints the button itself with a 4.5% white overlay, so on a
+   light page a white mark sat on an almost-white button and vanished.
+   GitHub's mark is black by default, so flip it back on light. */
+html[data-theme="light"] .trial-shell--v5 .provider-signin--github svg{fill:#241D33}
