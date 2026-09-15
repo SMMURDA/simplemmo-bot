@@ -2979,3 +2979,23 @@ html[data-theme="light"] .portal-toast[data-tone="error"]{color:#B3274D;backgrou
   .site-nav{display:none}
   .header-inner .nav-toggle{display:block}
 }
+
+/* ── light theme: modal / dialog popups ──────────────────────────────
+   .portal-modal__dialog ships hardcoded dark gradients
+   (linear-gradient(145deg,#151d2b,#0d121c) and the 150deg variant), so
+   the confirm dialog stayed dark on a light page and its text was
+   unreadable. The backdrop is softened too - a near-black scrim is very
+   heavy over a light canvas.                                            */
+html[data-theme="light"] .portal-modal__dialog{
+  background:linear-gradient(145deg,#FFFFFF,#F6EEFF);
+  border-color:color-mix(in srgb,var(--blue) 30%,var(--border));
+  box-shadow:0 32px 90px rgba(36,29,51,.18);
+}
+html[data-theme="light"] .portal-modal__backdrop{background:rgba(36,29,51,.34)}
+html[data-theme="light"] .portal-modal__dialog h2{color:var(--text)}
+html[data-theme="light"] .portal-modal__dialog > p:not(.eyebrow){color:var(--muted)}
+html[data-theme="light"] .portal-modal__input{color:var(--text)}
+
+/* danger button: white on #D9487A only reaches 4.07:1 -> darken to 5.51:1 */
+html[data-theme="light"] .button--danger{background:#C42B52 !important;border-color:#C42B52 !important}
+html[data-theme="dark"] .button--danger{background:#C42B52 !important;border-color:#C42B52 !important}
