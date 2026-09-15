@@ -383,6 +383,9 @@ if (guestNav || memberNav) {
     btn.setAttribute('aria-label', light ? 'Switch to dark mode' : 'Switch to light mode');
     const mt = document.querySelector('meta[name="theme-color"]');
     if (mt) mt.setAttribute('content', light ? '#FAF7FF' : '#0B0A12');
+    /* Embeds that cannot be restyled by CSS (Cloudflare Turnstile) need to
+       be told to re-render, since their theme is fixed at render time. */
+    document.dispatchEvent(new CustomEvent('themechange', { detail: { light } }));
   };
 
   apply(root.getAttribute('data-theme') === 'light');
