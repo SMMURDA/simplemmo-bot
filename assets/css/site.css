@@ -3039,3 +3039,32 @@ html[data-theme="light"] .lv-swap-btn:hover{
    light page a white mark sat on an almost-white button and vanished.
    GitHub's mark is black by default, so flip it back on light. */
 html[data-theme="light"] .trial-shell--v5 .provider-signin--github svg{fill:#241D33}
+
+/* ── /trial/: tighter vertical rhythm ────────────────────────────────
+   The page read as long and airy: 36px above the shell, 56px below it,
+   30px under the hero, a 32px-padded card and generous section gaps.
+   Pulled in so the whole flow fits with far less scrolling, with an
+   extra step on small screens where the feature grid stacks to 12 rows. */
+.trial-shell--v5{max-width:720px;margin:22px auto 34px}
+.trial-shell--v5 .trial-hero{margin:0 auto 20px}
+.trial-shell--v5 .trial-lede{margin-top:8px}
+.trial-perks{margin-top:14px}
+.trial-card{padding:24px}
+.trial-card{gap:16px}
+.trial-terms{max-width:600px;margin:14px auto 0}
+.trial-feature-showcase{margin-top:18px}
+.trial-feature-showcase>.eyebrow{margin:0 0 10px}
+.trial-rule{margin:16px 0}
+.trial-feature-grid{gap:9px}
+
+@media(max-width:600px){
+  .trial-shell--v5{margin:14px auto 26px}
+  .trial-shell--v5 .trial-hero{margin:0 auto 16px}
+  .trial-card{padding:18px 14px;border-radius:16px}
+  .trial-card{gap:14px}
+  .trial-feature-grid{gap:8px}
+  .trial-feature-chip{min-height:48px;padding:8px 10px}
+  .trial-feature-chip__icon{width:26px;height:26px;flex-basis:26px}
+  .trial-feature-chip strong{font-size:12px}
+  .trial-rule{margin:12px 0}
+}
