@@ -2959,3 +2959,9 @@ html[data-theme="light"] .http-method--delete{color:#B3274D}
 html[data-theme="light"] .portal-toast{color:#0F7A4A}
 html[data-theme="light"] .portal-toast{background:#EAF7F1;border-color:rgba(15,122,74,.24)}
 html[data-theme="light"] .portal-toast[data-tone="error"]{color:#B3274D;background:#FDECF1;border-color:rgba(179,39,77,.24)}
+
+/* ── header nav: stop labels wrapping and clipping at the right edge ── */
+.site-nav a,.site-nav button{white-space:nowrap;flex-shrink:0}
+.header-inner .brand span{white-space:nowrap}
+.site-nav{flex-wrap:nowrap;min-width:0}
+@media(max-width:1100px){.header-inner{padding:0 20px}.site-nav{gap:2px}.site-nav a{font-size:13px}}
