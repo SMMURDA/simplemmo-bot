@@ -1,0 +1,18 @@
+<!--
+  Documentation search.
+
+  Static markup only; assets/js/docs.js loads search-index.json the first time
+  the box is used, so pages that nobody searches never pay for the index.
+  Results are built with createElement and textContent rather than innerHTML,
+  so nothing from the index can inject markup into the page.
+-->
+<div class="docs-search" data-docs-search>
+  <label class="docs-search__label" for="docs-search-input">Search the documentation</label>
+  <div class="docs-search__field">
+    <svg class="docs-search__icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" aria-hidden="true"><circle cx="11" cy="11" r="7"/><path d="m20 20-3.5-3.5"/></svg>
+    <input id="docs-search-input" class="docs-search__input" type="search" placeholder="Search docs…" autocomplete="off" spellcheck="false"
+           role="combobox" aria-expanded="false" aria-controls="docs-search-results" aria-autocomplete="list">
+  </div>
+  <ul id="docs-search-results" class="docs-search__results" role="listbox" aria-label="Search results" hidden></ul>
+  <p class="docs-search__status" role="status" aria-live="polite"></p>
+</div>
