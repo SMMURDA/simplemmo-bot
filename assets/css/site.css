@@ -2979,6 +2979,21 @@ html[data-theme="light"] .portal-toast[data-tone="error"]{color:#B3274D;backgrou
 .site-nav{gap:3px;flex-wrap:nowrap;min-width:0}
 .site-nav a,.site-nav button{white-space:nowrap;flex-shrink:0}
 .site-nav a{padding:0 9px;font-size:13px}
+/* Sign out is a <button>, not a link, and it sits last in the member nav.
+   The box makes it read as an action rather than one more nav item; it turns
+   red on hover because it is the one destructive control in there. */
+.site-nav__logout{
+  display:inline-flex;align-items:center;gap:6px;
+  padding:7px 13px;margin-left:5px;
+  border:1px solid var(--border);border-radius:9px;
+  background:var(--surface-2);color:var(--text);
+  font:inherit;font-size:13px;font-weight:650;cursor:pointer;
+  transition:border-color .18s ease,color .18s ease,background .18s ease
+}
+.site-nav__logout svg{opacity:.6;transition:opacity .2s}
+.site-nav__logout:hover{border-color:var(--red);color:var(--red)}
+.site-nav__logout:hover svg{opacity:1}
+.site-nav__logout:focus-visible{outline:3px solid color-mix(in srgb,var(--blue) 45%,transparent);outline-offset:2px}
 .header-inner .brand span{white-space:nowrap}
 @media(max-width:1340px){.header-inner{padding:0 22px}}
 /* Below ~1260px the 8-item nav can no longer fit beside the logo +
@@ -2993,6 +3008,8 @@ html[data-theme="light"] .portal-toast[data-tone="error"]{color:#B3274D;backgrou
   .site-nav{display:none;position:absolute;top:60px;left:16px;right:16px;padding:8px;border:1px solid var(--border);border-radius:12px;background:var(--canvas);box-shadow:var(--shadow)}
   .site-nav.is-open{display:grid}
   .site-nav a{width:100%}
+  /* inside the dropdown the button spans the row like the links do */
+  .site-nav .site-nav__logout{width:100%;justify-content:flex-start;margin:2px 0 0}
 }
 
 /* ── light theme: modal / dialog popups ──────────────────────────────
