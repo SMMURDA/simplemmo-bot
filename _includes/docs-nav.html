@@ -1,51 +1,27 @@
 <!--
   Documentation table of contents.
 
-  Plain HTML on purpose: this list is written out rather than generated from
-  site.pages, so nothing here can fail the Jekyll build. Add a page under
-  smmo/, vhack/ or api/ and it needs a line here too.
+  Two wrappers around one shared list (docs-nav-links.html), because the two
+  breakpoints need different behaviour and CSS cannot close a <details>:
 
-  The current page is highlighted by assets/js/docs.js, which compares
-  location.pathname against each link, so no Liquid is needed for that either.
+    - Narrow screens get a <details> that starts closed, so the article is
+      what the reader sees first instead of ~740px of contents.
+    - Wide screens get a plain always-visible list. Keeping it expanded is the
+      point of the feature: the docs had no navigation at all before, and a
+      contents list hidden behind a click would put readers back where they
+      started.
 
-  <details> collapses the list on narrow screens without any JavaScript; on
-  wide screens the CSS hides the summary and always shows the body.
+  Only one of the two is ever displayed, so nothing is announced twice to a
+  screen reader. Both are plain HTML apart from the shared include, so neither
+  can fail the Jekyll build.
 -->
-<details class="docs-nav" open>
+<details class="docs-nav docs-nav--mobile">
   <summary class="docs-nav__summary">Contents</summary>
   <nav class="docs-nav__body" aria-label="Documentation contents">
-
-    <p class="docs-nav__group">SimpleMMO Bot</p>
-    <ul class="docs-nav__list">
-      <li><a href="/smmo/getting-started/">Getting Started</a></li>
-      <li><a href="/smmo/features/overview/">Feature Overview</a></li>
-      <li><a href="/smmo/features/automation/">Automation</a></li>
-      <li><a href="/smmo/features/crafting/">Crafting</a></li>
-      <li><a href="/smmo/features/economy/">Economy</a></li>
-      <li><a href="/smmo/features/telegram-controls/">Telegram Controls</a></li>
-      <li><a href="/smmo/features/settings-dashboard/">Settings &amp; Dashboard</a></li>
-      <li><a href="/smmo/configuration/">Configuration</a></li>
-      <li><a href="/smmo/downloads/">Downloads</a></li>
-      <li><a href="/smmo/troubleshooting/">Troubleshooting</a></li>
-    </ul>
-
-    <p class="docs-nav__group">vHack Revolution</p>
-    <ul class="docs-nav__list">
-      <li><a href="/vhack/getting-started/">Getting Started</a></li>
-      <li><a href="/vhack/features/overview/">Feature Overview</a></li>
-      <li><a href="/vhack/features/automation/">Automation</a></li>
-      <li><a href="/vhack/features/terminal/">Terminal Interface</a></li>
-      <li><a href="/vhack/features/chat/">Chat</a></li>
-      <li><a href="/vhack/features/web-dashboard/">Web Dashboard</a></li>
-      <li><a href="/vhack/configuration/">Configuration</a></li>
-      <li><a href="/vhack/downloads/">Downloads</a></li>
-      <li><a href="/vhack/troubleshooting/">Troubleshooting</a></li>
-    </ul>
-
-    <p class="docs-nav__group">Developer</p>
-    <ul class="docs-nav__list">
-      <li><a href="/api/reference/">API Reference</a></li>
-    </ul>
-
+    {% include docs-nav-links.html %}
   </nav>
 </details>
+
+<nav class="docs-nav docs-nav--desktop" aria-label="Documentation contents">
+  {% include docs-nav-links.html %}
+</nav>

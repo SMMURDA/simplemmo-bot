@@ -3149,7 +3149,12 @@ html[data-theme="light"] .lv-term{box-shadow:0 18px 44px rgba(36,29,51,.12)}
    part of the column: an absolutely positioned dropdown inside an
    overflow container would be clipped. */
 .docs-aside{display:grid;gap:16px}
-.docs-nav{padding:12px 14px;border:1px solid var(--border);border-radius:var(--radius);background:var(--surface)}
+/* Narrow screens: a collapsed <details> box. Wide screens: a plain list that is
+   always visible. Both wrappers exist in the markup but only one is displayed,
+   which is why neither relies on overriding the closed state of <details> —
+   that behaviour is a user-agent style and is not reliably overridable. */
+.docs-nav--desktop{display:none}
+.docs-nav--mobile{padding:12px 14px;border:1px solid var(--border);border-radius:var(--radius);background:var(--surface)}
 .docs-nav__summary{cursor:pointer;list-style:none;font-size:14px;font-weight:700;color:var(--text)}
 .docs-nav__summary::-webkit-details-marker{display:none}
 .docs-nav__summary:after{content:"▾";float:right;color:var(--muted)}
@@ -3181,9 +3186,8 @@ html[data-theme="light"] .lv-term{box-shadow:0 18px 44px rgba(36,29,51,.12)}
   .doc-shell--docs .doc-content{width:100%;max-width:760px;margin:0}
   .docs-aside{position:sticky;top:84px;align-self:start;max-height:calc(100vh - 108px);padding:64px 0 24px}
   .docs-aside__nav{min-height:0;overflow-y:auto}
-  .docs-nav{padding:0;border:0;background:transparent}
-  .docs-nav__summary{display:none}
-  .docs-nav__body{display:block;padding-top:0}
+  .docs-nav--mobile{display:none}
+  .docs-nav--desktop{display:block}
 }
 @media(max-width:1099px){
   .docs-aside{padding:20px 0 0;max-width:760px;margin:0 auto;width:min(760px,calc(100% - 48px))}
