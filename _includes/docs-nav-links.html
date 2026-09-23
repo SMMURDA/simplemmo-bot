@@ -1,12 +1,31 @@
-<!--
-  The contents list itself, shared by the desktop and mobile wrappers in
-  docs-nav.html. Written out rather than generated from site.pages so nothing
-  here can fail the Jekyll build: add a page under smmo/, vhack/ or api/ and it
-  needs a line here too.
+{% comment %}
+  The contents list, shared by the desktop and mobile wrappers in docs-nav.html.
 
-  The current page is highlighted by assets/js/docs.js, which compares
-  location.pathname against each link.
--->
+  Only the current product's pages are listed. Reading the SimpleMMO docs while
+  ten vHack links sit in the same column is noise, and the reader picked a
+  product already — the switcher above the article says which.
+
+  Which product comes from the page's own front matter. The API reference has
+  no product, so it gets the Developer section instead.
+
+  Written out rather than generated from site.pages so nothing here can fail
+  the Jekyll build: add a page under smmo/, vhack/ or api/ and it needs a line
+  here too. The current page is highlighted by assets/js/docs.js.
+{% endcomment %}
+{% if page.product == 'vhack' %}
+<p class="docs-nav__group">vHack Revolution</p>
+<ul class="docs-nav__list">
+  <li><a href="/vhack/getting-started/">Getting Started</a></li>
+  <li><a href="/vhack/features/overview/">Feature Overview</a></li>
+  <li><a href="/vhack/features/automation/">Automation</a></li>
+  <li><a href="/vhack/features/terminal/">Terminal Interface</a></li>
+  <li><a href="/vhack/features/chat/">Chat</a></li>
+  <li><a href="/vhack/features/web-dashboard/">Web Dashboard</a></li>
+  <li><a href="/vhack/configuration/">Configuration</a></li>
+  <li><a href="/vhack/downloads/">Downloads</a></li>
+  <li><a href="/vhack/troubleshooting/">Troubleshooting</a></li>
+</ul>
+{% elsif page.product == 'smmo' %}
 <p class="docs-nav__group">SimpleMMO Bot</p>
 <ul class="docs-nav__list">
   <li><a href="/smmo/getting-started/">Getting Started</a></li>
@@ -20,21 +39,9 @@
   <li><a href="/smmo/downloads/">Downloads</a></li>
   <li><a href="/smmo/troubleshooting/">Troubleshooting</a></li>
 </ul>
-
-<p class="docs-nav__group">vHack Revolution</p>
-<ul class="docs-nav__list">
-  <li><a href="/vhack/getting-started/">Getting Started</a></li>
-  <li><a href="/vhack/features/overview/">Feature Overview</a></li>
-  <li><a href="/vhack/features/automation/">Automation</a></li>
-  <li><a href="/vhack/features/terminal/">Terminal Interface</a></li>
-  <li><a href="/vhack/features/chat/">Chat</a></li>
-  <li><a href="/vhack/features/web-dashboard/">Web Dashboard</a></li>
-  <li><a href="/vhack/configuration/">Configuration</a></li>
-  <li><a href="/vhack/downloads/">Downloads</a></li>
-  <li><a href="/vhack/troubleshooting/">Troubleshooting</a></li>
-</ul>
-
+{% else %}
 <p class="docs-nav__group">Developer</p>
 <ul class="docs-nav__list">
   <li><a href="/api/reference/">API Reference</a></li>
 </ul>
+{% endif %}
