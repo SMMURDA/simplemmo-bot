@@ -13,6 +13,26 @@
 
   const norm = (p) => p.replace(/index\.html$/, "").replace(/\/+$/, "");
 
+  /* ---------- position of the product switcher ----------
+   * On narrow screens the switcher belongs at the very top of the column,
+   * above the search box and the contents list. It lives inside the article,
+   * and CSS cannot move a node from the article into the sidebar, so it is
+   * relocated here instead. This runs before anything else so the move lands
+   * before the first paint. Without JavaScript the switcher stays above the
+   * article, which is where it has always been — nothing breaks. */
+  const aside = document.querySelector(".docs-aside");
+  const article = document.querySelector(".doc-content");
+  const switcher = article && article.querySelector(".product-switcher");
+  if (aside && article && switcher) {
+    const narrow = window.matchMedia("(max-width: 1099px)");
+    const placeSwitcher = () => {
+      if (narrow.matches) aside.prepend(switcher);
+      else article.prepend(switcher);
+    };
+    placeSwitcher();
+    narrow.addEventListener("change", placeSwitcher);
+  }
+
   /* ---------- current page in the table of contents ---------- */
   const links = document.querySelectorAll(".docs-nav__list a");
   if (links.length) {

@@ -4,8 +4,9 @@
   Two wrappers around one shared list (docs-nav-links.html), because the two
   breakpoints need different behaviour and CSS cannot close a <details>:
 
-    - Narrow screens get a <details> that starts closed, so the article is
-      what the reader sees first instead of ~740px of contents.
+    - Narrow screens get a <details>, open by default. It used to start closed
+      because the list held all twenty pages; now that it carries only the
+      current product's ten or nine, it is short enough to leave open.
     - Wide screens get a plain always-visible list. Keeping it expanded is the
       point of the feature: the docs had no navigation at all before, and a
       contents list hidden behind a click would put readers back where they
@@ -15,7 +16,7 @@
   screen reader. Both are plain HTML apart from the shared include, so neither
   can fail the Jekyll build.
 -->
-<details class="docs-nav docs-nav--mobile">
+<details class="docs-nav docs-nav--mobile" open>
   <summary class="docs-nav__summary">Contents</summary>
   <nav class="docs-nav__body" aria-label="Documentation contents">
     {% include docs-nav-links.html %}

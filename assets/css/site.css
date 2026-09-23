@@ -3149,6 +3149,9 @@ html[data-theme="light"] .lv-term{box-shadow:0 18px 44px rgba(36,29,51,.12)}
    part of the column: an absolutely positioned dropdown inside an
    overflow container would be clipped. */
 .docs-aside{display:grid;gap:16px}
+/* The switcher is moved in here on narrow screens; the grid already spaces its
+   children, so its own bottom margin would double up. */
+.docs-aside .product-switcher{margin:0}
 /* Narrow screens: a collapsed <details> box. Wide screens: a plain list that is
    always visible. Both wrappers exist in the markup but only one is displayed,
    which is why neither relies on overriding the closed state of <details> —
