@@ -2908,6 +2908,16 @@ html[data-theme="light"] .lv-swap-btn{color:#B7309E}
 html[data-theme="light"] .portal-toast{background:#EAF7F1;color:#0F7A4A;border-color:rgba(15,122,74,.24)}
 html[data-theme="light"] .portal-toast[data-tone="error"]{background:#FDECF1;color:#B3274D;border-color:rgba(179,39,77,.24)}
 
+/* payment method details: its card base is a hardcoded navy (#0f1a27), so in
+   light mode the text inside — which follows var(--text) — was dark on dark
+   and effectively invisible. Dark mode is left exactly as it was. */
+html[data-theme="light"] .payment-method-details{
+  background:radial-gradient(circle at 92% 8%,rgba(183,48,158,.05),transparent 35%),var(--surface-2)
+}
+/* the 5% pink wash of the dark theme disappears on a light card, so the
+   instructions panel uses the light accent tint instead */
+html[data-theme="light"] .payment-method-details__instructions{background:var(--blue-soft)}
+
 /* HTTP method chips */
 html[data-theme="light"] .http-method--patch{color:#6B32C4}
 html[data-theme="light"] .http-method--post,
