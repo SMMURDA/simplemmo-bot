@@ -200,7 +200,7 @@ button, input, textarea, select { font: inherit; }
 }
 .hero-inner { max-width: var(--max); margin: 0 auto; display: grid; grid-template-columns: 1.02fr .98fr; gap: 64px; align-items: center; }
 .eyebrow { display: inline-flex; align-items: center; gap: 8px; margin-bottom: 16px; color: var(--blue); font-size: 13px; font-weight: 760; letter-spacing: .08em; text-transform: uppercase; }
-.eyebrow::before { content: ""; width: 8px; height: 8px; border-radius: 50%; background: var(--green); box-shadow: 0 0 0 4px var(--green-soft); }
+.eyebrow::before { content: ""; width: 8px; height: 8px; border-radius: 50%; background: var(--blue); box-shadow: 0 0 0 4px var(--blue-soft); }
 .hero h1 { max-width: 650px; margin: 0 0 20px; font-size: clamp(46px, 6vw, 74px); line-height: 1.02; letter-spacing: -.055em; }
 .hero p { max-width: 620px; margin: 0 0 30px; color: var(--muted); font-size: 19px; }
 .actions { display: flex; flex-wrap: wrap; gap: 12px; }
