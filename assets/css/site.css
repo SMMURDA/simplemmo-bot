@@ -2836,7 +2836,7 @@ html[data-theme="light"] .lv-section--price{
 }
 html[data-theme="light"] .lv-feature,
 html[data-theme="light"] .lv-payment{background:linear-gradient(145deg,#FFFFFF,#F7F1FF)}
-html[data-theme="light"] .lv-price-card{background:linear-gradient(155deg,#FFFFFF,#F6EEFF);box-shadow:0 24px 70px rgba(36,29,51,.10)}
+html[data-theme="light"] .lv-price-card{background:linear-gradient(155deg,#FFFFFF,#F6EEFF);border-color:rgba(36,29,51,.12);box-shadow:0 24px 70px rgba(36,29,51,.10)}
 html[data-theme="light"] 
 html[data-theme="light"] 
 html[data-theme="light"] 
