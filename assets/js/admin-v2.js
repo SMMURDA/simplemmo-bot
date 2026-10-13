@@ -36,7 +36,7 @@
     const approved = await confirmAction({ title: 'Leave admin mode?', message: 'You will be signed out of the member and admin portal.', confirmText: 'Sign out', tone: 'danger' });
     if (!approved) return;
     await post('/v1/auth/logout', {}).catch(() => {});
-    location.replace('/trial/');
+    location.replace('/login/');
   });
 
   const loadLicenses = async () => {
@@ -312,7 +312,7 @@
         });
       }
     } catch (error) {
-      if (error.status === 401) return location.replace('/trial/');
+      if (error.status === 401) return location.replace('/login/');
       if (error.status === 403) return location.replace('/accounts/overview/');
       setStatus(error.message, 'error');
     }

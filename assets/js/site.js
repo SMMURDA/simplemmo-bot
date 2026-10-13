@@ -262,7 +262,7 @@ if (guestNav || memberNav) {
           });
         } catch {}
         showNav('guest');
-        location.replace('/trial/');
+        location.replace('/login/');
       });
     }
   }).catch(() => {

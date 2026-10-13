@@ -2994,6 +2994,27 @@ html[data-theme="light"] .portal-toast[data-tone="error"]{color:#B3274D;backgrou
 .site-nav__logout:hover{border-color:var(--red);color:var(--red)}
 .site-nav__logout:hover svg{opacity:1}
 .site-nav__logout:focus-visible{outline:3px solid color-mix(in srgb,var(--blue) 45%,transparent);outline-offset:2px}
+
+/* ── login: the one nav item that should read as a call to action ──────
+   .site-nav__logout already proved the box treatment works in this bar;
+   login takes the same shape in the brand colour so it stands out as the
+   way in, instead of being one more muted link among the rest.         */
+.site-nav a.site-nav__login{
+  padding:7px 14px;margin-left:5px;
+  border:1px solid color-mix(in srgb,var(--blue) 46%,transparent);
+  border-radius:9px;background:var(--blue-soft);color:var(--blue);
+  font-weight:750;
+  transition:border-color .18s ease,color .18s ease,background .18s ease
+}
+.site-nav a.site-nav__login svg{opacity:1}
+.site-nav a.site-nav__login:hover{
+  border-color:var(--blue);
+  background:color-mix(in srgb,var(--blue) 18%,transparent);
+  color:var(--blue)
+}
+.site-nav a.site-nav__login:focus-visible{
+  outline:3px solid color-mix(in srgb,var(--blue) 45%,transparent);outline-offset:2px
+}
 .header-inner .brand span{white-space:nowrap}
 @media(max-width:1340px){.header-inner{padding:0 22px}}
 /* Below ~1260px the 8-item nav can no longer fit beside the logo +
@@ -3010,6 +3031,7 @@ html[data-theme="light"] .portal-toast[data-tone="error"]{color:#B3274D;backgrou
   .site-nav a{width:100%}
   /* inside the dropdown the button spans the row like the links do */
   .site-nav .site-nav__logout{width:100%;justify-content:flex-start;margin:2px 0 0}
+  .site-nav a.site-nav__login{width:100%;justify-content:flex-start;margin:2px 0 0}
 }
 
 /* ── light theme: modal / dialog popups ──────────────────────────────
@@ -3079,13 +3101,13 @@ html[data-theme="light"] .lv-swap-btn:hover{
 /* ── light theme: provider logos ─────────────────────────────────────
    Every provider logo ships with its own brand colours except GitHub,
    which is inverted to white for dark backgrounds
-   (.provider-signin--github svg{fill:#fff}). On /trial/ the v5 shell
+   (.provider-signin--github svg{fill:#fff}). On /login/ the v5 shell
    then repaints the button itself with a 4.5% white overlay, so on a
    light page a white mark sat on an almost-white button and vanished.
    GitHub's mark is black by default, so flip it back on light. */
 html[data-theme="light"] .trial-shell--v5 .provider-signin--github svg{fill:#241D33}
 
-/* ── /trial/: tighter vertical rhythm ────────────────────────────────
+/* ── /login/: tighter vertical rhythm ────────────────────────────────
    The page read as long and airy: 36px above the shell, 56px below it,
    30px under the hero, a 32px-padded card and generous section gaps.
    Pulled in so the whole flow fits with far less scrolling, with an
@@ -3115,7 +3137,7 @@ html[data-theme="light"] .trial-shell--v5 .provider-signin--github svg{fill:#241
 }
 
 /* the shared main{padding-bottom:64px} plus the shell margin still left
-   ~120px of blank space before the footer on /trial/; trim it there */
+   ~120px of blank space before the footer on /login/; trim it there */
 main:has(.trial-shell--v5){padding-bottom:24px}
 
 /* The trial page is wrapped by article.doc-content, whose 64px/88px

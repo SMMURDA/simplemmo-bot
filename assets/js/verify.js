@@ -41,7 +41,7 @@
         if (!approved) return;
       }
       await request('/v1/auth/logout', { method: 'POST', body: '{}' }).catch(() => {});
-      location.replace('/trial/');
+      location.replace('/login/');
     });
   };
 
@@ -119,7 +119,7 @@
       const account = await hydrateProfile();
       initVerify(account);
     } catch (error) {
-      if (error.status === 401) return location.replace('/trial/');
+      if (error.status === 401) return location.replace('/login/');
       if (window.portalConfirm) {
         window.portalConfirm({
           title: error.message || 'An unexpected error occurred.',

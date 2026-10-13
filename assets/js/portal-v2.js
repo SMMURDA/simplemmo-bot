@@ -85,7 +85,7 @@
       });
       if (!approved) return;
       await request('/v1/auth/logout', { method: 'POST', body: '{}' }).catch(() => {});
-      location.replace('/trial/');
+      location.replace('/login/');
     });
   };
 
@@ -288,7 +288,7 @@
       if (page === 'licenses') await initLicenses(account);
       if (page === 'topup') await initTopup();
     } catch (error) {
-      if (error.status === 401) return location.replace('/trial/');
+      if (error.status === 401) return location.replace('/login/');
       setStatus(error.message, 'error');
     }
   });
