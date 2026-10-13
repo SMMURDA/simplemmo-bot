@@ -46,3 +46,14 @@ Verify that the bot token belongs to your Telegram bot, you have sent the bot a 
 ## Support logs
 
 Include the app version, operating system, reproduction steps, and the complete error text. Remove all cookies, passwords, API tokens, Telegram tokens, chat identifiers, and license keys before sharing a log.
+
+---
+
+## Continue Reading
+
+<nav class="continue-reading" aria-label="Feature navigation">
+  <a class="continue-reading-card continue-reading-card--previous" href="{{'/licensing/' | relative_url }}">
+    <span class="continue-reading-label"><span aria-hidden="true">←</span> Previous</span>
+    <strong>Licensing</strong>
+  </a>
+</nav>

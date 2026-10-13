@@ -156,8 +156,8 @@ If tests fail, the issue is in module wiring or core parsers. Tests never connec
 ## Continue Reading
 
 <nav class="continue-reading" aria-label="Feature navigation">
-  <a class="continue-reading-card continue-reading-card--previous" href="{{ '/vhack/features/chat/' | relative_url }}">
+  <a class="continue-reading-card continue-reading-card--previous" href="{{ '/vhack/downloads/' | relative_url }}">
     <span class="continue-reading-label"><span aria-hidden="true">←</span> Previous</span>
-    <strong>Chat</strong>
+    <strong>Downloads</strong>
   </a>
 </nav>

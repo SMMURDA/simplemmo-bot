@@ -81,8 +81,8 @@ The bot automatically detects this pattern and triggers the bounty workflow.
     <span class="continue-reading-label"><span aria-hidden="true">←</span> Previous</span>
     <strong>Web Dashboard</strong>
   </a>
-  <a class="continue-reading-card continue-reading-card--next" href="{{ '/vhack/troubleshooting/' | relative_url }}">
+  <a class="continue-reading-card continue-reading-card--next" href="{{ '/vhack/downloads/' | relative_url }}">
     <span class="continue-reading-label">Next <span aria-hidden="true">→</span></span>
-    <strong>Troubleshooting</strong>
+    <strong>Downloads</strong>
   </a>
 </nav>

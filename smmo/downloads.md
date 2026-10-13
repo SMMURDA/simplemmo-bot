@@ -59,3 +59,18 @@ Unsigned or newly released executables may trigger a Windows reputation prompt. 
 ## Before launching
 
 Read [Getting Started]({{ '/smmo/getting-started/' | relative_url }}) and prepare your own SimpleMMO and Telegram credentials. Do not use a configuration supplied by another person.
+
+---
+
+## Continue Reading
+
+<nav class="continue-reading" aria-label="Feature navigation">
+  <a class="continue-reading-card continue-reading-card--previous" href="{{'/smmo/configuration/' | relative_url }}">
+    <span class="continue-reading-label"><span aria-hidden="true">←</span> Previous</span>
+    <strong>Configuration</strong>
+  </a>
+  <a class="continue-reading-card continue-reading-card--next" href="{{'/licensing/' | relative_url }}">
+    <span class="continue-reading-label">Next <span aria-hidden="true">→</span></span>
+    <strong>Licensing</strong>
+  </a>
+</nav>

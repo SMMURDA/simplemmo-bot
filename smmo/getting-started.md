@@ -106,3 +106,14 @@ The application does not log in to SimpleMMO when license validation fails.
 5. Start the new launcher.
 
 Never replace your working `.env` with the blank template from a new release.
+
+---
+
+## Continue Reading
+
+<nav class="continue-reading" aria-label="Feature navigation">
+  <a class="continue-reading-card continue-reading-card--next" href="{{'/smmo/features/overview/' | relative_url }}">
+    <span class="continue-reading-label">Next <span aria-hidden="true">→</span></span>
+    <strong>Feature Overview</strong>
+  </a>
+</nav>

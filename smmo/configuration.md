@@ -129,3 +129,18 @@ The `data` folder stores persistent toggles and statistics. Include it in backup
 - Rotate a Telegram token immediately if it is exposed.
 - Refresh SimpleMMO cookies when the session expires.
 - Remove credentials from logs before requesting support.
+
+---
+
+## Continue Reading
+
+<nav class="continue-reading" aria-label="Feature navigation">
+  <a class="continue-reading-card continue-reading-card--previous" href="{{'/smmo/features/settings-dashboard/' | relative_url }}">
+    <span class="continue-reading-label"><span aria-hidden="true">←</span> Previous</span>
+    <strong>Settings &amp; Dashboard</strong>
+  </a>
+  <a class="continue-reading-card continue-reading-card--next" href="{{'/smmo/downloads/' | relative_url }}">
+    <span class="continue-reading-label">Next <span aria-hidden="true">→</span></span>
+    <strong>Downloads</strong>
+  </a>
+</nav>

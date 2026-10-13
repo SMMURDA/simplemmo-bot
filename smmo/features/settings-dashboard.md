@@ -121,8 +121,8 @@ Debug Panel checks common failure points such as cookies, CSRF, API token, Teleg
     <span class="continue-reading-label"><span aria-hidden="true">←</span> Previous</span>
     <strong>Crafting System</strong>
   </a>
-  <a class="continue-reading-card continue-reading-card--next" href="{{ '/api/reference/' | relative_url }}">
+  <a class="continue-reading-card continue-reading-card--next" href="{{ '/smmo/configuration/' | relative_url }}">
     <span class="continue-reading-label">Next <span aria-hidden="true">→</span></span>
-    <strong>API Reference</strong>
+    <strong>Configuration</strong>
   </a>
 </nav>
