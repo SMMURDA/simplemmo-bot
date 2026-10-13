@@ -158,7 +158,7 @@ Uses the existing authenticated session and preserves registered chat and bounty
 
 ## Continue Reading
 
-<nav aria-label="Feature navigation">
+<nav class="continue-reading" aria-label="Feature navigation">
   <a class="continue-reading-card continue-reading-card--previous" href="{{ '/vhack/features/overview/' | relative_url }}">
     <span class="continue-reading-label"><span aria-hidden="true">←</span> Previous</span>
     <strong>Feature Overview</strong>

@@ -99,4 +99,9 @@ A Google, GitHub, or Microsoft identity with the same accepted verified normaliz
 
 ## Continue Reading
 
-← Previous: [Settings, Notifications & Dashboard]({{ '/smmo/features/settings-dashboard/' | relative_url }}) | Back to [Home](/)
+<nav class="continue-reading" aria-label="Feature navigation">
+  <a class="continue-reading-card continue-reading-card--previous" href="{{ '/smmo/features/settings-dashboard/' | relative_url }}">
+    <span class="continue-reading-label"><span aria-hidden="true">←</span> Previous</span>
+    <strong>Settings &amp; Dashboard</strong>
+  </a>
+</nav>
