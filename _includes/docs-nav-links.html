@@ -11,6 +11,10 @@
   Written out rather than generated from site.pages so nothing here can fail
   the Jekyll build: add a page under smmo/, vhack/ or api/ and it needs a line
   here too. The current page is highlighted by assets/js/docs.js.
+
+  The SimpleMMO list also carries one root page, /licensing/, because activation
+  and device limits are part of getting the bot running. The vHack list has no
+  equivalent: that product is arranged directly with the developer.
 {% endcomment %}
 {% if page.product == 'vhack' %}
 <p class="docs-nav__group">vHack Revolution</p>
@@ -37,6 +41,7 @@
   <li><a href="/smmo/features/settings-dashboard/">Settings &amp; Dashboard</a></li>
   <li><a href="/smmo/configuration/">Configuration</a></li>
   <li><a href="/smmo/downloads/">Downloads</a></li>
+  <li><a href="/licensing/">Licensing</a></li>
   <li><a href="/smmo/troubleshooting/">Troubleshooting</a></li>
 </ul>
 {% else %}
