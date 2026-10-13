@@ -187,11 +187,13 @@
   </header>
   {% comment %}
     Documentation pages carry a table of contents and a search box. The check
-    is by URL prefix because the docs live under smmo/, vhack/ and api/; the
-    partials are plain HTML, so nothing here can fail the build.
+    is by URL prefix because the docs live under smmo/, vhack/ and api/, plus any
+    page that declares a product in its front matter: /licensing/ belongs to the
+    SimpleMMO docs without living under smmo/. The partials are plain HTML, so
+    nothing here can fail the build.
   {% endcomment %}
   {% assign is_docs = false %}
-  {% if page.url contains '/smmo/' or page.url contains '/vhack/' or page.url contains '/api/' %}{% assign is_docs = true %}{% endif %}
+  {% if page.url contains '/smmo/' or page.url contains '/vhack/' or page.url contains '/api/' or page.product %}{% assign is_docs = true %}{% endif %}
   <main id="main-content" class="doc-shell{% if is_docs %} doc-shell--docs{% endif %}">
     {% if is_docs %}
     <aside class="docs-aside">

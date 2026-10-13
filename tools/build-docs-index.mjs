@@ -8,7 +8,8 @@
  * locally, its output is reviewed before committing, and it cannot break the
  * build at all.
  *
- * Run it whenever a page under smmo/, vhack/ or api/ changes:
+ * Run it whenever a page under smmo/, vhack/ or api/ changes, or when
+ * licensing.md changes - that page is part of the SimpleMMO docs:
  *
  *   node tools/build-docs-index.mjs
  */
@@ -17,7 +18,7 @@ import { readFileSync, writeFileSync, readdirSync, statSync } from "node:fs";
 import { join, relative } from "node:path";
 
 const ROOT = new URL("..", import.meta.url).pathname.replace(/\/$/, "");
-const SOURCES = ["smmo", "vhack", "api"];
+const SOURCES = ["smmo", "vhack", "api", "licensing.md"];
 const MAX_SECTION_CHARS = 400;
 const MAX_PAGE_CHARS = 600;
 
@@ -70,7 +71,10 @@ const parseFrontMatter = (src) => {
   return { data, body: src.slice(match[0].length) };
 };
 
-const files = SOURCES.flatMap((dir) => walk(join(ROOT, dir))).sort();
+const files = SOURCES.flatMap((src) => {
+  const full = join(ROOT, src);
+  return statSync(full).isDirectory() ? walk(full) : [full];
+}).sort();
 const index = [];
 
 for (const file of files) {

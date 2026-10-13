@@ -1,6 +1,7 @@
 ---
 title: Online Licensing
 permalink: /licensing/
+product: smmo
 ---
 
 # Online Licensing
@@ -299,3 +300,18 @@ A license can allow one or more devices. A new computer or VPS may consume an ac
 ## Protect your key
 
 Treat a license key like a purchase credential. Do not post it in screenshots, logs, GitHub issues, or public chat. A leaked key may be revoked or consume device slots.
+
+---
+
+## Continue Reading
+
+<nav class="continue-reading" aria-label="Feature navigation">
+  <a class="continue-reading-card continue-reading-card--previous" href="{{ '/smmo/downloads/' | relative_url }}">
+    <span class="continue-reading-label"><span aria-hidden="true">←</span> Previous</span>
+    <strong>Downloads</strong>
+  </a>
+  <a class="continue-reading-card continue-reading-card--next" href="{{ '/smmo/troubleshooting/' | relative_url }}">
+    <span class="continue-reading-label">Next <span aria-hidden="true">→</span></span>
+    <strong>Troubleshooting</strong>
+  </a>
+</nav>
