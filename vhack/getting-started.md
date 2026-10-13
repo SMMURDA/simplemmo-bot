@@ -38,11 +38,6 @@ VHack Revolution Bot is distributed directly by the developer. Contact through a
     <span class="license-contact-copy"><strong>Email</strong><small>ask@topup.eu.org</small></span>
     <span class="license-contact-arrow" aria-hidden="true">→</span>
   </a>
-  <a class="license-contact-card" href="https://instagram.com/bovalonee" target="_blank" rel="noopener noreferrer">
-    <span class="license-contact-icon" aria-hidden="true"><img src="/assets/icons/license-instagram.svg" alt=""></span>
-    <span class="license-contact-copy"><strong>Instagram</strong><small>@bovalonee</small></span>
-    <span class="license-contact-arrow" aria-hidden="true">→</span>
-  </a>
 </div>
 
 After receiving access, you will get the project files and setup instructions.

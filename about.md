@@ -26,7 +26,6 @@ We'd love to hear from you! If you have questions, feedback, or need assistance:
 
 - **Email:** [ask@topup.eu.org](mailto:ask@topup.eu.org)
 - **Telegram:** [@bovalone](https://t.me/bovalone)
-- **Instagram:** [@bovalonee](https://instagram.com/bovalonee)
 - **Service Status:** [status.topup.eu.org](https://status.topup.eu.org)
 
 ## Disclaimer
