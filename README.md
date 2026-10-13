@@ -23,41 +23,11 @@ downloaded before running it.
 vHack Revolutions is distributed directly by the developer. Request access through
 the contact channels below.
 
-## What is in this repository
-
-- `smmo/`, `vhack/` — getting started, features, configuration, downloads, troubleshooting
-- `api/reference.md` — the third-party routes each bot calls, and what they are used for
-- `features.md`, `licensing.md`, `about.md`, `privacy.md`, `terms.md` — product, licensing and legal pages
-- `accounts/`, `admin/`, `account.html`, `admin.html`, `trial.html`, `index.html` — portal and product pages
-- `_config.yml`, `_layouts/`, `_includes/`, `assets/` — site theme, styling and scripts
-- `tools/` — build scripts for the JavaScript/CSS bundles and the documentation search index
-- `maintenance.json`, `search-index.json`, `_headers`, `robots.txt`, `ads.txt` — site configuration
-- `CONTRIBUTING.md`, `LICENSE` — contribution rules and license
-
 ## What is not in this repository
 
 Both bots are closed source. This repository does **not** contain the Python
 application, the license server or its administration tools, private signing keys,
 user credentials, or the build workspace that produces the release binaries.
-
-## Local development
-
-```bash
-npm ci
-npm run build        # rebuild the JavaScript and CSS bundles
-npm run check:js     # verify the committed .min.js bundles match their sources
-npm run build:docs   # rebuild the documentation search index
-```
-
-`assets/js/*.min.js` and `assets/css/site.min.css` are generated files. Edit the
-sources under `assets/` and run `npm run build`; the rebuilt bundle has to be
-committed together with the source change. If a committed bundle is stale, the
-Pages workflow stops the deploy instead of publishing it.
-
-Deployment is handled by `.github/workflows/pages.yml` using
-`actions/jekyll-build-pages`. No `Gemfile` is included, so a local Jekyll preview
-requires your own Jekyll installation; the deployed site is built from these same
-sources.
 
 ## Reporting a problem
 
