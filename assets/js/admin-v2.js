@@ -224,7 +224,7 @@
         <td>${u.trial_license_id ? '<span class="status-pill status-pill--active">Yes</span>' : '<span class="muted">—</span>'}</td>
         <td>${u.email_verified_at ? '<span class="status-pill status-pill--active">Verified</span>' : '<span class="status-pill status-pill--revoked">No</span>'}</td>
         <td class="muted">${formatDate(u.created_at)}</td>
-        <td><div class="actions-cell"><button class="button button--small" data-action="reset" data-id="${u.id}" title="Reset trial">↺ Reset</button><button class="button button--small button--danger" data-action="delete" data-id="${u.id}" title="Delete user">🗑 Delete</button></div></td>
+        <td><div class="actions-cell"><button class="button button--small" data-action="reset" data-id="${escapeHtml(u.id)}" title="Reset trial">↺ Reset</button><button class="button button--small button--danger" data-action="delete" data-id="${escapeHtml(u.id)}" title="Delete user">🗑 Delete</button></div></td>
       </tr>`).join('');
     table.innerHTML = `<table class="admin-table"><thead><tr><th>Email</th><th>Name</th><th>Role</th><th>Trial</th><th>Verified</th><th>Joined</th><th>Actions</th></tr></thead><tbody>${rows}</tbody></table>`;
     table.querySelectorAll('[data-action="reset"]').forEach(btn => {

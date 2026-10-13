@@ -116,9 +116,20 @@
       if (hmacKey && (method === 'POST' || method === 'PUT' || method === 'DELETE') && !options.headers['X-Signature']) {
         const timestamp = Date.now().toString();
         const body = options.body || '';
-        const sig = await hmacSha256(body + timestamp, hmacKey);
+        // Tanda tangan mengikat method + path, bukan hanya body. Tanpa itu,
+        // tanda tangan untuk satu endpoint bisa dipakai ulang di endpoint lain.
+        // Format pesan ini harus sama persis dengan verifier di license-server.
+        let target = '';
+        try {
+          const raw = typeof url === 'string' ? url : (url && url.url) || '';
+          target = new URL(raw, location.origin).pathname;
+        } catch {
+          target = '';
+        }
+        const sig = await hmacSha256(`v2\n${method}\n${target}\n${timestamp}\n${body}`, hmacKey);
         options.headers['X-Signature'] = sig;
         options.headers['X-Timestamp'] = timestamp;
+        options.headers['X-Signature-Version'] = '2';
       }
     }
     return origFetch.call(window, url, options);

@@ -141,7 +141,10 @@
       li.setAttribute("aria-selected", "false");
 
       const a = document.createElement("a");
-      a.href = entry.url + (entry.anchor ? "#" + entry.anchor : "");
+      // Hanya terima tautan internal: tolak skema seperti javascript: yang bisa
+      // tereksekusi saat hasil pencarian diklik.
+      const safeUrl = typeof entry.url === "string" && entry.url.startsWith("/") ? entry.url : "/docs/";
+      a.href = safeUrl + (entry.anchor ? "#" + entry.anchor : "");
 
       const title = document.createElement("span");
       title.className = "docs-search__result-title";

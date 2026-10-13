@@ -229,7 +229,7 @@
         ${method.description ? `<p class="payment-method-details__description">${escapeHtml(method.description)}</p>` : ''}
         <div class="payment-method-details__instructions"><strong>Transfer / payment destination</strong><p>${escapeHtml(method.instructions || 'Contact the administrator for payment destination details.')}</p></div>
         <div class="payment-method-details__contacts">${method.confirmation_email ? `<span>Email confirmation: <b>${escapeHtml(method.confirmation_email)}</b></span>` : ''}${method.telegram_username ? `<span>Telegram: <b>@${escapeHtml(method.telegram_username)}</b></span>` : ''}</div>`;
-      amountSelect.innerHTML = '<option value="">Choose amount</option>' + method.preset_amounts.map((amount) => `<option value="${amount}">${method.currency === 'USD' ? new Intl.NumberFormat('en-US', { style: 'currency', currency: 'USD' }).format(amount) : formatIdr(amount)}</option>`).join('');
+      amountSelect.innerHTML = '<option value="">Choose amount</option>' + method.preset_amounts.map((amount) => `<option value="${escapeHtml(String(amount))}">${method.currency === 'USD' ? new Intl.NumberFormat('en-US', { style: 'currency', currency: 'USD' }).format(amount) : formatIdr(amount)}</option>`).join('');
       conversion.textContent = method.currency === 'USD' ? `Estimated balance credit uses 1 USD = ${formatIdr(methodData.usd_to_idr_rate)}.` : 'The approved amount is credited directly to your IDR balance.';
     };
 

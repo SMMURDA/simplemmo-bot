@@ -3,7 +3,7 @@
       <div class="trial-row__copy" style="flex:1;min-width:0">
         <h2>Verify your email</h2>
         <p>Only @gmail.com addresses are accepted. A 6-digit code will be sent.</p>
-        <input id="trial-verify-email" type="email" placeholder="yourname@gmail.com" value="${a}" ${t&&!e?"readonly":""} style="width:100%;padding:12px 14px;border-radius:8px;border:1px solid var(--border,#334155);background:var(--surface,#1e293b);color:inherit;margin:8px 0;font-size:16px;box-sizing:border-box">
+        <input id="trial-verify-email" type="email" placeholder="yourname@gmail.com" value="${String(a).replace(/[&<>"']/g,(c)=>({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;","'":"&#39;"}[c]))}" ${t&&!e?"readonly":""} style="width:100%;padding:12px 14px;border-radius:8px;border:1px solid var(--border,#334155);background:var(--surface,#1e293b);color:inherit;margin:8px 0;font-size:16px;box-sizing:border-box">
         <div id="trial-otp-row" hidden style="display:flex;gap:8px;align-items:center;margin-top:8px;flex-wrap:wrap">
           <input id="trial-otp-input" type="text" inputmode="numeric" maxlength="6" placeholder="6-digit code" style="flex:1;min-width:120px;padding:12px 14px;border-radius:8px;border:1px solid var(--border,#334155);background:var(--surface,#1e293b);color:inherit;font-size:20px;letter-spacing:8px;text-align:center;box-sizing:border-box">
           <button id="trial-verify-btn" class="button button--primary" type="button" style="white-space:nowrap">Verify</button>

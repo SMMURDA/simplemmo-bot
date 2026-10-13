@@ -1,4 +1,12 @@
 {
+  "private": true,
+  "scripts": {
+    "build:js": "node tools/build-assets.mjs",
+    "check:js": "node tools/build-assets.mjs --check",
+    "build:css": "postcss assets/css/site.css -o assets/css/site.min.css",
+    "build": "npm run build:js && npm run build:css",
+    "build:docs": "node tools/build-docs-index.mjs"
+  },
   "devDependencies": {
     "cssnano": "^8.0.6",
     "postcss-cli": "^11.0.1",

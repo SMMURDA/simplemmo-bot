@@ -23,6 +23,22 @@ jobs:
       - name: Check out repository
         uses: actions/checkout@v6
 
+      - name: Set up Node
+        uses: actions/setup-node@v4
+        with:
+          node-version: 20
+          cache: npm
+
+      # Bundel .min.js di-commit dan langsung dilayani ke pengunjung, jadi
+      # bundel yang basi terhadap sumbernya berarti situs menjalankan kode lama
+      # tanpa ada yang sadar. Langkah ini hanya MEMERIKSA (tidak menulis apa
+      # pun): kalau ada yang basi, deploy dihentikan dan produksi tetap memakai
+      # versi terakhir yang sudah benar, bukan versi yang salah.
+      - name: Pastikan bundel .min.js sinkron dengan sumbernya
+        run: |
+          npm ci --no-audit --no-fund
+          npm run check:js
+
       - name: Configure GitHub Pages
         uses: actions/configure-pages@v6
 

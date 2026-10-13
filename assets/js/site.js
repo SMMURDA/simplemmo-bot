@@ -302,7 +302,7 @@ if (guestNav || memberNav) {
   const input = document.getElementById('license-check-input');
   const btn = document.getElementById('license-check-btn');
   const result = document.getElementById('license-check-result');
-  const esc = (s) => { const d = document.createElement('div'); d.textContent = s; return d.innerHTML; };
+  const esc = (s) => String(s ?? '').replace(/[&<>"']/g, (c) => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#39;' }[c]));
   const formatDate = (iso) => { if (!iso) return '—'; const d = new Date(iso); return d.toLocaleDateString('en-GB', { day: '2-digit', month: 'short', year: 'numeric' }) + ' ' + d.toLocaleTimeString('en-GB', { hour: '2-digit', minute: '2-digit' }); };
   const MAX_CHECKS = 5;
   const WINDOW_MS = 60000;
@@ -345,7 +345,7 @@ if (guestNav || memberNav) {
         showResult('license-checker__result--error', `<div class="license-checker__status"><span class="license-checker__status-icon">❌</span> Error</div><p>${esc(data.message || 'Something went wrong.')}</p>`);
       } else if (data.active) {
         const lic = data.license || {};
-        showResult('license-checker__result--success', `<div class="license-checker__status"><span class="license-checker__status-icon">✅</span> Active</div><dl class="license-checker__details"><dt>Key</dt><dd>${esc(lic.key_masked || '—')}</dd><dt>Expires</dt><dd>${formatDate(lic.expires_at)} (${lic.expires_in_days ?? '?'} days left)</dd><dt>Created</dt><dd>${formatDate(lic.created_at)}</dd><dt>Devices</dt><dd>${lic.active_devices ?? 0} / ${lic.max_devices ?? '?'}</dd></dl>`);
+        showResult('license-checker__result--success', `<div class="license-checker__status"><span class="license-checker__status-icon">✅</span> Active</div><dl class="license-checker__details"><dt>Key</dt><dd>${esc(lic.key_masked || '—')}</dd><dt>Expires</dt><dd>${formatDate(lic.expires_at)} (${esc(String(lic.expires_in_days ?? '?'))} days left)</dd><dt>Created</dt><dd>${formatDate(lic.created_at)}</dd><dt>Devices</dt><dd>${esc(String(lic.active_devices ?? 0))} / ${esc(String(lic.max_devices ?? '?'))}</dd></dl>`);
       } else {
         const lic = data.license || {};
         const warn = data.status === 'expired' || data.status === 'revoked';
@@ -353,7 +353,7 @@ if (guestNav || memberNav) {
         const label = (data.status || 'inactive').charAt(0).toUpperCase() + (data.status || 'inactive').slice(1);
         let details = '';
         if (lic.key_masked) {
-          details = `<dl class="license-checker__details"><dt>Key</dt><dd>${esc(lic.key_masked)}</dd><dt>Expires</dt><dd>${formatDate(lic.expires_at)}</dd><dt>Created</dt><dd>${formatDate(lic.created_at)}</dd><dt>Devices</dt><dd>${lic.active_devices ?? 0} / ${lic.max_devices ?? '?'}</dd></dl>`;
+          details = `<dl class="license-checker__details"><dt>Key</dt><dd>${esc(lic.key_masked)}</dd><dt>Expires</dt><dd>${formatDate(lic.expires_at)}</dd><dt>Created</dt><dd>${formatDate(lic.created_at)}</dd><dt>Devices</dt><dd>${esc(String(lic.active_devices ?? 0))} / ${esc(String(lic.max_devices ?? '?'))}</dd></dl>`;
         }
         showResult(warn ? 'license-checker__result--warning' : 'license-checker__result--error', `<div class="license-checker__status"><span class="license-checker__status-icon">${icon}</span> ${esc(label)}</div><p>${esc(data.message || 'License is not active.')}</p>${details}`);
       }
