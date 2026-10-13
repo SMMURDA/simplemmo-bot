@@ -33,7 +33,9 @@ const slug = (text) =>
 
 const stripMarkdown = (md) =>
   md
+    .replace(/\{%\s*comment\s*%\}[\s\S]*?\{%\s*endcomment\s*%\}/g, " ") // whole comment blocks
     .replace(/\{%[\s\S]*?%\}/g, " ")        // Liquid tags
+                                            // (the tag-only rule above leaves the body behind)
     .replace(/\{\{[\s\S]*?\}\}/g, " ")      // Liquid output
     .replace(/<!--[\s\S]*?-->/g, " ")       // HTML comments
     .replace(/```[\s\S]*?```/g, (block) => block.replace(/```[a-z]*\n?/gi, " ")) // keep code, drop fences

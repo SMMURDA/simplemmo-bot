@@ -4,6 +4,12 @@ permalink: /licensing/
 product: smmo
 ---
 
+{% comment %}
+  Halaman ini hanya milik SimpleMMO, jadi tab vHack mengarah ke dokumentasi vHack -
+  sama seperti pola di smmo/features/economy.md dan crafting.md.
+{% endcomment %}
+{% include product-switcher.html simplemmo_href="/licensing/" %}
+
 # Online Licensing
 
 SimpleMMO Bot uses online activation to verify that a license is active and used within its device allowance.
