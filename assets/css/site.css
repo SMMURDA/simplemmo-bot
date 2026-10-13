@@ -2819,10 +2819,19 @@ html[data-theme="light"] .site-header{background:rgba(250,247,255,.95)}
 
 /* Header mode gelap sebelumnya memakai warna kanvas yang sama dengan latar
    halaman (rgba(11,10,18,.9)), sehingga bilahnya menyatu dengan latar dan
-   terbaca sebagai satu bidang yang gelap sekali. Warna permukaan memberi
-   pemisahan yang jelas tanpa keluar dari palet. Aturan mode terang di atas
-   tetap menang karena selectornya lebih spesifik. */
-.site-header{background:color-mix(in srgb,var(--surface) 93%,transparent)}
+   terbaca sebagai satu bidang yang gelap sekali.
+
+   Dua hal penting di sini:
+   1. Nilai rgba ditulis lebih dulu sebagai cadangan. Peramban yang belum
+      mendukung color-mix() membuang deklarasi kedua, dan tanpa cadangan ini
+      ia jatuh ke aturan lama di baris 54 (rgba(13,16,24,.95)) - bilah gelap
+      yang sama seperti sebelumnya.
+   2. Warnanya memakai --surface-2 (#1C1828), satu tingkat lebih terang dari
+      --surface, supaya pemisahannya benar-benar terlihat dan tidak sekadar
+      beda di atas kertas.
+
+   Aturan mode terang di atas tetap menang karena selectornya lebih spesifik. */
+.site-header{background:rgba(28,24,40,.94);background:color-mix(in srgb,var(--surface-2) 94%,transparent)}
 html[data-theme="light"] .skip-link{background:var(--text);color:#fff}
 
 /* ── generic dark overlays become soft light ones ── */
