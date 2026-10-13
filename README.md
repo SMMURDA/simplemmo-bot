@@ -1,4 +1,4 @@
-# TOPUP AUTOMOTION — public documentation
+# TOPUP AUTOMOTION — Public Documentation
 
 This repository hosts the public documentation website at
 <img src="assets/images/logo-topup-48.png" alt="" width="18" height="18" align="absmiddle"> [TOPUP.EU.ORG](https://topup.eu.org).
@@ -54,7 +54,7 @@ and are not covered by that license.
 
 ## Contact
 
-- <img src="assets/icons/social/telegram.svg" alt="" width="18" height="18" align="absmiddle"> [@bovalone](https://t.me/bovalone)
-- <img src="assets/icons/social/gmail.svg" alt="" width="18" height="14" align="absmiddle"> [ask@topup.eu.org](mailto:ask@topup.eu.org)
+ <img src="assets/icons/social/telegram.svg" alt="" width="18" height="18" align="absmiddle"> [@bovalone](https://t.me/bovalone)
+ <img src="assets/icons/social/gmail.svg" alt="" width="18" height="14" align="absmiddle"> [ask@topup.eu.org](mailto:ask@topup.eu.org)
 
 Copyright © 2026 Mustofa Bovalone. All rights reserved.
