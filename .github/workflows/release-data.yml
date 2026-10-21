@@ -1,0 +1,56 @@
+name: Update release data
+
+# Chip "Latest build" di halaman depan membaca _data/release.yml lewat Liquid.
+# Karena situs ini statis, nilainya harus diperbarui di repositori — tidak bisa
+# diambil saat build. Workflow ini mengerjakannya otomatis setiap kali rilis
+# baru diterbitkan, supaya nomor versi tidak tertinggal dari tag sebenarnya.
+
+on:
+  release:
+    types: [published]
+  workflow_dispatch:
+    inputs:
+      tag:
+        description: "Tag rilis yang dicatat (contoh: v3.0.0)"
+        required: true
+      published_at:
+        description: "Waktu rilis ISO-8601; kosongkan untuk memakai waktu sekarang"
+        required: false
+
+# Izin default repositori ini adalah read, jadi push harus dinyatakan eksplisit.
+permissions:
+  contents: write
+
+concurrency:
+  group: release-data
+  cancel-in-progress: true
+
+jobs:
+  update:
+    runs-on: ubuntu-latest
+
+    env:
+      TAG: ${{ github.event.release.tag_name || inputs.tag }}
+      PUBLISHED_AT: ${{ github.event.release.published_at || inputs.published_at }}
+
+    steps:
+      - name: Check out main
+        uses: actions/checkout@v6
+        with:
+          ref: main
+
+      - name: Tulis ulang _data/release.yml
+        run: python3 tools/update-release-data.py
+
+      - name: Commit dan push bila berubah
+        run: |
+          set -euo pipefail
+          if git diff --quiet -- _data/release.yml; then
+            echo "Tidak ada perubahan pada _data/release.yml."
+            exit 0
+          fi
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add _data/release.yml
+          git commit -m "chore(rilis): perbarui penanda versi ke ${TAG}"
+          git push origin HEAD:main
