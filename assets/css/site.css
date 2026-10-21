@@ -3293,3 +3293,24 @@ html[data-theme="light"] .lv-term{box-shadow:0 18px 44px rgba(36,29,51,.12)}
 @media(max-width:520px){
   .docs-aside{width:min(100% - 32px,760px)}
 }
+
+/* ── Ikon kecil pada daftar spesifikasi ────────────────────────────────
+   Dipakai blok "kebutuhan sistem": tiga fakta beda kategori (OS / runtime /
+   jaringan) yang lebih cepat dipindai dengan penanda visual. Strip klaim di
+   hero sengaja tidak memakai ini supaya area di atas lipatan tidak makin
+   ramai. Ikon bersifat dekoratif — teksnya sudah menjelaskan sendiri. */
+.lv-proof--icons dt {
+  display: flex;
+  align-items: center;
+  gap: 7px;
+}
+.lv-proof--icons dt svg {
+  width: 16px;
+  height: 16px;
+  flex: 0 0 16px;
+  fill: none;
+  stroke: currentColor;
+  stroke-width: 1.8;
+  stroke-linecap: round;
+  stroke-linejoin: round;
+}
