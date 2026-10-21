@@ -1,0 +1,13 @@
+# Versi rilis yang ditampilkan di halaman depan.
+#
+# Diperbarui manual setiap kali rilis baru diterbitkan (tag GitHub). Nilainya
+# dipakai liquid `site.data.release.*` di index.html, supaya nomor versi hanya
+# ada di satu tempat dan tidak tersebar di beberapa halaman.
+#
+# Kenapa manual dan bukan diambil saat build: situs ini statis di GitHub Pages,
+# tanpa langkah build yang bisa memanggil GitHub API, dan CSP produksi tidak
+# mengizinkan browser memanggil api.github.com.
+version: "3.0.0"
+tag: "v3.0.0"
+released: "2026-10-13"
+released_display: "13 October 2026"

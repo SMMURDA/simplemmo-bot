@@ -275,22 +275,47 @@ if (guestNav || memberNav) {
   const card = document.querySelector('[data-dynamic-pricing]');
   if (!card) return;
   const formatIdr = (value) => 'Rp' + new Intl.NumberFormat('id-ID').format(Number(value || 0));
+
+  // Structured data has to follow the same numbers as the visible card,
+  // otherwise search results keep advertising a price the page no longer shows.
+  const syncStructuredData = (priceUsd, priceIdr) => {
+    document.querySelectorAll('script[type="application/ld+json"]').forEach((node) => {
+      let parsed;
+      try { parsed = JSON.parse(node.textContent); } catch { return; }
+      const list = Array.isArray(parsed) ? parsed : [parsed];
+      let changed = false;
+      list.forEach((entry) => {
+        if (!entry || entry['@type'] !== 'Product' || entry.name !== 'SimpleMMO Bot' || !entry.offers) return;
+        const offers = Array.isArray(entry.offers) ? entry.offers : [entry.offers];
+        offers.forEach((offer) => {
+          if (!offer) return;
+          if (offer.priceCurrency === 'IDR') { offer.price = String(priceIdr); changed = true; }
+          if (offer.priceCurrency === 'USD') { offer.price = String(priceUsd); changed = true; }
+        });
+      });
+      if (changed) node.textContent = JSON.stringify(Array.isArray(parsed) ? list : list[0]);
+    });
+  };
+
   fetch('https://license.topup.eu.org/v1/pricing', { headers: { Accept: 'application/json' } })
     .then((r) => { if (!r.ok) throw new Error('pricing fetch failed'); return r.json(); })
     .then((data) => {
-      const usdEl = document.getElementById('smmo-price-usd');
-      const durEl = document.getElementById('smmo-price-duration');
       const idrEl = document.getElementById('smmo-price-idr');
-      const isFree = Number(data.price_usd) === 0 && Number(data.price_idr) === 0;
-      if (isFree) {
-        if (usdEl) usdEl.textContent = 'FREE';
-        if (durEl) durEl.textContent = '/ ' + (data.duration_days ?? 30) + ' days';
-        if (idrEl) idrEl.innerHTML = 'FREE <span>IDR</span>';
+      const durEl = document.getElementById('smmo-price-duration');
+      const usdEl = document.getElementById('smmo-price-usd');
+      const days = data.duration_days ?? 30;
+      const usd = Number(data.price_usd ?? 1);
+      const idr = Number(data.price_idr ?? 10000);
+      if (usd === 0 && idr === 0) {
+        if (idrEl) idrEl.textContent = 'FREE';
+        if (durEl) durEl.textContent = '/ ' + days + ' days';
+        if (usdEl) usdEl.innerHTML = 'FREE <span>USD</span>';
       } else {
-        if (usdEl) usdEl.textContent = '$' + (data.price_usd ?? 5);
-        if (durEl) durEl.textContent = 'USD / ' + (data.duration_days ?? 30) + ' days';
-        if (idrEl) idrEl.innerHTML = (Number(data.price_idr) === 0 ? 'FREE' : formatIdr(data.price_idr ?? 75000)) + ' <span>IDR</span>';
+        if (idrEl) idrEl.textContent = idr === 0 ? 'FREE' : formatIdr(idr);
+        if (durEl) durEl.textContent = 'IDR / ' + days + ' days';
+        if (usdEl) usdEl.innerHTML = '$' + usd + ' <span>USD</span>';
       }
+      syncStructuredData(usd, idr);
     })
     .catch(() => { /* keep hardcoded defaults on error */ });
 })();

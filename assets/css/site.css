@@ -330,6 +330,16 @@ body.image-lightbox-open { overflow: hidden; }
 .faq-load-more { min-width: 220px; border-color: color-mix(in srgb, var(--blue) 48%, var(--border)); background: var(--blue-soft); }
 .faq-load-more[hidden] { display: none; }
 
+/* FAQ di halaman depan memakai token --lv-* supaya warnanya ikut tema landing,
+   bukan token halaman dokumentasi. Spesifisitasnya juga lebih tinggi daripada
+   aturan .faq-item[open] di atas, jadi state terbuka tetap konsisten. */
+.landing-v2 .faq-item { background: var(--lv-panel); border-color: var(--lv-line); }
+.landing-v2 .faq-item summary { color: var(--lv-ink); }
+.landing-v2 .faq-item summary::after { background: rgba(252,132,252,.14); color: var(--lv-blue); }
+.landing-v2 .faq-item[open] summary { border-bottom-color: var(--lv-line); }
+.landing-v2 .faq-item[open] summary::after { background: rgba(124,230,178,.14); color: var(--lv-green); }
+.landing-v2 .faq-answer p { color: var(--lv-muted); }
+
 .scroll-reveal {
   opacity: 0;
   transform: translateY(28px);

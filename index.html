@@ -18,7 +18,7 @@ skip_portal_common: true
           <a class="lv-button" href="/login/" style="border-color:var(--lv-line);color:var(--lv-green)"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" width="20" height="20" aria-hidden="true"><circle cx="12" cy="12" r="8"/><path d="M12 7v5l3 2"/></svg>Try free trial</a>
         </div>
         <p style="margin:14px 0 0;color:var(--lv-muted);font-size:13px;line-height:1.5">No payment needed for the trial — 1 day, 1 device. Sign in and activate it from the member dashboard.</p>
-        <div style="margin-top:12px"><a class="lv-button" href="https://status.topup.eu.org" style="background:#0a7a6f;border-color:#0a7a6f;color:#fff"><img src="/assets/images/git-logo.svg" alt="" width="20" height="20" class="lv-button__icon">Service Status<svg viewBox="0 0 16 16" fill="currentColor" width="14" height="14" aria-hidden="true"><path fill-rule="evenodd" d="M1 8a.5.5 0 0 1 .5-.5h11.793l-3.147-3.146a.5.5 0 0 1 .708-.708l4 4a.5.5 0 0 1 0 .708l-4 4a.5.5 0 0 1-.708-.708L13.293 8.5H1.5A.5.5 0 0 1 1 8"/></svg></a></div>
+        <div style="margin-top:12px"><a class="lv-button" href="https://status.topup.eu.org" style="background:#0a7a6f;border-color:#0a7a6f;color:#fff"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" width="20" height="20" class="lv-button__icon" aria-hidden="true"><path d="M3 12h4l2.5-6 4 12 2.5-6H21"/></svg>Service Status<svg viewBox="0 0 16 16" fill="currentColor" width="14" height="14" aria-hidden="true"><path fill-rule="evenodd" d="M1 8a.5.5 0 0 1 .5-.5h11.793l-3.147-3.146a.5.5 0 0 1 .708-.708l4 4a.5.5 0 0 1 0 .708l-4 4a.5.5 0 0 1-.708-.708L13.293 8.5H1.5A.5.5 0 0 1 1 8"/></svg></a></div>
         <dl class="lv-proof" aria-label="Product highlights">
           <div><dt>Local setup</dt><dd>Your credentials stay on your device</dd></div>
           <div><dt>Telegram-first</dt><dd>Controls, status, and alerts in one place</dd></div>
@@ -114,8 +114,8 @@ skip_portal_common: true
       <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(300px,1fr));gap:24px;max-width:780px;margin:0 auto">
         <article class="lv-price-card" aria-label="SimpleMMO Bot pricing" data-dynamic-pricing>
           <div class="lv-price-card__top"><span>SimpleMMO Bot</span><span class="lv-price-tag">Licensed</span></div>
-          <div class="lv-price"><strong id="smmo-price-usd">$5</strong><span id="smmo-price-duration">USD / 30 days</span></div>
-          <div class="lv-price-idr" id="smmo-price-idr">Rp75,000 <span>IDR</span></div>
+          <div class="lv-price"><strong id="smmo-price-idr" style="font-size:clamp(40px,5vw,60px)">Rp10,000</strong><span id="smmo-price-duration">IDR / 30 days</span></div>
+          <div class="lv-price-idr" id="smmo-price-usd" style="color:var(--lv-muted)">$1 <span>USD</span></div>
           <ul class="lv-price-list">
             <li>All automation modules</li>
             <li>Telegram dashboard and alerts</li>
@@ -188,6 +188,12 @@ skip_portal_common: true
   <section class="lv-section" aria-labelledby="steps-heading">
     <div class="lv-shell"><div class="lv-heading lv-heading--center"><p class="lv-label">A focused setup</p><h2 id="steps-heading">From download to dashboard in three steps.</h2></div>
       <ol class="lv-steps"><li><span>01</span><div><h3>Download</h3><p>Choose the correct build for your operating system, or receive the vHack script directly from the developer.</p></div></li><li><span>02</span><div><h3>Configure</h3><p>Add your own game session and Telegram bot credentials in the local environment file.</p></div></li><li><span>03</span><div><h3>Activate</h3><p>Enter your license key (SimpleMMO) or start the terminal (vHack), then manage everything from Telegram.</p></div></li></ol>
+      <dl class="lv-proof" aria-label="System requirements">
+        <div><dt>Operating system</dt><dd>Windows 10 or 11 (64-bit), or Linux x86_64</dd></div>
+        <div><dt>Nothing else to install</dt><dd>Ships as a prebuilt binary — no Python, Node, or build tools</dd></div>
+        <div><dt>Connection</dt><dd>Online license check on start and while the bot runs</dd></div>
+      </dl>
+      <p style="text-align:center;margin:18px 0 0;font-size:13px;color:var(--lv-muted);line-height:1.6">Latest build <strong style="color:var(--lv-ink)">v{{ site.data.release.version }}</strong> · released {{ site.data.release.released_display }} — <a href="https://github.com/SMMURDA/simplemmo-bot/releases" style="color:var(--lv-blue);font-weight:700">release notes and SHA-256 checksums</a></p>
     </div>
   </section>
 
@@ -204,8 +210,49 @@ skip_portal_common: true
         <article class="lv-feature"><div class="lv-icon lv-icon--blue"><svg viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="12" r="8"/><path d="M12 7v5l3 2"/></svg></div><h3>One trial per account</h3><p>A trial runs for 1 day on 1 device and is limited to one per verified account and email. Trials can be suspended when abuse is detected.</p></article>
         <article class="lv-feature"><div class="lv-icon lv-icon--gold"><svg viewBox="0 0 24 24" aria-hidden="true"><circle cx="8" cy="12" r="3.5"/><path d="M11.5 12H21M17 12v3M20 12v2"/></svg></div><h3>Keys are credentials</h3><p>Keep your key private. A key posted in a screenshot or public chat can be revoked or consume a device slot. You can verify any key above, at any time.</p></article>
       </div>
-      <p style="text-align:center;margin:34px 0 0;font-size:14px;color:var(--lv-muted);line-height:1.6">Questions about a purchase, a renewal, or a refund: <a href="mailto:ask@askstore.eu.org" style="color:var(--lv-blue);font-weight:700">ask@askstore.eu.org</a>. Read the <a href="/terms/" style="color:var(--lv-blue);font-weight:700">terms of service</a>.</p>
-      <p style="text-align:center;margin:14px 0 0;font-size:13px;color:var(--lv-muted);line-height:1.6">Independent checks: <a href="https://github.com/SMMURDA/simplemmo-bot/releases" style="color:var(--lv-blue);font-weight:700">public release history with SHA-256 checksums</a> · <a href="https://status.topup.eu.org" style="color:var(--lv-blue);font-weight:700">service status</a> · <a href="https://t.me/bovalone" style="color:var(--lv-blue);font-weight:700">support channel</a></p>
+      <p style="text-align:center;margin:34px 0 0;font-size:14px;color:var(--lv-muted);line-height:1.6">Refunds: within 7 days of purchase when a license will not activate and support cannot resolve it. The conditions are in the <a href="/terms/" style="color:var(--lv-blue);font-weight:700">terms of service</a>.</p>
+      <p style="text-align:center;margin:14px 0 0;font-size:13px;color:var(--lv-muted);line-height:1.6">Questions about a purchase or a renewal: <a href="mailto:ask@askstore.eu.org" style="color:var(--lv-blue);font-weight:700">ask@askstore.eu.org</a> · <a href="https://status.topup.eu.org" style="color:var(--lv-blue);font-weight:700">service status</a> · <a href="https://t.me/bovalone" style="color:var(--lv-blue);font-weight:700">support channel</a></p>
+    </div>
+  </section>
+
+  <!-- FAQ -->
+  <section class="lv-section" id="faq" aria-labelledby="faq-heading">
+    <div class="lv-shell">
+      <div class="lv-heading lv-heading--center">
+        <p class="lv-label">Questions</p>
+        <h2 id="faq-heading">Common questions.</h2>
+        <p>The things people ask before their first purchase.</p>
+      </div>
+      <div class="faq-list">
+        <details class="faq-item">
+          <summary>Do I need Python or Node installed?</summary>
+          <div class="faq-answer"><p>No. Releases ship as prebuilt binaries for Windows 64-bit and Linux x86_64 — extract the archive, fill in your environment file, and run the launcher.</p></div>
+        </details>
+        <details class="faq-item">
+          <summary>How does payment and activation work?</summary>
+          <div class="faq-answer"><p>You send a transfer to top up, an admin confirms it, and then you buy the license from your balance. Approval is done by hand, so it is not instant.</p></div>
+        </details>
+        <details class="faq-item">
+          <summary>Where do I find my key after buying?</summary>
+          <div class="faq-answer"><p>Under My Licenses in the member portal. It stays listed there, so you can copy it again later instead of relying on a chat history.</p></div>
+        </details>
+        <details class="faq-item">
+          <summary>How many machines can one license run on?</summary>
+          <div class="faq-answer"><p>Two registered devices. Moving to a new machine needs a device reset, which support handles for you.</p></div>
+        </details>
+        <details class="faq-item">
+          <summary>What happens when the 30 days end?</summary>
+          <div class="faq-answer"><p>The bot validates its license online on start and periodically while it runs. An expired key stops it, and nothing renews automatically — buy another 30-day license when you want to continue.</p></div>
+        </details>
+        <details class="faq-item">
+          <summary>Will it keep working after a game update?</summary>
+          <div class="faq-answer"><p>The bot reads the game's own pages, so a change on the game side can break a module until it is updated. Fixes ship as new releases; check the release notes if something stops responding.</p></div>
+        </details>
+        <details class="faq-item">
+          <summary>Can automation get my game account restricted?</summary>
+          <div class="faq-answer"><p>It can. Automation may break a game's rules, and no tool can protect your account from that. Use it on an account whose risk you accept.</p></div>
+        </details>
+      </div>
     </div>
   </section>
 
@@ -226,14 +273,22 @@ skip_portal_common: true
     "sameAs": [
       "https://t.me/bovalone"
     ],
-    "offers": {
-      "@type": "Offer",
-      "url": "https://topup.eu.org/smmo/getting-started/",
-      "priceCurrency": "USD",
-      "price": "5.00",
-      "availability": "https://schema.org/InStock",
-      "priceValidUntil": "2027-12-31"
-    }
+    "offers": [
+      {
+        "@type": "Offer",
+        "url": "https://topup.eu.org/accounts/buy-license/",
+        "priceCurrency": "IDR",
+        "price": "10000",
+        "availability": "https://schema.org/InStock"
+      },
+      {
+        "@type": "Offer",
+        "url": "https://topup.eu.org/accounts/buy-license/",
+        "priceCurrency": "USD",
+        "price": "1.00",
+        "availability": "https://schema.org/InStock"
+      }
+    ]
   },
   {
     "@context": "https://schema.org",
@@ -246,16 +301,89 @@ skip_portal_common: true
     "sameAs": [
       "https://t.me/bovalone"
     ],
-    "offers": {
-      "@type": "Offer",
-      "url": "https://topup.eu.org/vhack/getting-started/",
-      "priceCurrency": "USD",
-      "price": "20.00",
-      "availability": "https://schema.org/InStock",
-      "priceValidUntil": "2027-12-31"
-    }
+    "offers": [
+      {
+        "@type": "Offer",
+        "url": "https://topup.eu.org/vhack/getting-started/",
+        "priceCurrency": "IDR",
+        "price": "320000",
+        "availability": "https://schema.org/InStock"
+      },
+      {
+        "@type": "Offer",
+        "url": "https://topup.eu.org/vhack/getting-started/",
+        "priceCurrency": "USD",
+        "price": "20.00",
+        "availability": "https://schema.org/InStock"
+      }
+    ]
   }
 ]
+</script>
+
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "FAQPage",
+  "mainEntity": [
+    {
+      "@type": "Question",
+      "name": "Do I need Python or Node installed?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "No. Releases ship as prebuilt binaries for Windows 64-bit and Linux x86_64 — extract the archive, fill in your environment file, and run the launcher."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "How does payment and activation work?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "You send a transfer to top up, an admin confirms it, and then you buy the license from your balance. Approval is done by hand, so it is not instant."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "Where do I find my key after buying?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "Under My Licenses in the member portal. It stays listed there, so you can copy it again later instead of relying on a chat history."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "How many machines can one license run on?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "Two registered devices. Moving to a new machine needs a device reset, which support handles for you."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "What happens when the 30 days end?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "The bot validates its license online on start and periodically while it runs. An expired key stops it, and nothing renews automatically — buy another 30-day license when you want to continue."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "Will it keep working after a game update?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "The bot reads the game's own pages, so a change on the game side can break a module until it is updated. Fixes ship as new releases; check the release notes if something stops responding."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "Can automation get my game account restricted?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "It can. Automation may break a game's rules, and no tool can protect your account from that. Use it on an account whose risk you accept."
+      }
+    }
+  ]
+}
 </script>
 
 <script>!function(){const b=document.getElementById("swap-btn"),k=document.getElementById("window-back"),f=document.getElementById("window-front"),v=document.querySelector(".lv-visual");if(!b||!k||!f||!v)return;let s=!1,x=0,y=0,X=0,Y=0;function w(){s=!s;s?(k.classList.remove("lv-window--back"),k.classList.add("lv-window--front"),f.classList.remove("lv-window--front"),f.classList.add("lv-window--back")):(k.classList.remove("lv-window--front"),k.classList.add("lv-window--back"),f.classList.remove("lv-window--back"),f.classList.add("lv-window--front"))}b.addEventListener("click",w);v.addEventListener("touchstart",function(e){x=e.changedTouches[0].screenX;y=e.changedTouches[0].screenY},{passive:!0});v.addEventListener("touchend",function(e){X=e.changedTouches[0].screenX;Y=e.changedTouches[0].screenY;h()},{passive:!0});function h(){const d=X-x,D=Y-y,m=50;Math.abs(d)>Math.abs(D)?Math.abs(d)>m&&w():Math.abs(D)>m&&w()}function c(){b.style.display=window.innerWidth<=768||"ontouchstart"in window?"none":"flex"}c();window.addEventListener("resize",c)}();</script>
