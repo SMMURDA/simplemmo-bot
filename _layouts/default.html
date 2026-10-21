@@ -92,10 +92,10 @@
   -->
   <style>[hidden]{display:none!important}</style>
   {% if page.url == '/login/' %}
-  <!-- Gaya kritis halaman login: kudu tetep DI HAREUP stylesheet utama,
-       sabab urutan ieu nu nangtukeun aturan mana nu meunang lamun aya
-       paamprok. Baheula blok ieu dipaku di layout jadi unggal halaman
-       (43 kaca) mawa ~19 KB HTML nu teu dipaké. -->
+  <!-- Gaya kritis halaman login: harus tetap DI DEPAN stylesheet utama,
+       karena urutan inilah yang menentukan aturan mana yang menang saat ada
+       benturan. Dulu blok ini dipaku di layout sehingga setiap halaman
+       (43 kaca) membawa ~19 KB HTML yang tidak terpakai. -->
   <style>{% include critical-login.css %}</style>
   {% endif %}
   <link rel="stylesheet" href="/assets/css/site.min.css?v=20261021-3">
