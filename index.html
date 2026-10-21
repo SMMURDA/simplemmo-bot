@@ -15,7 +15,9 @@ skip_portal_common: true
         <div class="lv-actions">
           <a class="lv-button lv-button--primary" href="/smmo/getting-started/"><img src="/assets/images/simplemmo-logo.png" alt="" width="20" height="20" class="lv-button__icon">SimpleMMO<svg viewBox="0 0 16 16" fill="currentColor" width="14" height="14" aria-hidden="true"><path fill-rule="evenodd" d="M1 8a.5.5 0 0 1 .5-.5h11.793l-3.147-3.146a.5.5 0 0 1 .708-.708l4 4a.5.5 0 0 1 0 .708l-4 4a.5.5 0 0 1-.708-.708L13.293 8.5H1.5A.5.5 0 0 1 1 8"/></svg></a>
           <a class="lv-button" href="/vhack/getting-started/" style="background:#7c3aed;border-color:#7c3aed;color:#fff"><img src="/assets/images/vhack-logo.png" alt="" width="20" height="20" class="lv-button__icon">vHack Revolution<svg viewBox="0 0 16 16" fill="currentColor" width="14" height="14" aria-hidden="true"><path fill-rule="evenodd" d="M1 8a.5.5 0 0 1 .5-.5h11.793l-3.147-3.146a.5.5 0 0 1 .708-.708l4 4a.5.5 0 0 1 0 .708l-4 4a.5.5 0 0 1-.708-.708L13.293 8.5H1.5A.5.5 0 0 1 1 8"></path></svg></a>
+          <a class="lv-button" href="/login/" style="border-color:var(--lv-line);color:var(--lv-green)"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" width="20" height="20" aria-hidden="true"><circle cx="12" cy="12" r="8"/><path d="M12 7v5l3 2"/></svg>Try free trial</a>
         </div>
+        <p style="margin:14px 0 0;color:var(--lv-muted);font-size:13px;line-height:1.5">No payment needed for the trial — 1 day, 1 device. Sign in and activate it from the member dashboard.</p>
         <div style="margin-top:12px"><a class="lv-button" href="https://status.topup.eu.org" style="background:#0a7a6f;border-color:#0a7a6f;color:#fff"><img src="/assets/images/git-logo.svg" alt="" width="20" height="20" class="lv-button__icon">Service Status<svg viewBox="0 0 16 16" fill="currentColor" width="14" height="14" aria-hidden="true"><path fill-rule="evenodd" d="M1 8a.5.5 0 0 1 .5-.5h11.793l-3.147-3.146a.5.5 0 0 1 .708-.708l4 4a.5.5 0 0 1 0 .708l-4 4a.5.5 0 0 1-.708-.708L13.293 8.5H1.5A.5.5 0 0 1 1 8"/></svg></a></div>
         <dl class="lv-proof" aria-label="Product highlights">
           <div><dt>Local setup</dt><dd>Your credentials stay on your device</dd></div>
@@ -121,7 +123,8 @@ skip_portal_common: true
             <li>Windows and Linux builds</li>
             <li>Online license activation</li>
           </ul>
-          <a class="lv-button lv-button--primary lv-button--wide" href="/smmo/getting-started/">Get SimpleMMO Bot <span aria-hidden="true">→</span></a>
+          <a class="lv-button lv-button--primary lv-button--wide" href="/accounts/buy-license/">Buy license <span aria-hidden="true">→</span></a>
+          <p style="margin:12px 0 0;text-align:center;font-size:13px;color:var(--lv-muted)">or <a href="/login/" style="color:var(--lv-blue);font-weight:700">start a free 1-day trial</a></p>
         </article>
         <article class="lv-price-card" aria-label="vHack Revolution pricing">
           <div class="lv-price-card__top"><span>vHack Revolution</span><span class="lv-price-tag">One-time</span></div>
@@ -140,10 +143,31 @@ skip_portal_common: true
     </div>
   </section>
 
+  <!-- License check -->
+  <section class="lv-section" id="license-check" aria-labelledby="check-heading">
+    <div class="lv-shell">
+      <div class="lv-heading lv-heading--center">
+        <p class="lv-label">Verify before you buy</p>
+        <h2 id="check-heading">Check a license key.</h2>
+        <p>Every key issued for SimpleMMO Bot can be checked here — active, expired, or revoked. Looking one up is read-only: it does not activate a device or change anything.</p>
+      </div>
+      <div class="license-checker" id="license-checker" style="max-width:640px;margin:0 auto">
+        <form class="license-checker__form" id="license-check-form" autocomplete="off">
+          <label class="license-checker__label" for="license-check-input">License key</label>
+          <div class="license-checker__row">
+            <input class="license-checker__input" type="text" id="license-check-input" name="license_key" placeholder="Enter the key you received" required spellcheck="false" autocomplete="off">
+            <button class="license-checker__btn button" type="submit" id="license-check-btn">Check</button>
+          </div>
+        </form>
+        <div class="license-checker__result" id="license-check-result" role="status" aria-live="polite" hidden></div>
+      </div>
+    </div>
+  </section>
+
   <!-- Payments -->
   <section class="lv-section lv-section--payments" aria-labelledby="payments-heading">
     <div class="lv-shell">
-      <div class="lv-heading lv-heading--center"><p class="lv-label">Flexible checkout</p><h2 id="payments-heading">Accepted payment methods.</h2><p>Choose the method that is most convenient for you. Payment and activation details are confirmed directly before purchase.</p></div>
+      <div class="lv-heading lv-heading--center"><p class="lv-label">Flexible checkout</p><h2 id="payments-heading">Accepted payment methods.</h2><p>Balances are credited by hand: you send the transfer, an admin confirms it, then you buy the license from your balance. No card is stored and nothing is charged automatically.</p></div>
       <div class="lv-payment-grid" aria-label="Accepted payment methods">
         <div class="lv-payment"><img src="/assets/payments/paypal.svg" alt="" loading="lazy"><span>PayPal</span></div>
         <div class="lv-payment"><img src="/assets/payments/bitcoin.svg" alt="" loading="lazy"><span>Bitcoin</span></div>
@@ -152,6 +176,11 @@ skip_portal_common: true
         <div class="lv-payment"><img src="/assets/payments/ovo.svg" alt="" loading="lazy"><span>OVO</span></div>
         <div class="lv-payment"><img src="/assets/payments/gopay.svg" alt="" loading="lazy"><span>GoPay</span></div>
       </div>
+      <ol class="lv-steps" style="margin-top:36px">
+        <li><span>01</span><div><h3>Pick a method</h3><p>PayPal, crypto (Bitcoin, TRON, BNB Chain), or an Indonesian e-wallet (OVO, GoPay). Amounts, minimums, and the transfer details are shown on the top-up page before you send anything.</p></div></li>
+        <li><span>02</span><div><h3>Send and report</h3><p>Transfer the amount, then create a top-up request from your member portal and include the reference so the incoming transfer can be matched to you.</p></div></li>
+        <li><span>03</span><div><h3>Balance, then license</h3><p>Once an admin approves the request the balance appears in your account. Spend it on the 30-day license and the key shows up under My Licenses.</p></div></li>
+      </ol>
     </div>
   </section>
 
@@ -159,6 +188,24 @@ skip_portal_common: true
   <section class="lv-section" aria-labelledby="steps-heading">
     <div class="lv-shell"><div class="lv-heading lv-heading--center"><p class="lv-label">A focused setup</p><h2 id="steps-heading">From download to dashboard in three steps.</h2></div>
       <ol class="lv-steps"><li><span>01</span><div><h3>Download</h3><p>Choose the correct build for your operating system, or receive the vHack script directly from the developer.</p></div></li><li><span>02</span><div><h3>Configure</h3><p>Add your own game session and Telegram bot credentials in the local environment file.</p></div></li><li><span>03</span><div><h3>Activate</h3><p>Enter your license key (SimpleMMO) or start the terminal (vHack), then manage everything from Telegram.</p></div></li></ol>
+    </div>
+  </section>
+
+  <!-- Before you buy -->
+  <section class="lv-section" aria-labelledby="terms-heading">
+    <div class="lv-shell">
+      <div class="lv-heading lv-heading--center">
+        <p class="lv-label">Before you buy</p>
+        <h2 id="terms-heading">What a license actually covers.</h2>
+        <p>The short version, so nothing is a surprise after checkout. The full text lives in the terms of service.</p>
+      </div>
+      <div class="lv-feature-grid">
+        <article class="lv-feature"><div class="lv-icon lv-icon--green"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 3 5 6v5c0 4.5 2.7 8.1 7 10 4.3-1.9 7-5.5 7-10V6l-7-3Z"/><path d="m9 12 2 2 4-4"/></svg></div><h3>30 days, two devices</h3><p>One purchase covers a 30-day license on up to two registered devices. Moving to a new machine needs a device reset, which support handles for you.</p></article>
+        <article class="lv-feature"><div class="lv-icon lv-icon--blue"><svg viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="12" r="8"/><path d="M12 7v5l3 2"/></svg></div><h3>One trial per account</h3><p>A trial runs for 1 day on 1 device and is limited to one per verified account and email. Trials can be suspended when abuse is detected.</p></article>
+        <article class="lv-feature"><div class="lv-icon lv-icon--gold"><svg viewBox="0 0 24 24" aria-hidden="true"><circle cx="8" cy="12" r="3.5"/><path d="M11.5 12H21M17 12v3M20 12v2"/></svg></div><h3>Keys are credentials</h3><p>Keep your key private. A key posted in a screenshot or public chat can be revoked or consume a device slot. You can verify any key above, at any time.</p></article>
+      </div>
+      <p style="text-align:center;margin:34px 0 0;font-size:14px;color:var(--lv-muted);line-height:1.6">Questions about a purchase, a renewal, or a refund: <a href="mailto:ask@askstore.eu.org" style="color:var(--lv-blue);font-weight:700">ask@askstore.eu.org</a>. Read the <a href="/terms/" style="color:var(--lv-blue);font-weight:700">terms of service</a>.</p>
+      <p style="text-align:center;margin:14px 0 0;font-size:13px;color:var(--lv-muted);line-height:1.6">Independent checks: <a href="https://github.com/SMMURDA/simplemmo-bot/releases" style="color:var(--lv-blue);font-weight:700">public release history with SHA-256 checksums</a> · <a href="https://status.topup.eu.org" style="color:var(--lv-blue);font-weight:700">service status</a> · <a href="https://t.me/bovalone" style="color:var(--lv-blue);font-weight:700">support channel</a></p>
     </div>
   </section>
 
