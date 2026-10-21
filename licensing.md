@@ -34,12 +34,12 @@ Ready to purchase a license or need help choosing one? Contact us through any of
 
 <div class="license-contact-grid" aria-label="License purchase contacts">
   <a class="license-contact-card" href="mailto:ask@topup.eu.org">
-    <span class="license-contact-icon" aria-hidden="true"><img src="/assets/icons/license-email.svg" alt=""></span>
+    <span class="license-contact-icon" aria-hidden="true"><img src="/assets/icons/license-email.svg" alt="" width="24" height="24" loading="lazy"></span>
     <span class="license-contact-copy"><strong>Email</strong><small>ask@topup.eu.org</small></span>
     <span class="license-contact-arrow" aria-hidden="true">→</span>
   </a>
   <a class="license-contact-card" href="https://t.me/bovalone" target="_blank" rel="noopener noreferrer">
-    <span class="license-contact-icon" aria-hidden="true"><img src="/assets/icons/license-telegram.svg" alt=""></span>
+    <span class="license-contact-icon" aria-hidden="true"><img src="/assets/icons/license-telegram.svg" alt="" width="24" height="24" loading="lazy"></span>
     <span class="license-contact-copy"><strong>Telegram</strong><small>@bovalone</small></span>
     <span class="license-contact-arrow" aria-hidden="true">→</span>
   </a>
@@ -84,11 +84,11 @@ Use this read-only endpoint to inspect a license without activating a new device
 
 <div class="license-examples" data-license-examples>
   <div class="license-example-tabs" role="tablist" aria-label="License status examples">
-    <button class="license-example-tab is-active" type="button" role="tab" id="license-tab-curl" aria-selected="true" aria-controls="license-panel-curl" data-license-tab="curl"><span class="license-logo-frame" aria-hidden="true"><img class="license-language-logo" src="/assets/icons/languages/curl.svg" alt=""></span><span>cURL</span></button>
-    <button class="license-example-tab" type="button" role="tab" id="license-tab-python" aria-selected="false" aria-controls="license-panel-python" data-license-tab="python" tabindex="-1"><span class="license-logo-frame" aria-hidden="true"><img class="license-language-logo" src="/assets/icons/languages/python.svg" alt=""></span><span>Python</span></button>
-    <button class="license-example-tab" type="button" role="tab" id="license-tab-node" aria-selected="false" aria-controls="license-panel-node" data-license-tab="node" tabindex="-1"><span class="license-logo-frame" aria-hidden="true"><img class="license-language-logo" src="/assets/icons/languages/nodejs.svg" alt=""></span><span>Node.js</span></button>
-    <button class="license-example-tab" type="button" role="tab" id="license-tab-php" aria-selected="false" aria-controls="license-panel-php" data-license-tab="php" tabindex="-1"><span class="license-logo-frame" aria-hidden="true"><img class="license-language-logo license-language-logo--php" src="/assets/icons/languages/php.svg" alt=""></span><span>PHP</span></button>
-    <button class="license-example-tab" type="button" role="tab" id="license-tab-powershell" aria-selected="false" aria-controls="license-panel-powershell" data-license-tab="powershell" tabindex="-1"><span class="license-logo-frame" aria-hidden="true"><img class="license-language-logo" src="/assets/icons/languages/powershell.svg" alt=""></span><span>PowerShell</span></button>
+    <button class="license-example-tab is-active" type="button" role="tab" id="license-tab-curl" aria-selected="true" aria-controls="license-panel-curl" data-license-tab="curl"><span class="license-logo-frame" aria-hidden="true"><img class="license-language-logo" src="/assets/icons/languages/curl.svg" alt="" width="32" height="32"></span><span>cURL</span></button>
+    <button class="license-example-tab" type="button" role="tab" id="license-tab-python" aria-selected="false" aria-controls="license-panel-python" data-license-tab="python" tabindex="-1"><span class="license-logo-frame" aria-hidden="true"><img class="license-language-logo" src="/assets/icons/languages/python.svg" alt="" width="32" height="32"></span><span>Python</span></button>
+    <button class="license-example-tab" type="button" role="tab" id="license-tab-node" aria-selected="false" aria-controls="license-panel-node" data-license-tab="node" tabindex="-1"><span class="license-logo-frame" aria-hidden="true"><img class="license-language-logo" src="/assets/icons/languages/nodejs.svg" alt="" width="32" height="32"></span><span>Node.js</span></button>
+    <button class="license-example-tab" type="button" role="tab" id="license-tab-php" aria-selected="false" aria-controls="license-panel-php" data-license-tab="php" tabindex="-1"><span class="license-logo-frame" aria-hidden="true"><img class="license-language-logo license-language-logo--php" src="/assets/icons/languages/php.svg" alt="" width="32" height="32"></span><span>PHP</span></button>
+    <button class="license-example-tab" type="button" role="tab" id="license-tab-powershell" aria-selected="false" aria-controls="license-panel-powershell" data-license-tab="powershell" tabindex="-1"><span class="license-logo-frame" aria-hidden="true"><img class="license-language-logo" src="/assets/icons/languages/powershell.svg" alt="" width="32" height="32"></span><span>PowerShell</span></button>
   </div>
   <div class="license-example-panels">
     <section class="license-example-panel" role="tabpanel" id="license-panel-curl" aria-labelledby="license-tab-curl" data-license-panel="curl">
