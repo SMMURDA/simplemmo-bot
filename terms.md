@@ -6,7 +6,7 @@ permalink: /terms/
 
 # Terms of Service
 
-_Last updated: October 21, 2026_
+_Last updated: October 29, 2026_
 
 ## Acceptance of terms
 
@@ -25,7 +25,7 @@ Licenses are digital goods and are activated online the moment they are used, so
 - A refund can be requested within 7 days of purchase when a license cannot be activated or cannot run because of a fault on our side, and support either cannot resolve it or does not respond.
 - A refund is not available for a change of mind after the license has been activated, for restrictions placed on your game account by a third-party game, for a key that was revoked for breaking these terms, or for any part of a period you have already used.
 - Trial licenses are free of charge and are therefore not refundable.
-- To request a refund, write to [ask@askstore.eu.org](mailto:ask@askstore.eu.org) and include the license key so the purchase can be located.
+- To request a refund, write to [ask@topup.eu.org](mailto:ask@topup.eu.org) and include the license key so the purchase can be located.
 
 ## Third-party tools
 
@@ -45,4 +45,4 @@ We may update these terms from time to time. Continued use of the service after 
 
 ## Contact
 
-For licensing support, contact [ask@askstore.eu.org](mailto:ask@askstore.eu.org).
+For licensing support, contact [ask@topup.eu.org](mailto:ask@topup.eu.org).
