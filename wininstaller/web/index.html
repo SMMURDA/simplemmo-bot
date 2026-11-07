@@ -1,0 +1,734 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Winstaller — TOPUP | Linux VPS ke Windows Server</title>
+<meta name="description" content="Pasang Windows Server di VPS Linux (KVM) lewat SSH, tanpa ISO dan tanpa panel. Gratis, tanpa login.">
+<link rel="icon" href="/assets/favicon.png">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --bg:#0d0e20;
+    --bg-2:#111230;
+    --panel:#16183a;
+    --panel-2:#1b1e45;
+    --line:#2a2d5c;
+    --line-soft:#22254d;
+    --ink:#f5f4ff;
+    --muted:#b0afd4;
+    --dim:#8f8eb8;
+    --yellow:#ffe22e;
+    --yellow-ink:#1a1704;
+    --pink:#f97bbf;
+    --green:#5ce08b;
+    --red:#ff7a7a;
+    --r:14px;
+    --sans:"Space Grotesk",ui-sans-serif,system-ui,sans-serif;
+    --mono:"JetBrains Mono",ui-monospace,SFMono-Regular,Menlo,monospace;
+  }
+  *{box-sizing:border-box}
+  html{scroll-behavior:smooth}
+  body{
+    margin:0;background:
+      radial-gradient(900px 420px at 84% -8%, rgba(255,226,46,.10), transparent 62%),
+      radial-gradient(700px 380px at 6% 4%, rgba(249,123,191,.10), transparent 60%),
+      var(--bg);
+    color:var(--ink);font-family:var(--sans);font-size:15.5px;line-height:1.55;
+    -webkit-font-smoothing:antialiased;text-wrap:pretty;
+  }
+  a{color:var(--pink);text-decoration:none}
+  a:hover{text-decoration:underline}
+  .wrap{max-width:1180px;margin:0 auto;padding:0 20px 120px}
+
+  /* ---------- header ---------- */
+  header.site{
+    display:flex;align-items:center;justify-content:space-between;gap:16px;
+    padding:20px 0 18px;border-bottom:1px solid var(--line-soft);position:relative;
+  }
+  .brand{display:flex;align-items:center;gap:12px;min-width:0}
+  .brand img{width:52px;height:auto;display:block;filter:drop-shadow(0 4px 10px rgba(0,0,0,.5))}
+  .brand-txt{min-width:0}
+  .brand-txt .n{font-size:17px;font-weight:700;letter-spacing:-.01em;line-height:1.15}
+  .brand-txt .s{font-family:var(--mono);font-size:10.5px;letter-spacing:.12em;text-transform:uppercase;color:var(--dim)}
+  .badge{
+    font-family:var(--mono);font-size:10.5px;letter-spacing:.08em;text-transform:uppercase;
+    color:var(--yellow);border:1px solid #4a3f0c;background:#221d05;padding:5px 10px;border-radius:99px;white-space:nowrap;
+  }
+
+  /* ---------- hero ---------- */
+  .hero{padding:34px 0 8px;max-width:780px}
+  .kicker{font-family:var(--mono);font-size:11px;letter-spacing:.16em;text-transform:uppercase;color:var(--pink);margin:0 0 10px}
+  h1{font-size:clamp(27px,4.4vw,46px);line-height:1.06;letter-spacing:-.03em;margin:0 0 14px;font-weight:700}
+  h1 .arrow{color:var(--yellow)}
+  h1 .win{background:linear-gradient(180deg,#fff 62%,#ffe22e 62%);-webkit-background-clip:text;background-clip:text;-webkit-text-fill-color:transparent}
+  .hero p{margin:0;color:var(--muted);max-width:60ch;font-size:15px}
+
+  .strip{
+    display:flex;gap:12px;align-items:flex-start;margin:22px 0 26px;padding:14px 16px;
+    border:1px solid #5a1e22;border-left:3px solid var(--red);border-radius:10px;
+    background:linear-gradient(180deg,rgba(255,122,122,.10),rgba(255,122,122,.04));
+  }
+  .strip .i{font-family:var(--mono);color:var(--red);font-weight:500;font-size:11px;line-height:1.6;white-space:nowrap;letter-spacing:.06em}
+  .strip p{margin:0;font-size:13.5px;color:#ffd9d9}
+  .strip b{color:#fff}
+
+  /* ---------- layout ---------- */
+  .grid{display:grid;grid-template-columns:minmax(0,1.28fr) minmax(0,.72fr);gap:20px;align-items:start}
+  @media (max-width:900px){ .grid{grid-template-columns:1fr} }
+
+  .card{background:linear-gradient(180deg,var(--panel),var(--bg-2));border:1px solid var(--line);border-radius:var(--r)}
+  .card.pad{padding:6px 22px 22px}
+
+  /* ---------- form sections ---------- */
+  .sec{padding:22px 0;border-bottom:1px solid var(--line-soft);display:grid;grid-template-columns:44px minmax(0,1fr);gap:14px}
+  .sec:last-of-type{border-bottom:0}
+  @media (max-width:560px){ .sec{grid-template-columns:34px minmax(0,1fr);gap:10px} }
+  .num{
+    font-family:var(--mono);font-size:13px;font-weight:500;color:var(--yellow);
+    border:1px solid #4a3f0c;background:#1f1b06;border-radius:9px;height:32px;
+    display:grid;place-items:center;letter-spacing:.02em;
+  }
+  .sec h2{margin:0 0 3px;font-size:15px;font-weight:600;letter-spacing:-.01em}
+  .sec .note{margin:0 0 14px;font-size:12.5px;color:var(--dim)}
+
+  .opts{display:grid;gap:9px}
+  .opt{
+    position:relative;display:grid;grid-template-columns:18px 1fr;gap:12px;align-items:start;
+    padding:13px 14px;border:1px solid var(--line);border-radius:11px;background:#131539;cursor:pointer;
+    transition:border-color .15s,background .15s,transform .08s;
+  }
+  .opt:hover{border-color:#3d4180}
+  .opt:active{transform:scale(.998)}
+  .opt input{position:absolute;opacity:0;pointer-events:none}
+  .dot{width:17px;height:17px;border-radius:50%;border:1.5px solid #4a4e91;margin-top:2px;display:grid;place-items:center}
+  .dot::after{content:"";width:9px;height:9px;border-radius:50%;background:var(--yellow);transform:scale(0);transition:transform .15s}
+  .opt input:checked ~ .dot{border-color:var(--yellow)}
+  .opt input:checked ~ .dot::after{transform:scale(1)}
+  .opt:has(input:checked){border-color:#5c520f;background:#1c1a12}
+  .opt:has(input:focus-visible){outline:2px solid var(--yellow);outline-offset:2px}
+  .opt .t{font-size:14px;font-weight:600;display:flex;align-items:center;gap:8px;flex-wrap:wrap}
+  .opt .d{font-size:12.5px;color:var(--dim);margin-top:3px}
+  .tag{font-family:var(--mono);font-size:9.5px;letter-spacing:.07em;text-transform:uppercase;padding:2px 6px;border-radius:5px;
+       border:1px solid #3a3f7e;color:var(--muted);background:#181b3f}
+  .tag.hot{border-color:#5c520f;color:var(--yellow);background:#221d05}
+  .tag.pink{border-color:#6b2f52;color:var(--pink);background:#2a1322}
+
+  /* ---------- fields ---------- */
+  .row{display:grid;grid-template-columns:1fr 1fr;gap:12px}
+  .row.three{grid-template-columns:1fr 1fr 1fr}
+  @media (max-width:620px){ .row,.row.three{grid-template-columns:1fr} }
+  label.f{display:block;margin-top:12px}
+  .lbl{display:flex;justify-content:space-between;gap:8px;font-family:var(--mono);font-size:10.5px;
+       letter-spacing:.09em;text-transform:uppercase;color:var(--muted);margin-bottom:6px}
+  .lbl .sub{text-transform:none;letter-spacing:0;font-family:var(--sans);font-size:11.5px;color:var(--dim)}
+  input[type=text],input[type=password],input[type=number]{
+    width:100%;background:#0e1030;border:1px solid var(--line);border-radius:10px;color:var(--ink);
+    padding:11px 12px;font-size:13.5px;font-family:var(--mono);min-height:44px;
+    transition:border-color .15s,box-shadow .15s;
+  }
+  input::placeholder{color:#5b5b85;font-family:var(--sans)}
+  input:hover{border-color:#3d4180}
+  input:focus{outline:none;border-color:var(--yellow);box-shadow:0 0 0 3px rgba(255,226,46,.14)}
+  input.bad{border-color:var(--red);box-shadow:0 0 0 3px rgba(255,122,122,.12)}
+
+  .seg{display:inline-flex;border:1px solid var(--line);border-radius:10px;overflow:hidden;background:#0e1030}
+  .seg button{background:transparent;border:0;color:var(--muted);font-family:var(--mono);font-size:11.5px;padding:9px 13px;cursor:pointer}
+  .seg button[aria-pressed=true]{background:#221d05;color:var(--yellow)}
+  .seg button + button{border-left:1px solid var(--line)}
+
+  .provider{margin-top:14px}
+  .chips{display:flex;flex-wrap:wrap;gap:7px;margin-top:8px}
+  .chip{font-family:var(--mono);font-size:11.5px;padding:7px 11px;border-radius:99px;cursor:pointer;
+        border:1px solid var(--line);background:#0e1030;color:var(--muted);transition:.15s}
+  .chip:hover{border-color:#3d4180;color:var(--ink)}
+  .chip[aria-pressed=true]{border-color:#5c520f;background:#221d05;color:var(--yellow)}
+  .pnote{margin:10px 0 0;font-size:12.5px;color:var(--dim)}
+  .pnote.warn{color:#ffd166}
+
+  .ack{display:grid;grid-template-columns:18px 1fr;gap:12px;align-items:start;margin-top:18px;
+       padding:14px;border:1px solid var(--line);border-radius:11px;background:#0e1030;font-size:13px;color:var(--muted);cursor:pointer}
+  .ack input{appearance:none;width:18px;height:18px;border:1.5px solid #4a4e91;border-radius:5px;background:#0b0d26;
+             cursor:pointer;position:relative;margin:1px 0 0}
+  .ack input:checked{background:var(--red);border-color:var(--red)}
+  .ack input:checked::after{content:"";position:absolute;left:5px;top:2px;width:5px;height:10px;border:solid #fff;
+             border-width:0 2px 2px 0;transform:rotate(42deg)}
+  .ack:has(input:checked){border-color:#5a1e22;color:#ffd9d9}
+
+  .actions{display:flex;gap:10px;margin-top:16px;flex-wrap:wrap;align-items:center}
+  .btn{font-family:var(--sans);font-size:14px;font-weight:600;border-radius:11px;padding:12px 18px;min-height:46px;
+       cursor:pointer;border:1px solid var(--line);background:#191c44;color:var(--ink);transition:.15s}
+  .btn:hover{background:#20244f;border-color:#3d4180}
+  .btn.primary{background:var(--yellow);border-color:var(--yellow);color:var(--yellow-ink);font-weight:700}
+  .btn.primary:hover{background:#fff06a}
+  .btn:disabled{opacity:.55;cursor:not-allowed;background:#22254d;border-color:#33376b;color:#9a9ac4}
+  .msg{margin:12px 0 0;font-size:13px;color:var(--muted);min-height:20px}
+  .msg.bad{color:var(--red)}
+  .msg.good{color:var(--green)}
+
+  /* ---------- rail ---------- */
+  .rail{position:sticky;top:18px;display:grid;gap:16px}
+  @media (max-width:900px){ .rail{position:static} }
+
+  .sum{padding:18px}
+  .sum h3,.prog h3{margin:0 0 12px;font-family:var(--mono);font-size:10.5px;letter-spacing:.14em;text-transform:uppercase;color:var(--dim);font-weight:500}
+  .sum dl{margin:0;display:grid;gap:0}
+  .sum .li{display:flex;justify-content:space-between;gap:12px;padding:8px 0;border-bottom:1px dashed var(--line-soft);font-size:13px}
+  .sum .li:last-child{border-bottom:0}
+  .sum dt{color:var(--dim)}
+  .sum dd{margin:0;font-family:var(--mono);font-size:12px;color:var(--ink);text-align:right;word-break:break-all}
+  .sum dd.empty{color:#5b5b85}
+  .btn.wide{width:100%;margin-top:14px}
+
+  .prog{padding:18px}
+  .statusrow{display:flex;align-items:center;justify-content:space-between;gap:10px;margin-bottom:12px}
+  .st{font-family:var(--mono);font-size:10px;letter-spacing:.1em;text-transform:uppercase;padding:4px 9px;border-radius:99px;
+      border:1px solid var(--line);color:var(--dim)}
+  .st.live{color:var(--yellow);border-color:#5c520f;background:#221d05}
+  .st.done{color:var(--green);border-color:#1f4d33;background:#0b2318}
+  .st.err{color:var(--red);border-color:#5a1e22;background:#2a1113}
+
+  .bar{height:4px;background:#20234c;border-radius:99px;overflow:hidden;margin-bottom:14px}
+  .bar i{display:block;height:100%;width:0;background:linear-gradient(90deg,var(--pink),var(--yellow));transition:width .5s}
+
+  .steps{list-style:none;margin:0 0 14px;padding:0}
+  .steps li{display:grid;grid-template-columns:18px 1fr auto;gap:10px;align-items:center;padding:6px 0;font-size:12.5px;color:var(--dim)}
+  .steps .b{width:16px;height:16px;border-radius:6px;border:1px solid #353a76;display:grid;place-items:center;font-size:9px;font-family:var(--mono)}
+  .steps li.on{color:var(--ink)}
+  .steps li.on .b{border-color:var(--yellow);color:var(--yellow);background:#221d05}
+  .steps li.ok{color:var(--muted)}
+  .steps li.ok .b{border-color:#1f4d33;background:#0b2318;color:var(--green)}
+  .steps .t{font-family:var(--mono);font-size:10.5px}
+
+  .log{background:#080a1d;border:1px solid var(--line-soft);border-radius:11px;padding:12px;
+       font-family:var(--mono);font-size:11.5px;line-height:1.7;color:#a9b0d6;height:210px;overflow-y:auto;white-space:pre-wrap;word-break:break-word}
+  .log .t{color:#4e5480}
+  .log .ok{color:var(--green)}
+  .log .er{color:var(--red)}
+  .log .wn{color:#ffd166}
+  .log .ac{color:var(--yellow)}
+  .log::-webkit-scrollbar{width:7px}
+  .log::-webkit-scrollbar-thumb{background:#262a58;border-radius:9px}
+
+  .hint{margin:12px 0 0;font-size:12px;color:var(--dim);line-height:1.5}
+  .hint b{color:var(--muted)}
+
+  .foot{margin-top:30px;padding-top:18px;border-top:1px solid var(--line-soft);display:flex;justify-content:space-between;
+        gap:14px;flex-wrap:wrap;font-family:var(--mono);font-size:11px;color:var(--dim)}
+  .foot a{color:var(--muted)}
+
+  .mobar{display:none}
+  @media (max-width:900px){
+    .mobar{display:block;position:fixed;left:0;right:0;bottom:0;z-index:20;padding:10px 16px calc(10px + env(safe-area-inset-bottom));
+           background:rgba(13,14,32,.94);backdrop-filter:blur(10px);border-top:1px solid var(--line)}
+    .mobar .row2{display:flex;align-items:center;justify-content:space-between;gap:10px}
+    .mobar span{font-family:var(--mono);font-size:11px;color:var(--dim)}
+    .mobar .btn{flex:1;max-width:230px}
+  }
+  .hidden{display:none!important}
+</style>
+</head>
+<body>
+<div class="wrap">
+
+  <header class="site">
+    <div class="brand">
+      <img src="/assets/logo-topup.webp" alt="TOPUP" width="52" height="46">
+      <div class="brand-txt">
+        <div class="n">Winstaller</div>
+        <div class="s">topup.eu.org</div>
+      </div>
+    </div>
+    <span class="badge">gratis · tanpa login</span>
+  </header>
+
+  <section class="hero">
+    <p class="kicker">Linux VPS → Windows Server</p>
+    <h1>Ubah VPS Linux jadi <span class="win">Windows Server</span> <span class="arrow">lewat SSH</span></h1>
+    <p>Tanpa ISO, tanpa panel, tanpa instal manual. Isi kredensial SSH, pilih versi, dan server
+       akan di-<em>reinstall</em> jadi Windows dengan RDP siap pakai. Terbuka untuk siapa saja.</p>
+  </section>
+
+  <div class="strip" role="alert">
+    <span class="i">HATI-HATI</span>
+    <p><b>Operasi destruktif.</b> Seluruh disk VPS tujuan ditimpa Windows — semua data Linux hilang
+       dan tidak bisa dikembalikan. Hanya jalankan pada server yang datanya sudah kamu backup.</p>
+  </div>
+
+  <div class="grid">
+    <section class="card pad">
+      <form id="form" novalidate autocomplete="off">
+
+        <div class="sec">
+          <div class="num">01</div>
+          <div>
+            <h2>Versi Windows</h2>
+            <p class="note">Image resmi Microsoft + driver virtio, dipasang unattended.</p>
+            <div class="opts">
+              <label class="opt">
+                <input type="radio" name="os" value="ws2022" checked>
+                <span class="dot"></span>
+                <span>
+                  <span class="t">Windows Server 2022 <span class="tag hot">disarankan</span></span>
+                  <span class="d">Dukungan sampai 2031. Butuh RAM ≥ 4&nbsp;GB.</span>
+                </span>
+              </label>
+              <label class="opt">
+                <input type="radio" name="os" value="ws2019">
+                <span class="dot"></span>
+                <span>
+                  <span class="t">Windows Server 2019 <span class="tag">ringan</span></span>
+                  <span class="d">Lebih hemat RAM — layak untuk VPS 2&nbsp;GB.</span>
+                </span>
+              </label>
+            </div>
+          </div>
+        </div>
+
+        <div class="sec">
+          <div class="num">02</div>
+          <div>
+            <h2>Metode</h2>
+            <p class="note">Menentukan seberapa besar risiko server tidak kembali online.</p>
+            <div class="opts">
+              <label class="opt">
+                <input type="radio" name="mode" value="rescue" checked>
+                <span class="dot"></span>
+                <span>
+                  <span class="t">Rescue <span class="tag hot">paling aman</span></span>
+                  <span class="d">Boot ke rescue Linux dulu, baru tulis disk. Bootloader dan IP dirapikan setelahnya.</span>
+                </span>
+              </label>
+              <label class="opt">
+                <input type="radio" name="mode" value="live">
+                <span class="dot"></span>
+                <span>
+                  <span class="t">Live <span class="tag pink">best-effort</span></span>
+                  <span class="d">Langsung dari OS yang berjalan. Cepat, tapi bisa gagal boot atau RDP tidak terbuka.</span>
+                </span>
+              </label>
+            </div>
+
+            <div class="provider">
+              <span class="lbl" style="margin:0">Penyedia VPS</span>
+              <div class="chips" id="chips" role="group" aria-label="Penyedia VPS">
+                <button type="button" class="chip" data-p="spaceship">Spaceship</button>
+                <button type="button" class="chip" data-p="hetzner">Hetzner</button>
+                <button type="button" class="chip" data-p="contabo">Contabo</button>
+                <button type="button" class="chip" data-p="vultr">Vultr</button>
+                <button type="button" class="chip" data-p="do">DigitalOcean</button>
+                <button type="button" class="chip" data-p="other">Lainnya</button>
+              </div>
+              <p class="pnote" id="pnote">Pilih penyedia agar aku ingatkan kalau rescue tidak tersedia.</p>
+            </div>
+          </div>
+        </div>
+
+        <div class="sec">
+          <div class="num">03</div>
+          <div>
+            <h2>VPS tujuan</h2>
+            <p class="note">Kredensial hanya dipakai runner untuk sesi ini, lalu dihapus.</p>
+            <div class="row">
+              <label class="f">
+                <span class="lbl">Host / IP <span class="sub">wajib</span></span>
+                <input type="text" id="host" placeholder="203.0.113.24" spellcheck="false" inputmode="url">
+              </label>
+              <label class="f">
+                <span class="lbl">Port SSH</span>
+                <input type="number" id="port" value="22" min="1" max="65535" inputmode="numeric">
+              </label>
+            </div>
+            <div class="row">
+              <label class="f">
+                <span class="lbl">User</span>
+                <input type="text" id="user" value="root" spellcheck="false">
+              </label>
+              <div class="f">
+                <span class="lbl">Autentikasi</span>
+                <div class="seg" role="group" aria-label="Autentikasi">
+                  <button type="button" data-auth="pass" aria-pressed="true">password</button>
+                  <button type="button" data-auth="key" aria-pressed="false">private key</button>
+                </div>
+              </div>
+            </div>
+            <label class="f" id="passWrap">
+              <span class="lbl">Password root</span>
+              <input type="password" id="pass" placeholder="••••••••••" autocomplete="new-password">
+            </label>
+            <label class="f hidden" id="keyWrap">
+              <span class="lbl">Private key <span class="sub">PEM / OpenSSH, satu blok</span></span>
+              <input type="text" id="key" placeholder="-----BEGIN OPENSSH PRIVATE KEY-----">
+            </label>
+          </div>
+        </div>
+
+        <div class="sec">
+          <div class="num">04</div>
+          <div>
+            <h2>Opsi Windows</h2>
+            <p class="note">Kosongkan password bila ingin dibuat otomatis.</p>
+            <div class="row">
+              <label class="f">
+                <span class="lbl">Hostname</span>
+                <input type="text" id="hostname" value="winserver" spellcheck="false">
+              </label>
+              <label class="f">
+                <span class="lbl">Password Administrator <span class="sub">opsional</span></span>
+                <input type="password" id="adminPass" placeholder="otomatis">
+              </label>
+            </div>
+          </div>
+        </div>
+
+        <div class="sec">
+          <div class="num">05</div>
+          <div>
+            <h2>Jaringan <span class="tag" style="vertical-align:2px">opsional</span></h2>
+            <p class="note">Biarkan kosong kalau VPS memakai DHCP. Isi manual kalau IP-nya statis — ini penyebab RDP gagal nomor satu.</p>
+            <div class="row">
+              <label class="f">
+                <span class="lbl">IP statis</span>
+                <input type="text" id="staticIp" placeholder="203.0.113.24" spellcheck="false">
+              </label>
+              <label class="f">
+                <span class="lbl">Gateway</span>
+                <input type="text" id="gateway" placeholder="auto-deteksi" spellcheck="false">
+              </label>
+            </div>
+            <div class="row">
+              <label class="f">
+                <span class="lbl">DNS 1</span>
+                <input type="text" id="dns1" placeholder="1.1.1.1" spellcheck="false">
+              </label>
+              <label class="f">
+                <span class="lbl">DNS 2</span>
+                <input type="text" id="dns2" placeholder="8.8.8.8" spellcheck="false">
+              </label>
+            </div>
+          </div>
+        </div>
+
+        <label class="ack">
+          <input type="checkbox" id="ack">
+          <span>Saya paham disk VPS tujuan akan ditimpa penuh dan seluruh data di dalamnya hilang permanen.</span>
+        </label>
+
+        <div class="actions">
+          <button type="button" class="btn primary" id="startBtn" disabled>Mulai instalasi</button>
+          <span class="msg" id="msg" role="status"></span>
+        </div>
+      </form>
+    </section>
+
+    <aside class="rail">
+      <section class="card sum">
+        <h3>Ringkasan</h3>
+        <dl>
+          <div class="li"><dt>Windows</dt><dd id="sOs">Server 2022</dd></div>
+          <div class="li"><dt>Metode</dt><dd id="sMode">live</dd></div>
+          <div class="li"><dt>Penyedia</dt><dd id="sProv" class="empty">belum dipilih</dd></div>
+          <div class="li"><dt>Tujuan</dt><dd id="sHost" class="empty">belum diisi</dd></div>
+          <div class="li"><dt>Hostname</dt><dd id="sHostname">winserver</dd></div>
+        </dl>
+        <button type="button" class="btn primary wide" id="railStart" disabled>Mulai instalasi</button>
+        <p class="hint" id="railNote">Centang konfirmasi di form untuk mengaktifkan.</p>
+      </section>
+
+      <section class="card prog">
+        <div class="statusrow">
+          <h3 style="margin:0">Progres</h3>
+          <span class="st" id="st">idle</span>
+        </div>
+        <div class="bar"><i id="bar"></i></div>
+        <ol class="steps" id="steps">
+          <li data-s="queue"><span class="b">1</span><span>Job diterima</span><span class="t"></span></li>
+          <li data-s="preflight"><span class="b">2</span><span>Cek kesesuaian</span><span class="t"></span></li>
+          <li data-s="download"><span class="b">3</span><span>Ambil image Windows</span><span class="t"></span></li>
+          <li data-s="apply"><span class="b">4</span><span>Tulis ke disk</span><span class="t"></span></li>
+          <li data-s="reboot"><span class="b">5</span><span>Reboot ke Windows</span><span class="t"></span></li>
+          <li data-s="rdp"><span class="b">6</span><span>Cek RDP 3389</span><span class="t"></span></li>
+        </ol>
+        <div class="log" id="log" aria-live="polite">menunggu job…</div>
+        <p class="hint" id="railHint"><b>Gratis dan terbuka.</b> Job antre diproses satu per satu oleh runner.</p>
+      </section>
+    </aside>
+  </div>
+
+  <div class="foot">
+    <span>wininstaller.topup.eu.org</span>
+    <span>KVM · Ubuntu/Debian · OpenVZ ditolak otomatis</span>
+  </div>
+</div>
+
+<div class="mobar">
+  <div class="row2">
+    <span id="mstate">idle</span>
+    <button type="button" class="btn primary" id="mStart" disabled>Mulai instalasi</button>
+  </div>
+</div>
+
+<script>
+(() => {
+  const $ = (s) => document.querySelector(s);
+  const form = $('#form');
+  const state = { provider: null, jobId: null, timer: null, started: false };
+
+  // ---------- autentikasi ----------
+  document.querySelectorAll('[data-auth]').forEach((b) => {
+    b.addEventListener('click', () => {
+      document.querySelectorAll('[data-auth]').forEach((x) => x.setAttribute('aria-pressed', 'false'));
+      b.setAttribute('aria-pressed', 'true');
+      const isKey = b.dataset.auth === 'key';
+      $('#passWrap').classList.toggle('hidden', isKey);
+      $('#keyWrap').classList.toggle('hidden', !isKey);
+      state.auth = isKey ? 'key' : 'pass';
+    });
+  });
+  state.auth = 'pass';
+
+  // ---------- penyedia ----------
+  const PROVIDERS = {
+    spaceship: { name: 'Spaceship', rescue: false, note: 'Spaceship tidak menyediakan rescue boot maupun ISO mount — hanya console dan Reinstall VM. Pakai mode Live, dan siapkan Reinstall VM sebagai jalan pulang.' },
+    hetzner: { name: 'Hetzner', rescue: true, note: 'Hetzner Cloud punya Rescue: tab Rescue di server → aktifkan → reboot → login dengan password sementara.' },
+    contabo: { name: 'Contabo', rescue: true, note: 'Contabo punya Rescue Mode di Customer Control Panel.' },
+    vultr: { name: 'Vultr', rescue: true, note: 'Vultr menyediakan Custom ISO dan View Console untuk masuk ke rescue.' },
+    do: { name: 'DigitalOcean', rescue: false, note: 'DigitalOcean hanya punya Recovery Console (VNC), tanpa rescue boot. Rescue berarti boot live ISO lewat custom image.' },
+    other: { name: 'Lainnya', rescue: null, note: 'Cari “Rescue System”, “Boot menu”, atau “Custom ISO” di panel penyediamu.' },
+  };
+
+  document.querySelectorAll('#chips .chip').forEach((c) => {
+    c.addEventListener('click', () => {
+      document.querySelectorAll('#chips .chip').forEach((x) => x.setAttribute('aria-pressed', 'false'));
+      c.setAttribute('aria-pressed', 'true');
+      state.provider = c.dataset.p;
+      const prov = PROVIDERS[state.provider];
+      if (prov && prov.rescue === false && currentMode() === 'rescue') {
+        const live = document.querySelector('input[name=mode][value=live]');
+        live.checked = true;
+        live.dispatchEvent(new Event('change', { bubbles: true }));
+      }
+      renderProvider();
+    });
+  });
+
+  function currentMode() { return document.querySelector('input[name=mode]:checked').value; }
+
+  function renderProvider() {
+    const p = PROVIDERS[state.provider];
+    const note = $('#pnote');
+    $('#sProv').textContent = p ? p.name : 'belum dipilih';
+    $('#sProv').classList.toggle('empty', !p);
+    if (!p) { note.className = 'pnote'; note.textContent = 'Pilih penyedia agar aku ingatkan kalau rescue tidak tersedia.'; return; }
+    note.className = 'pnote' + (p.rescue === false && currentMode() === 'rescue' ? ' warn' : '');
+    note.textContent = p.note;
+    if (p.rescue === false && currentMode() === 'rescue') note.textContent = '⚠ ' + p.note;
+  }
+
+  // ---------- ringkasan ----------
+  const osLabel = { ws2022: 'Server 2022', ws2019: 'Server 2019' };
+  function renderSummary() {
+    $('#sOs').textContent = osLabel[document.querySelector('input[name=os]:checked').value];
+    $('#sMode').textContent = currentMode();
+    $('#sHost').textContent = $('#host').value.trim() || 'belum diisi';
+    $('#sHost').classList.toggle('empty', !$('#host').value.trim());
+    $('#sHostname').textContent = $('#hostname').value.trim() || 'winserver';
+    renderProvider();
+  }
+  form.addEventListener('input', () => { renderSummary(); gate(); });
+  form.addEventListener('change', () => { renderSummary(); gate(); });
+  document.querySelectorAll('input[name=mode]').forEach((r) => r.addEventListener('change', renderProvider));
+
+  // ---------- gate ----------
+  const ack = $('#ack'), startBtn = $('#startBtn'), mStart = $('#mStart'), railStart = $('#railStart');
+  function gate() {
+    const missing = [];
+    if (!$('#host').value.trim()) missing.push('host/IP');
+    const secret = state.auth === 'key' ? $('#key').value.trim() : $('#pass').value;
+    if (!secret) missing.push(state.auth === 'key' ? 'private key' : 'password');
+    if (!ack.checked) missing.push('centang konfirmasi');
+    const ok = missing.length === 0 && !state.running;
+    startBtn.disabled = !ok;
+    mStart.disabled = !ok;
+    railStart.disabled = !ok;
+    $('#railNote').textContent = missing.length
+      ? 'Lengkapi dulu: ' + missing.join(' · ') + '.'
+      : 'Siap dijalankan — disk VPS tujuan akan ditimpa.';
+  }
+  ack.addEventListener('change', gate);
+
+  // ---------- progres ----------
+  const ORDER = ['queue', 'preflight', 'download', 'apply', 'reboot', 'rdp'];
+  const PCT = { queue: 6, preflight: 16, download: 42, apply: 68, reboot: 82, rdp: 96 };
+  const st = $('#st'), bar = $('#bar'), log = $('#log');
+
+  function setStatus(text, cls) {
+    st.textContent = text;
+    st.className = 'st' + (cls ? ' ' + cls : '');
+    $('#mstate').textContent = text;
+  }
+  function step(name, kind, time) {
+    const li = document.querySelector('[data-s="' + name + '"]');
+    if (!li) return;
+    li.classList.remove('on', 'ok');
+    if (kind) li.classList.add(kind);
+    if (kind === 'ok') li.querySelector('.b').textContent = '✓';
+    if (time) li.querySelector('.t').textContent = time;
+  }
+  function setBar(name) { if (PCT[name] != null) bar.style.width = PCT[name] + '%'; }
+
+  function renderLog(events) {
+    if (!events || !events.length) return;
+    log.textContent = '';
+    for (const e of events) {
+      const d = document.createElement('div');
+      const t = new Date(e.ts * 1000).toTimeString().slice(0, 8);
+      const cls = e.level === 'ok' ? 'ok' : e.level === 'err' ? 'er' : e.level === 'warn' ? 'wn' : e.level === 'ac' ? 'ac' : '';
+      d.innerHTML = '<span class="t">' + t + '</span> ' + (cls ? '<span class="' + cls + '">' + esc(e.msg) + '</span>' : esc(e.msg));
+      log.appendChild(d);
+    }
+    log.scrollTop = log.scrollHeight;
+  }
+  function esc(s) { return String(s).replace(/[&<>"]/g, (c) => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;' }[c])); }
+
+  // ---------- submit ----------
+  async function submit() {
+    const msg = $('#msg');
+    msg.className = 'msg';
+    msg.textContent = '';
+    const host = $('#host').value.trim();
+    if (!host) { fail('#host', 'Host/IP wajib diisi.'); return; }
+    const secret = state.auth === 'key' ? $('#key').value.trim() : $('#pass').value;
+    if (!secret) { fail(state.auth === 'key' ? '#key' : '#pass', state.auth === 'key' ? 'Private key kosong.' : 'Password root kosong.'); return; }
+
+    const payload = {
+      ack: true,
+      os: document.querySelector('input[name=os]:checked').value,
+      mode: currentMode(),
+      host,
+      port: Number($('#port').value || 22),
+      user: $('#user').value.trim() || 'root',
+      auth: state.auth,
+      hostname: $('#hostname').value.trim() || 'winserver',
+      adminPass: $('#adminPass').value.trim(),
+      staticIp: $('#staticIp').value.trim(),
+      gateway: $('#gateway').value.trim(),
+      dns1: $('#dns1').value.trim(),
+      dns2: $('#dns2').value.trim(),
+    };
+    if (state.auth === 'key') payload.key = secret; else payload.password = secret;
+
+    state.running = true; gate();
+    startBtn.textContent = 'Mengirim…';
+    setStatus('mengirim', 'live');
+
+    try {
+      const res = await fetch('/api/jobs', { method: 'POST', headers: { 'content-type': 'application/json' }, body: JSON.stringify(payload) });
+      const data = await res.json();
+      if (!res.ok || !data.ok) throw new Error(data.error || 'gagal membuat job');
+      state.jobId = data.id;
+      localStorage.setItem('wi_job', data.id);
+      $('#pass').value = '';
+      msg.className = 'msg good';
+      msg.textContent = 'Job diterima. Jangan tutup halaman ini.';
+      poll(true);
+    } catch (e) {
+      state.running = false; gate();
+      startBtn.textContent = 'Mulai instalasi';
+      setStatus('gagal', 'err');
+      msg.className = 'msg bad';
+      msg.textContent = e.message;
+    }
+  }
+
+  function fail(sel, text) {
+    const el = $(sel);
+    el.classList.add('bad');
+    el.focus();
+    setTimeout(() => el.classList.remove('bad'), 2200);
+    const msg = $('#msg');
+    msg.className = 'msg bad';
+    msg.textContent = text;
+  }
+
+  // ---------- polling ----------
+  async function poll(immediate) {
+    if (!state.jobId) return;
+    try {
+      const res = await fetch('/api/jobs/' + state.jobId, { cache: 'no-store' });
+      if (!res.ok) throw new Error('job tidak ditemukan');
+      const data = await res.json();
+      const job = data.job;
+
+      const last = data.events.length ? data.events[data.events.length - 1] : null;
+      if (last && last.step && ORDER.includes(last.step)) {
+        const idx = ORDER.indexOf(last.step);
+        ORDER.forEach((s, i) => { if (i < idx) step(s, 'ok'); });
+        step(last.step, job.status === 'done' ? 'ok' : 'on');
+        setBar(last.step);
+      }
+
+      renderLog(data.events);
+
+      if (job.status === 'queued') {
+        setStatus('antre', 'live');
+        $('#railHint').innerHTML = '<b>Menunggu runner.</b> Job akan mulai otomatis. Kalau lebih dari 10 menit tetap antre, runner sedang offline.';
+      } else if (job.status === 'claimed' || job.status === 'running') {
+        setStatus('jalan', 'live');
+        bar.style.width = bar.style.width || '10%';
+      } else if (job.status === 'done') {
+        setStatus('selesai', 'done');
+        bar.style.width = '100%';
+        step('rdp', 'ok');
+        state.running = false; state.done = true; gate();
+        startBtn.textContent = 'Selesai';
+        $('#railHint').innerHTML = '<b>Windows siap.</b> RDP <code style="font-family:var(--mono)">' + esc(job.host) + ':3389</code>' +
+          (job.adminPass ? ' · Administrator <code style="font-family:var(--mono)">' + esc(job.adminPass) + '</code>' : '');
+        return;
+      } else if (job.status === 'error') {
+        setStatus('gagal', 'err');
+        state.running = false; gate();
+        startBtn.textContent = 'Coba lagi';
+        $('#railHint').innerHTML = '<b>Gagal:</b> ' + esc(job.error || 'lihat log di atas.');
+        return;
+      }
+    } catch (e) {
+      setStatus('terputus', 'err');
+    }
+    clearTimeout(state.timer);
+    state.timer = setTimeout(poll, 2500);
+  }
+
+  startBtn.addEventListener('click', submit);
+  mStart.addEventListener('click', submit);
+  railStart.addEventListener('click', submit);
+
+  // ---------- resume job lama ----------
+  const saved = localStorage.getItem('wi_job');
+  if (saved) {
+    state.jobId = saved;
+    poll(true);
+  }
+
+  // status runner
+  (async () => {
+    try {
+      const r = await fetch('/api/health', { cache: 'no-store' });
+      const h = await r.json();
+      const hint = $('#railHint');
+      if (h.runner) {
+        hint.innerHTML = '<b><span style="color:var(--green)">●</span> Runner online.</b> Job langsung diproses (antrean: ' + (h.queued || 0) + ').';
+      } else {
+        hint.innerHTML = '<b><span style="color:var(--red)">●</span> Runner offline.</b> Job akan antre sampai runner hidup kembali.';
+      }
+    } catch {}
+  })();
+
+  renderSummary();
+  gate();
+})();
+</script>
+</body>
+</html>

@@ -1,0 +1,20 @@
+[Unit]
+Description=wininstaller runner (Linux VPS -> Windows Server)
+After=network-online.target
+Wants=network-online.target
+
+[Service]
+Type=simple
+User=wininstaller
+WorkingDirectory=/opt/wininstaller/runner
+ExecStart=/opt/wininstaller/runner/.venv/bin/python runner.py
+Restart=always
+RestartSec=10
+NoNewPrivileges=yes
+PrivateTmp=yes
+ProtectSystem=strict
+ProtectHome=yes
+ReadWritePaths=/opt/wininstaller/runner
+
+[Install]
+WantedBy=multi-user.target
