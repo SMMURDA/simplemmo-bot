@@ -165,7 +165,7 @@ async def connect(job):
 
 
 async def preflight(conn, rep: Reporter) -> dict:
-    rep.step('preflight', 'memeriksa sistem: virtualisasi, RAM, disk, boot mode')
+    rep.step('preflight', 'inspecting system: virtualisation, RAM, disk, boot mode')
     res = await conn.run(PREFLIGHT_SH, check=False, timeout=60)
     line = ''
     for ln in (res.stdout or '').splitlines():
@@ -173,7 +173,7 @@ async def preflight(conn, rep: Reporter) -> dict:
             line = ln
             break
     if not line:
-        raise RuntimeError('tidak bisa membaca informasi sistem (bukan Linux?)')
+        raise RuntimeError('could not read system information (is this a Linux box?)')
 
     _, virt, mem, disk, boot, grub, kexec, osid = line.split('|')[:8]
     info = {
@@ -183,13 +183,13 @@ async def preflight(conn, rep: Reporter) -> dict:
     rep.add(f'os={osid} virt={virt} ram={info["mem"]}MB disk={info["disk"]}GB boot={boot} grub={grub} kexec={kexec}')
 
     if virt in BLOCKED_VIRT:
-        raise RuntimeError(f'virtualisasi {virt} tidak didukung (butuh KVM/bare metal)')
+        raise RuntimeError(f'virtualisation {virt} is not supported (KVM or bare metal required)')
     if info['mem'] < MIN_MEM_MB:
-        raise RuntimeError(f'RAM {info["mem"]} MB terlalu kecil (minimal ~2 GB)')
+        raise RuntimeError(f'RAM {info["mem"]} MB is too small (about 2 GB minimum)')
     if info['disk'] < MIN_DISK_GB:
-        raise RuntimeError(f'sisa disk {info["disk"]} GB terlalu kecil (minimal {MIN_DISK_GB} GB)')
+        raise RuntimeError(f'free disk {info["disk"]} GB is too small ({MIN_DISK_GB} GB minimum)')
 
-    rep.step('preflight', f'lolos syarat · {virt} · {info["mem"]} MB · {info["disk"]} GB · {boot}', 'ok')
+    rep.step('preflight', f'preflight passed · {virt} · {info["mem"]} MB · {info["disk"]} GB · {boot}', 'ok')
     return info
 
 
@@ -245,11 +245,11 @@ async def wait_rdp(host: str, minutes: int, rep: Reporter, api: 'Api | None' = N
                 await writer.wait_closed()
             except Exception:
                 pass
-            rep.step('rdp', f'port 3389 terbuka setelah {attempt} percobaan', 'ok')
+            rep.step('rdp', f'port 3389 opened after {attempt} attempts', 'ok')
             return True
         except (OSError, asyncio.TimeoutError):
             if attempt % 6 == 0:
-                rep.add(f'menunggu RDP… ({attempt} percobaan, sisa {int((deadline - time.time()) / 60)} menit)', 'info', 'rdp')
+                rep.add(f'waiting for RDP… ({attempt} attempts, {int((deadline - time.time()) / 60)} min left)', 'info', 'rdp')
             if api and attempt % 3 == 0:
                 api.heartbeat()  # agar /api/health tidak melaporkan runner mati saat sedang sibuk
         await asyncio.sleep(20)
@@ -258,33 +258,33 @@ async def wait_rdp(host: str, minutes: int, rep: Reporter, api: 'Api | None' = N
 
 async def run_job(api: Api, job: dict, hold: bool, rdp_wait: int, dry: bool):
     rep = Reporter(api, job['id'], secrets=(job.get('adminPass') or '', job.get('secret') or ''))
-    rep.step('queue', f"job {job['id'][:8]} diterima · {job.get('osName')} · mode {job.get('mode')}", 'ac')
+    rep.step('queue', f"job {job['id'][:8]} accepted · {job.get('osName')} · mode {job.get('mode')}", 'ac')
     rep.add(f"target {job['sshUser']}@{job['host']}:{job['port']} · hostname {job.get('hostname')}")
 
     if job.get('mode') == 'rescue':
-        rep.add('mode rescue: pastikan VPS sudah di-boot ke rescue/live Linux sebelum job ini', 'warn')
+        rep.add('rescue mode: make sure the VPS is already booted into the provider rescue/live Linux', 'warn')
 
     if dry:
-        rep.add('[dry-run] tidak menyentuh server', 'ac')
-        rep.add('[dry-run] perintah: ' + redact(build_command(job, hold), job))
+        rep.add('[dry-run] not touching the server', 'ac')
+        rep.add('[dry-run] command: ' + redact(build_command(job, hold), job))
         rep.flush(force=True)
-        api.events(job['id'], [{'level': 'warn', 'step': 'apply', 'msg': 'dry-run: job tidak dieksekusi'}],
-                   status='error', error='dry-run (tidak dieksekusi)')
+        api.events(job['id'], [{'level': 'warn', 'step': 'apply', 'msg': 'dry-run: job not executed'}],
+                   status='error', error='dry-run (not executed)')
         return
 
     try:
         conn = await connect(job)
     except Exception as e:
-        api.events(job['id'], [{'level': 'err', 'step': 'queue', 'msg': f'SSH gagal: {e}'}], status='error',
-                   error='SSH gagal — periksa IP, port, user, dan kredensial')
+        api.events(job['id'], [{'level': 'err', 'step': 'queue', 'msg': f'SSH failed: {e}'}], status='error',
+                   error='SSH failed — check the IP, port, user and credentials')
         rep.flush(force=True)
         return
 
     try:
-        rep.step('queue', 'SSH terhubung', 'ok')
+        rep.step('queue', 'SSH connected', 'ok')
         await preflight(conn, rep)
 
-        rep.step('download', 'mengunduh script reinstall resmi (bin456789/reinstall)')
+        rep.step('download', 'downloading the official reinstall script (bin456789/reinstall)')
         dl = await conn.run(
             'curl -fsSL --retry 2 -o /tmp/wi-reinstall.sh '
             'https://raw.githubusercontent.com/bin456789/reinstall/main/reinstall.sh '
@@ -292,18 +292,18 @@ async def run_job(api: Api, job: dict, hold: bool, rdp_wait: int, dry: bool):
             check=False,
         )
         if dl.exit_status != 0:
-            raise RuntimeError('gagal mengunduh script: ' + (dl.stderr or '').strip()[:200])
-        rep.add('script siap: ' + (dl.stdout or '').strip(), 'ok', 'download')
+            raise RuntimeError('could not download the script: ' + (dl.stderr or '').strip()[:200])
+        rep.add('script ready: ' + (dl.stdout or '').strip(), 'ok', 'download')
 
         cmd = build_command(job, hold)
-        rep.step('apply', 'menjalankan instalasi — server akan menulis disk lalu reboot')
-        rep.add('perintah: ' + redact(cmd, job))
+        rep.step('apply', 'running the installation — the server will write the disk and reboot')
+        rep.add('command: ' + redact(cmd, job))
 
         process = await conn.create_process(cmd, term_type=None)
         try:
             await asyncio.wait_for(stream_process(process, rep, 'apply'), timeout=5400)
         except asyncio.TimeoutError:
-            raise RuntimeError('instalasi melewati batas 90 menit tanpa selesai')
+            raise RuntimeError('installation exceeded the 90 minute limit without finishing')
 
         # Script hanya MENYIAPKAN entri GRUB; reboot tidak terjadi saat sesi
         # non-interaktif (tidak ada tty untuk konfirmasi). Jadi reboot dilakukan di sini.
@@ -313,32 +313,32 @@ async def run_job(api: Api, job: dict, hold: bool, rdp_wait: int, dry: bool):
             pass
 
         if not hold:
-            rep.step('reboot', 'instalasi siap — me-reboot server sekarang')
+            rep.step('reboot', 'installation staged — rebooting the server now')
             rb = await conn.run('(sleep 3; reboot) >/dev/null 2>&1 & echo reboot-terkirim',
                                 check=False, timeout=30)
-            rep.add('reboot: ' + ((rb.stdout or '').strip() or 'dikirim'))
+            rep.add('reboot: ' + ((rb.stdout or '').strip() or 'sent'))
 
         conn.close()
 
         if hold:
-            rep.step('reboot', 'mode --hold 1: instalasi tidak dijalankan. Cek SSH/console manual.', 'warn')
+            rep.step('reboot', 'hold mode: installation not started. Check SSH/console manually.', 'warn')
             api.events(job['id'], [], status='done')
             rep.flush(force=True)
             return
 
-        rep.step('rdp', f'menunggu port 3389 di {job["host"]} (maks {rdp_wait} menit)')
+        rep.step('rdp', f'waiting for port 3389 on {job["host"]} (up to {rdp_wait} min)')
         ok = await wait_rdp(job['host'], rdp_wait, rep, api)
         if ok:
             api.events(job['id'], [], status='done')
-            rep.step('rdp', f'Windows siap · RDP {job["host"]}:3389 · user Administrator', 'ok')
+            rep.step('rdp', f'Windows is ready · RDP {job["host"]}:3389 · user Administrator', 'ok')
         else:
             api.events(job['id'], [{'level': 'warn', 'step': 'rdp',
-                                    'msg': 'RDP belum terbuka; Windows mungkin masih boot atau IP perlu diset manual'}],
-                       status='error', error='RDP tidak terbuka dalam batas waktu')
+                                    'msg': 'RDP did not open; Windows may still be booting or the IP needs to be set manually'}],
+                       status='error', error='RDP did not open within the time limit')
         rep.flush(force=True)
     except Exception as e:
-        log('job gagal:', e)
-        rep.step('apply', f'gagal: {e}', 'err')
+        log('job failed:', e)
+        rep.step('apply', f'failed: {e}', 'err')
         api.events(job['id'], [], status='error', error=str(e)[:400])
         rep.flush(force=True)
         try:
@@ -354,15 +354,15 @@ async def main_async(args, api: Api, hold: bool):
         try:
             job = await asyncio.to_thread(api.next_job)
         except Exception as e:
-            log('! poll gagal:', e)
+            log('! poll failed:', e)
             job = None
         if not job:
             idle += 1
             if args.once:
-                log('tidak ada job.')
+                log('no job.')
                 return
             if idle % 12 == 0:
-                log('menunggu job…')
+                log('waiting for a job…')
             await asyncio.sleep(args.poll)
             continue
         idle = 0

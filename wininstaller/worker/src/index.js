@@ -67,7 +67,7 @@ async function encryptCreds(secret, obj) {
 
 async function decryptCreds(secret, blob) {
   const [ivB64, ctB64] = String(blob).split('.');
-  if (!ivB64 || !ctB64) throw new Error('creds rusak');
+  if (!ivB64 || !ctB64) throw new Error('corrupted credentials');
   const key = await keyFrom(secret);
   const pt = await crypto.subtle.decrypt(
     { name: 'AES-GCM', iv: fromB64(ivB64) },
@@ -120,38 +120,38 @@ async function hitRate(env, ip) {
 async function createJob(request, env) {
   const ip = request.headers.get('cf-connecting-ip') || 'unknown';
   const raw = await request.text();
-  if (raw.length > POLICY.maxBodyBytes) return err('payload terlalu besar', 413);
+  if (raw.length > POLICY.maxBodyBytes) return err('payload too large', 413);
 
   let body;
   try {
     body = JSON.parse(raw);
   } catch {
-    return err('JSON tidak valid');
+    return err('invalid JSON');
   }
 
-  if (body.ack !== true) return err('konfirmasi destruktif belum dicentang');
+  if (body.ack !== true) return err('the destructive confirmation is required');
 
   const os = str(body.os, 20);
   const mode = str(body.mode, 10);
-  if (!OS_MAP[os]) return err('versi Windows tidak dikenal');
-  if (mode !== 'live' && mode !== 'rescue') return err('metode tidak dikenal');
+  if (!OS_MAP[os]) return err('unknown Windows version');
+  if (mode !== 'live' && mode !== 'rescue') return err('unknown installation method');
 
   const host = str(body.host, 253);
-  if (!validHost(host)) return err('host/IP tidak valid');
+  if (!validHost(host)) return err('invalid host/IP');
 
   const port = Number(body.port || 22);
-  if (!Number.isInteger(port) || port < 1 || port > 65535) return err('port tidak valid');
+  if (!Number.isInteger(port) || port < 1 || port > 65535) return err('invalid port');
 
   const sshUser = str(body.user, 32) || 'root';
-  if (!/^[a-z_][a-z0-9_-]{0,31}$/i.test(sshUser)) return err('user SSH tidak valid');
+  if (!/^[a-z_][a-z0-9_-]{0,31}$/i.test(sshUser)) return err('invalid SSH user');
 
   const auth = str(body.auth, 10) === 'key' ? 'key' : 'pass';
   const secret = auth === 'key' ? str(body.key, 8000) : str(body.password, 200);
-  if (!secret) return err(auth === 'key' ? 'private key kosong' : 'password kosong');
+  if (!secret) return err(auth === 'key' ? 'private key is empty' : 'password is empty');
 
   const rate = await hitRate(env, ip);
   if (!rate.allowed) {
-    return err('terlalu banyak permintaan dari IP ini — coba lagi nanti', 429, {
+    return err('too many requests from this IP — try again later', 429, {
       limit: POLICY.maxJobsPerHourPerIp,
     });
   }
@@ -173,9 +173,9 @@ async function createJob(request, env) {
     adminPass,
   ).run();
 
-  await addEvents(env, id, [{ level: 'ac', step: 'queue', msg: `job dibuat · ${OS_MAP[os].name} · mode ${mode}` }]);
+  await addEvents(env, id, [{ level: 'ac', step: 'queue', msg: `job created · ${OS_MAP[os].name} · mode ${mode}` }]);
 
-  // bersih-bersih job lama
+  // prune old jobs
   const cutoff = now - POLICY.jobRetentionSec;
   await env.DB.batch([
     env.DB.prepare('DELETE FROM events WHERE job_id IN (SELECT id FROM jobs WHERE created_at < ?)').bind(cutoff),
@@ -237,7 +237,7 @@ async function runnerAuth(request, env) {
   const h = request.headers.get('authorization') || '';
   const token = h.startsWith('Bearer ') ? h.slice(7) : '';
   if (!env.RUNNER_TOKEN || token.length < 16) return false;
-  // perbandingan waktu-konstan sederhana
+  // constant-time comparison
   const a = enc.encode(token);
   const b = enc.encode(env.RUNNER_TOKEN);
   if (a.length !== b.length) return false;
@@ -277,7 +277,7 @@ async function runnerNext(request, env) {
     creds = job.creds_enc ? await decryptCreds(env.JOBS_KEY, job.creds_enc) : null;
   } catch (e) {
     await env.DB.prepare("UPDATE jobs SET status='error', error=?, creds_enc=NULL WHERE id=?")
-      .bind('kredensial tidak bisa didekripsi', job.id).run();
+      .bind('credentials could not be decrypted', job.id).run();
     return json({ ok: true, job: null });
   }
 
@@ -310,11 +310,11 @@ async function runnerNext(request, env) {
 
 async function runnerEvents(request, env, id) {
   const body = await request.json().catch(() => null);
-  if (!body) return err('JSON tidak valid');
+  if (!body) return err('invalid JSON');
   const events = Array.isArray(body.events) ? body.events : [];
 
   const job = await env.DB.prepare('SELECT id, status FROM jobs WHERE id = ?').bind(id).first();
-  if (!job) return err('job tidak ditemukan', 404);
+  if (!job) return err('job not found', 404);
 
   const count = await env.DB.prepare('SELECT COUNT(*) AS n FROM events WHERE job_id = ?').bind(id).first();
   const room = POLICY.maxEventsPerJob - (count?.n || 0);
@@ -367,12 +367,12 @@ export default {
 
         if (method === 'GET' && path.startsWith('/api/jobs/')) {
           const id = path.split('/')[3];
-          if (!/^[0-9a-f-]{36}$/i.test(id)) return err('id tidak valid');
+          if (!/^[0-9a-f-]{36}$/i.test(id)) return err('invalid job id');
           const data = await getJob(env, id);
-          return data ? json(data) : err('job tidak ditemukan', 404);
+          return data ? json(data) : err('job not found', 404);
         }
 
-        if (!(await runnerAuth(request, env))) return err('tidak diizinkan', 401);
+        if (!(await runnerAuth(request, env))) return err('unauthorized', 401);
 
         if (path === '/api/runner/heartbeat' && method === 'POST') {
           await markRunnerSeen(env, str(request.headers.get('x-runner-name'), 64) || 'runner');
@@ -384,9 +384,9 @@ export default {
         const m = path.match(/^\/api\/runner\/jobs\/([0-9a-f-]{36})\/events$/i);
         if (m && method === 'POST') return await runnerEvents(request, env, m[1]);
 
-        return err('tidak ditemukan', 404);
+        return err('not found', 404);
       } catch (e) {
-        return err('kesalahan server: ' + (e?.message || 'unknown'), 500);
+        return err('server error: ' + (e?.message || 'unknown'), 500);
       }
     }
 

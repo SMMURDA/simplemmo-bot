@@ -1,10 +1,10 @@
 <!DOCTYPE html>
-<html lang="id">
+<html lang="en">
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<title>Winstaller — TOPUP | Linux VPS ke Windows Server</title>
-<meta name="description" content="Pasang Windows Server di VPS Linux (KVM) lewat SSH, tanpa ISO dan tanpa panel. Gratis, tanpa login.">
+<title>Winstaller — TOPUP | Linux VPS to Windows Server</title>
+<meta name="description" content="Reinstall a Linux VPS (KVM) as Windows Server over SSH — no ISO, no control panel. Free, no login.">
 <link rel="icon" href="/assets/favicon.png">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -14,7 +14,6 @@
     --bg:#0d0e20;
     --bg-2:#111230;
     --panel:#16183a;
-    --panel-2:#1b1e45;
     --line:#2a2d5c;
     --line-soft:#22254d;
     --ink:#f5f4ff;
@@ -41,22 +40,24 @@
   }
   a{color:var(--pink);text-decoration:none}
   a:hover{text-decoration:underline}
-  .wrap{max-width:1180px;margin:0 auto;padding:0 20px 120px}
+  .wrap{max-width:1180px;margin:0 auto;padding:0 20px 80px}
 
   /* ---------- header ---------- */
   header.site{
     display:flex;align-items:center;justify-content:space-between;gap:16px;
-    padding:20px 0 18px;border-bottom:1px solid var(--line-soft);position:relative;
+    padding:20px 0 18px;border-bottom:1px solid var(--line-soft);
   }
   .brand{display:flex;align-items:center;gap:12px;min-width:0}
   .brand img{width:52px;height:auto;display:block;filter:drop-shadow(0 4px 10px rgba(0,0,0,.5))}
-  .brand-txt{min-width:0}
   .brand-txt .n{font-size:17px;font-weight:700;letter-spacing:-.01em;line-height:1.15}
   .brand-txt .s{font-family:var(--mono);font-size:10.5px;letter-spacing:.12em;text-transform:uppercase;color:var(--dim)}
-  .badge{
-    font-family:var(--mono);font-size:10.5px;letter-spacing:.08em;text-transform:uppercase;
-    color:var(--yellow);border:1px solid #4a3f0c;background:#221d05;padding:5px 10px;border-radius:99px;white-space:nowrap;
+  .devlink{
+    display:inline-flex;align-items:center;gap:7px;font-family:var(--mono);font-size:11px;letter-spacing:.14em;
+    text-transform:uppercase;color:var(--yellow);border:1px solid #4a3f0c;background:#221d05;
+    padding:7px 13px;border-radius:99px;white-space:nowrap;transition:.15s;
   }
+  .devlink:hover{background:#2c2607;text-decoration:none;color:#fff06a}
+  .devlink .dot{width:6px;height:6px;border-radius:50%;background:var(--yellow);box-shadow:0 0 8px rgba(255,226,46,.8)}
 
   /* ---------- hero ---------- */
   .hero{padding:34px 0 8px;max-width:780px}
@@ -71,7 +72,7 @@
     border:1px solid #5a1e22;border-left:3px solid var(--red);border-radius:10px;
     background:linear-gradient(180deg,rgba(255,122,122,.10),rgba(255,122,122,.04));
   }
-  .strip .i{font-family:var(--mono);color:var(--red);font-weight:500;font-size:11px;line-height:1.6;white-space:nowrap;letter-spacing:.06em}
+  .strip .i{font-family:var(--mono);color:var(--red);font-weight:500;font-size:11px;line-height:1.6;white-space:nowrap;letter-spacing:.08em}
   .strip p{margin:0;font-size:13.5px;color:#ffd9d9}
   .strip b{color:#fff}
 
@@ -118,8 +119,7 @@
 
   /* ---------- fields ---------- */
   .row{display:grid;grid-template-columns:1fr 1fr;gap:12px}
-  .row.three{grid-template-columns:1fr 1fr 1fr}
-  @media (max-width:620px){ .row,.row.three{grid-template-columns:1fr} }
+  @media (max-width:620px){ .row{grid-template-columns:1fr} }
   label.f{display:block;margin-top:12px}
   .lbl{display:flex;justify-content:space-between;gap:8px;font-family:var(--mono);font-size:10.5px;
        letter-spacing:.09em;text-transform:uppercase;color:var(--muted);margin-bottom:6px}
@@ -139,15 +139,6 @@
   .seg button[aria-pressed=true]{background:#221d05;color:var(--yellow)}
   .seg button + button{border-left:1px solid var(--line)}
 
-  .provider{margin-top:14px}
-  .chips{display:flex;flex-wrap:wrap;gap:7px;margin-top:8px}
-  .chip{font-family:var(--mono);font-size:11.5px;padding:7px 11px;border-radius:99px;cursor:pointer;
-        border:1px solid var(--line);background:#0e1030;color:var(--muted);transition:.15s}
-  .chip:hover{border-color:#3d4180;color:var(--ink)}
-  .chip[aria-pressed=true]{border-color:#5c520f;background:#221d05;color:var(--yellow)}
-  .pnote{margin:10px 0 0;font-size:12.5px;color:var(--dim)}
-  .pnote.warn{color:#ffd166}
-
   .ack{display:grid;grid-template-columns:18px 1fr;gap:12px;align-items:start;margin-top:18px;
        padding:14px;border:1px solid var(--line);border-radius:11px;background:#0e1030;font-size:13px;color:var(--muted);cursor:pointer}
   .ack input{appearance:none;width:18px;height:18px;border:1.5px solid #4a4e91;border-radius:5px;background:#0b0d26;
@@ -157,16 +148,28 @@
              border-width:0 2px 2px 0;transform:rotate(42deg)}
   .ack:has(input:checked){border-color:#5a1e22;color:#ffd9d9}
 
-  .actions{display:flex;gap:10px;margin-top:16px;flex-wrap:wrap;align-items:center}
+  .actions{display:flex;gap:14px;margin-top:16px;flex-wrap:wrap;align-items:center}
   .btn{font-family:var(--sans);font-size:14px;font-weight:600;border-radius:11px;padding:12px 18px;min-height:46px;
-       cursor:pointer;border:1px solid var(--line);background:#191c44;color:var(--ink);transition:.15s}
+       cursor:pointer;border:1px solid var(--line);background:#191c44;color:var(--ink);transition:.15s;
+       display:inline-flex;align-items:center;gap:10px}
   .btn:hover{background:#20244f;border-color:#3d4180}
   .btn.primary{background:var(--yellow);border-color:var(--yellow);color:var(--yellow-ink);font-weight:700}
   .btn.primary:hover{background:#fff06a}
   .btn:disabled{opacity:.55;cursor:not-allowed;background:#22254d;border-color:#33376b;color:#9a9ac4}
-  .msg{margin:12px 0 0;font-size:13px;color:var(--muted);min-height:20px}
+  .btn.running{background:#1c1a12;border-color:#5c520f;color:var(--yellow);cursor:progress;opacity:1}
+  .btn.done{background:#0b2318;border-color:#1f4d33;color:var(--green);opacity:1;cursor:default}
+  .msg{font-size:13px;color:var(--muted);min-height:20px}
   .msg.bad{color:var(--red)}
   .msg.good{color:var(--green)}
+
+  /* ---------- mini ring inside the button ---------- */
+  .miniring{width:22px;height:22px;flex:none}
+  .miniring .track{stroke:#3a3f76;stroke-width:9;fill:none}
+  .miniring .fill{stroke:var(--yellow);stroke-width:9;fill:none;stroke-linecap:round;
+                  transform:rotate(-90deg);transform-origin:50% 50%;transition:stroke-dashoffset .6s ease}
+  .miniring .spin{stroke:rgba(255,226,46,.35);stroke-width:9;fill:none;stroke-linecap:round;
+                  stroke-dasharray:18 100;transform-origin:50% 50%;animation:spin 1.4s linear infinite}
+  @keyframes spin{to{transform:rotate(360deg)}}
 
   /* ---------- rail ---------- */
   .rail{position:sticky;top:18px;display:grid;gap:16px}
@@ -180,7 +183,6 @@
   .sum dt{color:var(--dim)}
   .sum dd{margin:0;font-family:var(--mono);font-size:12px;color:var(--ink);text-align:right;word-break:break-all}
   .sum dd.empty{color:#5b5b85}
-  .btn.wide{width:100%;margin-top:14px}
 
   .prog{padding:18px}
   .statusrow{display:flex;align-items:center;justify-content:space-between;gap:10px;margin-bottom:12px}
@@ -189,9 +191,6 @@
   .st.live{color:var(--yellow);border-color:#5c520f;background:#221d05}
   .st.done{color:var(--green);border-color:#1f4d33;background:#0b2318}
   .st.err{color:var(--red);border-color:#5a1e22;background:#2a1113}
-
-  .bar{height:4px;background:#20234c;border-radius:99px;overflow:hidden;margin-bottom:14px}
-  .bar i{display:block;height:100%;width:0;background:linear-gradient(90deg,var(--pink),var(--yellow));transition:width .5s}
 
   .steps{list-style:none;margin:0 0 14px;padding:0}
   .steps li{display:grid;grid-template-columns:18px 1fr auto;gap:10px;align-items:center;padding:6px 0;font-size:12.5px;color:var(--dim)}
@@ -203,7 +202,7 @@
   .steps .t{font-family:var(--mono);font-size:10.5px}
 
   .log{background:#080a1d;border:1px solid var(--line-soft);border-radius:11px;padding:12px;
-       font-family:var(--mono);font-size:11.5px;line-height:1.7;color:#a9b0d6;height:210px;overflow-y:auto;white-space:pre-wrap;word-break:break-word}
+       font-family:var(--mono);font-size:11.5px;line-height:1.7;color:#a9b0d6;height:190px;overflow-y:auto;white-space:pre-wrap;word-break:break-word}
   .log .t{color:#4e5480}
   .log .ok{color:var(--green)}
   .log .er{color:var(--red)}
@@ -212,6 +211,27 @@
   .log::-webkit-scrollbar{width:7px}
   .log::-webkit-scrollbar-thumb{background:#262a58;border-radius:9px}
 
+  /* ---------- big gauge under the log ---------- */
+  .gaugewrap{display:flex;align-items:center;gap:16px;margin-top:14px;padding-top:14px;border-top:1px dashed var(--line-soft)}
+  .gauge{position:relative;width:96px;height:96px;flex:none}
+  .gauge svg{width:100%;height:100%;display:block}
+  .gauge .track{stroke:#242750;stroke-width:9;fill:none}
+  .gauge .fill{stroke:url(#grad);stroke-width:9;fill:none;stroke-linecap:round;
+               transform:rotate(-90deg);transform-origin:50% 50%;
+               transition:stroke-dashoffset .8s cubic-bezier(.4,0,.2,1)}
+  .gauge .pulse{stroke:rgba(255,226,46,.30);stroke-width:9;fill:none;stroke-linecap:round;
+                stroke-dasharray:20 130;transform-origin:50% 50%;opacity:0;animation:spin 1.8s linear infinite}
+  .gauge.live .pulse{opacity:1}
+  .gauge .lbl{position:absolute;inset:0;display:grid;place-content:center;text-align:center;line-height:1}
+  .gauge .lbl b{font-family:var(--mono);font-size:19px;font-weight:500;color:var(--ink);white-space:nowrap}
+  .gauge .lbl b i{font-style:normal;font-size:11px;color:var(--dim);margin-left:1px}
+  .gauge .lbl span{display:block;margin-top:4px;font-family:var(--mono);font-size:8.5px;letter-spacing:.1em;
+                   text-transform:uppercase;color:var(--dim)}
+  .gaugemeta{min-width:0}
+  .gaugemeta .stage{font-size:13px;font-weight:600;color:var(--ink);margin:0 0 2px}
+  .gaugemeta .sub{font-size:11.5px;color:var(--dim);margin:0}
+  .gaugemeta .sub code{font-family:var(--mono);font-size:11px;color:var(--muted)}
+
   .hint{margin:12px 0 0;font-size:12px;color:var(--dim);line-height:1.5}
   .hint b{color:var(--muted)}
 
@@ -219,14 +239,6 @@
         gap:14px;flex-wrap:wrap;font-family:var(--mono);font-size:11px;color:var(--dim)}
   .foot a{color:var(--muted)}
 
-  .mobar{display:none}
-  @media (max-width:900px){
-    .mobar{display:block;position:fixed;left:0;right:0;bottom:0;z-index:20;padding:10px 16px calc(10px + env(safe-area-inset-bottom));
-           background:rgba(13,14,32,.94);backdrop-filter:blur(10px);border-top:1px solid var(--line)}
-    .mobar .row2{display:flex;align-items:center;justify-content:space-between;gap:10px}
-    .mobar span{font-family:var(--mono);font-size:11px;color:var(--dim)}
-    .mobar .btn{flex:1;max-width:230px}
-  }
   .hidden{display:none!important}
 </style>
 </head>
@@ -241,20 +253,20 @@
         <div class="s">topup.eu.org</div>
       </div>
     </div>
-    <span class="badge">gratis · tanpa login</span>
+    <a class="devlink" href="https://dev.topup.eu.org"><span class="dot"></span>DEV</a>
   </header>
 
   <section class="hero">
     <p class="kicker">Linux VPS → Windows Server</p>
-    <h1>Ubah VPS Linux jadi <span class="win">Windows Server</span> <span class="arrow">lewat SSH</span></h1>
-    <p>Tanpa ISO, tanpa panel, tanpa instal manual. Isi kredensial SSH, pilih versi, dan server
-       akan di-<em>reinstall</em> jadi Windows dengan RDP siap pakai. Terbuka untuk siapa saja.</p>
+    <h1>Turn a Linux VPS into <span class="win">Windows Server</span> <span class="arrow">over SSH</span></h1>
+    <p>No ISO, no control panel, no manual install. Enter SSH credentials, pick a version, and the
+       server is reinstalled as Windows with RDP ready. Free and open to everyone.</p>
   </section>
 
   <div class="strip" role="alert">
-    <span class="i">HATI-HATI</span>
-    <p><b>Operasi destruktif.</b> Seluruh disk VPS tujuan ditimpa Windows — semua data Linux hilang
-       dan tidak bisa dikembalikan. Hanya jalankan pada server yang datanya sudah kamu backup.</p>
+    <span class="i">DESTRUCTIVE</span>
+    <p><b>This wipes the target disk.</b> Windows overwrites everything on the VPS — all Linux data
+       is lost and cannot be recovered. Only run it on a server you have already backed up.</p>
   </div>
 
   <div class="grid">
@@ -264,23 +276,23 @@
         <div class="sec">
           <div class="num">01</div>
           <div>
-            <h2>Versi Windows</h2>
-            <p class="note">Image resmi Microsoft + driver virtio, dipasang unattended.</p>
+            <h2>Windows version</h2>
+            <p class="note">Official Microsoft image with virtio drivers, installed unattended.</p>
             <div class="opts">
               <label class="opt">
                 <input type="radio" name="os" value="ws2022" checked>
                 <span class="dot"></span>
                 <span>
-                  <span class="t">Windows Server 2022 <span class="tag hot">disarankan</span></span>
-                  <span class="d">Dukungan sampai 2031. Butuh RAM ≥ 4&nbsp;GB.</span>
+                  <span class="t">Windows Server 2022 <span class="tag hot">recommended</span></span>
+                  <span class="d">Supported until 2031. Needs ≥ 4&nbsp;GB RAM.</span>
                 </span>
               </label>
               <label class="opt">
                 <input type="radio" name="os" value="ws2019">
                 <span class="dot"></span>
                 <span>
-                  <span class="t">Windows Server 2019 <span class="tag">ringan</span></span>
-                  <span class="d">Lebih hemat RAM — layak untuk VPS 2&nbsp;GB.</span>
+                  <span class="t">Windows Server 2019 <span class="tag">lightweight</span></span>
+                  <span class="d">Lower memory footprint — workable on a 2&nbsp;GB VPS.</span>
                 </span>
               </label>
             </div>
@@ -290,15 +302,15 @@
         <div class="sec">
           <div class="num">02</div>
           <div>
-            <h2>Metode</h2>
-            <p class="note">Menentukan seberapa besar risiko server tidak kembali online.</p>
+            <h2>Method</h2>
+            <p class="note">How much risk you accept that the server does not come back online.</p>
             <div class="opts">
               <label class="opt">
                 <input type="radio" name="mode" value="rescue" checked>
                 <span class="dot"></span>
                 <span>
-                  <span class="t">Rescue <span class="tag hot">paling aman</span></span>
-                  <span class="d">Boot ke rescue Linux dulu, baru tulis disk. Bootloader dan IP dirapikan setelahnya.</span>
+                  <span class="t">Rescue <span class="tag hot">safest</span></span>
+                  <span class="d">Boot the provider's rescue Linux first, then write the disk. Bootloader and IP are repaired afterwards.</span>
                 </span>
               </label>
               <label class="opt">
@@ -306,22 +318,9 @@
                 <span class="dot"></span>
                 <span>
                   <span class="t">Live <span class="tag pink">best-effort</span></span>
-                  <span class="d">Langsung dari OS yang berjalan. Cepat, tapi bisa gagal boot atau RDP tidak terbuka.</span>
+                  <span class="d">Run straight from the running OS. Faster, but the server may fail to boot or RDP may never open.</span>
                 </span>
               </label>
-            </div>
-
-            <div class="provider">
-              <span class="lbl" style="margin:0">Penyedia VPS</span>
-              <div class="chips" id="chips" role="group" aria-label="Penyedia VPS">
-                <button type="button" class="chip" data-p="spaceship">Spaceship</button>
-                <button type="button" class="chip" data-p="hetzner">Hetzner</button>
-                <button type="button" class="chip" data-p="contabo">Contabo</button>
-                <button type="button" class="chip" data-p="vultr">Vultr</button>
-                <button type="button" class="chip" data-p="do">DigitalOcean</button>
-                <button type="button" class="chip" data-p="other">Lainnya</button>
-              </div>
-              <p class="pnote" id="pnote">Pilih penyedia agar aku ingatkan kalau rescue tidak tersedia.</p>
             </div>
           </div>
         </div>
@@ -329,15 +328,15 @@
         <div class="sec">
           <div class="num">03</div>
           <div>
-            <h2>VPS tujuan</h2>
-            <p class="note">Kredensial hanya dipakai runner untuk sesi ini, lalu dihapus.</p>
+            <h2>Target VPS</h2>
+            <p class="note">Credentials are used by the runner for this session only, then deleted.</p>
             <div class="row">
               <label class="f">
-                <span class="lbl">Host / IP <span class="sub">wajib</span></span>
+                <span class="lbl">Host / IP <span class="sub">required</span></span>
                 <input type="text" id="host" placeholder="203.0.113.24" spellcheck="false" inputmode="url">
               </label>
               <label class="f">
-                <span class="lbl">Port SSH</span>
+                <span class="lbl">SSH port</span>
                 <input type="number" id="port" value="22" min="1" max="65535" inputmode="numeric">
               </label>
             </div>
@@ -347,19 +346,19 @@
                 <input type="text" id="user" value="root" spellcheck="false">
               </label>
               <div class="f">
-                <span class="lbl">Autentikasi</span>
-                <div class="seg" role="group" aria-label="Autentikasi">
+                <span class="lbl">Authentication</span>
+                <div class="seg" role="group" aria-label="Authentication">
                   <button type="button" data-auth="pass" aria-pressed="true">password</button>
                   <button type="button" data-auth="key" aria-pressed="false">private key</button>
                 </div>
               </div>
             </div>
             <label class="f" id="passWrap">
-              <span class="lbl">Password root</span>
+              <span class="lbl">Root password</span>
               <input type="password" id="pass" placeholder="••••••••••" autocomplete="new-password">
             </label>
             <label class="f hidden" id="keyWrap">
-              <span class="lbl">Private key <span class="sub">PEM / OpenSSH, satu blok</span></span>
+              <span class="lbl">Private key <span class="sub">PEM / OpenSSH, single block</span></span>
               <input type="text" id="key" placeholder="-----BEGIN OPENSSH PRIVATE KEY-----">
             </label>
           </div>
@@ -368,16 +367,16 @@
         <div class="sec">
           <div class="num">04</div>
           <div>
-            <h2>Opsi Windows</h2>
-            <p class="note">Kosongkan password bila ingin dibuat otomatis.</p>
+            <h2>Windows options</h2>
+            <p class="note">Leave the Administrator password blank to generate one.</p>
             <div class="row">
               <label class="f">
                 <span class="lbl">Hostname</span>
                 <input type="text" id="hostname" value="winserver" spellcheck="false">
               </label>
               <label class="f">
-                <span class="lbl">Password Administrator <span class="sub">opsional</span></span>
-                <input type="password" id="adminPass" placeholder="otomatis">
+                <span class="lbl">Administrator password <span class="sub">optional</span></span>
+                <input type="password" id="adminPass" placeholder="auto-generated">
               </label>
             </div>
           </div>
@@ -386,16 +385,17 @@
         <div class="sec">
           <div class="num">05</div>
           <div>
-            <h2>Jaringan <span class="tag" style="vertical-align:2px">opsional</span></h2>
-            <p class="note">Biarkan kosong kalau VPS memakai DHCP. Isi manual kalau IP-nya statis — ini penyebab RDP gagal nomor satu.</p>
+            <h2>Network <span class="tag" style="vertical-align:2px">optional</span></h2>
+            <p class="note">Leave blank when the VPS uses DHCP. Fill it in for static IPs — that is the
+               number one reason RDP never opens.</p>
             <div class="row">
               <label class="f">
-                <span class="lbl">IP statis</span>
+                <span class="lbl">Static IP</span>
                 <input type="text" id="staticIp" placeholder="203.0.113.24" spellcheck="false">
               </label>
               <label class="f">
                 <span class="lbl">Gateway</span>
-                <input type="text" id="gateway" placeholder="auto-deteksi" spellcheck="false">
+                <input type="text" id="gateway" placeholder="auto-detect" spellcheck="false">
               </label>
             </div>
             <div class="row">
@@ -413,11 +413,11 @@
 
         <label class="ack">
           <input type="checkbox" id="ack">
-          <span>Saya paham disk VPS tujuan akan ditimpa penuh dan seluruh data di dalamnya hilang permanen.</span>
+          <span>I understand the target VPS disk will be overwritten and all data on it is lost permanently.</span>
         </label>
 
         <div class="actions">
-          <button type="button" class="btn primary" id="startBtn" disabled>Mulai instalasi</button>
+          <button type="button" class="btn primary" id="startBtn" disabled>Start installation</button>
           <span class="msg" id="msg" role="status"></span>
         </div>
       </form>
@@ -425,48 +425,61 @@
 
     <aside class="rail">
       <section class="card sum">
-        <h3>Ringkasan</h3>
+        <h3>Summary</h3>
         <dl>
           <div class="li"><dt>Windows</dt><dd id="sOs">Server 2022</dd></div>
-          <div class="li"><dt>Metode</dt><dd id="sMode">live</dd></div>
-          <div class="li"><dt>Penyedia</dt><dd id="sProv" class="empty">belum dipilih</dd></div>
-          <div class="li"><dt>Tujuan</dt><dd id="sHost" class="empty">belum diisi</dd></div>
+          <div class="li"><dt>Method</dt><dd id="sMode">rescue</dd></div>
+          <div class="li"><dt>Target</dt><dd id="sHost" class="empty">not set</dd></div>
           <div class="li"><dt>Hostname</dt><dd id="sHostname">winserver</dd></div>
         </dl>
-        <button type="button" class="btn primary wide" id="railStart" disabled>Mulai instalasi</button>
-        <p class="hint" id="railNote">Centang konfirmasi di form untuk mengaktifkan.</p>
       </section>
 
       <section class="card prog">
         <div class="statusrow">
-          <h3 style="margin:0">Progres</h3>
+          <h3 style="margin:0">Progress</h3>
           <span class="st" id="st">idle</span>
         </div>
-        <div class="bar"><i id="bar"></i></div>
+
         <ol class="steps" id="steps">
-          <li data-s="queue"><span class="b">1</span><span>Job diterima</span><span class="t"></span></li>
-          <li data-s="preflight"><span class="b">2</span><span>Cek kesesuaian</span><span class="t"></span></li>
-          <li data-s="download"><span class="b">3</span><span>Ambil image Windows</span><span class="t"></span></li>
-          <li data-s="apply"><span class="b">4</span><span>Tulis ke disk</span><span class="t"></span></li>
-          <li data-s="reboot"><span class="b">5</span><span>Reboot ke Windows</span><span class="t"></span></li>
-          <li data-s="rdp"><span class="b">6</span><span>Cek RDP 3389</span><span class="t"></span></li>
+          <li data-s="queue"><span class="b">1</span><span>Job received</span><span class="t"></span></li>
+          <li data-s="preflight"><span class="b">2</span><span>Preflight checks</span><span class="t"></span></li>
+          <li data-s="download"><span class="b">3</span><span>Fetch Windows image</span><span class="t"></span></li>
+          <li data-s="apply"><span class="b">4</span><span>Write to disk</span><span class="t"></span></li>
+          <li data-s="reboot"><span class="b">5</span><span>Reboot into Windows</span><span class="t"></span></li>
+          <li data-s="rdp"><span class="b">6</span><span>Check RDP 3389</span><span class="t"></span></li>
         </ol>
-        <div class="log" id="log" aria-live="polite">menunggu job…</div>
-        <p class="hint" id="railHint"><b>Gratis dan terbuka.</b> Job antre diproses satu per satu oleh runner.</p>
+
+        <div class="log" id="log" aria-live="polite">waiting for a job…</div>
+
+        <div class="gaugewrap">
+          <div class="gauge" id="gauge">
+            <svg viewBox="0 0 100 100" aria-hidden="true">
+              <defs>
+                <linearGradient id="grad" x1="0" y1="0" x2="1" y2="1">
+                  <stop offset="0%" stop-color="#f97bbf"/>
+                  <stop offset="100%" stop-color="#ffe22e"/>
+                </linearGradient>
+              </defs>
+              <circle class="track" cx="50" cy="50" r="42"/>
+              <circle class="pulse" cx="50" cy="50" r="42"/>
+              <circle class="fill" id="ringFill" cx="50" cy="50" r="42" stroke-dasharray="263.9" stroke-dashoffset="263.9"/>
+            </svg>
+            <div class="lbl"><b><span id="pct">0</span><i>%</i></b><span id="pctStage">idle</span></div>
+          </div>
+          <div class="gaugemeta">
+            <p class="stage" id="gaugeTitle">No job running</p>
+            <p class="sub" id="gaugeSub">Start an installation to see live progress here.</p>
+          </div>
+        </div>
+
+        <p class="hint" id="railHint"><b>Free and open.</b> Queued jobs are processed one at a time.</p>
       </section>
     </aside>
   </div>
 
   <div class="foot">
     <span>wininstaller.topup.eu.org</span>
-    <span>KVM · Ubuntu/Debian · OpenVZ ditolak otomatis</span>
-  </div>
-</div>
-
-<div class="mobar">
-  <div class="row2">
-    <span id="mstate">idle</span>
-    <button type="button" class="btn primary" id="mStart" disabled>Mulai instalasi</button>
+    <span>KVM · Ubuntu/Debian · OpenVZ rejected automatically</span>
   </div>
 </div>
 
@@ -474,9 +487,10 @@
 (() => {
   const $ = (s) => document.querySelector(s);
   const form = $('#form');
-  const state = { provider: null, jobId: null, timer: null, started: false };
+  const RING_C = 263.9;                       // 2πr, r = 42
+  const state = { jobId: null, timer: null, running: false, done: false, pct: 0, auth: 'pass' };
 
-  // ---------- autentikasi ----------
+  // ---------- auth toggle ----------
   document.querySelectorAll('[data-auth]').forEach((b) => {
     b.addEventListener('click', () => {
       document.querySelectorAll('[data-auth]').forEach((x) => x.setAttribute('aria-pressed', 'false'));
@@ -485,90 +499,102 @@
       $('#passWrap').classList.toggle('hidden', isKey);
       $('#keyWrap').classList.toggle('hidden', !isKey);
       state.auth = isKey ? 'key' : 'pass';
-    });
-  });
-  state.auth = 'pass';
-
-  // ---------- penyedia ----------
-  const PROVIDERS = {
-    spaceship: { name: 'Spaceship', rescue: false, note: 'Spaceship tidak menyediakan rescue boot maupun ISO mount — hanya console dan Reinstall VM. Pakai mode Live, dan siapkan Reinstall VM sebagai jalan pulang.' },
-    hetzner: { name: 'Hetzner', rescue: true, note: 'Hetzner Cloud punya Rescue: tab Rescue di server → aktifkan → reboot → login dengan password sementara.' },
-    contabo: { name: 'Contabo', rescue: true, note: 'Contabo punya Rescue Mode di Customer Control Panel.' },
-    vultr: { name: 'Vultr', rescue: true, note: 'Vultr menyediakan Custom ISO dan View Console untuk masuk ke rescue.' },
-    do: { name: 'DigitalOcean', rescue: false, note: 'DigitalOcean hanya punya Recovery Console (VNC), tanpa rescue boot. Rescue berarti boot live ISO lewat custom image.' },
-    other: { name: 'Lainnya', rescue: null, note: 'Cari “Rescue System”, “Boot menu”, atau “Custom ISO” di panel penyediamu.' },
-  };
-
-  document.querySelectorAll('#chips .chip').forEach((c) => {
-    c.addEventListener('click', () => {
-      document.querySelectorAll('#chips .chip').forEach((x) => x.setAttribute('aria-pressed', 'false'));
-      c.setAttribute('aria-pressed', 'true');
-      state.provider = c.dataset.p;
-      const prov = PROVIDERS[state.provider];
-      if (prov && prov.rescue === false && currentMode() === 'rescue') {
-        const live = document.querySelector('input[name=mode][value=live]');
-        live.checked = true;
-        live.dispatchEvent(new Event('change', { bubbles: true }));
-      }
-      renderProvider();
+      gate();
     });
   });
 
-  function currentMode() { return document.querySelector('input[name=mode]:checked').value; }
-
-  function renderProvider() {
-    const p = PROVIDERS[state.provider];
-    const note = $('#pnote');
-    $('#sProv').textContent = p ? p.name : 'belum dipilih';
-    $('#sProv').classList.toggle('empty', !p);
-    if (!p) { note.className = 'pnote'; note.textContent = 'Pilih penyedia agar aku ingatkan kalau rescue tidak tersedia.'; return; }
-    note.className = 'pnote' + (p.rescue === false && currentMode() === 'rescue' ? ' warn' : '');
-    note.textContent = p.note;
-    if (p.rescue === false && currentMode() === 'rescue') note.textContent = '⚠ ' + p.note;
-  }
-
-  // ---------- ringkasan ----------
+  // ---------- summary ----------
   const osLabel = { ws2022: 'Server 2022', ws2019: 'Server 2019' };
+  const currentMode = () => document.querySelector('input[name=mode]:checked').value;
   function renderSummary() {
     $('#sOs').textContent = osLabel[document.querySelector('input[name=os]:checked').value];
     $('#sMode').textContent = currentMode();
-    $('#sHost').textContent = $('#host').value.trim() || 'belum diisi';
-    $('#sHost').classList.toggle('empty', !$('#host').value.trim());
+    const host = $('#host').value.trim();
+    $('#sHost').textContent = host || 'not set';
+    $('#sHost').classList.toggle('empty', !host);
     $('#sHostname').textContent = $('#hostname').value.trim() || 'winserver';
-    renderProvider();
   }
   form.addEventListener('input', () => { renderSummary(); gate(); });
   form.addEventListener('change', () => { renderSummary(); gate(); });
-  document.querySelectorAll('input[name=mode]').forEach((r) => r.addEventListener('change', renderProvider));
 
-  // ---------- gate ----------
-  const ack = $('#ack'), startBtn = $('#startBtn'), mStart = $('#mStart'), railStart = $('#railStart');
+  // ---------- start button gate ----------
+  const ack = $('#ack'), startBtn = $('#startBtn');
   function gate() {
+    if (state.running || state.done) { startBtn.disabled = state.running; return; }
     const missing = [];
     if (!$('#host').value.trim()) missing.push('host/IP');
     const secret = state.auth === 'key' ? $('#key').value.trim() : $('#pass').value;
     if (!secret) missing.push(state.auth === 'key' ? 'private key' : 'password');
-    if (!ack.checked) missing.push('centang konfirmasi');
-    const ok = missing.length === 0 && !state.running;
-    startBtn.disabled = !ok;
-    mStart.disabled = !ok;
-    railStart.disabled = !ok;
-    $('#railNote').textContent = missing.length
-      ? 'Lengkapi dulu: ' + missing.join(' · ') + '.'
-      : 'Siap dijalankan — disk VPS tujuan akan ditimpa.';
+    if (!ack.checked) missing.push('confirmation');
+    startBtn.disabled = missing.length > 0;
+    const msg = $('#msg');
+    if (!msg.classList.contains('good') && !msg.classList.contains('bad')) {
+      msg.className = 'msg';
+      msg.textContent = missing.length ? 'Required: ' + missing.join(' · ') : '';
+    }
   }
   ack.addEventListener('change', gate);
 
-  // ---------- progres ----------
+  // ---------- progress model ----------
   const ORDER = ['queue', 'preflight', 'download', 'apply', 'reboot', 'rdp'];
   const PCT = { queue: 6, preflight: 16, download: 42, apply: 68, reboot: 82, rdp: 96 };
-  const st = $('#st'), bar = $('#bar'), log = $('#log');
+  const STAGE = {
+    queue: ['Queued', 'Waiting for the runner to pick this job up.'],
+    preflight: ['Preflight', 'Checking virtualisation, RAM, disk and boot mode over SSH.'],
+    download: ['Fetching image', 'Downloading the official Microsoft ISO on the target.'],
+    apply: ['Writing disk', 'Applying the image. Do not interrupt the server.'],
+    reboot: ['Rebooting', 'Server is restarting into the Windows installer.'],
+    rdp: ['Waiting for RDP', 'Windows is booting. Watching port 3389.'],
+  };
+  const st = $('#st'), log = $('#log'), gauge = $('#gauge'), ringFill = $('#ringFill');
 
   function setStatus(text, cls) {
     st.textContent = text;
     st.className = 'st' + (cls ? ' ' + cls : '');
-    $('#mstate').textContent = text;
   }
+
+  function setPct(p, stageKey, title, sub) {
+    state.pct = Math.max(0, Math.min(100, Math.round(p)));
+    ringFill.style.strokeDashoffset = String(RING_C * (1 - state.pct / 100));
+    $('#pct').textContent = state.pct;
+    const sk = stageKey || 'queue';
+    $('#pctStage').textContent = state.done ? 'done' : (state.running ? (STAGE[sk] ? sk : 'running') : 'idle');
+    if (title) $('#gaugeTitle').textContent = title;
+    if (sub) $('#gaugeSub').textContent = sub;
+    gauge.classList.toggle('live', state.running && !state.done);
+    localStorage.setItem('wi_pct', String(state.pct));
+    renderButtonRing();
+  }
+
+  function renderButtonRing() {
+    if (state.done) {
+      startBtn.className = 'btn done';
+      startBtn.innerHTML = 'Installation complete';
+      startBtn.disabled = true;
+      return;
+    }
+    if (state.running) {
+      startBtn.className = 'btn running';
+      startBtn.disabled = true;
+      startBtn.innerHTML = miniRing(state.pct) + '<span>Installing… ' + state.pct + '%</span>';
+      return;
+    }
+    startBtn.className = 'btn primary';
+    startBtn.textContent = 'Start installation';
+    startBtn.disabled = true;
+    gate();
+  }
+
+  function miniRing(pct) {
+    const c = 56.5;                            // 2πr, r = 9
+    const off = c * (1 - Math.max(2, Math.min(100, pct)) / 100);
+    return '<svg class="miniring" viewBox="0 0 22 22" aria-hidden="true">' +
+      '<circle class="track" cx="11" cy="11" r="9"/>' +
+      '<circle class="fill" cx="11" cy="11" r="9" stroke-dasharray="' + c + '" stroke-dashoffset="' + off + '"/>' +
+      '<circle class="spin" cx="11" cy="11" r="9"/>' +
+      '</svg>';
+  }
+
   function step(name, kind, time) {
     const li = document.querySelector('[data-s="' + name + '"]');
     if (!li) return;
@@ -577,7 +603,6 @@
     if (kind === 'ok') li.querySelector('.b').textContent = '✓';
     if (time) li.querySelector('.t').textContent = time;
   }
-  function setBar(name) { if (PCT[name] != null) bar.style.width = PCT[name] + '%'; }
 
   function renderLog(events) {
     if (!events || !events.length) return;
@@ -591,17 +616,19 @@
     }
     log.scrollTop = log.scrollHeight;
   }
-  function esc(s) { return String(s).replace(/[&<>"]/g, (c) => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;' }[c])); }
+  const esc = (s) => String(s).replace(/[&<>"]/g, (c) => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;' }[c]));
 
   // ---------- submit ----------
   async function submit() {
+    if (state.running) return;
     const msg = $('#msg');
-    msg.className = 'msg';
-    msg.textContent = '';
+    msg.className = 'msg'; msg.textContent = '';
+
     const host = $('#host').value.trim();
-    if (!host) { fail('#host', 'Host/IP wajib diisi.'); return; }
+    if (!host) { fail('#host', 'Host/IP is required.'); return; }
     const secret = state.auth === 'key' ? $('#key').value.trim() : $('#pass').value;
-    if (!secret) { fail(state.auth === 'key' ? '#key' : '#pass', state.auth === 'key' ? 'Private key kosong.' : 'Password root kosong.'); return; }
+    if (!secret) { fail(state.auth === 'key' ? '#key' : '#pass', state.auth === 'key' ? 'Private key is empty.' : 'Root password is empty.'); return; }
+    if (!ack.checked) { fail('#ack', 'Please confirm the destructive operation.'); return; }
 
     const payload = {
       ack: true,
@@ -620,24 +647,27 @@
     };
     if (state.auth === 'key') payload.key = secret; else payload.password = secret;
 
-    state.running = true; gate();
-    startBtn.textContent = 'Mengirim…';
-    setStatus('mengirim', 'live');
+    state.running = true;
+    setStatus('sending', 'live');
+    setPct(2, 'queue', 'Submitting job', 'Sending credentials to the runner queue.');
+    msg.className = 'msg';
+    msg.textContent = 'Sending…';
 
     try {
       const res = await fetch('/api/jobs', { method: 'POST', headers: { 'content-type': 'application/json' }, body: JSON.stringify(payload) });
       const data = await res.json();
-      if (!res.ok || !data.ok) throw new Error(data.error || 'gagal membuat job');
+      if (!res.ok || !data.ok) throw new Error(data.error || 'could not create job');
       state.jobId = data.id;
       localStorage.setItem('wi_job', data.id);
       $('#pass').value = '';
       msg.className = 'msg good';
-      msg.textContent = 'Job diterima. Jangan tutup halaman ini.';
-      poll(true);
+      msg.textContent = 'Job accepted. Progress continues even if you refresh this page.';
+      poll();
     } catch (e) {
-      state.running = false; gate();
-      startBtn.textContent = 'Mulai instalasi';
-      setStatus('gagal', 'err');
+      state.running = false;
+      setStatus('failed', 'err');
+      setPct(0, 'queue', 'Could not start', e.message);
+      renderButtonRing();
       msg.className = 'msg bad';
       msg.textContent = e.message;
     }
@@ -646,7 +676,7 @@
   function fail(sel, text) {
     const el = $(sel);
     el.classList.add('bad');
-    el.focus();
+    try { el.focus(); } catch {}
     setTimeout(() => el.classList.remove('bad'), 2200);
     const msg = $('#msg');
     msg.className = 'msg bad';
@@ -654,74 +684,94 @@
   }
 
   // ---------- polling ----------
-  async function poll(immediate) {
+  async function poll() {
     if (!state.jobId) return;
     try {
       const res = await fetch('/api/jobs/' + state.jobId, { cache: 'no-store' });
-      if (!res.ok) throw new Error('job tidak ditemukan');
+      if (!res.ok) throw new Error('job not found');
       const data = await res.json();
       const job = data.job;
+      const events = data.events || [];
+      renderLog(events);
 
-      const last = data.events.length ? data.events[data.events.length - 1] : null;
+      // ringkasan ikut job yang sedang dipantau (bertahan setelah refresh)
+      $('#sOs').textContent = osLabel[job.os] || job.os;
+      $('#sMode').textContent = job.mode;
+      $('#sHost').textContent = job.host;
+      $('#sHost').classList.remove('empty');
+      $('#sHostname').textContent = job.hostname || 'winserver';
+
+      const last = events.length ? events[events.length - 1] : null;
+      let stageKey = 'queue';
       if (last && last.step && ORDER.includes(last.step)) {
+        stageKey = last.step;
         const idx = ORDER.indexOf(last.step);
         ORDER.forEach((s, i) => { if (i < idx) step(s, 'ok'); });
         step(last.step, job.status === 'done' ? 'ok' : 'on');
-        setBar(last.step);
       }
 
-      renderLog(data.events);
-
       if (job.status === 'queued') {
-        setStatus('antre', 'live');
-        $('#railHint').innerHTML = '<b>Menunggu runner.</b> Job akan mulai otomatis. Kalau lebih dari 10 menit tetap antre, runner sedang offline.';
+        state.running = true;
+        setStatus('queued', 'live');
+        setPct(6, 'queue', 'Queued', 'Waiting for the runner to pick this job up.');
+        $('#railHint').innerHTML = '<b>Waiting for the runner.</b> If it stays queued for more than 10 minutes, the runner is offline.';
       } else if (job.status === 'claimed' || job.status === 'running') {
-        setStatus('jalan', 'live');
-        bar.style.width = bar.style.width || '10%';
+        state.running = true;
+        setStatus(stageKey === 'queue' ? 'queued' : 'running', 'live');
+        const p = PCT[stageKey] || 20;
+        const [title, sub] = STAGE[stageKey] || STAGE.queue;
+        setPct(p, stageKey, title, sub);
+        $('#railHint').innerHTML = '<b>Running.</b> Keep this tab open or refresh later — progress is kept on the server.';
       } else if (job.status === 'done') {
-        setStatus('selesai', 'done');
-        bar.style.width = '100%';
-        step('rdp', 'ok');
-        state.running = false; state.done = true; gate();
-        startBtn.textContent = 'Selesai';
-        $('#railHint').innerHTML = '<b>Windows siap.</b> RDP <code style="font-family:var(--mono)">' + esc(job.host) + ':3389</code>' +
+        state.running = false; state.done = true;
+        setStatus('complete', 'done');
+        ORDER.forEach((s) => step(s, 'ok'));
+        setPct(100, 'rdp', 'Windows is ready', 'RDP ' + job.host + ':3389 · user Administrator');
+        $('#railHint').innerHTML = '<b>Windows is ready.</b> RDP <code style="font-family:var(--mono)">' + esc(job.host) + ':3389</code>' +
           (job.adminPass ? ' · Administrator <code style="font-family:var(--mono)">' + esc(job.adminPass) + '</code>' : '');
         return;
       } else if (job.status === 'error') {
-        setStatus('gagal', 'err');
-        state.running = false; gate();
-        startBtn.textContent = 'Coba lagi';
-        $('#railHint').innerHTML = '<b>Gagal:</b> ' + esc(job.error || 'lihat log di atas.');
+        state.running = false;
+        setStatus('failed', 'err');
+        setPct(state.pct || 0, stageKey, 'Job failed', job.error || 'Check the log above.');
+        $('#railHint').innerHTML = '<b>Failed:</b> ' + esc(job.error || 'see the log above.');
+        renderButtonRing();
         return;
       }
+      renderButtonRing();
     } catch (e) {
-      setStatus('terputus', 'err');
+      setStatus('disconnected', 'err');
     }
     clearTimeout(state.timer);
     state.timer = setTimeout(poll, 2500);
   }
 
   startBtn.addEventListener('click', submit);
-  mStart.addEventListener('click', submit);
-  railStart.addEventListener('click', submit);
 
-  // ---------- resume job lama ----------
-  const saved = localStorage.getItem('wi_job');
-  if (saved) {
-    state.jobId = saved;
-    poll(true);
-  }
+  // ---------- restore job after refresh ----------
+  (function restore() {
+    const savedId = localStorage.getItem('wi_job');
+    const savedPct = Number(localStorage.getItem('wi_pct') || 0);
+    if (savedPct > 0 && savedPct < 100) {
+      state.running = true;
+      setPct(savedPct, 'queue', 'Restoring job', 'Reconnecting to the running job…');
+    }
+    if (savedId) {
+      state.jobId = savedId;
+      poll();
+    }
+  })();
 
-  // status runner
+  // ---------- runner health ----------
   (async () => {
     try {
       const r = await fetch('/api/health', { cache: 'no-store' });
       const h = await r.json();
       const hint = $('#railHint');
       if (h.runner) {
-        hint.innerHTML = '<b><span style="color:var(--green)">●</span> Runner online.</b> Job langsung diproses (antrean: ' + (h.queued || 0) + ').';
+        hint.innerHTML = '<b><span style="color:var(--green)">●</span> Runner online.</b> Jobs start immediately (queued: ' + (h.queued || 0) + ').';
       } else {
-        hint.innerHTML = '<b><span style="color:var(--red)">●</span> Runner offline.</b> Job akan antre sampai runner hidup kembali.';
+        hint.innerHTML = '<b><span style="color:var(--red)">●</span> Runner offline.</b> Jobs stay queued until it comes back.';
       }
     } catch {}
   })();

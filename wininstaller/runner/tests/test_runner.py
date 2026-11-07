@@ -1,4 +1,4 @@
-"""Uji logika runner tanpa VPS dan tanpa jaringan.
+"""Runner logic tests without a VPS or network.
 
 Menjalankan run_job() dengan Api dan koneksi SSH palsu, memastikan:
   1. preflight menolak OpenVZ
@@ -134,7 +134,7 @@ class RunnerTests(unittest.TestCase):
     def test_openvz_ditolak(self):
         api, conn = self.run_case('WI|openvz|4096|50|bios|yes|yes|ubuntu')
         self.assertEqual(api.status, 'error')
-        self.assertIn('tidak didukung', api.error)
+        self.assertIn('not supported', api.error)
         self.assertFalse(any('reinstall.sh windows' in c for c in conn.commands))
 
     def test_ram_kecil_ditolak(self):
@@ -190,7 +190,7 @@ class RunnerTests(unittest.TestCase):
 
     def test_lolos_syarat_dicatat(self):
         api, _ = self.run_case('WI|kvm|7950|48|uefi|yes|yes|debian')
-        self.assertIn('lolos syarat', api.text())
+        self.assertIn('preflight passed', api.text())
 
 
 if __name__ == '__main__':
