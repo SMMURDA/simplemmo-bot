@@ -1,8 +1,0 @@
-node_modules/
-.secrets.local
-.dev.vars
-.venv/
-runner/runner.env
-__pycache__/
-*.pyc
-.DS_Store

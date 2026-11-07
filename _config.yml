@@ -30,8 +30,6 @@ exclude:
   - vendor
   - Gemfile
   - Gemfile.lock
-  # sumber wininstaller (Worker + runner) — tidak dipublikasikan sebagai halaman
-  - wininstaller
 
 defaults:
   - scope:
