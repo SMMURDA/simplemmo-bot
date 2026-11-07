@@ -108,14 +108,18 @@ class Api:
 class Reporter:
     """Menampung baris log dan mengirimnya berkelompok, supaya tidak spam API."""
 
-    def __init__(self, api: Api, job_id: str):
+    def __init__(self, api: Api, job_id: str, secrets=()):
         self.api = api
         self.job_id = job_id
         self.buf: list[dict] = []
         self.last = 0.0
+        # Script reinstall mencetak password ke stdout; jangan sampai masuk log.
+        self.secrets = [s for s in secrets if s and len(s) >= 4]
 
     def add(self, msg: str, level: str = 'info', step: str = ''):
         msg = msg.rstrip()
+        for s in self.secrets:
+            msg = msg.replace(s, '***')
         if not msg:
             return
         self.buf.append({'level': level, 'step': step, 'msg': msg[:800]})
@@ -245,7 +249,7 @@ async def wait_rdp(host: str, minutes: int, rep: Reporter):
 
 
 async def run_job(api: Api, job: dict, hold: bool, rdp_wait: int, dry: bool):
-    rep = Reporter(api, job['id'])
+    rep = Reporter(api, job['id'], secrets=(job.get('adminPass') or '', job.get('secret') or ''))
     rep.step('queue', f"job {job['id'][:8]} diterima · {job.get('osName')} · mode {job.get('mode')}", 'ac')
     rep.add(f"target {job['sshUser']}@{job['host']}:{job['port']} · hostname {job.get('hostname')}")
 
@@ -293,12 +297,19 @@ async def run_job(api: Api, job: dict, hold: bool, rdp_wait: int, dry: bool):
         except asyncio.TimeoutError:
             raise RuntimeError('instalasi melewati batas 90 menit tanpa selesai')
 
-        # Script me-reboot server di akhir; koneksi putus adalah hal normal.
-        rep.step('reboot', 'instalasi selesai di sisi Linux — server reboot ke Windows Installer', 'ok')
+        # Script hanya MENYIAPKAN entri GRUB; reboot tidak terjadi saat sesi
+        # non-interaktif (tidak ada tty untuk konfirmasi). Jadi reboot dilakukan di sini.
         try:
             process.close()
         except Exception:
             pass
+
+        if not hold:
+            rep.step('reboot', 'instalasi siap — me-reboot server sekarang')
+            rb = await conn.run('(sleep 3; reboot) >/dev/null 2>&1 & echo reboot-terkirim',
+                                check=False, timeout=30)
+            rep.add('reboot: ' + ((rb.stdout or '').strip() or 'dikirim'))
+
         conn.close()
 
         if hold:

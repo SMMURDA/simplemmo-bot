@@ -77,8 +77,15 @@ journalctl -u wininstaller-runner -f
    (ISO asli Microsoft, driver virtio otomatis, deteksi disk lewat ID tabel partisi).
 3. Jalankan:
    `reinstall.sh windows --image-name "Windows Server 2022 ServerStandard" --lang en-us --username Administrator --password *** --rdp-port 3389 --allow-ping`
-4. Server reboot ke Windows Installer. Runner menunggu port **3389** terbuka
-   (default 45 menit), lalu menandai job `done` dan menampilkan kredensial.
+4. Skrip hanya **menyiapkan** entri GRUB `reinstall (windows)` + initrd. Sesi SSH
+   non-interaktif tidak punya tty untuk konfirmasi, jadi skrip tidak me-reboot
+   sendiri — runner yang mengirim `reboot` setelah staging selesai.
+5. Runner menunggu port **3389** terbuka (default 45 menit), lalu menandai job
+   `done` dan menampilkan kredensial.
+
+Selama server **belum reboot**, belum ada data yang hilang. Batalkan dengan
+`sh /tmp/wi-reinstall.sh reset` — perintah ini menghapus entri GRUB dan
+membangun ulang `grub.cfg` tanpa menyentuh partisi.
 
 ## Batasan yang perlu diketahui
 

@@ -162,6 +162,29 @@ class RunnerTests(unittest.TestCase):
         self.assertNotIn('Admin-Pass-999', api.text())
         self.assertIn('***', api.text())
 
+    def test_reboot_dikirim_setelah_instalasi(self):
+        """Skrip hanya menyiapkan GRUB; reboot harus dikirim runner sendiri."""
+        api, conn = self.run_case('WI|kvm|7950|48|bios|yes|yes|ubuntu')
+        self.assertTrue(any('reboot' in c for c in conn.commands),
+                        'runner wajib mengirim reboot setelah staging selesai')
+        self.assertEqual(api.status, 'done')
+
+    def test_mode_hold_tidak_reboot(self):
+        api = FakeApi()
+        conn = FakeConn('WI|kvm|7950|48|bios|yes|yes|ubuntu')
+
+        async def fake_connect(_job):
+            return conn
+
+        orig = R.connect
+        R.connect = fake_connect
+        try:
+            asyncio.run(R.run_job(api, job(), hold=True, rdp_wait=1, dry=False))
+        finally:
+            R.connect = orig
+        self.assertFalse(any('reboot' in c for c in conn.commands))
+        self.assertEqual(api.status, 'done')
+
     def test_lolos_syarat_dicatat(self):
         api, _ = self.run_case('WI|kvm|7950|48|uefi|yes|yes|debian')
         self.assertIn('lolos syarat', api.text())
