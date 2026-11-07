@@ -374,6 +374,11 @@ export default {
 
         if (!(await runnerAuth(request, env))) return err('tidak diizinkan', 401);
 
+        if (path === '/api/runner/heartbeat' && method === 'POST') {
+          await markRunnerSeen(env, str(request.headers.get('x-runner-name'), 64) || 'runner');
+          return json({ ok: true });
+        }
+
         if (path === '/api/runner/next' && method === 'GET') return await runnerNext(request, env);
 
         const m = path.match(/^\/api\/runner\/jobs\/([0-9a-f-]{36})\/events$/i);

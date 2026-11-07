@@ -92,6 +92,12 @@ class Api:
     def next_job(self):
         return self._req('/api/runner/next').get('job')
 
+    def heartbeat(self):
+        try:
+            self._req('/api/runner/heartbeat', 'POST', {})
+        except Exception:
+            pass
+
     def events(self, job_id: str, events: list[dict], status: str | None = None, error: str = ''):
         payload = {'events': events}
         if status:
@@ -226,7 +232,7 @@ async def stream_process(process, rep: Reporter, step: str):
     await asyncio.gather(pump(process.stdout), pump(process.stderr), return_exceptions=True)
 
 
-async def wait_rdp(host: str, minutes: int, rep: Reporter):
+async def wait_rdp(host: str, minutes: int, rep: Reporter, api: 'Api | None' = None):
     deadline = time.time() + minutes * 60
     attempt = 0
     while time.time() < deadline:
@@ -244,6 +250,8 @@ async def wait_rdp(host: str, minutes: int, rep: Reporter):
         except (OSError, asyncio.TimeoutError):
             if attempt % 6 == 0:
                 rep.add(f'menunggu RDP… ({attempt} percobaan, sisa {int((deadline - time.time()) / 60)} menit)', 'info', 'rdp')
+            if api and attempt % 3 == 0:
+                api.heartbeat()  # agar /api/health tidak melaporkan runner mati saat sedang sibuk
         await asyncio.sleep(20)
     return False
 
@@ -319,7 +327,7 @@ async def run_job(api: Api, job: dict, hold: bool, rdp_wait: int, dry: bool):
             return
 
         rep.step('rdp', f'menunggu port 3389 di {job["host"]} (maks {rdp_wait} menit)')
-        ok = await wait_rdp(job['host'], rdp_wait, rep)
+        ok = await wait_rdp(job['host'], rdp_wait, rep, api)
         if ok:
             api.events(job['id'], [], status='done')
             rep.step('rdp', f'Windows siap · RDP {job["host"]}:3389 · user Administrator', 'ok')

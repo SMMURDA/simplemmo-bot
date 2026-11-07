@@ -32,6 +32,9 @@ class FakeApi:
             self.error = error
         return {'ok': True}
 
+    def heartbeat(self):
+        pass
+
     def text(self):
         return '\n'.join(e['msg'] for e in self.events_log)
 
@@ -117,7 +120,7 @@ class RunnerTests(unittest.TestCase):
         orig_connect, orig_wait = R.connect, R.wait_rdp
         R.connect = fake_connect
 
-        async def fake_wait(host, minutes, rep):
+        async def fake_wait(host, minutes, rep, api=None):
             rep.step('rdp', 'port 3389 terbuka', 'ok')
             return rdp_ok
 
