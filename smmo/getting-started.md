@@ -107,6 +107,8 @@ The application does not log in to SimpleMMO when license validation fails.
 
 Never replace your working `.env` with the blank template from a new release.
 
+Builds below the minimum version enforced by the license server refuse to start; the current minimum is v3.2.0. Release highlights are listed on the [Downloads]({{ '/smmo/downloads/' | relative_url }}) page, and the detailed changelog is on the release page.
+
 ---
 
 ## Continue Reading

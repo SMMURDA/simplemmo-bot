@@ -18,7 +18,10 @@ This page groups the API routes used by the script and explains their purpose.
 | `POST` | `/api/travel/sprint` | Sprint, Energy | Uses sprint energy to reduce travel time. |
 | `GET` | `/travel` | Captcha, fallback | Loads travel page and captcha context. |
 | `GET` | `/travel?new_page=true` | Travel, potion, energy, sell | Loads modern travel data including potion list, boosts, signed endpoints, and encounter state. |
-| `POST` | `/api/bot-verification` | Captcha Solver | Sends captcha answer to SimpleMMO. |
+| `GET` | `/i-am-not-a-bot?new_page=true` | Captcha Solver | Loads the verification page. Serves the Journey Checkpoint (icon/shadow matching) and carries the submit endpoint, CSRF token, choice hashes, and image URLs in DOM attributes. |
+| `POST` | `/api/journey/waypoint` | Captcha Solver | Submits the chosen icon for the Journey Checkpoint. Requires `X-CSRF-TOKEN`; response is `{title, type, result}` with `type: "success"` when it passes. |
+| `GET` | `/journey/waypoint/picture?uid={0-3\|shadow}` | Captcha Solver | Loads one choice image, or the shadow used for silhouette comparison. |
+| `POST` | `/api/bot-verification` | Captcha Solver (legacy) | Submits an answer for the older "find the item named X" captcha, still reachable through the checkpoint's signed fallback link. |
 | `POST` | `/api/popup` | Item/reward actions | Loads dynamic popup data for certain actions. |
 | `GET` | `/quests` | Quest Selector | Loads quest points and expedition list. |
 | `GET` | `/quests/viewall` | Quest discovery | Loads full quest list page. |
@@ -36,10 +39,11 @@ This page groups the API routes used by the script and explains their purpose.
 | `GET` | `/bank` | Bank | Loads bank/wallet gold and transaction data. |
 | `POST` | `/bank/deposit/submit` | Bank, Auto Deposit | Deposits gold into bank. |
 | `POST` | `/bank/withdraw/submit` | Bank | Withdraws gold from bank. |
-| `GET` | `/inventory/items` | Sell, healer | Loads inventory item list and filters. |
+| `GET` | `/inventory/items` | Sell, healer, auto equip | Loads inventory rows with type, rarity, level, and stats used for the auto-equip comparison. |
 | `GET` | `/item/inspect/{item_id}` | Sell | Checks item details before selling. |
 | `GET` | `/item/{item_id}?new_page=true` | Sell | Loads item page and dynamic actions. |
-| `GET` | `/inventory/equip/{item_id}?api=true` | Auto Equip | Equips selected item. |
+| `GET` | `/inventory/equipped` | Auto Equip | Loads currently equipped gear per slot, including level, rarity, and stats. |
+| `POST` | `/inventory/equip/{item_id}?api=true` | Auto Equip | Equips the item. Requires `X-CSRF-TOKEN`; `GET` on this route answers `405`. Success is confirmed by re-reading `/inventory/equipped`. |
 | `POST` | `/api/quicksell/{item_id}/quantity` | Quick Sell | Sells selected item quantity. |
 | `POST` | `/inventory/retrieve/{item_id}?api=true` | Auto Sell | Retrieves found item before selling. |
 | `POST` | `/api/multi-npc` | Inventory Sell | Bulk sells filtered inventory items. |

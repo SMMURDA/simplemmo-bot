@@ -36,6 +36,18 @@ Official builds are distributed through the **GitHub Releases** page associated 
 
 A normal package contains the bot executable, launcher executable, `.env.example`, user instructions, and license terms. It must not contain a completed `.env`, customer license key, or private signing key.
 
+## Current release — v3.2.0
+
+The newest build adds:
+
+* **Journey Checkpoint captcha** support: the drag-the-matching-icon verification is solved locally by silhouette comparison, with ambiguous challenges forwarded to Telegram instead of guessed.
+* **A working Auto Equip**: found equipment is compared with what you wear and only clear upgrades are equipped, with notifications that follow the Auto Equip switch.
+* **Safer healing**: fallback heal items when the selected one is empty, optional auto-buy (off by default), and a clean stop instead of fighting at 0% HP.
+* **Accurate gather summaries** (no more `EXP +0` / `Level ?`), resolved item types, and quieter license notices.
+* **Colored Telegram buttons** (green / red / blue) and a consistent emoji keyboard.
+
+The full list is on the [release page](https://github.com/SMMURDA/simplemmo-bot/releases/latest).
+
 ## Verify a download
 
 Each release should include a SHA-256 checksum. On Windows:

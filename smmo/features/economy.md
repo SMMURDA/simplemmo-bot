@@ -82,7 +82,16 @@ Energy Refill Center displays energy, MOE, diamonds, and refill options. It also
 
 ## Healer Center
 
-Healer Center checks HP and heals if the character is not full HP. Auto Healer can be toggled and configured.
+Healer Center checks HP and heals when the character falls below the configured threshold (default 30%). Auto Healer can be toggled and configured from the same menu.
+
+How Auto Healer picks an item:
+
+1. The selected heal item is used in the quantity needed for the current HP deficit (`ceil(deficit / HP per item)`), capped by the configured maximum quantity.
+2. If that item is out of stock, the bot falls back to other heal items you own, ordered by how close their heal value is to the deficit, trying up to three alternatives.
+3. If everything is empty, **Fallback + Auto-buy** decides what happens: with auto-buy on, the bot buys the selected item from the healer shop and uses it; with auto-buy off (default, because it spends gold) the failure is reported clearly instead of being retried forever.
+4. During NPC combat, HP is checked after every hit. If HP reaches 0% and no heal succeeds, the bot stops attacking and notifies you at most once per 15 minutes — it no longer keeps fighting at 0% HP for 0 gold and 0 EXP.
+
+Both switches are visible in the Healer menu (**Fallback**, **Auto-buy**), show their current state in the message, and persist in `data/runtime_settings.json` across restarts.
 
 | Method | API | Description |
 |---|---|---|
@@ -91,7 +100,7 @@ Healer Center checks HP and heals if the character is not full HP. Auto Healer c
 | `GET` | `/inventory/items` | Checks heal item inventory. |
 | `POST` | `/inventory/use/{item_id}` | Starts heal item use flow. |
 | `POST` | `/inventory/use/confirm/{item_id}` | Confirms heal item use. |
-| `POST` | `/api/shop/view/3/buy/item/{shop_item_id}` | Buys healer-related shop item. |
+| `POST` | `/api/shop/view/3/buy/item/{shop_item_id}` | Buys the heal item when auto-buy is enabled and stock is empty. |
 
 ## Map Center
 

@@ -12,61 +12,111 @@ product: smmo
 
 The bot is controlled from Telegram using a persistent reply keyboard and inline buttons. Most menus refresh realtime data before showing actions.
 
+## Button colors
+
+Every button uses the official Bot API button styles, so the important actions are recognizable without reading them:
+
+| Color | Meaning | Examples |
+|---|---|---|
+| 🟢 Green (`success`) | Positive action, or a switch that is **ON** | Start, Resume, Heal, Buy, Equip, Claim, Auto Heal ON |
+| 🔴 Red (`danger`) | Action that stops, closes, or cancels | Stop Bot, Pause, Close, Cancel, Escape |
+| 🔵 Blue (`primary`) | Navigation, values, or a switch that is **OFF** | Refresh, Quantity, Select Item, Auto Equip OFF |
+
+The style is applied centrally, so every existing menu is colored without changing how it works. Clients that do not support button colors simply show plain buttons; nothing breaks. Colors never hide meaning — the label always states the current state (`Auto Equip ON` / `Auto Equip OFF`).
+
+## Reply keyboard layout
+
+| Row | Buttons |
+|---|---|
+| 1 | 🚀 Start Bot · 🛑 Pause · 🟢 Resume |
+| 2 | ♻️ Restart Bot · 🚫 Stop Bot |
+| 3 | 📊 Dashboard · 🧙 Profile · 📜 Quest |
+| 4 | ⚔️ Kills · 📈 Stats · 📊 Daily Stats |
+| 5 | ⛏️ Materials · 📚 Activity Log · 🧴 Potions |
+| 6 | 🔋 Energy · 💨 Sprint · 🏛️ Temple |
+| 7 | 🧭 Map · 🎯 Daily Rewards · 🩹 Healer |
+| 8 | 🧑‍🏭 Profession · 🌌 Abyss · 🛡️ Battle |
+| 9 | 🐉 World Boss · 🥊 Player Battle |
+| 10 | 🗝️ Chests · 💰 Bank · 🔨 Crafting |
+| 11 | 🧠 Auto Craft · 📥 Craft Queue · 🏷️ Auto Sell |
+| 12 | 📦 Sell Inventory · 🎚️ Control · 🎉 Events |
+| 13 | 📬 Notifications · 🔧 Settings · 🧪 Debug |
+
+Old labels keep working: the bot normalizes emoji variations (including the text/emoji presentation selectors) before matching, so a keyboard cached by Telegram from an older build still resolves to the right command.
+
 ## Main Commands
 
 | Command / Button | Description |
 |---|---|
-| `/dashboard` | Opens the full session dashboard. |
-| `/daily_stats` | Shows persistent daily statistics and reset option. |
-| `/control` | Opens runtime toggle panel for travel-related features. |
-| `/notifications` | Opens notification toggle settings. |
-| `/debug` | Checks important endpoints and token/session state. |
-| `/pause` | Pauses travel loop. |
-| `/resume` | Resumes travel if no blocking activity is active. |
-| `/restart` | Restarts the bot through launcher flow. |
-| `🔴 Stop Bot` | Stops the running bot and returns launcher to standby mode. |
-| `🟢 Start Bot` | Starts the bot again from launcher standby mode. |
+| `/dashboard` · 📊 Dashboard | Opens the full session dashboard. |
+| `/daily_stats` · 📊 Daily Stats | Shows persistent daily statistics and reset option. |
+| `/control` · 🎚️ Control | Opens runtime toggle panel for travel-related features. |
+| `/notifications` · 📬 Notifications | Opens notification toggle settings. |
+| `/debug` · 🧪 Debug | Checks important endpoints and token/session state. |
+| `/pause` · 🛑 Pause | Pauses travel loop. |
+| `/resume` · 🟢 Resume | Resumes travel if no blocking activity is active. |
+| `/restart` · ♻️ Restart Bot | Restarts the bot through launcher flow. |
+| 🚫 Stop Bot | Stops the running bot and returns launcher to standby mode. |
+| 🚀 Start Bot | Starts the bot again from launcher standby mode. |
 
 ## Feature Commands
 
 | Command / Button | Description |
 |---|---|
-| `/potion` | Opens Potion Center. |
-| `/energy` | Opens Energy Refill Center. |
-| `/sprint` | Opens Sprint control. |
-| `/temple` | Opens Temple worship menu. |
-| `/sell` | Opens Inventory Sell Center. |
-| `/autosell` | Opens Auto Sell settings directly. |
-| `/quest` | Opens Auto Quest Settings. |
+| `/potion` · 🧴 Potions | Opens Potion Center. |
+| `/energy` · 🔋 Energy | Opens Energy Refill Center. |
+| `/sprint` · 💨 Sprint | Opens Sprint control. |
+| `/temple` · 🏛️ Temple | Opens Temple worship menu. |
+| `/sell` · 📦 Sell Inventory | Opens Inventory Sell Center. |
+| `/autosell` · 🏷️ Auto Sell | Opens Auto Sell settings directly. |
+| `/quest` · 📜 Quest | Opens Auto Quest Settings. |
 | `/quest_selector` | Opens full expedition selector. |
-| `/map` | Opens Map Center. |
-| `/event` | Opens Event Center. |
+| `/map` · 🧭 Map | Opens Map Center. |
+| `/event` · 🎉 Events | Opens Event Center. |
 | `/notification` | Opens in-game notification center. |
-| `/profession` | Opens Profession Center. |
-| `/daily` | Opens Daily Reward Center. |
-| `/abyss` | Opens Abyss Center. |
-| `/battle` | Opens the existing Battle Arena menu. |
-| `/worldboss` / `♛ World Boss` | Opens World Boss status, schedule, statistics, and Auto Attack toggle. |
-| `/playerbattle` / `⚔ Player Battle` | Opens manual/automatic Player Battle, energy mode, interval, filters, and statistics. |
-| `/healer` | Opens Healer Center. |
-| `/autocraft` | Opens Auto Craft menu. |
-| `/craftqueue` | Opens Crafting Queue menu. |
-| `/crafting` | Opens Crafting Center. |
-| `/bank` | Opens Bank Center. |
-| `/chests` | Opens Chests Center. |
+| `/profession` · 🧑‍🏭 Profession | Opens Profession Center. |
+| `/daily` · 🎯 Daily Rewards | Opens Daily Reward Center. |
+| `/abyss` · 🌌 Abyss | Opens Abyss Center. |
+| `/battle` · 🛡️ Battle | Opens the existing Battle Arena menu. |
+| `/worldboss` · 🐉 World Boss | Opens World Boss status, schedule, statistics, and Auto Attack toggle. |
+| `/playerbattle` · 🥊 Player Battle | Opens manual/automatic Player Battle, energy mode, interval, filters, and statistics. |
+| `/healer` · 🩹 Healer | Opens Healer Center, including the Fallback and Auto-buy switches. |
+| `/autocraft` · 🧠 Auto Craft | Opens Auto Craft menu. |
+| `/craftqueue` · 📥 Craft Queue | Opens Crafting Queue menu. |
+| `/crafting` · 🔨 Crafting | Opens Crafting Center. |
+| `/bank` · 💰 Bank | Opens Bank Center. |
+| `/chests` · 🗝️ Chests | Opens Chests Center. |
+| ⛏️ Materials | Opens the material and gathering overview. |
+| 📚 Activity Log | Shows the recent activity log. |
+| ⚔️ Kills / 📈 Stats | Shows combat counters and character statistics. |
+| 🧙 Profile | Shows the character profile and equipment summary. |
+
+## Healer menu controls
+
+| Button | Meaning |
+|---|---|
+| 🍽️ Use x1 / 🍽️ Use x5 | Uses the selected heal item manually. |
+| 🛒 Buy x10 / 🛒 Buy x100 | Buys stock of the selected item from the healer shop. |
+| Fallback ON/OFF | Allows switching to another owned heal item when the selected one is empty. Green when ON. |
+| Auto-buy ON/OFF | Allows buying stock when everything is empty. Off by default because it spends gold. |
+| Select Item Heal | Opens the heal item picker. Blue, since it navigates. |
+| Auto Heal Quantity | Shows and edits the maximum items used per heal. |
+| 🔄 Refresh / ❌ Close | Reloads the menu or closes it. |
 
 ## Telegram API Used
 
 | Method | API | Description |
 |---|---|---|
-| `POST` | `/sendMessage` | Sends normal messages and reply keyboard menus. |
+| `POST` | `/sendMessage` | Sends normal messages, reply keyboard menus, and colored buttons (`reply_markup` with `style`). |
 | `POST` | `/editMessageText` | Updates inline menu content after button clicks. |
 | `POST` | `/deleteMessage` | Deletes temporary menus when closed. |
 | `POST` | `/answerCallbackQuery` | Acknowledges inline button actions. |
 | `POST` | `/sendPhoto` | Sends captcha images or image-based content. |
-| `POST` | `/sendMessage` | Also delivers enabled World Boss, Player Battle, and CAPTCHA Debug notifications. |
+| `POST` | `/sendMessage` | Also delivers enabled World Boss, Player Battle, Auto Equip, Healer, and CAPTCHA Debug notifications. |
 | `GET` | `/getUpdates` | Polls messages and callback data. |
 | `GET` | `/getMe` | Checks bot token validity. |
+
+Button colors use the `style` field (`primary`, `success`, `danger`) added to Bot API keyboards in 2026. Telegram accepts the field on both inline and reply keyboards, and clients older than that render the same buttons without color.
 
 ---
 

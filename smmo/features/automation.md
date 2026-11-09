@@ -36,6 +36,13 @@ Auto Travel runs the main step loop. It waits for server cooldown, adds a small 
 
 When travel finds an NPC encounter, the bot can attack automatically until the encounter ends. It records NPC kills, EXP, gold, and hit count.
 
+While fighting, HP is checked after every hit and Auto Healer can step in:
+
+* The selected heal item is used in a quantity computed from the HP deficit.
+* If the selected item is out of stock, the bot falls back to another heal item you own (up to four candidates, ordered by how close their heal value is to the deficit).
+* Optional auto-buy purchases more stock when everything is empty; it is **off by default** because it spends gold.
+* If HP reaches 0% and no heal succeeds, the bot stops attacking instead of continuing a fight that yields no gold or EXP, and sends a Telegram notice at most once per 15 minutes.
+
 ## Battle Arena
 
 Battle Arena can run once or continue automatically. Natural Energy mode waits for regenerated energy; Auto MOE mode pauses travel and uses one Mushroom of Energy when the battle needs energy. The menu reports energy, league progress, wins, hits, and MOE usage.
@@ -72,26 +79,73 @@ Filters and advanced filters include minimum/maximum level, minimum gold, guild 
 
 ## Material Gatherer
 
-When travel finds material encounters, the bot gathers automatically and reports material amount, player EXP, skill EXP, and level changes if notifications are enabled.
+When travel finds a material encounter, the bot reads the session from the gathering information endpoint and then repeats the gather action until the server marks the session finished or the safety limit is reached.
+
+Each summary reports the material, action, gathered count, player EXP, skill EXP, and the current skill level. A summary is only sent when at least one gather actually succeeded:
+
+* Failures (no energy, session already ended, material depleted) are detected from the response body, not the HTTP status — SimpleMMO answers `200` with a `status: "error"` payload.
+* The skill level keeps its last known value when the server does not send a new one, instead of showing `?`.
+* When a session stops early, the message adds a note line with the server's own reason.
+
+| Method | API | Description |
+|---|---|---|
+| `POST` | Dynamic gathering information endpoint | Reads the material session, action, skill, and remaining amount. |
+| `POST` | Dynamic gathering gather endpoint | Performs one gather action until the session ends. |
 
 ## Auto Equip
 
-Auto Equip attempts to equip found equipment through the web flow. It is mutually exclusive with Auto Sell because both features handle found equipment.
+Auto Equip decides whether a found item is actually an upgrade before wearing it. It is mutually exclusive with Auto Sell because both features handle found equipment.
+
+How the decision is made:
+
+1. The item's slot (Weapon, Helmet, Armour, Boots, Greaves, Gauntlet, Shield, Amulet), level, and stats are read from your inventory.
+2. The item currently worn in the same slot is read from the equipped page, together with its stats.
+3. A weighted score is compared inside the same slot only: `str`, `dex`, `def`, `vit` count 1.0 each, `luck` 0.5, `hp` 0.1, `energy` 0.2.
+4. The bot equips when the new item scores higher, or when the slot is still empty.
+
+Items are skipped — never equipped blindly — when they:
+
+* require a higher character level,
+* are gathering tools (pickaxe, wood axe, fishing rod, shovel) or non-equipment items,
+* have stats that could not be read (for example, the item has not reached the inventory yet).
+
+After equipping, the bot re-reads your equipped gear and only reports success when the item really occupies the slot.
+
+Notifications follow the **Auto Equip** switch: turning Auto Equip off silences equip notifications completely. When it is on, you receive a message for an equipped upgrade (item, slot, stats, replaced item), for a skipped item (weaker / level too low / stats unreadable), or for a genuine failure.
 
 | Method | API | Description |
 |---|---|---|
-| `GET` | `/inventory/equip/{item_id}?api=true` | Equips selected equipment item through SimpleMMO inventory flow. |
+| `GET` | `/inventory/items` | Reads candidate item type, level, and stats. |
+| `GET` | `/inventory/equipped` | Reads currently equipped gear and its stats per slot. |
+| `POST` | `/inventory/equip/{item_id}?api=true` | Equips the item with an `X-CSRF-TOKEN` header. `GET` on this route answers `405`, which is why older builds never equipped anything. |
 
 ## Captcha Solver, Optional AI, and Debug
 
-If bot verification appears, the captcha can be sent to Telegram and answered with inline buttons. Optional AI assistance is enabled only from the private local configuration. The AI response must end with a validated `FINAL_CHOICE: N`; truncated `MAX_TOKENS`/`LENGTH` output receives one continuation attempt before the solver falls back safely.
+SimpleMMO currently serves a **Journey Checkpoint**: four icons on the right, one shadow on the left, and you drag the matching icon onto the shadow. Older accounts and the signed fallback link still receive the classic "find the item named X" captcha. The bot handles both.
 
-The normal **Captcha / Warning** notification toggle remains separate. **Captcha Debug** can mirror the full terminal flow to Telegram for diagnostics. Its title is shown only on the first debug message of each CAPTCHA run, while following messages contain only the raw log line.
+### Journey Checkpoint (automatic)
+
+Nothing is hardcoded: the bot reads the submit endpoint, the `X-CSRF-TOKEN` value, the choice hashes, and every image URL from the page attributes.
+
+1. All four choice images and the shadow are downloaded (one quick retry on a failed download).
+2. Each image is reduced to its alpha mask, cropped to its content, scaled to 64×64, and compared with the shadow using intersection-over-union.
+3. The answer is submitted as `{data, x, y, valid}` to the journey waypoint endpoint, with the CSRF header and your session cookies.
+4. If the response does not report success, the bot reports the failure instead of retrying blindly against a consumed challenge.
+
+To avoid wrong answers, auto-submit only happens when the best match scores **at least 0.90** and is clearly ahead of the runner-up (**margin ≥ 0.05**, or an identical bounding-box shape with a smaller margin). When two icons really are twins, or an image cannot be downloaded or decoded, the challenge is forwarded to Telegram with the images and inline buttons so you can answer it yourself. A `0` or `4` is never picked at random.
+
+### Classic captcha and optional AI
+
+If the page uses the older style, the bot sends the images to Telegram and you answer with inline buttons. Optional AI assistance is enabled only from the private local configuration and only applies to this style: the response must end with a validated `FINAL_CHOICE: N`, and truncated `MAX_TOKENS`/`LENGTH` output receives one continuation attempt before falling back safely. The silhouette checkpoint never uses AI — shadows are generated from the same assets, so pixel comparison is exact while a vision model would be guessing.
+
+The normal **Captcha / Warning** notification toggle remains separate. **Captcha Debug** can mirror the full terminal flow to Telegram for diagnostics. Its title is shown only on the first debug message of each CAPTCHA run, and following messages contain only the raw log line.
 
 | Method | API | Description |
 |---|---|---|
-| `GET` | `/travel` | Loads captcha context when verification appears. |
-| `POST` | `/api/bot-verification` | Submits captcha answer. |
+| `GET` | `/i-am-not-a-bot?new_page=true` | Loads the verification page with the checkpoint endpoint, CSRF token, choice hashes, and image URLs. |
+| `GET` | `/journey/waypoint/picture?uid=0..3` and `?uid=shadow` | Downloads the four choices and the shadow. |
+| `POST` | `/api/journey/waypoint` | Submits the chosen icon (`{data, x, y, valid}`) with `X-CSRF-TOKEN`. Success is `{"type": "success"}`. |
+| `POST` | `/api/bot-verification` | Legacy captcha submission, still used when the page serves the old style. |
 
 ## Sprint and Auto Sprint
 

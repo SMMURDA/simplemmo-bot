@@ -40,7 +40,7 @@ Control Panel changes runtime behavior without restarting the bot.
 |---|---|
 | NPC Attack | Enables or disables automatic NPC attack. |
 | Material Gather | Enables or disables automatic material gathering. |
-| Auto Equip | Enables equipment auto-equip and disables Auto Sell. |
+| Auto Equip | Enables equipment auto-equip and disables Auto Sell. Only items that are a clear stat upgrade for their slot are equipped; equip notifications follow this switch. |
 | Auto Sell | Enables found-item auto sell and disables Auto Equip. |
 | Auto Sprint | Enables or disables automatic sprint. |
 | Auto Craft | Enables or disables background Auto Craft. |
@@ -59,7 +59,7 @@ Notification settings are persistent and can be toggled from Telegram.
 | Material Gather | Sends material gather summary. |
 | NPC Kill | Sends NPC kill summary. |
 | Auto Sell | Sends Auto Sell result messages. |
-| Auto Equip | Sends Auto Equip result messages. |
+| Auto Equip | Sends Auto Equip result messages. Controlled by the Auto Equip switch itself: when Auto Equip is off, nothing is sent. |
 | Captcha / Warning | Sends the normal captcha and warning flow. |
 | Captcha Debug | Mirrors terminal CAPTCHA logs to Telegram without changing the normal captcha toggle. |
 | World Boss | Sends boss available, attack, completion, and error/status notifications. |
@@ -78,7 +78,7 @@ Important toggles and selected options survive restarts through local JSON stora
 |---|---|
 | `data/runtime_settings.json` | Stores runtime feature toggles and selected values. |
 
-Saved values include Auto Equip, Auto Sell, Auto Sell rarity, Auto Sprint, Auto Quest, Auto Craft, Auto MOE, Auto Healer, Auto Abyss, Battle Arena, Auto World Boss, Player Battle mode/interval/filters, Bank Auto Deposit, and related quantities/options.
+Saved values include Auto Equip, Auto Sell, Auto Sell rarity, Auto Sprint, Auto Quest, Auto Craft, Auto MOE, Auto Healer (including the Fallback and Auto-buy switches and heal threshold/quantity), Auto Abyss, Battle Arena, Auto World Boss, Player Battle mode/interval/filters, Bank Auto Deposit, and related quantities/options.
 
 ## Event Center
 

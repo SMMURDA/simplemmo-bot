@@ -288,6 +288,8 @@ The bot itself uses `POST /v1/check`. That endpoint returns a signed envelope fo
 
 An internet connection is required at startup and during runtime. There is no offline grace period. If the service cannot be reached or a signed validation fails, the bot does not continue running.
 
+The license client also records the SHA-256 fingerprint of the license server's TLS certificate. Because that certificate is renewed a few times a year, the recorded fingerprint can legitimately stop matching; when that happens the bot prints one advisory line at startup and keeps going. Identity is still proven, because the response signature is verified with Ed25519 on every check — the fingerprint is a secondary pin, not the authentication mechanism.
+
 ## Device limits
 
 A license can allow one or more devices. A new computer or VPS may consume an activation slot. Contact the distributor for a device reset before migrating when your allowance is full.

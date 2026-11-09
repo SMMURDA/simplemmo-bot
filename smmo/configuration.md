@@ -88,6 +88,8 @@ GEMINI_MIN_REQUEST_INTERVAL_SECONDS=3
 
 When enabled, the bot may send the CAPTCHA image choices and the requested item label to Gemini for analysis. The bot uses the returned explicit final choice only when available. If AI is unavailable, incomplete, or cannot provide a valid final choice, the bot follows its normal manual verification flow instead.
 
+CAPTCHA AI applies **only** to the classic "find the item named X" captcha. The current Journey Checkpoint (drag the icon that matches the shadow) is solved locally by silhouette comparison and never sends images to any external service, because the shadow is generated from the same asset and pixel matching is exact.
+
 ### Disable CAPTCHA AI
 
 To return to Telegram/manual verification, change only this setting and restart the bot:

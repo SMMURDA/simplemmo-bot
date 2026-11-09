@@ -23,11 +23,11 @@ This page lists every main feature available in the script.
 | Battle Arena | Runs arena battles with Natural Energy or Auto MOE mode and session statistics. |
 | Auto World Boss | Monitors the live boss schedule, pauses travel during an available boss fight, attacks automatically, and restores the previous travel state afterward. |
 | Player Battle | Supports manual targets, Auto MOE, timed Natural Energy mode, opponent filters, and advanced filters. |
-| Material Gatherer | Gathers material encounters automatically and reports material results. |
-| Auto Equip | Equips found equipment through the SimpleMMO web flow. Mutually exclusive with Auto Sell. |
+| Material Gatherer | Gathers material encounters automatically, reports gathered amount, player EXP, skill EXP, and skill level, and explains when the server stops a session early. |
+| Auto Equip | Compares each found equipment's stats with what you currently wear and only equips clear upgrades. Notifications follow the Auto Equip switch. Mutually exclusive with Auto Sell. |
 | Auto Sell | Automatically sells found equipment by selected rarity and supports inventory sell filters. |
-| Captcha Solver | Sends captcha images to Telegram and lets the user answer with inline buttons. |
-| Optional CAPTCHA AI | Uses the locally configured Gemini/Gemma model when enabled, validates `FINAL_CHOICE`, and performs one continuation retry for truncated output. |
+| Captcha Solver | Handles the current "Journey Checkpoint" verification by matching each icon's silhouette against the shadow, and still handles the older image-prompt captcha. Ambiguous matches are sent to Telegram instead of being guessed. |
+| Optional CAPTCHA AI | Uses your own Gemini/Gemma key to answer the older image-prompt captcha only. Off by default; the silhouette checkpoint never needs it. |
 | CAPTCHA Debug | Mirrors the complete terminal CAPTCHA flow to Telegram through a separate persistent notification toggle. |
 | Energy Refill Center | Shows energy, MOE, diamonds, sprint, manual refill, diamond refill, and Auto MOE. |
 | Sprint | Uses sprint energy manually or automatically. |
@@ -37,7 +37,7 @@ This page lists every main feature available in the script.
 | Quest Selector | Lists expeditions, rewards, progress, chance, requirements, and selected Auto Quest expedition. |
 | Auto Quest Settings | Toggle Auto Quest, run quest manually, and select expedition without restarting. |
 | Daily Reward Center | Checks and claims daily reward when available. |
-| Healer Center | Checks HP, heals the character, and supports Auto Healer settings. |
+| Healer Center | Checks HP, heals the character, and supports Auto Healer with fallback heal items, an optional auto-buy, and colored Telegram controls. |
 | Profession Center | Starts profession jobs, checks energy, pauses travel while profession is running, and supports MOE flow. |
 | Abyss Center | Shows Abyss gates, joins/runs Abyss, completes/escapes, and supports Auto Abyss. |
 | Bank Center | Shows wallet/bank gold, deposit, withdraw, quick amounts, and session totals. |
@@ -51,6 +51,7 @@ This page lists every main feature available in the script.
 | Game Notifications | Reads game notification pages and displays updates in Telegram. |
 | Debug Panel | Checks cookie/token/API/endpoint status for troubleshooting. |
 | Persistent Runtime Settings | Saves important toggles and selected options to JSON so they survive restarts. |
+| Colored Telegram UI | Reply keyboard and inline menus use the official Bot API button colors (green for positive actions, red for stopping actions, blue for navigation) with a consistent emoji set. |
 
 ---
 
