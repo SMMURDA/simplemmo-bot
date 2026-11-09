@@ -6,7 +6,7 @@
 # Untuk mengisi ulang dari rilis lama, jalankan workflow itu secara manual
 # dengan input tag.
 
-version: "3.1.0"
-tag: "v3.1.0"
+version: "3.2.0"
+tag: "v3.2.0"
 released: "2026-11-09"
 released_display: "9 November 2026"
