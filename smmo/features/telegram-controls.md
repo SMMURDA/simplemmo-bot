@@ -42,8 +42,8 @@ The style is applied centrally, so every existing menu is colored without changi
 | 12 | 📦 Sell Inventory · 🎚️ Control · 🎉 Events |
 | 13 | 📬 Notifications · 🔧 Settings · 🧪 Debug |
 | 14 | ✉️ Messages |
-| 15 | 💬 Chat · 🤝 Party · 💪 Stats Points |
-| 16 | 📡 Stream |
+| 15 | 💬 Chat · 🏪 Market · 🤝 Party |
+| 16 | 💪 Stats Points · 📡 Stream |
 
 Old labels keep working: the bot normalizes emoji variations (including the text/emoji presentation selectors) before matching, so a keyboard cached by Telegram from an older build still resolves to the right command.
 
@@ -86,6 +86,7 @@ Old labels keep working: the bot normalizes emoji variations (including the text
 | `/healer` · 🩹 Healer | Opens Healer Center, including the Fallback and Auto-buy switches. |
 | `/messages` · ✉️ Messages | Opens the private message inbox, with conversation threads and replies. |
 | `/chat` · 💬 Chat | Live global, ads, support and guild chat, with channel tabs and sending. |
+| `/market` · 🏪 Market | Player market: categories, search, filters, buying, selling, listings and recent sales. |
 | `/party` · 🤝 Party | Party status, manual pick with sizes, leave/disband and create-party flow, plus auto-join. |
 | `/stats_points` · 💪 Stats Points | Shows unspent stat points and spends them on STR/DEF/DEX after confirmation. |
 | `/stream` · 📡 Stream | Toggles the single-message live stream after confirmation (step + captcha counters and rolling events). |
@@ -130,6 +131,18 @@ How it works:
 * Sending goes through the same submit endpoint the website uses, with the page's rotating API token. A `401` refreshes the token once and retries; rate limits ("You are doing this too fast") and validation errors are shown as-is.
 * Messages are capped at 1000 characters, the game's own limit, and text that looks like HTML is escaped before it reaches Telegram.
 * While the reply prompt is open, another keyboard command interrupts it cleanly instead of being sent to the player as a message.
+
+## Market menu
+
+`/market` (or the 🏪 Market button) opens the player market on a category screen built from the game's own sidebar: All, Weapons, Armour, Items, Pets, Amulets, Shields, Boots, Helmets, Collectables, Avatars, Materials, Sprites, Greaves, Gauntlets, Backgrounds, Specials, Tools, Potions, Event Collectables, Trading Cards, Membership and Treasure Chest.
+
+* Choosing a category lists the newest five listings with a price summary (lowest, median, highest) and Prev/Next paging.
+* `⚙️ Filters` adds item type, rarity, a gold range and sort order.
+* Tapping a listing sends the item picture (upscaled, animated when the game's sprite is a GIF) with its stats, description when the item has one, supply, market range, seller and price, plus Buy and Cancel.
+* `➕ Sell an item` lists your inventory, asks for quantity (1–20) and price (lowest listing shown), then confirms before listing at the 6% fee.
+* `🧾 My listings` removes your own listings after confirmation; `🕘 Recent sales` shows the latest sales.
+
+There is no gold cap on purchases — the confirmation button is the only gate. Full details: [Player Market]({{ '/smmo/features/market/' | relative_url }}).
 
 ## Chat menu
 

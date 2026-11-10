@@ -36,6 +36,15 @@ This page groups the API routes used by the script and explains their purpose.
 | `GET` | `/quests` | Quest Selector | Loads quest points and expedition list. |
 | `GET` | `/quests/viewall` | Quest discovery | Loads full quest list page. |
 | `GET` | `/temple?new_page=true` | Temple | Loads worship data, available gods, diamonds, reset timer, and extra worship data. |
+| `GET` | `/market/listings` | Player Market | Listing table; supports `item_name`, `type[]`, `rarity[]`, `min_cost`, `max_cost`, `min_level`, `max_level`, `order_col=cost`, `order`, `page`, `item_id` and `user_id`. |
+| `GET` | `/market-history` | Player Market | Recent sales feed (item, price, time, seller). |
+| `POST` | `/api/market/buy/{listing_id}` | Player Market | Buys one listing; errors return JSON with `message`. |
+| `POST` | `/api/market/remove/{listing_id}` | Player Market | Removes one of your own listings. |
+| `POST` | `/api/market/{item_id}` | Player Market | Lists an item with `{_token, qty, amount, bank_payment}` (1–20 per listing). |
+| `POST` | `/api/market/{item_id}/prices` | Player Market | 30-day average, lowest and highest price for an item you own. |
+| `POST` | `/api/market/change-payment-method` | Player Market | Switches the payout method between gold and bank (`p_method=gold\|bank`). |
+| `GET` | `/item/inspect/{item_id}` | Player Market | Item inspect page: stats, value, rarity, circulation, sold count, creation date and market range. |
+| `POST` | `/api/item/{item_id}` | Player Market | Item popup payload used for the description and basic fields (name, image, level, rarity, type, value, market range). |
 | `GET` | `/horse-and-carriage?new_page_refresh=true` | Map | Loads map locations, costs, routes, level requirements, and current location. |
 | `GET` | `/horse-and-carriage/teleport/{location_id}` | Map | Teleports to selected location. |
 | `POST` | `/api/horse-and-carriage/walk/{location_id}` | Map | Walks to selected location. |

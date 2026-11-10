@@ -30,9 +30,11 @@ This page lists every main feature available in the script.
 | Optional CAPTCHA AI | Uses your own Gemini/Gemma key to answer the older image-prompt captcha only. Off by default; the silhouette checkpoint never needs it. |
 | Captcha Debug | Mirrors the complete terminal CAPTCHA flow to Telegram through a separate persistent notification toggle. |
 | Private Messages | Lists conversations with the last message, shows the last five messages of a thread, and sends replies straight from Telegram. |
-| Travel Party | Shows whether you are in a party, lists open public parties, and can auto-join one while travelling. |
-| Stat Points | Shows unspent stat points and spends them on STR, DEF or DEX from inline buttons. |
-| Live Stream | Groups travel notifications into one edited message, with STEP and CAPTCHA counters. |
+| In-Game Chat | Opens global, ads, support and guild chat as one live message with channel tabs and a send flow. |
+| Player Market | Opens the market with its own categories, search and filters, buys after confirmation, lists items for sale, removes listings, and shows item stats, description and animated sprite. |
+| Travel Party | Shows party status and member count, lists open parties with their sizes, joins a chosen party, leaves or disbands with confirmation, and can create a party with an inactivity kick and alt-account setting. |
+| Stat Points | Shows unspent stat points and spends them on STR, DEF or DEX after a confirmation step. |
+| Live Stream | Groups travel notifications into one edited message with STEP, CAPTCHA, ENERGY, KILLS, GOLD, EXP, MATERIALS, ITEMS and QUEST counters, collapsible events, and a step list that stays visible. |
 | Energy Refill Center | Shows energy, MOE, diamonds, sprint, manual refill, diamond refill, and Auto MOE. |
 | Sprint | Uses sprint energy manually or automatically. |
 | Potion Center | Lists potions, active effects, quantities, duration, and allows potion use. |

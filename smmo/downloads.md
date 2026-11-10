@@ -36,13 +36,14 @@ Official builds are distributed through the **GitHub Releases** page associated 
 
 A normal package contains the bot executable, launcher executable, `.env.example`, user instructions, and license terms. It must not contain a completed `.env`, customer license key, or private signing key.
 
-## Current release — v3.6.1
+## Current release — v3.7.0
 
 The newest build adds:
 
 * **Auto sprint fix**: enabling Auto Craft no longer saves auto sprint as OFF, so sprint keeps running after a restart; turning Auto Sprint ON takes the energy back from Auto MOE/Auto Craft and says which one it switched off.
 * **Stream**: STEPS stays visible (no collapse button), EVENTS keeps its collapse.
 * **Ready message**: the legend now covers ⚪/⚫ plain buttons, which follow the Telegram theme.
+* **Player Market**: browse by category, search and filter, buy with confirmation, list items for sale, remove listings, and read recent sales; item photos are large, crisp and animated when the game ships an animated sprite, with stats and description from the game's inspect view.
 * **Live in-game chat**: a 💬 Chat button opens global, ads, support and guild chat as one live message, with inline tabs to switch channel and a send flow for each one.
 * **Auto-sprint stays on after a restart**: the panel shows `ON ✅ (paused by Auto MOE)` when another automation is using the energy, then resumes alone.
 * **Tidier stream layout**: EVENTS above STEPS, both collapsible, six steps and four events.
