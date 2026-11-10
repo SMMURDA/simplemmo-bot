@@ -158,7 +158,8 @@ STEPS
 * The body is split into an **EVENTS** block and a **STEPS** block, each one line per event, newest last. Only the four newest steps and eight newest events are kept, so old steps scroll out instead of filling the message.
 * Step lines are written as one readable paragraph: type, current gold, EXP percentage and the wait for that step.
 * Edits are throttled to one every two seconds, so a fast travel loop never hits Telegram rate limits; a pending update is flushed by a timer. Identical content is skipped entirely, so the message is never recreated just because nothing changed.
-* The message is **pinned** automatically (silently) so it stays on top of the chat. If you delete it, the bot notices the edit failing and posts and pins a fresh one, unpinning the old one first.
+* The message is **never duplicated**: if an edit fails for any reason other than the message being deleted (rate limit, HTML parse, network), the bot keeps the same message and retries on the next event. Only a deleted message gets a fresh one, exactly once.
+* No pinning: the stream message is a normal message and never pins or unpins anything.
 * Toggle with `/stream`, the **📡 Stream** button, or the control panel. The choice is saved and survives restarts. With it off, every event is sent as its own message again.
 * While the stream is on, captcha chatter is suppressed: "Answer correct! Bot resuming travel...", "Icon N | similarity", the AI/automatic answer lines and the separate "CAPTCHA SOLVED" message are folded into the stream instead of being posted. Menus, captcha prompts, dashboards, license and standby messages are never streamed.
 
