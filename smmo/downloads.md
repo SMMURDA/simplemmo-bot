@@ -40,7 +40,7 @@ A normal package contains the bot executable, launcher executable, `.env.example
 
 The newest build adds:
 
-* **Tidier stream layout**: the summary sits in a quote block with monospace counters, EVENTS is a visible quote block, and STEPS is collapsible.
+- **Tidier stream layout**: the summary sits in a quote block with monospace counters, **STEPS** comes first in a collapsible quote block, and **EVENTS** follows in a visible quote block. Both keep the newest four lines.
 * **Stream fixes**: the live stream no longer creates a new message (or re-pins) every few minutes when an edit fails; it only recreates a message that was actually deleted, and it is no longer pinned.
 * **Step tracker**: with the stream off, one pinned message shows the current step and the wait time for the next step.
 * **Stat points**: a 💪 Stats Points menu with `+10`, `+50` and **ALL** buttons.

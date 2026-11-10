@@ -140,18 +140,19 @@ Travel can produce a message every few seconds: step summaries, NPC kills, item 
 ▎ ⚔️ KILLS 13   💰 GOLD +239,130   ✨ EXP +45,120
 ▎ ⛏ MATERIALS 27   🎁 ITEMS 4   📜 QUEST 1
 
-▎ EVENTS
-▎ 15:11:54 ⚔️ NPC DEFEATED ⚔️ — Session kills: 14 · EXP: +4,000 · Gold: +860
-▎ 15:11:49 📜 QUEST DONE 📜 — Expedition: #12 · Reward: +500 EXP
-
 ▸ STEPS (collapsed, tap to open)
+
+▎ EVENTS
+▎ 15:11:54 ⚔️ NPC DEFEATED · EXP: +4,000 · Gold: +860
+▎ 15:11:49 📜 QUEST DONE · Expedition: #12 · Reward: +500 EXP
 ```
 
-The summary sits in a Telegram quote block with the numbers in monospace so they line up; **EVENTS** is a normal quote block and **STEPS** is a collapsible one, so the rolling step list never dominates the message.
+The summary sits in a Telegram quote block with the numbers in monospace so they line up; **STEPS** is a collapsible quote block above, **EVENTS** a normal quote block below.
 
 * The header shows the current **STEP**, how many **CAPTCHA** were solved, session **KILLS**, gold and EXP earned (travel rewards plus NPC rewards), materials gathered, items found and quests completed. Counters refresh as kills, finds and gathers happen, not only on the next step.
 * **Quest completion** is part of the stream: the event line appears there and the QUEST counter goes up.
-* The body is split into an **EVENTS** block and a **STEPS** block, each one line per event, newest last. Only the four newest steps and eight newest events are kept, so old steps scroll out instead of filling the message.
+* The body is split into a **STEPS** block first (collapsible) and an **EVENTS** block below it, each one line per event, newest last. Only the four newest steps and four newest events are kept, so old lines scroll out instead of filling the message.
+* Event lines are shortened: `⚔️ NPC DEFEATED · EXP: +4,000 · Gold: +860` — the "Session kills" field is dropped because the header already counts kills.
 * Step lines are written as one readable paragraph: type, current gold, EXP percentage and the wait for that step.
 * Edits are throttled to one every two seconds, so a fast travel loop never hits Telegram rate limits; a pending update is flushed by a timer. Identical content is skipped entirely, so the message is never recreated just because nothing changed.
 * The message is **never duplicated**: if an edit fails for any reason other than the message being deleted (rate limit, HTML parse, network), the bot keeps the same message and retries on the next event. Only a deleted message gets a fresh one, exactly once.
