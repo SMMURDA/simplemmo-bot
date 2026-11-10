@@ -9,7 +9,7 @@ sitemap: false
 
 <style>
   .auth-page{max-width:960px;margin:24px auto 56px;padding:0 16px}
-  .auth-grid{display:grid;grid-template-columns:minmax(0,1fr) minmax(0,420px);gap:28px;align-items:center}
+  .auth-grid{display:grid;grid-template-columns:minmax(0,1fr) minmax(0,440px);gap:32px;align-items:center}
   .auth-brand{padding:8px 8px 8px 0}
   .auth-brand img{width:56px;height:56px;border-radius:12px;object-fit:contain;margin-bottom:16px}
   .auth-brand h2{margin:0 0 10px;font-size:26px;letter-spacing:-.02em}
@@ -46,12 +46,13 @@ sitemap: false
   .auth-foot{max-width:960px;margin:18px auto 0;padding:0 16px;text-align:center;color:var(--muted);font-size:13px}
   .auth-foot a{color:var(--text)}
   .auth-foot span{margin:0 8px;color:var(--border)}
-  @media (max-width:820px){
-    .auth-grid{grid-template-columns:1fr;gap:18px}
-    .auth-brand{padding:0}
-    .auth-brand ul{display:none}
-    .auth-brand h2{font-size:22px}
-    .auth-card{padding:22px 18px}
+  .auth-head .auth-logo{display:none;width:44px;height:44px;border-radius:10px;object-fit:contain;margin-bottom:10px}
+  @media (max-width:900px){
+    .auth-page{margin-top:8px}
+    .auth-grid{grid-template-columns:1fr;gap:16px;justify-items:center}
+    .auth-brand{display:none}
+    .auth-card{max-width:440px;padding:22px 18px}
+    .auth-head .auth-logo{display:block}
   }
 </style>
 
@@ -70,6 +71,7 @@ sitemap: false
 
     <section class="auth-card" aria-live="polite">
       <header class="auth-head">
+        <img class="auth-logo" src="{{ '/assets/images/simplemmo-logo.png' | relative_url }}" alt="">
         <p class="auth-eyebrow">Account access</p>
         <h1 id="auth-title">Sign in</h1>
         <p>Choose the account you use for TOPUP.</p>
