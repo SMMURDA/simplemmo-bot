@@ -176,7 +176,7 @@ Every level grants stat points. **💪 Stats Points** shows how many are unspent
 ```
 
 * The values are the **base** stats you upgrade; equipment bonuses are not included, so the in-game "Total" tab will read higher.
-* Buttons per stat: `+1`, `+5`, `+10`. A button disappears when you do not have enough points for it.
+* Buttons per stat: `+10`, `+50`, and **ALL** (spends every remaining point on that stat, the label shows how many). A button disappears when you do not have enough points for it.
 * Accepting a button spends the points immediately and updates the counters; the server's own validation text (for example "The amount must be at least 1.") is shown if it refuses.
 
 ## Party
