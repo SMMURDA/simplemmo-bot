@@ -137,18 +137,25 @@ Travel can produce a message every few seconds: step summaries, NPC kills, item 
 📡 LIVE TRAVEL STREAM
 ╰┈➤ STEP    : 124
 ╰┈➤ CAPTCHA : 3
+╰┈➤ KILLS   : 13
+╰┈➤ GOLD    : +239,130
+╰┈➤ EXP     : +45,120
+╰┈➤ MATERIAL: 27
+╰┈➤ ITEMS   : 4
+╰┈➤ QUEST   : 1
 ──────────────────
-14:55:25 🎁 ITEM FOUND 🎁: Steel Sword | Rarity : Rare | Type : Weapon
-14:55:23 ⛏️ MATERIAL GATHERED ⛏️: Material : Cod | Action : Catch | EXP : +7
-14:55:21 ⚔️ NPC DEFEATED ⚔️: Session kills : 3 | EXP : +120 | Gold : +45
+15:11:54 ⚔️ NPC DEFEATED ⚔️: Session kills : 14 | EXP : +4,000 | Gold : +860
+15:11:53 🧭 STEP 🧭: Type : TEXT | Gold : 239,130 | EXP: 45% | Wait: 7410ms
+15:11:49 📜 QUEST DONE 📜: Expedition : #12 | Reward : +500 EXP
 ```
 
-* The header always shows the current **STEP** and how many **CAPTCHA** have been solved this session.
-* Events are compacted to one line each (timestamp + what happened), newest at the bottom, last twelve kept.
+* The header shows the current **STEP**, how many **CAPTCHA** were solved, session **KILLS**, gold and EXP earned (travel rewards plus NPC rewards), materials gathered, items found and quests completed. Counters refresh as kills, finds and gathers happen, not only on the next step.
+* **Quest completion** is part of the stream: the event line appears there and the QUEST counter goes up.
+* Event lines are compacted to one line each (timestamp + what happened), newest at the bottom. At most **four STEP lines** and eight other events are kept, so old steps scroll out instead of filling the message.
 * Edits are throttled to one every two seconds, so a fast travel loop never hits Telegram rate limits; a pending update is flushed by a timer.
-* If you delete the message, the bot notices the next edit failing and posts a fresh one.
+* The message is **pinned** automatically (silently) so it stays on top of the chat. If you delete it, the bot notices the next edit failing and posts and pins a fresh one.
 * Toggle with `/stream`, the **📡 Stream** button, or the control panel. The choice is saved and survives restarts. With it off, every event is sent as its own message again.
-* Menus, captcha prompts, dashboards, license and standby messages are never streamed.
+* While the stream is on, the separate "CAPTCHA SOLVED" message and the per-line captcha debug messages are suppressed — both already appear inside the stream. Menus, captcha prompts, dashboards, license and standby messages are never streamed.
 
 ## Stat points
 
