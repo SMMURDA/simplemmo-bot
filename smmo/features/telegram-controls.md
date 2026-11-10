@@ -42,6 +42,7 @@ The style is applied centrally, so every existing menu is colored without changi
 | 12 | 📦 Sell Inventory · 🎚️ Control · 🎉 Events |
 | 13 | 📬 Notifications · 🔧 Settings · 🧪 Debug |
 | 14 | ✉️ Messages |
+| 15 | 🤝 Party · 💪 Stats Points · 📡 Stream |
 
 Old labels keep working: the bot normalizes emoji variations (including the text/emoji presentation selectors) before matching, so a keyboard cached by Telegram from an older build still resolves to the right command.
 
@@ -83,6 +84,9 @@ Old labels keep working: the bot normalizes emoji variations (including the text
 | `/playerbattle` · 🥊 Player Battle | Opens manual/automatic Player Battle, energy mode, interval, filters, and statistics. |
 | `/healer` · 🩹 Healer | Opens Healer Center, including the Fallback and Auto-buy switches. |
 | `/messages` · ✉️ Messages | Opens the private message inbox, with conversation threads and replies. |
+| `/party` · 🤝 Party | Shows whether you are in a party, lists open public parties, and toggles auto-join. |
+| `/stats_points` · 💪 Stats Points | Shows unspent stat points and spends them on STR/DEF/DEX. |
+| `/stream` · 📡 Stream | Toggles the single-message live stream (step + captcha counters and rolling events). |
 | `/autocraft` · 🧠 Auto Craft | Opens Auto Craft menu. |
 | `/craftqueue` · 📥 Craft Queue | Opens Crafting Queue menu. |
 | `/crafting` · 🔨 Crafting | Opens Crafting Center. |
@@ -124,6 +128,53 @@ How it works:
 * Sending goes through the same submit endpoint the website uses, with the page's rotating API token. A `401` refreshes the token once and retries; rate limits ("You are doing this too fast") and validation errors are shown as-is.
 * Messages are capped at 1000 characters, the game's own limit, and text that looks like HTML is escaped before it reaches Telegram.
 * While the reply prompt is open, another keyboard command interrupts it cleanly instead of being sent to the player as a message.
+
+## Live stream
+
+Travel can produce a message every few seconds: step summaries, NPC kills, item finds, materials, auto equip/sell results. The live stream groups all of that into **one message that keeps being edited** instead of a stream of new messages.
+
+```text
+📡 LIVE TRAVEL STREAM
+╰┈➤ STEP    : 124
+╰┈➤ CAPTCHA : 3
+──────────────────
+14:55:25 🎁 ITEM FOUND 🎁: Steel Sword | Rarity : Rare | Type : Weapon
+14:55:23 ⛏️ MATERIAL GATHERED ⛏️: Material : Cod | Action : Catch | EXP : +7
+14:55:21 ⚔️ NPC DEFEATED ⚔️: Session kills : 3 | EXP : +120 | Gold : +45
+```
+
+* The header always shows the current **STEP** and how many **CAPTCHA** have been solved this session.
+* Events are compacted to one line each (timestamp + what happened), newest at the bottom, last twelve kept.
+* Edits are throttled to one every two seconds, so a fast travel loop never hits Telegram rate limits; a pending update is flushed by a timer.
+* If you delete the message, the bot notices the next edit failing and posts a fresh one.
+* Toggle with `/stream`, the **📡 Stream** button, or the control panel. The choice is saved and survives restarts. With it off, every event is sent as its own message again.
+* Menus, captcha prompts, dashboards, license and standby messages are never streamed.
+
+## Stat points
+
+Every level grants stat points. **💪 Stats Points** shows how many are unspent and lets you allocate them without opening the site.
+
+```text
+💪 STAT POINTS 💪
+╰┈➤ Points remaining : 85
+
+╰┈➤ Strength  : 300
+╰┈➤ Defence   : 5
+╰┈➤ Dexterity : 585
+```
+
+* The values are the **base** stats you upgrade; equipment bonuses are not included, so the in-game "Total" tab will read higher.
+* Buttons per stat: `+1`, `+5`, `+10`. A button disappears when you do not have enough points for it.
+* Accepting a button spends the points immediately and updates the counters; the server's own validation text (for example "The amount must be at least 1.") is shown if it refuses.
+
+## Party
+
+**🤝 Party** shows whether you are in a travel party and, when solo, the public parties with free slots.
+
+* **Auto-join** toggle: when on and you are solo, the bot joins the first public party with a free slot after a travel step. It retries at most every three minutes and checks your state at most every 90 seconds, so it never fights with the travel loop.
+* **Join now** tries up to three parties; the party buttons let you pick a specific one.
+* Party names, leader and member count are read from the game, and the join itself uses the same Livewire action as the website's Join button.
+* Parties kick inactive members (usually after five minutes without stepping), which is why auto-join matters when you keep travelling; being in a party shares party rewards while you step.
 
 ## Telegram API Used
 

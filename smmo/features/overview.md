@@ -30,6 +30,9 @@ This page lists every main feature available in the script.
 | Optional CAPTCHA AI | Uses your own Gemini/Gemma key to answer the older image-prompt captcha only. Off by default; the silhouette checkpoint never needs it. |
 | Captcha Debug | Mirrors the complete terminal CAPTCHA flow to Telegram through a separate persistent notification toggle. |
 | Private Messages | Lists conversations with the last message, shows the last five messages of a thread, and sends replies straight from Telegram. |
+| Travel Party | Shows whether you are in a party, lists open public parties, and can auto-join one while travelling. |
+| Stat Points | Shows unspent stat points and spends them on STR, DEF or DEX from inline buttons. |
+| Live Stream | Groups travel notifications into one edited message, with STEP and CAPTCHA counters. |
 | Energy Refill Center | Shows energy, MOE, diamonds, sprint, manual refill, diamond refill, and Auto MOE. |
 | Sprint | Uses sprint energy manually or automatically. |
 | Potion Center | Lists potions, active effects, quantities, duration, and allows potion use. |

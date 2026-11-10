@@ -46,6 +46,8 @@ Control Panel changes runtime behavior without restarting the bot.
 | Auto Craft | Enables or disables background Auto Craft. |
 | Auto Quest | Enables or disables background Auto Quest. |
 | Auto Healer | Enables or disables automatic healing. |
+| Live Stream | Groups travel notifications into one edited message instead of many separate ones. |
+| Auto Party | Joins a public travel party automatically when you are solo while travelling. |
 | Abyss | Enables or disables Auto Abyss. |
 
 ## Notifications Settings
@@ -78,7 +80,7 @@ Important toggles and selected options survive restarts through local JSON stora
 |---|---|
 | `data/runtime_settings.json` | Stores runtime feature toggles and selected values. |
 
-Saved values include Auto Equip, Auto Sell, Auto Sell rarity, Auto Sprint, Auto Quest, Auto Craft, Auto MOE, Auto Healer (including the Fallback and Auto-buy switches and heal threshold/quantity), Auto Abyss, Battle Arena, Auto World Boss, Player Battle mode/interval/filters, Bank Auto Deposit, and related quantities/options.
+Saved values include Auto Equip, Auto Sell, Auto Sell rarity, Auto Sprint (plus your own preference, so pausing it for Auto MOE/Auto Craft does not erase it), Auto Quest, Auto Craft, Auto MOE, Auto Healer (including the Fallback and Auto-buy switches and heal threshold/quantity), Auto Abyss, Battle Arena, Auto World Boss, Player Battle mode/interval/filters, Bank Auto Deposit, Live Stream, Auto Party, and related quantities/options.
 
 ## Event Center
 

@@ -27,6 +27,11 @@ This page groups the API routes used by the script and explains their purpose.
 | `POST` | `/api/chat/retrieve` | Private messages | Returns the newest messages of a channel (`pm.<me>.<them>`); requires `Authorization: Bearer <api-token>`. |
 | `POST` | `/api/chat/submit` | Private messages | Sends `{message_text, channel}`; validation and rate-limit errors come back with the server's own text. |
 | `POST` | `/api/chat/read` | Private messages | Marks a channel as read; used by the website when a message arrives. |
+| `GET` | `/travel/party` | Travel party | Lists public parties with free slots, and your current party when you are in one. |
+| `GET` | `/travel/party/view?party_id={id}` | Travel party | Loads a party page including the Livewire snapshot used to join it. |
+| `POST` | `/livewire/update` | Crafting, travel party | Calls Livewire actions. For parties it runs `requestToJoin()` on the `travel-party` component; the new snapshot carries `success_message` / `error_message`. |
+| `GET` | `/user/character` | Stat points | Loads base STR/DEF/DEX values and the unspent stat point pool. |
+| `POST` | `/api/user/upgrade/{str\|def\|dex}` | Stat points | Spends points with `{_token, amount}`; answers `new_stat_amount` and `available_stats`. |
 | `POST` | `/api/popup` | Item/reward actions | Loads dynamic popup data for certain actions. |
 | `GET` | `/quests` | Quest Selector | Loads quest points and expedition list. |
 | `GET` | `/quests/viewall` | Quest discovery | Loads full quest list page. |
