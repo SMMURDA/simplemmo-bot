@@ -47,9 +47,17 @@ sitemap: false
   .trial-key-row input{min-width:0;padding:11px;border:1px solid var(--border);border-radius:9px;background:var(--canvas);color:var(--text)}
   @media (max-width:560px){#trial-action{grid-template-columns:30px minmax(0,1fr)}#trial-action .button{grid-column:2}}
   #trial-license{padding:16px;border:1px solid color-mix(in srgb,var(--green) 34%,var(--border));border-radius:12px;background:color-mix(in srgb,var(--green) 6%,var(--surface))}
-  .auth-foot{max-width:960px;margin:18px auto 0;padding:0 16px;text-align:center;color:var(--muted);font-size:13px}
-  .auth-foot a{color:var(--text)}
-  .auth-foot span{margin:0 8px;color:var(--border)}
+  .auth-links{max-width:920px;margin:22px auto 0;padding:0 16px;display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:12px}
+  .auth-link{display:grid;grid-template-columns:38px minmax(0,1fr) 18px;align-items:center;gap:13px;padding:14px 16px;border:1px solid var(--border);border-radius:12px;background:var(--surface);color:var(--text);text-decoration:none;transition:border-color .16s ease,background-color .16s ease}
+  .auth-link:hover{border-color:color-mix(in srgb,var(--blue) 45%,var(--border));background:color-mix(in srgb,var(--blue) 6%,var(--surface))}
+  .auth-link__icon{width:38px;height:38px;display:grid;place-items:center;border-radius:10px;background:var(--blue-soft);color:var(--blue)}
+  .auth-link__icon svg{width:20px;height:20px;fill:none;stroke:currentColor;stroke-width:1.7;stroke-linecap:round;stroke-linejoin:round}
+  .auth-link__copy{min-width:0;display:grid;gap:2px;line-height:1.35}
+  .auth-link__copy strong{font-size:14px;font-weight:700}
+  .auth-link__copy small{color:var(--muted);font-size:12px;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+  .auth-link__arrow{color:var(--muted);font-size:15px;text-align:right;transition:transform .16s ease,color .16s ease}
+  .auth-link:hover .auth-link__arrow{transform:translateX(2px);color:var(--blue)}
+  @media (max-width:640px){.auth-links{grid-template-columns:1fr;margin-top:16px}}
   .auth-head .auth-logo{display:none;width:44px;height:44px;border-radius:10px;object-fit:contain;margin-bottom:10px}
   @media (max-width:900px){
     .auth-page{margin-top:8px}
@@ -63,7 +71,7 @@ sitemap: false
 <section class="auth-page" aria-labelledby="auth-title">
   <div class="auth-grid">
     <div class="auth-brand">
-      <img src="{{ '/assets/images/simplemmo-logo.png' | relative_url }}" alt="SimpleMMO Bot">
+      <picture><source type="image/webp" srcset="{{ '/assets/images/logo-topup-112.webp' | relative_url }}"><img src="{{ '/assets/images/logo-topup-112.png' | relative_url }}" alt="TOPUP AUTOMOTION" width="56" height="56"></picture>
       <h2>Your account, one place.</h2>
       <p>Sign in to manage your license, start a one-day trial, and reach your downloads and device list.</p>
       <ul>
@@ -75,7 +83,7 @@ sitemap: false
 
     <section class="auth-card" aria-live="polite">
       <header class="auth-head">
-        <img class="auth-logo" src="{{ '/assets/images/simplemmo-logo.png' | relative_url }}" alt="">
+        <picture><source type="image/webp" srcset="{{ '/assets/images/logo-topup-112.webp' | relative_url }}"><img class="auth-logo" src="{{ '/assets/images/logo-topup-112.png' | relative_url }}" alt="" width="44" height="44"></picture>
         <p class="auth-eyebrow">Account access</p>
         <h1 id="auth-title">Sign in</h1>
         <p>Choose the account you use for TOPUP.</p>
@@ -130,9 +138,18 @@ sitemap: false
   </div>
 </section>
 
-<p class="auth-foot">
-  <a href="/smmo/getting-started/">Documentation</a><span>·</span><a href="/">Back to home</a>
-</p>
+<nav class="auth-links" aria-label="Login help and navigation">
+  <a class="auth-link" href="/smmo/getting-started/">
+    <span class="auth-link__icon" aria-hidden="true"><svg viewBox="0 0 24 24"><path d="M4 5.5A2.5 2.5 0 0 1 6.5 3H19v15H6.5A2.5 2.5 0 0 0 4 20.5V5.5Z"/><path d="M4 20.5A2.5 2.5 0 0 0 6.5 23H19v-5"/><path d="M8 7h7M8 11h5"/></svg></span>
+    <span class="auth-link__copy"><strong>Documentation</strong><small>Setup, features and troubleshooting</small></span>
+    <span class="auth-link__arrow" aria-hidden="true">→</span>
+  </a>
+  <a class="auth-link" href="/">
+    <span class="auth-link__icon" aria-hidden="true"><svg viewBox="0 0 24 24"><path d="M3 10.5 12 3l9 7.5"/><path d="M5.5 9.5V21h13V9.5"/><path d="M10 21v-6h4v6"/></svg></span>
+    <span class="auth-link__copy"><strong>Back to home</strong><small>Pricing, features and downloads</small></span>
+    <span class="auth-link__arrow" aria-hidden="true">→</span>
+  </a>
+</nav>
 
 <div id="turnstile-container" style="display:flex;justify-content:center;margin:16px 0;" hidden></div>
 <script src="https://challenges.cloudflare.com/turnstile/v0/api.js" async defer></script>
