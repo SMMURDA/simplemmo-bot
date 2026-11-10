@@ -36,10 +36,11 @@ Official builds are distributed through the **GitHub Releases** page associated 
 
 A normal package contains the bot executable, launcher executable, `.env.example`, user instructions, and license terms. It must not contain a completed `.env`, customer license key, or private signing key.
 
-## Current release — v3.2.0
+## Current release — v3.2.1
 
 The newest build adds:
 
+* **English-only interface**: every Telegram menu, notification, confirmation and error message, plus the whole terminal output, is now English.
 * **Journey Checkpoint captcha** support: the drag-the-matching-icon verification is solved locally by silhouette comparison, with ambiguous challenges forwarded to Telegram instead of guessed.
 * **A working Auto Equip**: found equipment is compared with what you wear and only clear upgrades are equipped, with notifications that follow the Auto Equip switch.
 * **Safer healing**: fallback heal items when the selected one is empty, optional auto-buy (off by default), and a clean stop instead of fighting at 0% HP.
