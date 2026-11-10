@@ -40,24 +40,63 @@ A normal package contains the bot executable, launcher executable, `.env.example
 
 The newest build adds:
 
-* **Auto sprint fix**: enabling Auto Craft no longer saves auto sprint as OFF, so sprint keeps running after a restart; turning Auto Sprint ON takes the energy back from Auto MOE/Auto Craft and says which one it switched off.
-* **Stream**: STEPS stays visible (no collapse button), EVENTS keeps its collapse.
-* **Ready message**: the legend now covers ⚪/⚫ plain buttons, which follow the Telegram theme.
-* **Player Market**: browse by category, search and filter, buy with confirmation, list items for sale, remove listings, and read recent sales; item photos are large, crisp and animated when the game ships an animated sprite, with stats and description from the game's inspect view.
-* **Live in-game chat**: a 💬 Chat button opens global, ads, support and guild chat as one live message, with inline tabs to switch channel and a send flow for each one.
-* **Auto-sprint stays on after a restart**: the panel shows `ON ✅ (paused by Auto MOE)` when another automation is using the energy, then resumes alone.
-* **Tidier stream layout**: EVENTS above STEPS, both collapsible, six steps and four events.
-* **Quoted event messages** when the live stream is off, and a clearer ready message with the documentation link.
-* **Confirmation buttons** for the live stream toggle and for spending stat points.
-* **Party menu**: manual pick with party sizes, leave for members, disband for the leader, and a create-party flow with inactivity kick and alt-account settings.
-* **Livestream fixes** from 3.4.x remain: one edited message, no pinning, no duplicates.
-* **Private messages**: a ✉️ Messages button opens the inbox, shows each conversation's last message, displays the last five messages of a thread, and lets you reply — all from Telegram.
-* **English-only interface**: every Telegram menu, notification, confirmation and error message, plus the whole terminal output, is English.
-* **Journey Checkpoint captcha** support: the drag-the-matching-icon verification is solved locally by silhouette comparison, with ambiguous challenges forwarded to Telegram instead of guessed.
-* **A working Auto Equip**: found equipment is compared with what you wear and only clear upgrades are equipped, with notifications that follow the Auto Equip switch.
-* **Safer healing**: fallback heal items when the selected one is empty, optional auto-buy (off by default), and a clean stop instead of fighting at 0% HP.
-* **Accurate gather summaries** (no more `EXP +0` / `Level ?`), resolved item types, and quieter license notices.
-* **Colored Telegram buttons** (green / red / blue) and a consistent emoji keyboard.
+* *Journey Checkpoint captcha bypass* — the drag-to-match verification is solved locally by silhouette comparison, and genuinely ambiguous challenges are forwarded to Telegram instead of guessed.
+
+  > `GET /i-am-not-a-bot?new_page=true` · `POST /api/journey/waypoint`
+
+* *Player Market* — browse by category, search and filter, buy after confirmation, list items for sale, remove listings and read recent sales. Item photos are large, crisp and animated when the game ships an animated sprite, with stats and description from the game's inspect view.
+
+  > `GET /market/listings` · `POST /api/market/buy/{listing_id}` · `POST /api/market/{item_id}` · `GET /item/inspect/{item_id}`
+
+* *Live in-game chat* — a 💬 Chat button opens global, ads, support and guild chat as one live message, with channel tabs and a send flow for each one.
+
+  > `POST /api/chat/retrieve` · `POST /api/chat/submit`
+
+* *Auto-sprint stays after a restart* — enabling Auto Craft no longer saves auto sprint as OFF; turning Auto Sprint ON takes the energy back from Auto MOE or Auto Craft and reports which one it switched off.
+
+  > `POST /api/travel/sprint`
+
+* *Tidier stream layout* — EVENTS above STEPS, the step list stays visible while events collapse, six steps and four events, with STEP, CAPTCHA, ENERGY, KILLS, GOLD, EXP, MATERIALS, ITEMS and QUEST counters.
+
+  > `editMessageText` (Telegram Bot API)
+
+* *Quoted event messages* — with the live stream off, NPC kills, item finds and gather summaries are wrapped in a Telegram quote so they stay readable.
+
+  > `sendMessage` (Telegram Bot API)
+
+* *Confirmation buttons* — toggling the live stream, spending stat points, leaving or disbanding a party and buying market items all ask first.
+
+  > `answerCallbackQuery` · `editMessageText` (Telegram Bot API)
+
+* *Party menu* — manual pick with party sizes, leave for members, disband for the leader, and a create-party flow with inactivity kick and alt-account settings.
+
+  > `GET /travel/party` · `POST /livewire/update`
+
+* *Private messages* — a ✉️ Messages button opens the inbox, shows each conversation's last message and the last five messages of a thread, and lets you reply.
+
+  > `GET /messages/view/chat` · `POST /api/chat/retrieve` · `POST /api/chat/submit`
+
+* *Live stream reliability* — one edited message, no pinning, no duplicates, and a failed edit never spawns a second message.
+
+  > `editMessageText` (Telegram Bot API)
+
+* *Auto Equip* — found equipment is compared with what you wear and only clear upgrades are equipped, with notifications that follow the Auto Equip switch.
+
+  > `POST /inventory/equip/{item_id}?api=true`
+
+* *Safer healing* — fallback heal items when the selected one is empty, optional auto-buy (off by default) and a clean stop instead of fighting at 0% HP.
+
+  > `GET /healer?new_page=true` · `POST /api/healer/heal`
+
+* *Accurate gather summaries* — no more `EXP +0` / `Level ?`, resolved item types and quieter license notices.
+
+  > `POST` to the signed gathering endpoint from `/travel?new_page=true`
+
+* *Colored Telegram buttons* — green for positive actions, red for stop or cancel, blue for navigation, with a consistent emoji keyboard.
+
+  > `reply_markup` (Telegram Bot API)
+
+* *English-only interface* — every Telegram menu, notification, confirmation and error message, plus the whole terminal output, is English.
 
 The full list is on the [release page](https://github.com/SMMURDA/simplemmo-bot/releases/latest).
 
