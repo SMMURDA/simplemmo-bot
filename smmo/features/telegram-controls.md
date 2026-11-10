@@ -42,7 +42,8 @@ The style is applied centrally, so every existing menu is colored without changi
 | 12 | 📦 Sell Inventory · 🎚️ Control · 🎉 Events |
 | 13 | 📬 Notifications · 🔧 Settings · 🧪 Debug |
 | 14 | ✉️ Messages |
-| 15 | 🤝 Party · 💪 Stats Points · 📡 Stream |
+| 15 | 💬 Chat · 🤝 Party · 💪 Stats Points |
+| 16 | 📡 Stream |
 
 Old labels keep working: the bot normalizes emoji variations (including the text/emoji presentation selectors) before matching, so a keyboard cached by Telegram from an older build still resolves to the right command.
 
@@ -84,9 +85,10 @@ Old labels keep working: the bot normalizes emoji variations (including the text
 | `/playerbattle` · 🥊 Player Battle | Opens manual/automatic Player Battle, energy mode, interval, filters, and statistics. |
 | `/healer` · 🩹 Healer | Opens Healer Center, including the Fallback and Auto-buy switches. |
 | `/messages` · ✉️ Messages | Opens the private message inbox, with conversation threads and replies. |
-| `/party` · 🤝 Party | Shows whether you are in a party, lists open public parties, and toggles auto-join. |
-| `/stats_points` · 💪 Stats Points | Shows unspent stat points and spends them on STR/DEF/DEX. |
-| `/stream` · 📡 Stream | Toggles the single-message live stream (step + captcha counters and rolling events). |
+| `/chat` · 💬 Chat | Live global, ads, support and guild chat, with channel tabs and sending. |
+| `/party` · 🤝 Party | Party status, manual pick with sizes, leave/disband and create-party flow, plus auto-join. |
+| `/stats_points` · 💪 Stats Points | Shows unspent stat points and spends them on STR/DEF/DEX after confirmation. |
+| `/stream` · 📡 Stream | Toggles the single-message live stream after confirmation (step + captcha counters and rolling events). |
 | `/autocraft` · 🧠 Auto Craft | Opens Auto Craft menu. |
 | `/craftqueue` · 📥 Craft Queue | Opens Crafting Queue menu. |
 | `/crafting` · 🔨 Crafting | Opens Crafting Center. |
@@ -129,6 +131,23 @@ How it works:
 * Messages are capped at 1000 characters, the game's own limit, and text that looks like HTML is escaped before it reaches Telegram.
 * While the reply prompt is open, another keyboard command interrupts it cleanly instead of being sent to the player as a message.
 
+## Chat menu
+
+`/chat` (or the 💬 Chat button) opens the in-game chat as one live message. Inline buttons switch between the four channels:
+
+| Button | Channel |
+|---|---|
+| 🌍 Global | `global` — the main world chat. |
+| 📣 Ads | `advertisement` — buying, selling and trade posts. |
+| 🆘 Support | `support` — help questions. |
+| 🛡 Guild | The guild chat of the guild you belong to. |
+
+* The view shows the newest eight lines, oldest at the top, each as `time Name: message`, with player names and text stripped of the game's colours and HTML.
+* It refreshes itself every few seconds and edits the same message: new chat lines appear without adding messages to your Telegram chat. Identical content is skipped, so there is no needless editing.
+* **✍️ Send message** asks for the text, then posts it to whichever channel is open — Global, Ads, Support or Guild. `/cancel` aborts. Empty messages and anything over 500 characters are refused before sending.
+* The page token used by the chat rotates; a `401` reloads the token once and retries, and the game's own error text (rate limit, banned words) is shown in the view.
+* **🔄 Refresh** reloads immediately, **❌ Close** stops the live refresh and deletes the message.
+
 ## Live stream
 
 Travel can produce a message every few seconds: step summaries, NPC kills, item finds, materials, auto equip/sell results. The live stream groups all of that into **one message that keeps being edited** instead of a stream of new messages.
@@ -157,7 +176,7 @@ The summary sits in a Telegram quote block with the numbers in monospace so they
 * Edits are throttled to one every two seconds, so a fast travel loop never hits Telegram rate limits; a pending update is flushed by a timer. Identical content is skipped entirely, so the message is never recreated just because nothing changed.
 * The message is **never duplicated**: if an edit fails for any reason other than the message being deleted (rate limit, HTML parse, network), the bot keeps the same message and retries on the next event. Only a deleted message gets a fresh one, exactly once.
 * No pinning: the stream message is a normal message and never pins or unpins anything.
-* Toggle with `/stream`, the **📡 Stream** button, or the control panel. The choice is saved and survives restarts. With it off, every event is sent as its own message again.
+* Toggle with `/stream`, the **📡 Stream** button, or the control panel. The toggle asks for confirmation first (the prompt shows the current state), and the choice is saved and survives restarts. With it off, every event is sent as its own message again.
 * **With the stream off**, a compact tracker takes its place: one pinned message with only the step number and the wait time, edited as you travel. It follows the same rules as the stream — one message, identical ticks skipped, and a failed edit never creates a duplicate. Turning the stream back on unpins and deletes it.
 
 ```text
@@ -183,15 +202,18 @@ Every level grants stat points. **💪 Stats Points** shows how many are unspent
 
 * The values are the **base** stats you upgrade; equipment bonuses are not included, so the in-game "Total" tab will read higher.
 * Buttons per stat: `+10`, `+50`, and **ALL** (spends every remaining point on that stat, the label shows how many). A button disappears when you do not have enough points for it.
-* Accepting a button spends the points immediately and updates the counters; the server's own validation text (for example "The amount must be at least 1.") is shown if it refuses.
+* Accepting a button opens a confirmation with the stat, the amount and how many points are left; only **Yes** spends them. **Cancel** returns to the menu unchanged.
+* The server's own validation text (for example "The amount must be at least 1.") is shown if it refuses.
 
 ## Party
 
-**🤝 Party** shows whether you are in a travel party and, when solo, the public parties with free slots.
+**🤝 Party** shows whether you are in a travel party, who leads it, its size, and — when solo — the public parties with free slots.
 
 * **Auto-join** toggle: when on and you are solo, the bot joins the first public party with a free slot after a travel step. It retries at most every three minutes and checks your state at most every 90 seconds, so it never fights with the travel loop.
-* **Join now** tries up to three parties; the party buttons let you pick a specific one.
-* Party names, leader and member count are read from the game, and the join itself uses the same Livewire action as the website's Join button.
+* **Manual pick**: open parties are listed as buttons labelled with their size, for example `Party Name · 3/5`, so you can choose a party yourself instead of letting auto-join decide.
+* **🚪 Leave party** (members) asks for confirmation, then leaves through the same action as the website. **🗑 Disband party** replaces it when you lead the party, because the game does not let an owner leave — disbanding removes every member.
+* **➕ Create party** walks through the settings the website offers: a name (3-60 letters, numbers or spaces), an inactivity kick time (Off, 5/10/20/30/60 minutes, 3/6/12/24 hours, 7 days) and whether alt accounts are allowed. **Create** only fires after you confirm, and the bot reports the game's own error text if the name or settings are rejected.
+* Party names, leader and member count are read from the game (five slots per party), and joining, leaving, disbanding and creating all use the same Livewire actions as the website's buttons.
 * Parties kick inactive members (usually after five minutes without stepping), which is why auto-join matters when you keep travelling; being in a party shares party rewards while you step.
 
 ## Telegram API Used
