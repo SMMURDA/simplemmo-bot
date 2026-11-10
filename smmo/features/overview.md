@@ -28,7 +28,8 @@ This page lists every main feature available in the script.
 | Auto Sell | Automatically sells found equipment by selected rarity and supports inventory sell filters. |
 | Captcha Solver | Handles the current "Journey Checkpoint" verification by matching each icon's silhouette against the shadow, and still handles the older image-prompt captcha. Ambiguous matches are sent to Telegram instead of being guessed. |
 | Optional CAPTCHA AI | Uses your own Gemini/Gemma key to answer the older image-prompt captcha only. Off by default; the silhouette checkpoint never needs it. |
-| CAPTCHA Debug | Mirrors the complete terminal CAPTCHA flow to Telegram through a separate persistent notification toggle. |
+| Captcha Debug | Mirrors the complete terminal CAPTCHA flow to Telegram through a separate persistent notification toggle. |
+| Private Messages | Lists conversations with the last message, shows the last five messages of a thread, and sends replies straight from Telegram. |
 | Energy Refill Center | Shows energy, MOE, diamonds, sprint, manual refill, diamond refill, and Auto MOE. |
 | Sprint | Uses sprint energy manually or automatically. |
 | Potion Center | Lists potions, active effects, quantities, duration, and allows potion use. |

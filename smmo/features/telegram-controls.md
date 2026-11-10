@@ -41,6 +41,7 @@ The style is applied centrally, so every existing menu is colored without changi
 | 11 | 🧠 Auto Craft · 📥 Craft Queue · 🏷️ Auto Sell |
 | 12 | 📦 Sell Inventory · 🎚️ Control · 🎉 Events |
 | 13 | 📬 Notifications · 🔧 Settings · 🧪 Debug |
+| 14 | ✉️ Messages |
 
 Old labels keep working: the bot normalizes emoji variations (including the text/emoji presentation selectors) before matching, so a keyboard cached by Telegram from an older build still resolves to the right command.
 
@@ -81,6 +82,7 @@ Old labels keep working: the bot normalizes emoji variations (including the text
 | `/worldboss` · 🐉 World Boss | Opens World Boss status, schedule, statistics, and Auto Attack toggle. |
 | `/playerbattle` · 🥊 Player Battle | Opens manual/automatic Player Battle, energy mode, interval, filters, and statistics. |
 | `/healer` · 🩹 Healer | Opens Healer Center, including the Fallback and Auto-buy switches. |
+| `/messages` · ✉️ Messages | Opens the private message inbox, with conversation threads and replies. |
 | `/autocraft` · 🧠 Auto Craft | Opens Auto Craft menu. |
 | `/craftqueue` · 📥 Craft Queue | Opens Crafting Queue menu. |
 | `/crafting` · 🔨 Crafting | Opens Crafting Center. |
@@ -102,6 +104,26 @@ Old labels keep working: the bot normalizes emoji variations (including the text
 | Select Item Heal | Opens the heal item picker. Blue, since it navigates. |
 | Auto Heal Quantity | Shows and edits the maximum items used per heal. |
 | 🔄 Refresh / ❌ Close | Reloads the menu or closes it. |
+
+## Messages menu
+
+`/messages` (or the ✉️ Messages button) lists your open conversations, newest activity first. Each row shows the player's name and the last message, and the line under it says who sent it and when. The list shows up to eight conversations, with **Refresh** and **Close** below.
+
+| Button | Meaning |
+|---|---|
+| `1. Name · snippet` | Opens that conversation and shows the last five messages, oldest at the top, each with sender and time. |
+| ✍️ Reply | Starts a reply to that player. Type the message in Telegram and send it; `/cancel` aborts. |
+| 🔄 Refresh | Re-reads the conversation or the inbox from SimpleMMO. |
+| ◁ Inbox | Goes back to the conversation list. |
+| ❌ Close | Closes the menu and deletes the message. |
+
+How it works:
+
+* The inbox is read from the messages page and every row is matched with the player id used by SimpleMMO's chat, so a click always opens the right thread.
+* Each conversation's last message comes from the chat retrieve endpoint, so the snippet is current, not cached from the page.
+* Sending goes through the same submit endpoint the website uses, with the page's rotating API token. A `401` refreshes the token once and retries; rate limits ("You are doing this too fast") and validation errors are shown as-is.
+* Messages are capped at 1000 characters, the game's own limit, and text that looks like HTML is escaped before it reaches Telegram.
+* While the reply prompt is open, another keyboard command interrupts it cleanly instead of being sent to the player as a message.
 
 ## Telegram API Used
 

@@ -22,6 +22,11 @@ This page groups the API routes used by the script and explains their purpose.
 | `POST` | `/api/journey/waypoint` | Captcha Solver | Submits the chosen icon for the Journey Checkpoint. Requires `X-CSRF-TOKEN`; response is `{title, type, result}` with `type: "success"` when it passes. |
 | `GET` | `/journey/waypoint/picture?uid={0-3\|shadow}` | Captcha Solver | Loads one choice image, or the shadow used for silhouette comparison. |
 | `POST` | `/api/bot-verification` | Captcha Solver (legacy) | Submits an answer for the older "find the item named X" captcha, still reachable through the checkpoint's signed fallback link. |
+| `GET` | `/messages/view/chat` | Private messages | Loads the inbox rows (player id, name, badge, last activity) and the rotating `api-token` used by the chat API. |
+| `GET` | `/chat/private?user_id={id}` | Private messages | Loads one conversation page; the bot reads messages through the API instead. |
+| `POST` | `/api/chat/retrieve` | Private messages | Returns the newest messages of a channel (`pm.<me>.<them>`); requires `Authorization: Bearer <api-token>`. |
+| `POST` | `/api/chat/submit` | Private messages | Sends `{message_text, channel}`; validation and rate-limit errors come back with the server's own text. |
+| `POST` | `/api/chat/read` | Private messages | Marks a channel as read; used by the website when a message arrives. |
 | `POST` | `/api/popup` | Item/reward actions | Loads dynamic popup data for certain actions. |
 | `GET` | `/quests` | Quest Selector | Loads quest points and expedition list. |
 | `GET` | `/quests/viewall` | Quest discovery | Loads full quest list page. |
