@@ -98,6 +98,13 @@ Include the app version, operating system, reproduction steps, and the complete 
 
 ---
 
+## Market
+
+* **"The market returned a page instead of JSON"** — the market JSON endpoints need the page CSRF token. Reopen `/market`; the bot refreshes the token on the next listing request. If it persists, restart the bot so the cookie session is renewed.
+* **Item picture is missing or small** — items with no sprite fall back to a text card. Static sprites are upscaled without blur; animated GIF sprites are sent as a still frame first and then replaced by the animation, so wait a second before judging the picture.
+* **Buy rejected** — the bot shows the game's own reason (for example `This item no longer exists on the market.`), which usually means another player bought the listing first. There is no gold limit in the bot; the confirmation tap is the only gate.
+* **Description is missing on some items** — the game only stores descriptions for some items (tools and a few specials usually have one). Items without one simply omit the description line.
+
 ## Continue Reading
 
 <nav class="continue-reading" aria-label="Feature navigation">
@@ -105,11 +112,8 @@ Include the app version, operating system, reproduction steps, and the complete 
     <span class="continue-reading-label"><span aria-hidden="true">←</span> Previous</span>
     <strong>Licensing</strong>
   </a>
+  <a class="continue-reading-card continue-reading-card--next" href="{{ '/api/reference/' | relative_url }}">
+    <span class="continue-reading-label">Next <span aria-hidden="true">→</span></span>
+    <strong>API Reference</strong>
+  </a>
 </nav>
-
-## Market
-
-* **"The market returned a page instead of JSON"** — the market JSON endpoints need the page CSRF token. Reopen `/market`; the bot refreshes the token on the next listing request. If it persists, restart the bot so the cookie session is renewed.
-* **Item picture is missing or small** — items with no sprite fall back to a text card. Static sprites are upscaled without blur; animated GIF sprites are sent as a still frame first and then replaced by the animation, so wait a second before judging the picture.
-* **Buy rejected** — the bot shows the game's own reason (for example `This item no longer exists on the market.`), which usually means another player bought the listing first. There is no gold limit in the bot; the confirmation tap is the only gate.
-* **Description is missing on some items** — the game only stores descriptions for some items (tools and a few specials usually have one). Items without one simply omit the description line.

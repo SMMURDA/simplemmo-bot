@@ -1,7 +1,10 @@
 ---
 title: API Reference
 permalink: /api/reference/
+product: smmo
 ---
+
+{% include product-switcher.html simplemmo_href="/api/reference/" vhack_href="/vhack/features/overview/" %}
 
 # API Reference
 
@@ -123,8 +126,8 @@ A Google, GitHub, or Microsoft identity with the same accepted verified normaliz
 ## Continue Reading
 
 <nav class="continue-reading" aria-label="Feature navigation">
-  <a class="continue-reading-card continue-reading-card--previous" href="{{ '/smmo/features/settings-dashboard/' | relative_url }}">
+  <a class="continue-reading-card continue-reading-card--previous" href="{{ '/smmo/troubleshooting/' | relative_url }}">
     <span class="continue-reading-label"><span aria-hidden="true">←</span> Previous</span>
-    <strong>Settings &amp; Dashboard</strong>
+    <strong>Troubleshooting</strong>
   </a>
 </nav>
