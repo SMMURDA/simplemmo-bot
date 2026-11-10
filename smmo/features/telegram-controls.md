@@ -161,6 +161,14 @@ STEPS
 * The message is **never duplicated**: if an edit fails for any reason other than the message being deleted (rate limit, HTML parse, network), the bot keeps the same message and retries on the next event. Only a deleted message gets a fresh one, exactly once.
 * No pinning: the stream message is a normal message and never pins or unpins anything.
 * Toggle with `/stream`, the **📡 Stream** button, or the control panel. The choice is saved and survives restarts. With it off, every event is sent as its own message again.
+* **With the stream off**, a compact tracker takes its place: one pinned message with only the step number and the wait time, edited as you travel. It follows the same rules as the stream — one message, identical ticks skipped, and a failed edit never creates a duplicate. Turning the stream back on unpins and deletes it.
+
+```text
+🧭 STEP TRACKER
+╰┈➤ Step : 128
+╰┈➤ Wait : 5692.5ms
+```
+
 * While the stream is on, captcha chatter is suppressed: "Answer correct! Bot resuming travel...", "Icon N | similarity", the AI/automatic answer lines and the separate "CAPTCHA SOLVED" message are folded into the stream instead of being posted. Menus, captcha prompts, dashboards, license and standby messages are never streamed.
 
 ## Stat points
