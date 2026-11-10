@@ -135,23 +135,19 @@ Travel can produce a message every few seconds: step summaries, NPC kills, item 
 
 ```text
 📡 LIVE TRAVEL STREAM
-╰┈➤ STEP    : 124
-╰┈➤ CAPTCHA : 3
-╰┈➤ KILLS   : 13
-╰┈➤ GOLD    : +239,130
-╰┈➤ EXP     : +45,120
-╰┈➤ MATERIAL: 27
-╰┈➤ ITEMS   : 4
-╰┈➤ QUEST   : 1
-──────────────────
-EVENTS
-15:11:54 ⚔️ NPC DEFEATED ⚔️: Session kills : 14 | EXP : +4,000 | Gold : +860
-15:11:49 📜 QUEST DONE 📜: Expedition : #12 | Reward : +500 EXP
 
-STEPS
-15:11:53 🧭 TEXT · 239,130 gold · 45% EXP · 7.4s
-15:11:48 🧭 NPC · 238,270 gold · 23% EXP · 4.5s
+▎ 🧭 STEP 124   🛡 CAPTCHA 3
+▎ ⚔️ KILLS 13   💰 GOLD +239,130   ✨ EXP +45,120
+▎ ⛏ MATERIALS 27   🎁 ITEMS 4   📜 QUEST 1
+
+▎ EVENTS
+▎ 15:11:54 ⚔️ NPC DEFEATED ⚔️ — Session kills: 14 · EXP: +4,000 · Gold: +860
+▎ 15:11:49 📜 QUEST DONE 📜 — Expedition: #12 · Reward: +500 EXP
+
+▸ STEPS (collapsed, tap to open)
 ```
+
+The summary sits in a Telegram quote block with the numbers in monospace so they line up; **EVENTS** is a normal quote block and **STEPS** is a collapsible one, so the rolling step list never dominates the message.
 
 * The header shows the current **STEP**, how many **CAPTCHA** were solved, session **KILLS**, gold and EXP earned (travel rewards plus NPC rewards), materials gathered, items found and quests completed. Counters refresh as kills, finds and gathers happen, not only on the next step.
 * **Quest completion** is part of the stream: the event line appears there and the QUEST counter goes up.
