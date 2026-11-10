@@ -36,10 +36,14 @@ Official builds are distributed through the **GitHub Releases** page associated 
 
 A normal package contains the bot executable, launcher executable, `.env.example`, user instructions, and license terms. It must not contain a completed `.env`, customer license key, or private signing key.
 
-## Current release — v3.3.0
+## Current release — v3.4.0
 
 The newest build adds:
 
+* **Live stream**: one pinned message that is edited as you travel, with STEP/CAPTCHA/KILLS/GOLD/EXP/MATERIAL/ITEMS/QUEST counters and separate EVENTS and STEPS blocks.
+* **Stat points**: a 💪 Stats Points menu that shows unspent points and spends them on STR/DEF/DEX.
+* **Party**: a 🤝 Party menu with status, open parties, and an auto-join switch for travelling solo.
+* **Auto sprint preference** survives restarts, even when Auto MOE or Auto Craft paused it.
 * **Private messages**: a ✉️ Messages button opens the inbox, shows each conversation's last message, displays the last five messages of a thread, and lets you reply — all from Telegram.
 * **English-only interface**: every Telegram menu, notification, confirmation and error message, plus the whole terminal output, is English.
 * **Journey Checkpoint captcha** support: the drag-the-matching-icon verification is solved locally by silhouette comparison, with ambiguous challenges forwarded to Telegram instead of guessed.
