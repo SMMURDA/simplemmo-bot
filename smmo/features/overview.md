@@ -64,12 +64,13 @@ This page lists every main feature available in the script.
 ## Continue Reading
 
 <nav class="continue-reading" aria-label="Feature navigation">
-  <a class="continue-reading-card continue-reading-card--previous" href="/">
+  <a class="continue-reading-card continue-reading-card--previous" href="{{ '/smmo/getting-started/' | relative_url }}">
     <span class="continue-reading-label"><span aria-hidden="true">←</span> Previous</span>
-    <strong>Home</strong>
+    <strong>Getting Started</strong>
   </a>
-  <a class="continue-reading-card continue-reading-card--next" href="{{ '/smmo/features/telegram-controls/' | relative_url }}">
+  <a class="continue-reading-card continue-reading-card--next" href="{{ '/smmo/features/automation/' | relative_url }}">
     <span class="continue-reading-label">Next <span aria-hidden="true">→</span></span>
-    <strong>Telegram Controls</strong>
+    <strong>Automation</strong>
   </a>
 </nav>
+

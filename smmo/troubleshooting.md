@@ -101,7 +101,7 @@ Include the app version, operating system, reproduction steps, and the complete 
 ## Continue Reading
 
 <nav class="continue-reading" aria-label="Feature navigation">
-  <a class="continue-reading-card continue-reading-card--previous" href="{{'/licensing/' | relative_url }}">
+  <a class="continue-reading-card continue-reading-card--previous" href="{{ '/licensing/' | relative_url }}">
     <span class="continue-reading-label"><span aria-hidden="true">←</span> Previous</span>
     <strong>Licensing</strong>
   </a>

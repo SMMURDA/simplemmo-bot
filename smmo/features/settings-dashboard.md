@@ -119,12 +119,13 @@ Debug Panel checks common failure points such as cookies, CSRF, API token, Teleg
 ## Continue Reading
 
 <nav class="continue-reading" aria-label="Feature navigation">
-  <a class="continue-reading-card continue-reading-card--previous" href="{{ '/smmo/features/crafting/' | relative_url }}">
+  <a class="continue-reading-card continue-reading-card--previous" href="{{ '/smmo/features/market/' | relative_url }}">
     <span class="continue-reading-label"><span aria-hidden="true">←</span> Previous</span>
-    <strong>Crafting System</strong>
+    <strong>Player Market</strong>
   </a>
   <a class="continue-reading-card continue-reading-card--next" href="{{ '/smmo/configuration/' | relative_url }}">
     <span class="continue-reading-label">Next <span aria-hidden="true">→</span></span>
     <strong>Configuration</strong>
   </a>
 </nav>
+

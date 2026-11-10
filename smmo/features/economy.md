@@ -126,12 +126,13 @@ Potion Center lists owned potions, quantities, active effects, and supports poti
 ## Continue Reading
 
 <nav class="continue-reading" aria-label="Feature navigation">
-  <a class="continue-reading-card continue-reading-card--previous" href="{{ '/smmo/features/automation/' | relative_url }}">
+  <a class="continue-reading-card continue-reading-card--previous" href="{{ '/smmo/features/crafting/' | relative_url }}">
     <span class="continue-reading-label"><span aria-hidden="true">←</span> Previous</span>
-    <strong>Automation Features</strong>
+    <strong>Crafting</strong>
   </a>
-  <a class="continue-reading-card continue-reading-card--next" href="{{ '/smmo/features/crafting/' | relative_url }}">
+  <a class="continue-reading-card continue-reading-card--next" href="{{ '/smmo/features/telegram-controls/' | relative_url }}">
     <span class="continue-reading-label">Next <span aria-hidden="true">→</span></span>
-    <strong>Crafting System</strong>
+    <strong>Telegram Controls</strong>
   </a>
 </nav>
+

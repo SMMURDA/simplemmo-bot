@@ -77,12 +77,13 @@ The bot automatically detects this pattern and triggers the bounty workflow.
 ## Continue Reading
 
 <nav class="continue-reading" aria-label="Feature navigation">
-  <a class="continue-reading-card continue-reading-card--previous" href="{{ '/vhack/features/web-dashboard/' | relative_url }}">
+  <a class="continue-reading-card continue-reading-card--previous" href="{{ '/vhack/features/terminal/' | relative_url }}">
     <span class="continue-reading-label"><span aria-hidden="true">←</span> Previous</span>
+    <strong>Terminal Interface</strong>
+  </a>
+  <a class="continue-reading-card continue-reading-card--next" href="{{ '/vhack/features/web-dashboard/' | relative_url }}">
+    <span class="continue-reading-label">Next <span aria-hidden="true">→</span></span>
     <strong>Web Dashboard</strong>
   </a>
-  <a class="continue-reading-card continue-reading-card--next" href="{{ '/vhack/downloads/' | relative_url }}">
-    <span class="continue-reading-label">Next <span aria-hidden="true">→</span></span>
-    <strong>Downloads</strong>
-  </a>
 </nav>
+

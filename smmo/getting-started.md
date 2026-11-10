@@ -114,8 +114,13 @@ Builds below the minimum version enforced by the license server refuse to start;
 ## Continue Reading
 
 <nav class="continue-reading" aria-label="Feature navigation">
-  <a class="continue-reading-card continue-reading-card--next" href="{{'/smmo/features/overview/' | relative_url }}">
+  <a class="continue-reading-card continue-reading-card--previous" href="/">
+    <span class="continue-reading-label"><span aria-hidden="true">←</span> Previous</span>
+    <strong>Home</strong>
+  </a>
+  <a class="continue-reading-card continue-reading-card--next" href="{{ '/smmo/features/overview/' | relative_url }}">
     <span class="continue-reading-label">Next <span aria-hidden="true">→</span></span>
     <strong>Feature Overview</strong>
   </a>
 </nav>
+

@@ -82,12 +82,13 @@ vhack-bot/
 ## Continue Reading
 
 <nav class="continue-reading" aria-label="Feature navigation">
-  <a class="continue-reading-card continue-reading-card--previous" href="{{'/vhack/features/chat/' | relative_url }}">
+  <a class="continue-reading-card continue-reading-card--previous" href="{{ '/vhack/configuration/' | relative_url }}">
     <span class="continue-reading-label"><span aria-hidden="true">←</span> Previous</span>
-    <strong>Chat</strong>
+    <strong>Configuration</strong>
   </a>
-  <a class="continue-reading-card continue-reading-card--next" href="{{'/vhack/troubleshooting/' | relative_url }}">
+  <a class="continue-reading-card continue-reading-card--next" href="{{ '/vhack/troubleshooting/' | relative_url }}">
     <span class="continue-reading-label">Next <span aria-hidden="true">→</span></span>
     <strong>Troubleshooting</strong>
   </a>
 </nav>
+

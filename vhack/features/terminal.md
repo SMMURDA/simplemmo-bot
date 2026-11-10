@@ -127,8 +127,9 @@ All panels use rounded corners `╭ ╮ ╰ ╯` with accent colors by content t
     <span class="continue-reading-label"><span aria-hidden="true">←</span> Previous</span>
     <strong>Automation</strong>
   </a>
-  <a class="continue-reading-card continue-reading-card--next" href="{{ '/vhack/features/web-dashboard/' | relative_url }}">
+  <a class="continue-reading-card continue-reading-card--next" href="{{ '/vhack/features/chat/' | relative_url }}">
     <span class="continue-reading-label">Next <span aria-hidden="true">→</span></span>
-    <strong>Web Dashboard</strong>
+    <strong>Chat</strong>
   </a>
 </nav>
+

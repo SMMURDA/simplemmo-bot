@@ -168,3 +168,4 @@ Uses the existing authenticated session and preserves registered chat and bounty
     <strong>Terminal Interface</strong>
   </a>
 </nav>
+

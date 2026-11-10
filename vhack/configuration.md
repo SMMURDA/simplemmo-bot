@@ -96,12 +96,13 @@ Set a custom alias displayed in the terminal header banner. Leave blank to use y
 ## Continue Reading
 
 <nav class="continue-reading" aria-label="Feature navigation">
-  <a class="continue-reading-card continue-reading-card--previous" href="{{ '/vhack/getting-started/' | relative_url }}">
+  <a class="continue-reading-card continue-reading-card--previous" href="{{ '/vhack/features/web-dashboard/' | relative_url }}">
     <span class="continue-reading-label"><span aria-hidden="true">←</span> Previous</span>
-    <strong>Getting Started</strong>
+    <strong>Web Dashboard</strong>
   </a>
-  <a class="continue-reading-card continue-reading-card--next" href="{{ '/vhack/features/overview/' | relative_url }}">
+  <a class="continue-reading-card continue-reading-card--next" href="{{ '/vhack/downloads/' | relative_url }}">
     <span class="continue-reading-label">Next <span aria-hidden="true">→</span></span>
-    <strong>Feature Overview</strong>
+    <strong>Downloads</strong>
   </a>
 </nav>
+

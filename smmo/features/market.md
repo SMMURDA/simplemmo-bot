@@ -65,3 +65,17 @@ Tapping a listing opens the item as one message: the sprite (animated when the g
 * Every write (buy, list, remove) requires a confirmation tap.
 * Item sprites are upscaled with nearest-neighbour (no blur) and animated sprites keep their animation, so the item is readable at a glance without opening anything.
 * The market reads prices with the site's own filters, so the summary matches what the website shows for the same page.
+
+## Continue Reading
+
+<nav class="continue-reading" aria-label="Feature navigation">
+  <a class="continue-reading-card continue-reading-card--previous" href="{{ '/smmo/features/telegram-controls/' | relative_url }}">
+    <span class="continue-reading-label"><span aria-hidden="true">←</span> Previous</span>
+    <strong>Telegram Controls</strong>
+  </a>
+  <a class="continue-reading-card continue-reading-card--next" href="{{ '/smmo/features/settings-dashboard/' | relative_url }}">
+    <span class="continue-reading-label">Next <span aria-hidden="true">→</span></span>
+    <strong>Settings & Dashboard</strong>
+  </a>
+</nav>
+

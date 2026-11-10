@@ -90,12 +90,13 @@ Read [Getting Started]({{ '/smmo/getting-started/' | relative_url }}) and prepar
 ## Continue Reading
 
 <nav class="continue-reading" aria-label="Feature navigation">
-  <a class="continue-reading-card continue-reading-card--previous" href="{{'/smmo/configuration/' | relative_url }}">
+  <a class="continue-reading-card continue-reading-card--previous" href="{{ '/smmo/configuration/' | relative_url }}">
     <span class="continue-reading-label"><span aria-hidden="true">←</span> Previous</span>
     <strong>Configuration</strong>
   </a>
-  <a class="continue-reading-card continue-reading-card--next" href="{{'/licensing/' | relative_url }}">
+  <a class="continue-reading-card continue-reading-card--next" href="{{ '/licensing/' | relative_url }}">
     <span class="continue-reading-label">Next <span aria-hidden="true">→</span></span>
     <strong>Licensing</strong>
   </a>
 </nav>
+

@@ -249,12 +249,13 @@ Button colors use the `style` field (`primary`, `success`, `danger`) added to Bo
 ## Continue Reading
 
 <nav class="continue-reading" aria-label="Feature navigation">
-  <a class="continue-reading-card continue-reading-card--previous" href="{{ '/smmo/features/overview/' | relative_url }}">
+  <a class="continue-reading-card continue-reading-card--previous" href="{{ '/smmo/features/economy/' | relative_url }}">
     <span class="continue-reading-label"><span aria-hidden="true">←</span> Previous</span>
-    <strong>Feature Overview</strong>
+    <strong>Economy</strong>
   </a>
-  <a class="continue-reading-card continue-reading-card--next" href="{{ '/smmo/features/automation/' | relative_url }}">
+  <a class="continue-reading-card continue-reading-card--next" href="{{ '/smmo/features/market/' | relative_url }}">
     <span class="continue-reading-label">Next <span aria-hidden="true">→</span></span>
-    <strong>Automation Features</strong>
+    <strong>Player Market</strong>
   </a>
 </nav>
+

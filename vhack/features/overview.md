@@ -68,12 +68,13 @@ This page lists every main feature available in VHack Revolution Bot.
 ## Continue Reading
 
 <nav class="continue-reading" aria-label="Feature navigation">
-  <a class="continue-reading-card continue-reading-card--previous" href="{{ '/vhack/configuration/' | relative_url }}">
+  <a class="continue-reading-card continue-reading-card--previous" href="{{ '/vhack/getting-started/' | relative_url }}">
     <span class="continue-reading-label"><span aria-hidden="true">←</span> Previous</span>
-    <strong>Configuration</strong>
+    <strong>Getting Started</strong>
   </a>
   <a class="continue-reading-card continue-reading-card--next" href="{{ '/vhack/features/automation/' | relative_url }}">
     <span class="continue-reading-label">Next <span aria-hidden="true">→</span></span>
     <strong>Automation</strong>
   </a>
 </nav>
+
