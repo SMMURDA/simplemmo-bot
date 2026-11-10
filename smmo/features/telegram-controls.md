@@ -144,18 +144,23 @@ Travel can produce a message every few seconds: step summaries, NPC kills, item 
 ╰┈➤ ITEMS   : 4
 ╰┈➤ QUEST   : 1
 ──────────────────
+EVENTS
 15:11:54 ⚔️ NPC DEFEATED ⚔️: Session kills : 14 | EXP : +4,000 | Gold : +860
-15:11:53 🧭 STEP 🧭: Type : TEXT | Gold : 239,130 | EXP: 45% | Wait: 7410ms
 15:11:49 📜 QUEST DONE 📜: Expedition : #12 | Reward : +500 EXP
+
+STEPS
+15:11:53 🧭 TEXT · 239,130 gold · 45% EXP · 7.4s
+15:11:48 🧭 NPC · 238,270 gold · 23% EXP · 4.5s
 ```
 
 * The header shows the current **STEP**, how many **CAPTCHA** were solved, session **KILLS**, gold and EXP earned (travel rewards plus NPC rewards), materials gathered, items found and quests completed. Counters refresh as kills, finds and gathers happen, not only on the next step.
 * **Quest completion** is part of the stream: the event line appears there and the QUEST counter goes up.
-* Event lines are compacted to one line each (timestamp + what happened), newest at the bottom. At most **four STEP lines** and eight other events are kept, so old steps scroll out instead of filling the message.
-* Edits are throttled to one every two seconds, so a fast travel loop never hits Telegram rate limits; a pending update is flushed by a timer.
-* The message is **pinned** automatically (silently) so it stays on top of the chat. If you delete it, the bot notices the next edit failing and posts and pins a fresh one.
+* The body is split into an **EVENTS** block and a **STEPS** block, each one line per event, newest last. Only the four newest steps and eight newest events are kept, so old steps scroll out instead of filling the message.
+* Step lines are written as one readable paragraph: type, current gold, EXP percentage and the wait for that step.
+* Edits are throttled to one every two seconds, so a fast travel loop never hits Telegram rate limits; a pending update is flushed by a timer. Identical content is skipped entirely, so the message is never recreated just because nothing changed.
+* The message is **pinned** automatically (silently) so it stays on top of the chat. If you delete it, the bot notices the edit failing and posts and pins a fresh one, unpinning the old one first.
 * Toggle with `/stream`, the **📡 Stream** button, or the control panel. The choice is saved and survives restarts. With it off, every event is sent as its own message again.
-* While the stream is on, the separate "CAPTCHA SOLVED" message and the per-line captcha debug messages are suppressed — both already appear inside the stream. Menus, captcha prompts, dashboards, license and standby messages are never streamed.
+* While the stream is on, captcha chatter is suppressed: "Answer correct! Bot resuming travel...", "Icon N | similarity", the AI/automatic answer lines and the separate "CAPTCHA SOLVED" message are folded into the stream instead of being posted. Menus, captcha prompts, dashboards, license and standby messages are never streamed.
 
 ## Stat points
 
