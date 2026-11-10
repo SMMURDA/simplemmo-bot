@@ -36,14 +36,15 @@ Official builds are distributed through the **GitHub Releases** page associated 
 
 A normal package contains the bot executable, launcher executable, `.env.example`, user instructions, and license terms. It must not contain a completed `.env`, customer license key, or private signing key.
 
-## Current release — v3.4.1
+## Current release — v3.4.2
 
 The newest build adds:
 
+* **Tidier stream layout**: the summary sits in a quote block with monospace counters, EVENTS is a visible quote block, and STEPS is collapsible.
 * **Stream fixes**: the live stream no longer creates a new message (or re-pins) every few minutes when an edit fails; it only recreates a message that was actually deleted, and it is no longer pinned.
 * **Step tracker**: with the stream off, one pinned message shows the current step and the wait time for the next step.
 * **Stat points**: a 💪 Stats Points menu with `+10`, `+50` and **ALL** buttons.
-* **Live stream**: one message that is edited as you travel, with STEP/CAPTCHA/KILLS/GOLD/EXP/MATERIAL/ITEMS/QUEST counters and separate EVENTS and STEPS blocks.
+* **Live stream**: one message that is edited as you travel, with STEP/CAPTCHA/KILLS/GOLD/EXP/MATERIALS/ITEMS/QUEST counters.
 * **Party**: a 🤝 Party menu with status, open parties, and an auto-join switch for travelling solo.
 * **Auto sprint preference** survives restarts, even when Auto MOE or Auto Craft paused it.
 * **Private messages**: a ✉️ Messages button opens the inbox, shows each conversation's last message, displays the last five messages of a thread, and lets you reply — all from Telegram.
