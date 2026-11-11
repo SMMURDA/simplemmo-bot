@@ -585,4 +585,4 @@ html[data-theme="light"] .status-pill--rejected { color: #b91c1c; }
 .footer-brand p { color: color-mix(in srgb, var(--muted) 88%, transparent); }
 
 /* signed-in members do not need the header login call to action */
-body:has(.portal) .site-nav a.site-nav__login { display: none; }
+body:has(.portal) .site-nav a.site-nav__login { display: none !important; }
