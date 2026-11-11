@@ -15,7 +15,7 @@
   --m-line: color-mix(in srgb, var(--text) 11%, transparent);
   --m-line-strong: color-mix(in srgb, var(--text) 18%, transparent);
   --m-ink: var(--text);
-  --m-muted: var(--muted);
+  --m-muted: #a6b1c6;
   --m-radius: 16px;
   --m-shadow: 0 1px 2px rgba(3, 8, 18, 0.22), 0 18px 44px rgba(3, 8, 18, 0.26);
   --blue: var(--m-accent);
@@ -25,6 +25,7 @@
 
 html[data-theme="light"] .portal,
 html[data-theme="light"] .portal--admin {
+  --m-muted: #52627a;
   --m-accent: #1d4ed8;
   --m-accent-soft: rgba(29, 78, 216, 0.1);
   --m-accent-ink: #ffffff;
@@ -35,6 +36,7 @@ html[data-theme="light"] .portal--admin {
 }
 
 /* ---------- shell ---------- */
+.doc-content:has(.portal){width:min(1120px,calc(100% - 40px))}
 .portal {
   display: grid;
   grid-template-columns: 236px minmax(0, 1fr);
@@ -168,7 +170,7 @@ html[data-theme="light"] .portal--admin {
 .portal-stats {
   display: grid;
   grid-template-columns: repeat(4, minmax(0, 1fr));
-  gap: 12px;
+  gap: 14px;
 }
 .portal-stats article {
   display: grid !important;
@@ -183,10 +185,11 @@ html[data-theme="light"] .portal--admin {
 }
 .portal-stats small {
   color: var(--m-muted);
-  font-size: 11px;
+  font-size: 11.5px;
   font-weight: 650;
-  letter-spacing: 0.06em;
+  letter-spacing: 0.04em;
   text-transform: uppercase;
+  line-height: 1.35;
 }
 .portal-stats strong { color: var(--m-ink); font-size: 21px; font-weight: 720; letter-spacing: -0.03em; line-height: 1.2; word-break: break-word; }
 
@@ -287,6 +290,8 @@ html[data-theme="light"] .portal--admin {
 .portal table,
 .admin-table {
   width: 100%;
+  min-width: 620px;
+  font-variant-numeric: tabular-nums;
   border-collapse: collapse;
   margin: 0;
 }
@@ -317,7 +322,9 @@ html[data-theme="light"] .portal--admin {
 .admin-table tbody tr:hover td { background: color-mix(in srgb, var(--m-ink) 3.5%, transparent); }
 .admin-table .muted { color: var(--m-muted); }
 .admin-table .actions-cell,
-.portal td.actions-cell { display: flex; flex-wrap: wrap; gap: 6px; }
+.portal td.actions-cell { display: flex; flex-wrap: wrap; gap: 6px; justify-content: flex-end; }
+.portal td:last-child,
+.admin-table td:last-child { padding-right: 18px; }
 .admin-table th { background: color-mix(in srgb, var(--m-ink) 4%, var(--m-panel)); }
 
 /* ---------- badges and status ---------- */
@@ -381,7 +388,8 @@ html[data-theme="light"] .status-pill--rejected { color: #b91c1c; }
 .license-card__top { display: flex; flex-wrap: wrap; align-items: center; justify-content: space-between; gap: 10px; }
 .license-card__meta { display: grid; gap: 2px; }
 .license-card__meta small { color: var(--m-muted); font-size: 11px; letter-spacing: 0.06em; text-transform: uppercase; }
-.license-detail-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(140px, 1fr)); gap: 12px; }
+.license-detail-grid { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 10px; }
+@media (max-width: 720px) { .license-detail-grid { grid-template-columns: 1fr; } }
 .license-detail-grid > div { display: grid; gap: 3px; padding: 10px 12px; border: 1px solid var(--m-line); border-radius: 10px; background: var(--m-panel-2); }
 .license-detail-grid small { color: var(--m-muted); font-size: 11px; letter-spacing: 0.05em; text-transform: uppercase; }
 .license-detail-grid strong { color: var(--m-ink); font-size: 14px; }
