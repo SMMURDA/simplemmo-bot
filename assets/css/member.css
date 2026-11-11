@@ -46,7 +46,7 @@ html[data-theme="light"] .portal--admin {
   align-items: start;
   padding: 4px 0 8px;
 }
-.portal-main { min-width: 0; display: grid; gap: 18px; align-content: start; }
+.portal-main { min-width: 0; width: 100%; max-width: none; display: grid; gap: 18px; align-content: start; }
 
 /* ---------- sidebar ---------- */
 .portal-nav {
@@ -244,12 +244,14 @@ html[data-theme="light"] .portal--admin {
   display: grid;
   gap: 14px;
   max-width: 640px;
+  width: 100%;
   padding: 20px;
   border: 1px solid var(--m-line);
   border-radius: var(--m-radius);
   background: var(--m-panel);
 }
 .portal-form--inline { grid-template-columns: 2fr 1fr 1fr auto; max-width: none; align-items: end; }
+.portal .portal-form, .portal-main > .portal-form { max-width: none; }
 .portal-form label,
 .portal .field { display: grid; gap: 7px; color: var(--m-ink); font-size: 12.5px; font-weight: 650; }
 .portal-form input,
@@ -388,6 +390,7 @@ html[data-theme="light"] .status-pill--rejected { color: #b91c1c; }
 .license-card { display: grid; gap: 12px; align-items: start; }
 .license-card__top { display: flex; flex-wrap: wrap; align-items: center; justify-content: space-between; gap: 10px; }
 .license-card__meta { display: grid; gap: 2px; }
+.license-card__meta strong { font: 600 13px/1.5 ui-monospace, SFMono-Regular, Menlo, Consolas, monospace; letter-spacing: -0.01em; overflow-wrap: anywhere; }
 .license-card__meta small { color: var(--m-muted); font-size: 11px; letter-spacing: 0.06em; text-transform: uppercase; }
 .license-detail-grid { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 10px; }
 @media (max-width: 720px) { .license-detail-grid { grid-template-columns: 1fr; } }
@@ -580,3 +583,6 @@ html[data-theme="light"] .status-pill--rejected { color: #b91c1c; }
 }
 .footer-logo img { opacity: 0.9; }
 .footer-brand p { color: color-mix(in srgb, var(--muted) 88%, transparent); }
+
+/* signed-in members do not need the header login call to action */
+body:has(.portal) .site-nav a.site-nav__login { display: none; }
