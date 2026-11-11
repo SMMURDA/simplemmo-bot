@@ -39,6 +39,8 @@ html[data-theme="light"] .portal--admin {
 .doc-content:has(.portal){width:min(1120px,calc(100% - 40px))}
 .portal {
   display: grid;
+  max-width: none;
+  margin: 0;
   grid-template-columns: 236px minmax(0, 1fr);
   gap: 24px;
   align-items: start;
@@ -290,7 +292,7 @@ html[data-theme="light"] .portal--admin {
 .portal table,
 .admin-table {
   width: 100%;
-  min-width: 620px;
+  min-width: 0;
   font-variant-numeric: tabular-nums;
   border-collapse: collapse;
   margin: 0;
@@ -306,7 +308,6 @@ html[data-theme="light"] .portal--admin {
   letter-spacing: 0.07em;
   text-align: left;
   text-transform: uppercase;
-  white-space: nowrap;
 }
 .portal td,
 .admin-table td {
