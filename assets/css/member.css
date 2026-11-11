@@ -381,6 +381,9 @@ html[data-theme="light"] .status-pill--expired, html[data-theme="light"] .status
 .purchase-card__icon img { width: 28px; height: 28px; object-fit: contain; }
 .purchase-card__copy { display: grid; gap: 4px; min-width: 0; }
 .purchase-card__copy strong { color: var(--m-ink); font-size: 16px; }
+.purchase-card .eyebrow { margin: 0; font-size: 9.5px; letter-spacing: 0.18em; }
+.purchase-card h2 { margin: 2px 0; color: var(--m-ink); font: 700 26px/1.05 var(--m-mono); letter-spacing: -0.03em; }
+.purchase-success h2 { margin: 2px 0 4px; color: var(--m-ink); font-size: 18px; letter-spacing: -0.02em; }
 .purchase-card small, .purchase-card p { color: var(--m-muted); font-size: 12.5px; line-height: 1.5; }
 .checkout__steps { display: grid; gap: 0; margin: 0; padding: 0; list-style: none; border-top: 1px solid var(--m-line); }
 .checkout__steps li { display: grid; grid-template-columns: 34px minmax(0, 1fr); gap: 14px; padding: 16px 0; border-bottom: 1px solid var(--m-line); }
