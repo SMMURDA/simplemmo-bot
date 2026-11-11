@@ -6,16 +6,50 @@ account_section: overview
 noindex: true
 sitemap: false
 ---
-<div class="portal" data-member-portal data-page="overview">
-  <main class="portal-main">
-    <p class="eyebrow">Member profile</p><h1>Account overview</h1>
-    <div class="portal-stats portal-stats-grid">
-      <article><small>Balance</small><strong id="balance">Rp0</strong></article>
-      <article><small>Member since</small><strong id="member-since">—</strong></article>
-      <article><small>Registered email</small><strong id="member-email">—</strong></article>
-      <article><small>Account role</small><strong id="member-role">Member</strong></article>
-    </div>
-    <section class="portal-welcome portal-hero"><h2>Manage everything from one secure account</h2><p>Each navigation item now opens its own URL and reloads independently.</p></section>
+<div class="member" data-member-portal data-page="overview">
+  {% include member-nav.html %}
+  <main class="member-main">
+    <header class="member-head">
+      <p class="member-kicker">01 <span aria-hidden="true">/</span> Account</p>
+      <h1>Account overview</h1>
+      <p class="member-lede">Balance, licence state and the shortcuts you use most, kept on one page and refreshed from the licence server.</p>
+    </header>
+
+    <section class="ledger" aria-label="Account details">
+      <div class="ledger__row ledger__row--hero">
+        <span>Balance</span>
+        <strong id="balance">Rp0</strong>
+        <a class="ledger__link" href="{{ '/accounts/topup/' | relative_url }}">Top up <span aria-hidden="true">→</span></a>
+      </div>
+      <dl class="ledger__grid">
+        <div><dt>Member since</dt><dd id="member-since">—</dd></div>
+        <div><dt>Registered email</dt><dd id="member-email">—</dd></div>
+        <div><dt>Account role</dt><dd id="member-role">Member</dd></div>
+        <div><dt>Licence server</dt><dd><span class="dot dot--live" aria-hidden="true"></span>Connected</dd></div>
+      </dl>
+    </section>
+
+    <nav class="tile-grid" aria-label="Shortcuts">
+      <a class="tile" href="{{ '/accounts/trial-license/' | relative_url }}">
+        <span class="tile__index">03</span>
+        <strong>Trial license</strong>
+        <small>One day, one device — activate it once per account.</small>
+        <span class="tile__arrow" aria-hidden="true">→</span>
+      </a>
+      <a class="tile" href="{{ '/accounts/buy-license/' | relative_url }}">
+        <span class="tile__index">04</span>
+        <strong>Buy license</strong>
+        <small>Pay from balance and get the key in your vault instantly.</small>
+        <span class="tile__arrow" aria-hidden="true">→</span>
+      </a>
+      <a class="tile" href="{{ '/accounts/my-licenses/' | relative_url }}">
+        <span class="tile__index">02</span>
+        <strong>My licenses</strong>
+        <small>Keys, devices, expiry and copy buttons in one list.</small>
+        <span class="tile__arrow" aria-hidden="true">→</span>
+      </a>
+    </nav>
+
     <div id="portal-status" class="portal-status" aria-live="polite"></div>
   </main>
 </div>

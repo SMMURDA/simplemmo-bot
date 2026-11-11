@@ -6,11 +6,39 @@ account_section: buy
 noindex: true
 sitemap: false
 ---
-<div class="portal" data-member-portal data-page="buy">
-  <main class="portal-main">
-    <p class="eyebrow">Member license</p><h1>Buy with balance</h1>
-    <p class="portal-lede">Review the package and confirm your purchase in the custom confirmation window.</p>
-    <section id="package-card" class="purchase-card portal-hero"><div class="portal-skeleton">Loading package…</div></section>
+<div class="member" data-member-portal data-page="buy">
+  {% include member-nav.html %}
+  <main class="member-main">
+    <header class="member-head">
+      <p class="member-kicker">04 <span aria-hidden="true">/</span> Checkout</p>
+      <h1>Buy with balance</h1>
+      <p class="member-lede">One package, one confirmation. The key lands in your vault the moment the balance is charged.</p>
+    </header>
+
+    <div class="checkout">
+      <div class="checkout__main">
+        <section id="package-card" class="purchase-card"><div class="portal-skeleton">Loading package…</div></section>
+        <ol class="checkout__steps">
+          <li><span>01</span><div><strong>Confirm the package</strong><small>The confirmation window shows the price and the balance left after the purchase.</small></div></li>
+          <li><span>02</span><div><strong>Key issued instantly</strong><small>No waiting for manual approval — the licence server signs the key and stores it in the vault.</small></div></li>
+          <li><span>03</span><div><strong>Paste it into the bot</strong><small>Set <code>SMMO_LICENSE_KEY</code> and the bot verifies the key on start.</small></div></li>
+        </ol>
+      </div>
+      <aside class="checkout__aside" aria-label="Order information">
+        <div class="order-card">
+          <p class="order-card__label">Order</p>
+          <div class="order-card__row"><span>Payment</span><strong>Account balance</strong></div>
+          <div class="order-card__row"><span>Delivery</span><strong>Instant</strong></div>
+          <div class="order-card__row"><span>Support</span><strong>Telegram &amp; email</strong></div>
+          <p class="order-card__hint">Need more balance first? <a href="{{ '/accounts/topup/' | relative_url }}">Top up your account</a>.</p>
+        </div>
+        <div class="aside-note">
+          <strong>Before you buy</strong>
+          <p>Licences are tied to your account, not to a machine. You can move a key between devices up to its device limit.</p>
+        </div>
+      </aside>
+    </div>
+
     <div id="portal-status" class="portal-status" aria-live="polite"></div>
   </main>
 </div>

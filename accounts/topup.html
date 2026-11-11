@@ -6,18 +6,73 @@ account_section: topup
 noindex: true
 sitemap: false
 ---
-<div class="portal" data-member-portal data-page="topup">
-  <main class="portal-main">
-    <p class="eyebrow">Secure balance</p><h1>Top up balance</h1>
-    <p class="portal-lede">Choose a payment method and amount configured by the administrator.</p>
-    <form id="topup-form" class="topup-builder">
-      <fieldset><legend>1. Payment method</legend><div id="payment-method-list" class="payment-method-grid"><div class="portal-skeleton">Loading payment methods…</div></div><section id="payment-method-details" class="payment-method-details" hidden aria-live="polite"></section></fieldset>
-      <fieldset><legend>2. Amount</legend><label>Available amount<select id="topup-amount" name="amount" required><option value="">Choose a method first</option></select></label><small id="topup-conversion"></small></fieldset>
-      <fieldset><legend>3. Payment reference</legend><label>Transaction ID or note<input name="reference" maxlength="200" placeholder="Optional before payment; add it if already available"></label></fieldset>
-      <div class="portal-actions"><button class="button button--primary" type="submit">Confirm top-up request</button></div>
-    </form>
-    <section id="topup-confirmation" class="confirmation-card portal-hero" hidden></section>
-    <section class="portal-section"><h2>Top-up history</h2><div id="topup-list" class="portal-list"></div></section>
+<div class="member" data-member-portal data-page="topup">
+  {% include member-nav.html %}
+  <main class="member-main">
+    <header class="member-head">
+      <p class="member-kicker">05 <span aria-hidden="true">/</span> Balance</p>
+      <h1>Top up balance</h1>
+      <p class="member-lede">Pick a method, choose an amount, send the transfer and confirm the request. An administrator approves it once the payment lands.</p>
+    </header>
+
+    <div class="checkout">
+      <div class="checkout__main">
+        <form id="topup-form" class="topup-form">
+          <section class="step-card">
+            <p class="step-card__label"><span>01</span> Payment method</p>
+            <div id="payment-method-list" class="payment-method-grid"><div class="portal-skeleton">Loading payment methods…</div></div>
+            <section id="payment-method-details" class="payment-method-details" hidden aria-live="polite"></section>
+          </section>
+
+          <section class="step-card">
+            <p class="step-card__label"><span>02</span> Amount</p>
+            <label class="field">Available amount
+              <select id="topup-amount" name="amount" required><option value="">Choose a method first</option></select>
+            </label>
+            <small id="topup-conversion" class="field-hint"></small>
+          </section>
+
+          <section class="step-card">
+            <p class="step-card__label"><span>03</span> Payment reference</p>
+            <label class="field">Transaction ID or note
+              <input name="reference" maxlength="200" placeholder="Optional before payment; add it when available">
+            </label>
+          </section>
+
+          <div class="form-actions">
+            <button class="button button--primary" type="submit">Confirm top-up request</button>
+            <span class="form-actions__hint">Nothing is charged automatically.</span>
+          </div>
+        </form>
+
+        <section id="topup-confirmation" class="confirmation-card" hidden></section>
+      </div>
+
+      <aside class="checkout__aside" aria-label="Top-up information">
+        <div class="order-card">
+          <p class="order-card__label">How it works</p>
+          <ol class="order-card__list">
+            <li>Send the exact amount to the destination shown after choosing a method.</li>
+            <li>Submit the request with the transaction ID.</li>
+            <li>Balance is credited after the administrator approves it.</li>
+          </ol>
+          <p class="order-card__hint">Minimum and available amounts come from the payment configuration.</p>
+        </div>
+        <div class="aside-note">
+          <strong>Already have balance?</strong>
+          <p>Skip this page and <a href="{{ '/accounts/buy-license/' | relative_url }}">buy a licence directly</a>.</p>
+        </div>
+      </aside>
+    </div>
+
+    <section class="member-section">
+      <header class="member-section__head">
+        <h2>Top-up history</h2>
+        <small>Latest requests and their approval state</small>
+      </header>
+      <div id="topup-list" class="portal-list"></div>
+    </section>
+
     <div id="portal-status" class="portal-status" aria-live="polite"></div>
   </main>
 </div>
