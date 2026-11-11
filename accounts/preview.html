@@ -1,0 +1,61 @@
+---
+layout: default
+title: Member Area Preview
+permalink: /accounts/preview/
+noindex: true
+sitemap: false
+---
+<div class="portal" data-member-portal data-page="overview">
+  <aside class="portal-nav" aria-label="Member navigation">
+    <div class="portal-nav__profile"><small>MEMBER AREA</small><strong>Rocksinitsme</strong><span>member@topup.eu.org</span></div>
+    <a href="#"><svg viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="3" width="7" height="7" rx="1"/><rect x="14" y="3" width="7" height="7" rx="1"/><rect x="3" y="14" width="7" height="7" rx="1"/><rect x="14" y="14" width="7" height="7" rx="1"/></svg>Overview</a>
+    <a class="is-active" href="#"><svg viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="8.2"/><path d="M12 8.4V12l2.6 1.6"/></svg>Trial license</a>
+    <a href="#"><svg viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="2"><path d="M5.5 8h13l-1.1 11.2a1.7 1.7 0 0 1-1.7 1.5H8.3a1.7 1.7 0 0 1-1.7-1.5L5.5 8Z"/><path d="M9 8V6.4A3 3 0 0 1 12 3.4a3 3 0 0 1 3 3V8"/></svg>Buy license</a>
+    <a href="#"><svg viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="2"><path d="M6 4h12v16H6z"/><path d="M9 8h6M9 12h6M9 16h3"/></svg>My licenses</a>
+    <button class="portal-nav__logout" type="button"><svg viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="2"><path d="M9 21H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h4"/><path d="m16 17 5-5-5-5"/><path d="M21 12H9"/></svg>Sign out</button>
+  </aside>
+
+  <main class="portal-main">
+    <header>
+      <p class="eyebrow">Account</p>
+      <h1>Trial license</h1>
+      <p class="portal-lede">Create a one-day license linked to this account, then paste the key into your bot configuration.</p>
+    </header>
+
+    <div class="portal-stats">
+      <article><small>Balance</small><strong>Rp75.000</strong></article>
+      <article><small>Active licenses</small><strong>1</strong></article>
+      <article><small>Trial status</small><strong>Ready</strong></article>
+      <article><small>Member since</small><strong>Nov 2026</strong></article>
+    </div>
+
+    <div class="portal-card">
+      <div><strong>SimpleMMO Bot · 7 days</strong><small>Windows and Linux builds · 2 devices</small></div>
+      <span class="status-pill status-pill--active">active</span>
+    </div>
+
+    <section class="license-card">
+      <div class="license-card__top"><div class="license-card__meta"><small>License key</small><strong>SMMO-7D-4F2A-9C31</strong></div><span class="status-pill status-pill--pending">pending</span></div>
+      <div class="license-key-row"><code>SMMO-7D-4F2A-9C31-B8E2-71AC</code><button class="button button--ghost" type="button">Copy</button></div>
+      <div class="license-detail-grid"><div><small>Expires</small><strong>18 Nov 2026</strong></div><div><small>Device limit</small><strong>2</strong></div><div><small>Status</small><strong>Active</strong></div></div>
+    </section>
+
+    <form class="portal-form">
+      <label>Amount<select><option>Rp25.000</option><option>Rp50.000</option></select></label>
+      <label>Payment method<select><option>QRIS</option><option>Bank transfer</option></select></label>
+      <div class="portal-actions"><button class="button button--primary" type="button">Continue to payment</button><button class="button button--ghost" type="button">Cancel</button></div>
+    </form>
+
+    <div class="admin-table-wrap">
+      <table class="admin-table">
+        <thead><tr><th>Order</th><th>Item</th><th>Amount</th><th>Status</th><th>Actions</th></tr></thead>
+        <tbody>
+          <tr><td>#T-1042</td><td>Balance top up</td><td>Rp75.000</td><td><span class="status-pill status-pill--approved">approved</span></td><td class="actions-cell"><button class="button button--small">View</button></td></tr>
+          <tr><td>#T-1041</td><td>7-day license</td><td>Rp25.000</td><td><span class="status-pill status-pill--expired">expired</span></td><td class="actions-cell"><button class="button button--small">View</button></td></tr>
+        </tbody>
+      </table>
+    </div>
+
+    <div id="portal-status" class="portal-status" aria-live="polite" data-tone="success">Trial license created. The key is ready to copy.</div>
+  </main>
+</div>
