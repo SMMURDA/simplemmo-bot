@@ -25,7 +25,7 @@
 
 html[data-theme="light"] .portal,
 html[data-theme="light"] .portal--admin {
-  --m-muted: #52627a;
+  --m-muted: #475467;
   --m-accent: #1d4ed8;
   --m-accent-soft: rgba(29, 78, 216, 0.1);
   --m-accent-ink: #ffffff;
@@ -598,3 +598,15 @@ html[data-theme="light"] .status-pill--rejected { color: #b91c1c; }
 
 /* signed-in members do not need the header login call to action */
 body:has(.portal) .site-nav a.site-nav__login { display: none !important; }
+
+/* light theme readability */
+html[data-theme="light"] .portal th,
+html[data-theme="light"] .admin-table th {
+  background: #eef2f8;
+  color: #3b4a61;
+}
+html[data-theme="light"] .portal td,
+html[data-theme="light"] .admin-table td { color: #101828; }
+html[data-theme="light"] .status-pill,
+html[data-theme="light"] .portal-badge { font-size: 11px; }
+html[data-theme="light"] .license-key-row code { color: #101828; }
