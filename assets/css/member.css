@@ -746,7 +746,7 @@ body:has(.member) .site-nav a.site-nav__login { display: none !important; }
 .lv-visual { min-height: 430px; max-width: 580px; width: 100%; align-self: center; }
 .lv-visual .lv-window { border-radius: 12px; }
 .lv-visual .lv-window img { display: block; width: 100%; height: auto; }
-.lv-window--back { width: 78%; top: 0; right: 0; opacity: .66; transform: rotate(2.5deg); }
+.lv-window--back { width: 78%; top: 0; right: 0; opacity: .74; transform: rotate(2.5deg); }
 .lv-window--front { width: 86%; left: 0; bottom: 0; transform: rotate(-1.5deg); }
 @media (max-width: 900px) { .lv-visual { max-width: 520px; min-height: 400px; } }
 @media (max-width: 640px) {
