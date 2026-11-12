@@ -42,7 +42,7 @@ skip_portal_common: true
               <source type="image/webp" srcset="/assets/images/smmo-terminal-start-wide-400w.webp 400w, /assets/images/smmo-terminal-start-wide-800w.webp 800w, /assets/images/smmo-terminal-start-wide-1200w.webp 1200w, /assets/images/smmo-terminal-start-wide-1800w.webp 1800w" sizes="(max-width: 900px) 86vw, 500px">
               <img src="/assets/images/smmo-terminal-start-wide-800w.png" width="1800" height="980" loading="lazy" decoding="async" alt="SimpleMMO bot terminal at startup: license, cookie auth and account info">
             </picture>
-          </button>
+          <span class="lv-term__hint" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="11" cy="11" r="7"/><path d="m20 20-3.5-3.5M11 8v6M8 11h6"/></svg></span></button>
         </div>
         <div class="lv-window lv-window--front" id="window-front">
           <div class="lv-window__bar"><i></i><i></i><i></i><span>travel · live</span></div>
@@ -51,7 +51,7 @@ skip_portal_common: true
               <source type="image/webp" srcset="/assets/images/smmo-terminal-wide-400w.webp 400w, /assets/images/smmo-terminal-wide-800w.webp 800w, /assets/images/smmo-terminal-wide-1200w.webp 1200w, /assets/images/smmo-terminal-wide-1800w.webp 1800w" sizes="(max-width: 900px) 86vw, 500px">
               <img src="/assets/images/smmo-terminal-wide-800w.png" width="1800" height="980" decoding="async" alt="SimpleMMO bot terminal during travel: materials, items, captcha and stream counters">
             </picture>
-          </button>
+          <span class="lv-term__hint" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="11" cy="11" r="7"/><path d="m20 20-3.5-3.5M11 8v6M8 11h6"/></svg></span></button>
         </div>
               <button class="lv-swap-btn" id="swap-btn" aria-label="Swap images">
           <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" width="24" height="24" aria-hidden="true">
@@ -399,4 +399,4 @@ skip_portal_common: true
 }
 </script>
 
-<script>!function(){const b=document.getElementById("swap-btn"),k=document.getElementById("window-back"),f=document.getElementById("window-front"),v=document.querySelector(".lv-visual");if(!b||!k||!f||!v)return;let s=!1,x=0,y=0,X=0,Y=0;function w(){s=!s;s?(k.classList.remove("lv-window--back"),k.classList.add("lv-window--front"),f.classList.remove("lv-window--front"),f.classList.add("lv-window--back")):(k.classList.remove("lv-window--front"),k.classList.add("lv-window--back"),f.classList.remove("lv-window--back"),f.classList.add("lv-window--front"))}b.addEventListener("click",w);v.addEventListener("touchstart",function(e){x=e.changedTouches[0].screenX;y=e.changedTouches[0].screenY},{passive:!0});v.addEventListener("touchend",function(e){X=e.changedTouches[0].screenX;Y=e.changedTouches[0].screenY;h()},{passive:!0});function h(){if(window.innerWidth<=900||v.scrollWidth>v.clientWidth+4)return;const d=X-x,D=Y-y,m=50;Math.abs(d)>Math.abs(D)?Math.abs(d)>m&&w():Math.abs(D)>m&&w()}function c(){b.style.display=window.innerWidth<=768||"ontouchstart"in window?"none":"flex"}c();window.addEventListener("resize",c)}();</script>
+<script>!function(){const b=document.getElementById("swap-btn"),k=document.getElementById("window-back"),f=document.getElementById("window-front"),v=document.querySelector(".lv-visual");if(!b||!k||!f||!v)return;let s=!1,x=0,y=0,X=0,Y=0;function w(){s=!s;s?(k.classList.remove("lv-window--back"),k.classList.add("lv-window--front"),f.classList.remove("lv-window--front"),f.classList.add("lv-window--back")):(k.classList.remove("lv-window--front"),k.classList.add("lv-window--back"),f.classList.remove("lv-window--back"),f.classList.add("lv-window--front"))}b.addEventListener("click",w);v.addEventListener("touchstart",function(e){x=e.changedTouches[0].screenX;y=e.changedTouches[0].screenY},{passive:!0});v.addEventListener("touchend",function(e){X=e.changedTouches[0].screenX;Y=e.changedTouches[0].screenY;h()},{passive:!0});function h(){if(window.matchMedia("(max-width:900px)").matches)return;const d=X-x,D=Y-y,m=50;Math.abs(d)>Math.abs(D)?Math.abs(d)>m&&w():Math.abs(D)>m&&w()}function c(){b.style.display=window.innerWidth<=768||"ontouchstart"in window?"none":"flex"}c();window.addEventListener("resize",c)}();</script>
