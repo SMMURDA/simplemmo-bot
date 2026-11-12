@@ -794,4 +794,4 @@ body:has(.member) .site-nav a.site-nav__login { display: none !important; }
   .header-inner .nav-toggle { width: 34px; height: 34px; }
 }
 
-.lv-visual .lv-swap-btn { display: none; }
+.lv-visual .lv-swap-btn { display: none !important; }
