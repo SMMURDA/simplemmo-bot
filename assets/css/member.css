@@ -935,3 +935,26 @@ html[data-theme="light"] .site-nav button.site-nav__logout { color: #b91c1c; bor
 @media (max-width: 1240px) {
   .site-nav button.site-nav__logout { width: 100%; justify-content: flex-start; margin: 2px 0 0; }
 }
+
+/* ==========================================================================
+   Mobile density — mimic the 75% browser zoom the layout was tuned at
+   ========================================================================== */
+@media (max-width: 760px) {
+  .lv-hero { padding: 34px 0 32px; }
+  .lv-hero h1 { font-size: 36px; line-height: 1.05; letter-spacing: -0.04em; }
+  .lv-kicker { font-size: 11px; margin-bottom: 12px; }
+  .lv-lede { font-size: 14.5px; line-height: 1.55; margin: 14px 0 20px; }
+  .lv-actions { gap: 8px; }
+  .lv-button { min-height: 44px; font-size: 13px; padding: 0 15px; }
+  .lv-section { padding: 46px 0; }
+  .lv-section h2 { font-size: 27px; line-height: 1.15; }
+  .lv-section h3 { font-size: 17px; }
+  .lv-section p { font-size: 14.5px; line-height: 1.6; }
+  .lv-label { font-size: 11px; }
+  .lv-feature { padding: 16px; }
+  .lv-feature h3 { font-size: 15.5px; }
+  .lv-feature p { font-size: 13.5px; line-height: 1.5; }
+  .lv-price-card { padding: 18px; }
+  .lv-price strong, .lv-price-usd { font-size: 30px; }
+  .lv-proof { gap: 10px 16px; }
+}
