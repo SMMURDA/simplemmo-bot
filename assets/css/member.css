@@ -743,6 +743,7 @@ body:has(.member) .site-nav a.site-nav__login { display: none !important; }
 /* ==========================================================================
    Landing hero — one wide terminal card, same scale as the vHack shots
    ========================================================================== */
+.lv-hero__grid { grid-template-columns: minmax(0, 1fr) minmax(0, 660px); }
 .lv-visual { min-height: 0; max-width: 680px; width: 100%; align-self: center; }
 .lv-term--hero { margin: 0; box-shadow: 0 30px 80px rgba(0, 0, 0, .34), 0 0 0 1px rgba(255,255,255,.03) inset; }
 .lv-term--hero .lv-term__zoom { display: block; width: 100%; padding: 0; border: 0; background: none; cursor: zoom-in; }
