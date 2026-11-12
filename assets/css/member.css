@@ -741,62 +741,38 @@ html[data-theme="light"] .status-pill--expired, html[data-theme="light"] .status
 body:has(.member) .site-nav a.site-nav__login { display: none !important; }
 
 /* ==========================================================================
-   Landing hero — one wide terminal card, same scale as the vHack shots
+   Landing hero — two landscape terminal windows, sized like the vHack cards
    ========================================================================== */
-.lv-hero__grid { grid-template-columns: minmax(0, 1fr) minmax(0, 660px); }
-.lv-visual { min-height: 0; max-width: 680px; width: 100%; align-self: center; }
-.lv-term--hero { margin: 0; box-shadow: 0 30px 80px rgba(0, 0, 0, .34), 0 0 0 1px rgba(255,255,255,.03) inset; }
-.lv-term--hero .lv-term__zoom { display: block; width: 100%; padding: 0; border: 0; background: none; cursor: zoom-in; }
-.lv-term--hero img { display: block; width: 100%; height: auto; }
-.lv-term--hero .lv-term__hint { opacity: 0; }
-.lv-term--hero:hover .lv-term__hint,
-.lv-term--hero .lv-term__zoom:focus-visible .lv-term__hint { opacity: .9; }
-@media (max-width: 1080px) { .lv-visual { max-width: 560px; } }
+.lv-visual { min-height: 430px; max-width: 580px; width: 100%; align-self: center; }
+.lv-visual .lv-window { border-radius: 12px; }
+.lv-visual .lv-window img { display: block; width: 100%; height: auto; }
+.lv-window--back { width: 78%; top: 0; right: 0; opacity: .66; transform: rotate(2.5deg); }
+.lv-window--front { width: 86%; left: 0; bottom: 0; transform: rotate(-1.5deg); }
+@media (max-width: 900px) { .lv-visual { max-width: 520px; min-height: 400px; } }
+@media (max-width: 640px) {
+  .lv-visual { max-width: 440px; min-height: 340px; }
+  .lv-window--back { width: 72%; opacity: .5; }
+  .lv-window--front { width: 84%; }
+}
 
 /* ==========================================================================
-   Header — wordmark stays, both controls share one shape and baseline
+   Header — original control shapes, only kept inside the viewport
    ========================================================================== */
-.header-inner { min-width: 0; flex-wrap: nowrap; align-items: center; gap: 10px; }
+.header-inner { min-width: 0; flex-wrap: nowrap; align-items: center; gap: 12px; }
 .header-inner .brand { min-width: 0; flex: 0 0 auto; }
-.header-inner .brand span:last-child {
-  white-space: nowrap;
-  font-size: 13px;
-  font-weight: 800;
-  letter-spacing: .06em;
-}
+.header-inner .brand span:last-child { white-space: nowrap; letter-spacing: .06em; font-weight: 800; font-size: 13px; }
 .header-inner .theme-toggle,
-.header-inner .nav-toggle {
-  flex: 0 0 auto;
-  width: 40px;
-  height: 40px;
-  padding: 0;
-  display: grid;
-  place-items: center;
-  border: 1px solid var(--border);
-  border-radius: 10px;
-  background: hsla(0, 0%, 100%, .03);
-}
-.header-inner .nav-toggle span:not(.sr-only) {
-  width: 18px;
-  height: 2px;
-  margin: 2.5px 0;
-  border-radius: 2px;
-  background: var(--text);
-}
+.header-inner .nav-toggle { flex: 0 0 auto; }
 .site-header { max-width: 100vw; }
 
 @media (max-width: 760px) {
   .header-inner { padding: 0 12px; gap: 8px; min-height: 62px; }
   .header-inner .brand { gap: 7px; }
-  .header-inner .brand span:last-child { font-size: 11.5px; letter-spacing: .04em; }
-  .brand-mark { width: 36px; height: 30px; flex-basis: 36px; }
-  .header-inner .theme-toggle,
-  .header-inner .nav-toggle { width: 36px; height: 36px; border-radius: 9px; }
+  .header-inner .brand span:last-child { font-size: 11px; letter-spacing: .03em; }
+  .brand-mark { width: 34px; height: 28px; flex-basis: 34px; }
 }
 @media (max-width: 380px) {
   .header-inner { padding: 0 10px; gap: 6px; }
-  .header-inner .brand span:last-child { font-size: 10.5px; }
-  .header-inner .theme-toggle,
-  .header-inner .nav-toggle { width: 33px; height: 33px; }
-  .brand-mark { width: 32px; height: 27px; flex-basis: 32px; }
+  .header-inner .brand span:last-child { font-size: 10px; }
+  .brand-mark { width: 30px; height: 25px; flex-basis: 30px; }
 }
