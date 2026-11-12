@@ -933,3 +933,20 @@ html[data-theme="light"] .site-nav button.site-nav__logout { color: #b91c1c; bor
 @media (max-width: 1240px) {
   .site-nav button.site-nav__logout { width: 100%; justify-content: flex-start; margin: 2px 0 0; }
 }
+
+/* ==========================================================================
+   Mobile width — use more of the screen at 100% browser zoom
+   ========================================================================== */
+@media (max-width: 760px) {
+  .lv-shell { width: calc(100% - 24px) !important; }
+  .doc-content { width: calc(100% - 24px) !important; }
+  .doc-content:has(.member),
+  .doc-content:has(.portal) { width: calc(100% - 16px) !important; }
+  .docs-aside { width: calc(100% - 24px) !important; }
+  .lv-hero { padding-left: 0; padding-right: 0; }
+}
+@media (max-width: 420px) {
+  .lv-shell { width: calc(100% - 18px) !important; }
+  .doc-content { width: calc(100% - 18px) !important; }
+  .docs-aside { width: calc(100% - 18px) !important; }
+}
