@@ -889,7 +889,7 @@ html[data-theme="light"] .site-nav a.site-nav__status { --chip: #92400e; }
   outline: 3px solid color-mix(in srgb, var(--chip) 45%, transparent);
   outline-offset: 2px;
 }
-@media (max-width: 1400px) {
+@media (max-width: 1560px) {
   .site-nav a.site-nav__dev,
   .site-nav a.site-nav__status {
     width: 100%;
