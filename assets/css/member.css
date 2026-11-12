@@ -897,3 +897,8 @@ html[data-theme="light"] .site-nav a.site-nav__status { --chip: #92400e; }
     margin: 2px 0 0;
   }
 }
+
+/* brand marks inside the header nav and the feature chooser */
+.site-nav__logo,
+.license-contact-icon img { width: 18px; height: 18px; object-fit: contain; border-radius: 4px; }
+.license-contact-icon img { width: 32px; height: 32px; border-radius: 6px; }
