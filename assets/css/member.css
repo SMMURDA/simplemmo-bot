@@ -818,3 +818,41 @@ body:has(.member) .site-nav a.site-nav__login { display: none !important; }
   .header-inner .brand span:last-child { font-size: 10px; }
   .brand-mark { width: 30px; height: 25px; flex-basis: 30px; }
 }
+
+/* ==========================================================================
+   Mobile hero — swipe the two terminals sideways, like the vHack cards
+   ========================================================================== */
+@media (max-width: 900px) {
+  .lv-visual {
+    display: flex !important;
+    position: static;
+    align-items: flex-start;
+    gap: 12px;
+    min-height: 0 !important;
+    width: auto;
+    max-width: none;
+    margin: 4px -16px 0;
+    padding: 2px 16px 12px;
+    overflow-x: auto;
+    overflow-y: hidden;
+    scroll-snap-type: x mandatory;
+    -webkit-overflow-scrolling: touch;
+    scrollbar-width: none;
+    overscroll-behavior-x: contain;
+  }
+  .lv-visual::-webkit-scrollbar { display: none; }
+  .lv-visual .lv-window {
+    position: static;
+    width: auto;
+    flex: 0 0 86%;
+    max-width: 520px;
+    transform: none !important;
+    opacity: 1 !important;
+    scroll-snap-align: center;
+    border-radius: 12px;
+  }
+  .lv-visual .lv-window--back { order: 1; }
+  .lv-visual .lv-window--front { order: 2; }
+  .lv-visual .lv-swap-btn { display: none !important; }
+  .lv-visual .lv-window__zoom img { width: 100%; height: auto; }
+}
