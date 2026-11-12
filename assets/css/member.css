@@ -856,3 +856,44 @@ body:has(.member) .site-nav a.site-nav__login { display: none !important; }
   .lv-visual .lv-swap-btn { display: none !important; }
   .lv-visual .lv-window__zoom img { width: 100%; height: auto; }
 }
+
+/* ==========================================================================
+   Header nav — Developer and Status get their own chips, Login sits last
+   ========================================================================== */
+.site-nav a.site-nav__dev,
+.site-nav a.site-nav__status {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  padding: 7px 13px;
+  margin-left: 5px;
+  border-radius: 9px;
+  font-weight: 750;
+  border: 1px solid color-mix(in srgb, var(--chip) 48%, transparent);
+  background: color-mix(in srgb, var(--chip) 12%, transparent);
+  color: var(--chip);
+  transition: border-color .16s ease, background-color .16s ease, color .16s ease;
+}
+.site-nav a.site-nav__dev { --chip: #6ee7b7; }
+.site-nav a.site-nav__status { --chip: #fbbf24; }
+html[data-theme="light"] .site-nav a.site-nav__dev { --chip: #047857; }
+html[data-theme="light"] .site-nav a.site-nav__status { --chip: #92400e; }
+.site-nav a.site-nav__dev:hover,
+.site-nav a.site-nav__status:hover {
+  border-color: var(--chip);
+  background: color-mix(in srgb, var(--chip) 20%, transparent);
+  color: var(--chip);
+}
+.site-nav a.site-nav__dev:focus-visible,
+.site-nav a.site-nav__status:focus-visible {
+  outline: 3px solid color-mix(in srgb, var(--chip) 45%, transparent);
+  outline-offset: 2px;
+}
+@media (max-width: 1400px) {
+  .site-nav a.site-nav__dev,
+  .site-nav a.site-nav__status {
+    width: 100%;
+    justify-content: flex-start;
+    margin: 2px 0 0;
+  }
+}
