@@ -836,6 +836,8 @@ body:has(.member) .site-nav a.site-nav__login { display: none !important; }
     overflow-x: auto;
     overflow-y: hidden;
     scroll-snap-type: x mandatory;
+    scroll-padding-left: 16px;
+    touch-action: pan-x;
     -webkit-overflow-scrolling: touch;
     scrollbar-width: none;
     overscroll-behavior-x: contain;
@@ -848,7 +850,7 @@ body:has(.member) .site-nav a.site-nav__login { display: none !important; }
     max-width: 520px;
     transform: none !important;
     opacity: 1 !important;
-    scroll-snap-align: center;
+    scroll-snap-align: start;
     border-radius: 12px;
   }
   .lv-visual .lv-window--back { order: 1; }
