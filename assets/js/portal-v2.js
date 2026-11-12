@@ -70,6 +70,21 @@
     const portalEmail = $('#portal-email');
     if (portalName) portalName.textContent = account.user.name || 'Member';
     if (portalEmail) portalEmail.textContent = account.user.email;
+    const portalAvatar = $('#portal-avatar');
+    if (portalAvatar) {
+      const fallback = portalAvatar.dataset.fallback || portalAvatar.src;
+      const avatarUrl = String(account.user.avatar_url || '').trim();
+      if (avatarUrl) {
+        portalAvatar.addEventListener('error', () => {
+          portalAvatar.removeAttribute('src');
+          portalAvatar.src = fallback;
+          portalAvatar.classList.remove('is-provider');
+        }, { once: true });
+        portalAvatar.src = avatarUrl;
+        portalAvatar.classList.add('is-provider');
+        portalAvatar.alt = account.user.name ? `${account.user.name} profile picture` : 'Profile picture';
+      }
+    }
     const adminLink = $('#admin-link');
     if (adminLink) adminLink.hidden = account.user.role !== 'admin';
     return account;

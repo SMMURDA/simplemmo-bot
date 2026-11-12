@@ -1,6 +1,8 @@
 <aside class="member-rail" aria-label="Member navigation">
   <div class="member-rail__brand">
-    <picture><source type="image/webp" srcset="{{ '/assets/images/logo-topup-112.webp' | relative_url }}"><img src="{{ '/assets/images/logo-topup-112.png' | relative_url }}" alt="" width="34" height="34"></picture>
+    <span class="member-rail__avatar" id="portal-avatar-wrap">
+      <img id="portal-avatar" src="{{ '/assets/images/logo-topup-112.png' | relative_url }}" data-fallback="{{ '/assets/images/logo-topup-112.png' | relative_url }}" alt="" width="34" height="34" loading="lazy" referrerpolicy="no-referrer">
+    </span>
     <div><small>Member</small><strong id="portal-name">Member</strong></div>
   </div>
   <p class="member-rail__email" id="portal-email">Loading account…</p>
