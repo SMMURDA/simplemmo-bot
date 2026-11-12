@@ -743,9 +743,9 @@ body:has(.member) .site-nav a.site-nav__login { display: none !important; }
 /* ==========================================================================
    Landing hero — portrait terminal screenshots
    ========================================================================== */
-.lv-visual { min-height: 600px; }
-.lv-window--back { width: 64%; top: 0; right: 1%; }
-.lv-window--front { width: 76%; bottom: 0; left: 0; }
+.lv-visual { min-height: 540px; align-self: center; }
+.lv-window--back { width: 58%; top: 4%; right: 1%; opacity: .8; }
+.lv-window--front { width: 68%; bottom: 0; left: 2%; }
 .lv-window__zoom img,
 .lv-window__zoom picture img { display: block; width: 100%; height: auto; }
 .lv-window__bar span { font-size: 10px; letter-spacing: .12em; text-transform: uppercase; }
@@ -769,7 +769,7 @@ body:has(.member) .site-nav a.site-nav__login { display: none !important; }
   flex-wrap: nowrap;
   gap: 12px;
 }
-.header-inner .brand { min-width: 0; flex: 0 1 auto; }
+.header-inner .brand { min-width: 0; flex: 0 0 auto; }
 .header-inner .brand span:last-child {
   min-width: 0;
   overflow: hidden;
@@ -793,3 +793,5 @@ body:has(.member) .site-nav a.site-nav__login { display: none !important; }
   .header-inner .theme-toggle,
   .header-inner .nav-toggle { width: 34px; height: 34px; }
 }
+
+.lv-visual .lv-swap-btn { display: none; }
