@@ -35,18 +35,26 @@ skip_portal_common: true
         </dl>
       </div>
       <div class="lv-visual" aria-label="SimpleMMO bot terminal screenshots">
-        <div class="lv-window lv-window--back">
+        <div class="lv-window lv-window--back" id="window-back">
           <div class="lv-window__bar"><i></i><i></i><i></i><span>startup</span></div>
           <button class="lv-term__zoom lv-window__zoom" type="button" data-hero-preview data-full="/assets/images/smmo-terminal-start-wide.png" aria-label="View the SimpleMMO startup terminal full size">
             <img src="/assets/images/smmo-terminal-start-wide.png" width="1800" height="980" loading="lazy" decoding="async" alt="SimpleMMO bot terminal at startup: license, cookie auth and account info">
           </button>
         </div>
-        <div class="lv-window lv-window--front">
+        <div class="lv-window lv-window--front" id="window-front">
           <div class="lv-window__bar"><i></i><i></i><i></i><span>travel · live</span></div>
           <button class="lv-term__zoom lv-window__zoom" type="button" data-hero-preview data-full="/assets/images/smmo-terminal-wide.png" aria-label="View the SimpleMMO travel terminal full size">
             <img src="/assets/images/smmo-terminal-wide.png" width="1800" height="980" decoding="async" alt="SimpleMMO bot terminal during travel: materials, items, captcha and stream counters">
           </button>
         </div>
+              <button class="lv-swap-btn" id="swap-btn" aria-label="Swap images">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" width="24" height="24" aria-hidden="true">
+            <path d="M16 3l4 4-4 4"/>
+            <path d="M20 7H4"/>
+            <path d="M8 21l-4-4 4-4"/>
+            <path d="M4 17h16"/>
+          </svg>
+        </button>
       </div>
     </div>
   </section>

@@ -786,14 +786,16 @@ body:has(.member) .site-nav a.site-nav__login { display: none !important; }
 .header-inner .theme-toggle:hover,
 .header-inner .nav-toggle:hover { color: var(--text); border-color: color-mix(in srgb, var(--text) 38%, transparent); }
 .header-inner .theme-toggle svg { width: 16px; height: 16px; }
-.header-inner .nav-toggle { padding: 0 8px; }
-.header-inner .nav-toggle span:not(.sr-only) {
-  width: 16px;
-  height: 2px;
-  margin: 2px 0;
-  border-radius: 2px;
-  background: currentColor;
+.header-inner .nav-toggle { padding: 0 10px; }
+.header-inner .nav-toggle__label {
+  font-size: 10px;
+  font-weight: 700;
+  letter-spacing: .14em;
+  line-height: 1;
+  color: inherit;
 }
+.header-inner .nav-toggle span:not(.sr-only):not(.nav-toggle__label) { display: none; }
+.lv-visual .lv-swap-btn { display: flex; }
 
 @media (max-width: 760px) {
   .header-inner { padding: 0 12px; gap: 8px; min-height: 60px; }
