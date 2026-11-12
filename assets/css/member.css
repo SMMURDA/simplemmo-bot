@@ -889,7 +889,7 @@ html[data-theme="light"] .site-nav a.site-nav__status { --chip: #92400e; }
   outline: 3px solid color-mix(in srgb, var(--chip) 45%, transparent);
   outline-offset: 2px;
 }
-@media (max-width: 1560px) {
+@media (max-width: 1240px) {
   .site-nav a.site-nav__dev,
   .site-nav a.site-nav__status {
     width: 100%;
@@ -930,6 +930,6 @@ html[data-theme="light"] .site-nav a.site-nav__status { --chip: #92400e; }
   outline-offset: 2px;
 }
 html[data-theme="light"] .site-nav button.site-nav__logout { color: #b91c1c; border-color: rgba(185, 28, 28, .45); background: rgba(185, 28, 28, .08); }
-@media (max-width: 1560px) {
+@media (max-width: 1240px) {
   .site-nav button.site-nav__logout { width: 100%; justify-content: flex-start; margin: 2px 0 0; }
 }
